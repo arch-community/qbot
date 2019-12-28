@@ -17,8 +17,9 @@ bot.command :echo, {
   usage: '.echo <string>',
   min_args: 1
 } do |_e, *args|
-  args.join(' ')
+  args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
 end
 
 bot.run true
 bot.join
+
