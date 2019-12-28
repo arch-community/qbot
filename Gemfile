@@ -4,6 +4,6 @@ group :default do
   gem 'discordrb'
   gem 'irb'
 
-  gem 'activerecord'
+  gem 'activerecord', require: 'active_record'
   gem 'sqlite3'
 end

@@ -8,3 +8,5 @@ gemset.nix
 
 tags
 **/tags
+
+db/database.sqlite3
