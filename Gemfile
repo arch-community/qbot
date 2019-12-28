@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'discordrb'
-gem 'irb'
+group :default do
+  gem 'discordrb'
+  gem 'irb'
+end
