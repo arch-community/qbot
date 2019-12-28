@@ -1,0 +1,8 @@
+.bundle
+vendor
+vendor/**
+shell.nix
+gemset.nix
+
+tags
+**/tags
