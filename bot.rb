@@ -128,4 +128,22 @@ bot.command :cq, {
 end
 
 bot.run true
+
+while buf = Readline.readline('% ', true)
+  s = buf.chomp
+  if s.start_with? 'quit', 'stop'
+    bot.stop
+    exit
+  elsif s.start_with? 'restart'
+    bot.stop
+    exec 'ruby', $PROGRAM_NAME
+  elsif s.start_with? 'irb'
+    binding.irb
+  elsif s == ''
+    next
+  else
+    puts 'Command not found'
+  end
+end
+
 bot.join

@@ -43,6 +43,8 @@ GEM
       ffi
     rbnacl (3.4.0)
       ffi
+    readline (0.0.2)
+      reline
     reline (0.1.2)
       io-console (~> 0.5)
     rest-client (2.1.0)
@@ -70,6 +72,7 @@ DEPENDENCIES
   activerecord
   discordrb
   irb
+  readline
   sqlite3
 
 BUNDLED WITH
