@@ -8,4 +8,6 @@ group :default do
 
   gem 'activerecord', require: 'active_record'
   gem 'sqlite3'
+
+  gem 'log4r'
 end

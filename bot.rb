@@ -6,7 +6,9 @@ require './lib/patches'
 token = ENV['TOKEN']
 raise 'No token in environment; set TOKEN' unless token
 
-ActiveRecord::Base.logger = Logger.new(STDERR)
+applog = Log4r::Logger.new 'bot'
+applog.outputters = Log4r::Outputter.stderr
+ActiveRecord::Base.logger = applog
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
@@ -26,6 +28,18 @@ end
 class Query < ActiveRecord::Base
 end
 
+def log_command(name, event, args, extra = nil)
+  user = event.author.id
+  command = name.to_s
+  arguments = args.join ' '
+
+  string = "command execution by user #{user}: .#{command} #{arguments}"
+  if extra
+    string << "; #{extra}"
+  end
+  Log4r::Logger['bot'].info string
+end
+
 bot = Discordrb::Commands::CommandBot.new(
   token: token,
   prefix: '.',
@@ -37,7 +51,8 @@ bot.command :echo, {
   description: 'Echoes a string',
   usage: '.echo <string>',
   min_args: 1
-} do |_e, *args|
+} do |event, *args|
+  log_command(:echo, event, args)
   args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
 end
 
@@ -50,9 +65,8 @@ bot.command :q, {
   text = args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
   author = event.author.id
 
-  puts "author #{author} text #{text} at #{Time.now}"
   new_query = Query.create(author: author, text: text)
-  p new_query
+  log_command(:q, event, args, "query id #{new_query.id}")
 
   "New support query added to the list."
 end
@@ -75,6 +89,7 @@ bot.command :oq, {
   min_args: 0,
   max_args: 0
 } do |event, *args|
+  log_command(:oq, event, args)
   c = event.channel
 
   queries = Query.all.map do |q|
@@ -103,6 +118,7 @@ bot.command :cq, {
   usage: '.cq <id>',
   min_args: 1,
 } do |event, *args|
+  log_command(:cq, event, args)
   args.each do |a|
     id = a.to_i
     begin
