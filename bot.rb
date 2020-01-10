@@ -42,7 +42,7 @@ end
 
 bot = Discordrb::Commands::CommandBot.new(
   token: token,
-  prefix: '.',
+  prefix: '%',
   command_doesnt_exist_message: 'Invalid command.'
 )
 
