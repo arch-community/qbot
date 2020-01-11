@@ -42,8 +42,7 @@ end
 
 bot = Discordrb::Commands::CommandBot.new(
   token: token,
-  prefix: '%',
-  command_doesnt_exist_message: 'Invalid command.'
+  prefix: '.'
 )
 
 bot.command :echo, {
