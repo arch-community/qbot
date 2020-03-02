@@ -2,9 +2,12 @@
 
 Bundler.require :default
 require './lib/patches'
+require 'yaml'
 
 token = ENV['TOKEN']
 raise 'No token in environment; set TOKEN' unless token
+
+$config = YAML.load File.read 'config.yml' || {}
 
 applog = Log4r::Logger.new 'bot'
 applog.outputters = Log4r::Outputter.stderr
@@ -28,22 +31,55 @@ end
 class Query < ActiveRecord::Base
 end
 
-def log_command(name, event, args, extra = nil)
-  user = event.author.id
-  command = name.to_s
-  arguments = args.join ' '
-
-  string = "command execution by user #{user}: .#{command} #{arguments}"
-  if extra
-    string << "; #{extra}"
-  end
-  Log4r::Logger['bot'].info string
-end
 
 bot = Discordrb::Commands::CommandBot.new(
   token: token,
   prefix: '.'
 )
+
+def log_command(bot, name, event, args, extra = nil)
+  user = event.author
+  username = name_cache_lookup(bot, user.id)
+  command = name.to_s
+  arguments = args.join ' '
+  lc = $config['log-channel']
+  puts lc
+
+  string = "command execution by #{username}: .#{command} #{arguments}"
+  if extra
+    string << "; #{extra}"
+  end
+  Log4r::Logger['bot'].info string
+
+  if lc
+    log_channel = bot.channel(lc)
+    log_channel.send_embed do |m|
+      m.author = Discordrb::Webhooks::EmbedAuthor.new(
+        name: username,
+        icon_url: user.avatar_url
+      )
+      m.title = 'Command execution'
+      m.fields = [
+        Discordrb::Webhooks::EmbedField.new(
+          name: "Command",
+          value: "#{command} #{arguments}"
+        ),
+        Discordrb::Webhooks::EmbedField.new(
+          name: "User ID",
+          value: user.id,
+          inline: true
+        )
+      ]
+      if extra
+        m.fields += Discordrb::Webhooks::EmbedField.new(
+          name: "Information",
+          value: extra
+        )
+      end
+      m.timestamp = Time.now
+    end
+  end
+end
 
 bot.command :echo, {
   help_available: true,
@@ -51,7 +87,7 @@ bot.command :echo, {
   usage: '.echo <string>',
   min_args: 1
 } do |event, *args|
-  log_command(:echo, event, args)
+  log_command(bot, :echo, event, args)
   args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
 end
 
@@ -65,17 +101,17 @@ bot.command :q, {
   author = event.author.id
 
   new_query = Query.create(author: author, text: text)
-  log_command(:q, event, args, "query id #{new_query.id}")
+  log_command(bot, :q, event, args, "query id #{new_query.id}")
 
-  "New support query added to the list."
+  "Query ##{new_query.id} has been created."
 end
 
-def name_cache_lookup(server, id)
+def name_cache_lookup(bot, id)
   @cache ||= {}
   if @cache[id]
     @cache[id]
   else
-    member = server.members.find { |m| m.id == id }
+    member = bot.user(id)
     formatted_name = "#{member.name}##{member.discriminator}"
     @cache[id] = formatted_name
   end
@@ -88,11 +124,11 @@ bot.command :oq, {
   min_args: 0,
   max_args: 0
 } do |event, *args|
-  log_command(:oq, event, args)
+  log_command(bot, :oq, event, args)
   c = event.channel
 
   queries = Query.all.map do |q|
-    formatted_name = name_cache_lookup(event.server, q.author)
+    formatted_name = name_cache_lookup(bot, q.author)
     Discordrb::Webhooks::EmbedField.new(
       name: "##{q.id} by #{formatted_name} at #{q.created_at.to_s}",
       value: q.text
@@ -100,8 +136,7 @@ bot.command :oq, {
   end
   if queries.empty?
     queries = [Discordrb::Webhooks::EmbedField.new(
-      name: "No queries found",
-      value: "None found"
+      name: "No queries found"
     )]
   end
 
@@ -117,7 +152,7 @@ bot.command :cq, {
   usage: '.cq <id>',
   min_args: 1,
 } do |event, *args|
-  log_command(:cq, event, args)
+  log_command(bot, :cq, event, args)
   args.each do |a|
     id = a.to_i
     begin
