@@ -48,7 +48,6 @@ bot = Discordrb::Commands::CommandBot.new(
   fancy_log: true,
   ignore_bots: true,
   no_permission_message: 'You are not allowed to do that',
-  
 )
 
 def log_command(bot, name, event, args, extra = nil)
