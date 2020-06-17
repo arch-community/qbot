@@ -4,10 +4,14 @@ Bundler.require :default
 require './lib/patches'
 require 'yaml'
 
-token = ENV['TOKEN']
-raise 'No token in environment; set TOKEN' unless token
-
 $config = YAML.load File.read 'config.yml' || {}
+
+token = $config['token']
+raise 'No token in configuration; set token' unless token
+
+client_id = $config['client_id']
+raise 'No client_id in configuration; set client_id' unless client_id
+
 
 applog = Log4r::Logger.new 'bot'
 applog.outputters = Log4r::Outputter.stderr
@@ -21,6 +25,7 @@ ActiveRecord::Base.establish_connection(
 def define_schema
   ActiveRecord::Schema.define do
       create_table :queries do |t|
+        t.column :server, :integer
         t.column :author, :integer
         t.column :text, :string
         t.timestamps
@@ -34,7 +39,16 @@ end
 
 bot = Discordrb::Commands::CommandBot.new(
   token: token,
-  prefix: '.'
+  client_id: client_id,
+  name: 'QueryBot',
+  prefix: -> (m) {
+    pfx = $config['servers'][m.channel.server.id]['prefix'] || '.'
+    m.text.start_with?(pfx) ? m.text[pfx.length..-1] : nil
+  },
+  fancy_log: true,
+  ignore_bots: true,
+  no_permission_message: 'You are not allowed to do that',
+  
 )
 
 def log_command(bot, name, event, args, extra = nil)
@@ -42,7 +56,7 @@ def log_command(bot, name, event, args, extra = nil)
   username = name_cache_lookup(bot, user.id)
   command = name.to_s
   arguments = args.join ' '
-  lc = $config['log-channel']
+  lc = $config['servers'][event.server.id]['log-channel']
   puts lc
 
   string = "command execution by #{username}: .#{command} #{arguments}"
@@ -100,7 +114,7 @@ bot.command :q, {
   text = args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
   author = event.author.id
 
-  new_query = Query.create(author: author, text: text)
+  new_query = Query.create(server: event.server, author: author, text: text)
   log_command(bot, :q, event, args, "query id #{new_query.id}")
 
   "Query ##{new_query.id} has been created."
@@ -127,7 +141,7 @@ bot.command :oq, {
   log_command(bot, :oq, event, args)
   c = event.channel
 
-  queries = Query.all.map do |q|
+  queries = Query.where(server: c.server.id).map do |q|
     formatted_name = name_cache_lookup(bot, q.author)
     Discordrb::Webhooks::EmbedField.new(
       name: "##{q.id} by #{formatted_name} at #{q.created_at.to_s}",
@@ -175,6 +189,75 @@ bot.command :cq, {
     end
   end
   nil
+end
+
+bot.command :c, {
+  help_available: true,
+  description: 'Sets your user color',
+  usage: '.c <color>',
+  min_args: 1,
+} do |event, *args|
+  log_command(bot, :c, event, args)
+
+  colors_all = $config['servers'][event.server.id]['roles']['colors']
+  default = colors_all['default']
+  extra = colors_all['extra']
+  colors = default + extra
+  colors.each { |c| c['role'] = event.server.roles.find { |r| r.id == c['id'] } }
+
+  req = args.join(' ')
+
+  user_colors = event.author.roles.filter { |r| colors.map { |c| c['id'] }.include? r.id }
+
+  requested_color = nil
+  if req.to_i.to_s == req
+    requested_color = colors.find { |c| c['index'] == req.to_i } || colors.find { |c| c['id'] == req.to_i }
+  else
+    requested_color = colors.find { |c| c['name'].downcase.start_with? req.downcase } || nil
+  end
+
+  if requested_color == nil
+    event.respond 'Color not found.'
+    return
+  elsif event.author.roles.include? requested_color['role']
+    event.respond 'You already have that color.'
+    return 
+  else
+    user_colors.each { |c| event.author.remove_role(c) }
+    event.author.add_role requested_color['role']
+    event.respond "You now have the #{requested_color['name']} color."
+  end
+end
+
+bot.command :lc, {
+  help_available: true,
+  description: 'Lists colors',
+  usage: '.lc',
+  min_args: 0,
+  max_args: 0
+} do |event, *args|
+  log_command(bot, :lc, event, args)
+
+  colors_all = $config['servers'][event.server.id]['roles']['colors']
+  default = colors_all['default']
+  extra = colors_all['extra']
+  colors = default + extra
+  colors.each { |c| c['role'] = event.server.roles.find { |r| r.id == c['id'] } }
+
+  message = "All colors:\n```\n"
+  colors.sort_by { |c| c['index'] }.each do |c|
+    message += "#{c['index'].to_s.rjust(2)}: ##{c['role'].color.hex} #{c['name']}\n"
+  end
+  message += '```'
+
+  event.respond message
+end
+
+bot.member_join do |event|
+  colors = $config['servers'][event.server.id]['roles']['colors']['default']
+  colors.each { |c| c['role'] = event.server.roles.find { |r| r.id == c['id'] } }
+
+  event.user.add_role(colors.sample(1)[0]['role'])
 end
 
 bot.run true

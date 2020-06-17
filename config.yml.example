@@ -1,0 +1,59 @@
+token: placeholder
+client_id: 1234
+
+servers:
+  399812551963049995:
+    prefix: '.'
+    log-channel: 573292276382695425
+    roles:
+      colors:
+        extra:
+          - name: Black
+            id: 722392317272653864
+            index: 0
+          - name: White
+            id: 722392286482137129
+            index: 7
+          - name: Bright Black
+            id: 722392505148244020
+            index: 8
+        default:
+          - name: Red
+            id: 722391990993682452
+            index: 1
+          - name: Green
+            id: 722392110053064736
+            index: 2
+          - name: Yellow
+            id: 722392143087534161
+            index: 3
+          - name: Blue
+            id: 722392174557397002
+            index: 4
+          - name: Magenta
+            id: 722392202034282516
+            index: 5
+          - name: Cyan
+            id: 722392230748225567
+            index: 6
+          - name: Bright Red
+            id: 722392549662392400
+            index: 9
+          - name: Bright Green
+            id: 722392588857901147
+            index: 10
+          - name: Bright Yellow
+            id: 722392623200862251
+            index: 11
+          - name: Bright Blue
+            id: 722392657342758942
+            index: 12
+          - name: Bright Magenta
+            id: 722392690620104705
+            index: 13
+          - name: Bright Cyan
+            id: 722392728834539561
+            index: 14
+          - name: Bright White
+            id: 722392763563245925
+            index: 15
