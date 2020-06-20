@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 Bundler.require :default
-require './lib/patches'
+# require './lib/patches'
 require 'yaml'
 
 $config = YAML.load File.read 'config.yml' || {}
@@ -50,45 +50,23 @@ bot = Discordrb::Commands::CommandBot.new(
   no_permission_message: 'You are not allowed to do that',
 )
 
-def log_command(bot, name, event, args, extra = nil)
+def log(event, extra = nil)
   user = event.author
-  username = name_cache_lookup(bot, user.id)
-  command = name.to_s
-  arguments = args.join ' '
-  lc = $config['servers'][event.server.id]['log-channel']
-  puts lc
+  username = formatted_name(event.author)
 
-  string = "command execution by #{username}: .#{command} #{arguments}"
-  if extra
-    string << "; #{extra}"
-  end
-  Log4r::Logger['bot'].info string
+  chan_id = $config['servers'][event.server.id]['log-channel']
 
-  if lc
-    log_channel = bot.channel(lc)
-    log_channel.send_embed do |m|
-      m.author = Discordrb::Webhooks::EmbedAuthor.new(
-        name: username,
-        icon_url: user.avatar_url
-      )
+  Log4r::Logger['bot'].info("command execution by #{username}: #{event.message}" + (extra ? "; #{extra}" : ''))
+
+  if chan_id
+    event.bot.channel(chan_id).send_embed do |m|
+      m.author = { name: username, icon_url: user.avatar_url }
       m.title = 'Command execution'
       m.fields = [
-        Discordrb::Webhooks::EmbedField.new(
-          name: "Command",
-          value: "#{command} #{arguments}"
-        ),
-        Discordrb::Webhooks::EmbedField.new(
-          name: "User ID",
-          value: user.id,
-          inline: true
-        )
-      ]
-      if extra
-        m.fields += Discordrb::Webhooks::EmbedField.new(
-          name: "Information",
-          value: extra
-        )
-      end
+        { name: "Command", value: "#{event.message}" },
+        { name: "User ID", value: user.id, inline: true },
+        extra ? { name: "Information", value: extra } : nil
+      ].compact
       m.timestamp = Time.now
     end
   end
@@ -100,8 +78,8 @@ bot.command :echo, {
   usage: '.echo <string>',
   min_args: 1
 } do |event, *args|
-  log_command(bot, :echo, event, args)
-  args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
+  log(event)
+  args.join(' ').gsub('@', "\\@\u200D")
 end
 
 bot.command :q, {
@@ -110,24 +88,16 @@ bot.command :q, {
   usage: '.q <question>',
   min_args: 1
 } do |event, *args|
-  text = args.map { |a| a.gsub('@', "\\@\u200D") }.join(' ')
-  author = event.author.id
+  text = args.join(' ').gsub('@', "\\@\u200D")
 
-  new_query = Query.create(server: event.server, author: author, text: text)
-  log_command(bot, :q, event, args, "query id #{new_query.id}")
+  new_query = Query.create(server: event.server, author: event.author.id, text: text)
+  log(event, "query id #{new_query.id}")
 
   "Query ##{new_query.id} has been created."
 end
 
-def name_cache_lookup(bot, id)
-  @cache ||= {}
-  if @cache[id]
-    @cache[id]
-  else
-    member = bot.user(id)
-    formatted_name = "#{member.name}##{member.discriminator}"
-    @cache[id] = formatted_name
-  end
+def formatted_name(u)
+  "#{u.name}##{u.discriminator}"
 end
 
 bot.command :oq, {
@@ -137,23 +107,16 @@ bot.command :oq, {
   min_args: 0,
   max_args: 0
 } do |event, *args|
-  log_command(bot, :oq, event, args)
-  c = event.channel
+  log(event)
 
-  queries = Query.where(server: c.server.id).map do |q|
-    formatted_name = name_cache_lookup(bot, q.author)
-    Discordrb::Webhooks::EmbedField.new(
-      name: "##{q.id} by #{formatted_name} at #{q.created_at.to_s}",
-      value: q.text
-    )
-  end
-  if queries.empty?
-    queries = [Discordrb::Webhooks::EmbedField.new(
-      name: "No queries found"
-    )]
+  queries = Query.where(server: event.server.id).map do |q|
+    q.destroy! if q.created_at < Time.now - 30.days
+    { name: "##{q.id} by #{formatted_name(bot.user(q.user))} at #{q.created_at.to_s}", value: q.text }
   end
 
-  c.send_embed do |e|
+  queries = [{ name: "No queries found" }] if queries.empty?
+
+  event.channel.send_embed do |e|
     e.title = "Open Queries"
     e.fields = queries
   end
@@ -165,14 +128,14 @@ bot.command :cq, {
   usage: '.cq <id>',
   min_args: 1,
 } do |event, *args|
-  log_command(bot, :cq, event, args)
-  args.each do |a|
-    id = a.to_i
+  log(event)
+
+  args.each do
+    id = _1.to_i
     begin
       q = Query.find(id)
     rescue ActiveRecord::RecordNotFound
       event.respond "Query ##{id} not found."
-      return
     end
 
     if not q
@@ -187,7 +150,18 @@ bot.command :cq, {
       end
     end
   end
+
   nil
+end
+
+def get_colors(event)
+  colors_all = $config['servers'][event.server.id]['roles']['colors']
+  default = colors_all['default']
+  extra = colors_all['extra']
+  colors = default + extra
+  colors.each { _1['role'] = event.server.role(_1['id']) }
+
+  return colors, default, extra
 end
 
 bot.command :c, {
@@ -196,35 +170,29 @@ bot.command :c, {
   usage: '.c <color>',
   min_args: 1,
 } do |event, *args|
-  log_command(bot, :c, event, args)
+  log(event)
 
-  colors_all = $config['servers'][event.server.id]['roles']['colors']
-  default = colors_all['default']
-  extra = colors_all['extra']
-  colors = default + extra
-  colors.each { |c| c['role'] = event.server.roles.find { |r| r.id == c['id'] } }
+  colors, _ = get_colors(event)
 
   req = args.join(' ')
 
-  user_colors = event.author.roles.filter { |r| colors.map { |c| c['id'] }.include? r.id }
+  user_colors = event.author.roles & colors.map { _1['role'] }
 
   requested_color = nil
-  if req.to_i.to_s == req
-    requested_color = colors.find { |c| c['index'] == req.to_i } || colors.find { |c| c['id'] == req.to_i }
+  if (idx = req.to_i) != 0
+    requested_color = colors.find { _1['index'] == idx }
   else
-    requested_color = colors.find { |c| c['name'].downcase.start_with? req.downcase } || nil
+    requested_color = colors.find { _1['name'].downcase.start_with? req.downcase }
   end
 
-  if requested_color == nil
-    event.respond 'Color not found.'
-    return
-  elsif event.author.roles.include? requested_color['role']
-    event.respond 'You already have that color.'
-    return 
+  rc = requested_color['role'] || (return 'Color not found.')
+
+  if user_colors.include? rc
+    'You already have that color.'
   else
-    user_colors.each { |c| event.author.remove_role(c) }
-    event.author.add_role requested_color['role']
-    event.respond "You now have the #{requested_color['name']} color."
+    user_colors.each { event.author.remove_role(_1) }
+    event.author.add_role rc
+    "Your color is now **#{rc.name}**."
   end
 end
 
@@ -235,28 +203,23 @@ bot.command :lc, {
   min_args: 0,
   max_args: 0
 } do |event, *args|
-  log_command(bot, :lc, event, args)
+  log(event)
 
-  colors_all = $config['servers'][event.server.id]['roles']['colors']
-  default = colors_all['default']
-  extra = colors_all['extra']
-  colors = default + extra
-  colors.each { |c| c['role'] = event.server.roles.find { |r| r.id == c['id'] } }
+  colors, _ = get_colors(event)
 
-  message = "All colors:\n```\n"
-  colors.sort_by { |c| c['index'] }.each do |c|
-    message += "#{c['index'].to_s.rjust(2)}: ##{c['role'].color.hex} #{c['name']}\n"
+  list = colors.sort_by { _1['index'] }.map do |c|
+    idx = c['index'].to_s.rjust(2)
+    r = c['role']
+    "#{idx}: ##{r.color.hex} #{r.name}"
   end
-  message += '```'
 
-  event.respond message
+  "All colors:\n```#{list.join ?\n}```"
 end
 
 bot.member_join do |event|
-  colors = $config['servers'][event.server.id]['roles']['colors']['default']
-  colors.each { |c| c['role'] = event.server.roles.find { |r| r.id == c['id'] } }
+  _, default, _ = get_colors(event)
 
-  event.user.add_role(colors.sample(1)[0]['role'])
+  event.user.add_role(default.sample['role'])
 end
 
 bot.run true

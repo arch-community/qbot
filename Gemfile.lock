@@ -44,8 +44,6 @@ GEM
       ffi
     rbnacl (3.4.0)
       ffi
-    readline (0.0.2)
-      reline
     reline (0.1.4)
       io-console (~> 0.5)
     rest-client (2.1.0)
@@ -74,8 +72,11 @@ DEPENDENCIES
   discordrb
   irb
   log4r
-  readline
+  reline
   sqlite3
+
+RUBY VERSION
+   ruby 2.7.1p83
 
 BUNDLED WITH
    2.1.4
