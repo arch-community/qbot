@@ -50,4 +50,10 @@ module Util
 
     "Query ##{new_query.id} has been created."
   end
+
+  command :mygit, {
+    help_available: false
+  } do |event|
+    "https://github.com/dkudriavtsev/qbot"
+  end
 end
