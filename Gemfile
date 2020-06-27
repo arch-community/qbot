@@ -12,4 +12,10 @@ group :default do
   gem 'sqlite3'
 
   gem 'log4r'
+
+  gem 'mediawiki_api'
+  gem 'rss'
+
+  gem 'tf-idf-similarity'
+  gem 'narray'
 end

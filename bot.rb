@@ -3,6 +3,7 @@
 Bundler.require :default
 require './lib/patches'
 require 'yaml'
+require 'open-uri'
 
 $applog = Log4r::Logger.new 'bot'
 $applog.outputters = Log4r::Outputter.stderr
