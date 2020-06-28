@@ -1,6 +1,9 @@
 token: placeholder
 client_id: 1234
 
+wiki-username: testuser
+wiki-password: CorrectHorseBatteryStaple
+
 servers:
   399812551963049995:
     prefix: '.'
@@ -14,9 +17,6 @@ servers:
           - name: White
             id: 722392286482137129
             index: 7
-          - name: Bright Black
-            id: 722392505148244020
-            index: 8
         default:
           - name: Red
             id: 722391990993682452
@@ -36,24 +36,9 @@ servers:
           - name: Cyan
             id: 722392230748225567
             index: 6
-          - name: Bright Red
-            id: 722392549662392400
-            index: 9
-          - name: Bright Green
-            id: 722392588857901147
-            index: 10
-          - name: Bright Yellow
-            id: 722392623200862251
-            index: 11
-          - name: Bright Blue
-            id: 722392657342758942
-            index: 12
-          - name: Bright Magenta
-            id: 722392690620104705
-            index: 13
-          - name: Bright Cyan
-            id: 722392728834539561
-            index: 14
-          - name: Bright White
-            id: 722392763563245925
-            index: 15
+
+snippets:
+  hello: >
+    Hello, world!
+
+# vim: ft=yaml

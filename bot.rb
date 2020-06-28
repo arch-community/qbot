@@ -36,6 +36,7 @@ modules = %w(
   queries
   colors
   arch
+  snippets
 )
 
 require_relative 'lib/db'
@@ -52,7 +53,9 @@ while buf = Readline.readline('% ', true)
   if s.start_with? 'quit', 'stop'
     $bot.stop
     exit
-  elsif s.start_with? 'restart'
+  elsif s.start_with? 'reload'
+    $config = YAML.load_file 'config.yml' || {}
+  elsif s.start_with? 'rs', 'restart'
     $bot.stop
     exec 'ruby', $PROGRAM_NAME
   elsif s.start_with? 'irb'

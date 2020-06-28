@@ -15,6 +15,23 @@ def search_pkg(query)
   JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q='+query).read
 end
 
+def sort_results(res)
+    corpus = res.map { |r|
+      TfIdfSimilarity::Document.new("#{r['repo']} #{r['pkgname']} #{r['pkgdesc']}")
+    } + TfIdfSimilarity::Document.new(query)
+
+    model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
+
+    matrix = model.similarity_matrix
+
+    return res.map.with_index.sort_by { |r, idx|
+      matrix[
+        model.document_index(corpus[idx]),
+        model.document_index(corpus.last)
+      ]
+    }.map(&:first)
+end
+
 module Arch
   extend Discordrb::Commands::CommandContainer
 
@@ -24,6 +41,8 @@ module Arch
     usage: '.aw <query>',
     min_args: 1
   } do |event, *qs|
+    log(event)
+
     query = qs.join(' ')
     # Check if the page exists
     q = ($mw.query titles: query).data
@@ -51,45 +70,33 @@ module Arch
     usage: '.ps <query>',
     min_args: 1
   } do |event, *qs|
+    log(event)
+
     query = qs.join(' ')
     response = search_pkg(query)
 
+    # Error if no results found
     res = response['results']
     if res.empty?
-      event.channel.send_embed do |m|
-        m.title = 'No results found'
-      end
+      event.channel.send_embed { _1.title = 'No results found' }
       return
     end
 
+    ordered_results = sort_results(res)
 
-    documents = []
-    corpus = res.map.with_index { |r, idx|
-      documents[idx] = TfIdfSimilarity::Document.new("#{r['repo']} #{r['pkgname']} #{r['pkgdesc']}")
-    }
-
-    query_document = TfIdfSimilarity::Document.new(query)
-    corpus << query_document
-
-    model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
-
-    matrix = model.similarity_matrix
-
-    ordered_results = res.map.with_index.sort_by { |r, idx|
-      matrix[
-        model.document_index(documents[idx]),
-        model.document_index(query_document)
-      ]
-    }
-
+    # Embed the search results
     event.channel.send_embed do |m|
       m.title = "Search results for #{query}"
-      m.fields = ordered_results.first(5).map { |r, idx|
+      m.fields = ordered_results.first(5).map { |r|
+        s_ver = r['pkgver']
+        s_time = Time.parse(r['last_update']).strftime('%Y-%m-%d')
+        s_url = "https://www.archlinux.org/packages/#{r['repo']}/#{r['arch']}/#{r['pkgname']}"
+
         {
           name: "#{r['repo']}/#{r['pkgname']}",
           value: <<-END
             #{r['pkgdesc']}
-            version **#{r['pkgver']}** | last update **#{Time.parse(r['last_update']).strftime('%Y-%m-%d')}** | [web link](https://www.archlinux.org/packages/#{r['repo']}/#{r['arch']}/#{r['pkgname']})
+            version **#{s_ver}** | last update **#{s_time}** | [web link](#{s_url})
           END
         }
       }
