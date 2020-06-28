@@ -21,12 +21,15 @@ $bot = Discordrb::Commands::CommandBot.new(
   token: token,
   client_id: client_id,
   name: 'QueryBot',
+
   prefix: -> (m) {
     pfx = $config['servers'][m.channel.server.id]['prefix'] || '.'
     m.text.start_with?(pfx) ? m.text[pfx.length..-1] : nil
   },
+
   fancy_log: true,
   ignore_bots: true,
+
   no_permission_message: 'You are not allowed to do that',
 )
 
@@ -46,7 +49,7 @@ modules.each do
   eval "$bot.include! #{_1.capitalize}"
 end
 
-$bot.run true
+$bot.run :async
 
 while buf = Readline.readline('% ', true)
   s = buf.chomp
@@ -67,4 +70,4 @@ while buf = Readline.readline('% ', true)
   end
 end
 
-$bot.join
+$bot.sync

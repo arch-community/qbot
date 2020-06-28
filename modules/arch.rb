@@ -15,20 +15,19 @@ def search_pkg(query)
   JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q='+query).read
 end
 
-def sort_results(res)
+def sort_results(res, query)
     corpus = res.map { |r|
-      TfIdfSimilarity::Document.new("#{r['repo']} #{r['pkgname']} #{r['pkgdesc']}")
-    } + TfIdfSimilarity::Document.new(query)
+      keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 2].flatten.join(' ')
+      TfIdfSimilarity::Document.new("#{keywords} #{r['pkgdesc']}")
+    }
+    corpus << TfIdfSimilarity::Document.new(query)
 
     model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
 
     matrix = model.similarity_matrix
 
     return res.map.with_index.sort_by { |r, idx|
-      matrix[
-        model.document_index(corpus[idx]),
-        model.document_index(corpus.last)
-      ]
+      matrix[model.document_index(corpus[idx]), model.document_index(corpus.last)]
     }.map(&:first)
 end
 
@@ -82,7 +81,7 @@ module Arch
       return
     end
 
-    ordered_results = sort_results(res)
+    ordered_results = sort_results(res, query)
 
     # Embed the search results
     event.channel.send_embed do |m|
@@ -101,6 +100,17 @@ module Arch
         }
       }
     end
+  end
+
+  command :p, {
+    help_available: true,
+    description: 'Shows info for a given package',
+    usage: '.p <pkgname>',
+    min_args: 1,
+    max_args: 1
+  } do |event, pn|
+    log(event)
+
 
   end
 end
