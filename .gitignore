@@ -1,7 +1,6 @@
 .bundle
 vendor
 vendor/**
-shell.nix
 gemset.nix
 
 .env
