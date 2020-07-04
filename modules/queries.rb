@@ -1,6 +1,20 @@
 module Queries
   extend Discordrb::Commands::CommandContainer
 
+  command :q, {
+    help_available: true,
+    description: 'Adds a query to the list of queries',
+    usage: '.q <question>',
+    min_args: 1
+  } do |event, *args|
+    text = args.join(' ').gsub('@', "\\@\u200D")
+
+    new_query = Query.create(server: event.server, author: event.author.id, text: text)
+    log(event, "query id #{new_query.id}")
+
+    "Query ##{new_query.id} has been created."
+  end
+
   command :oq, {
     help_available: true,
     description: 'Lists open queries',

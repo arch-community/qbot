@@ -34,13 +34,7 @@ $bot = Discordrb::Commands::CommandBot.new(
 )
 
 
-modules = %w(
-  util
-  queries
-  colors
-  arch
-  snippets
-)
+modules = $config['modules']
 
 require_relative 'lib/db'
 
