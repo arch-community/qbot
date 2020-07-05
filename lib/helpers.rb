@@ -8,7 +8,7 @@ def formatted_name(u)
 end
 
 def prefix(id)
-  $config.servers[id].prefix || '.'
+  $config.servers[id].prefix || $config.default.prefix || '.'
 end
 
 def cmd_prefix(m)

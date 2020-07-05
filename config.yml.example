@@ -1,22 +1,31 @@
 token: placeholder
 client_id: 1234
 
-wiki-username: testuser
-wiki-password: CorrectHorseBatteryStaple
+owner: 165998239273844736
+
+wiki_username: username
+wiki_password: password
+
+my_repo: https://github.com/dkudriavtsev/qbot
+
+modules:
+  - help
+  - util
+  - admin
+  - queries
+  - colors
+    # - arch
+  - snippets
+
+default:
+  prefix: '.'
 
 servers:
   399812551963049995:
     prefix: '.'
-    log-channel: 573292276382695425
+    log_channel: 573292276382695425
     roles:
       colors:
-        extra:
-          - name: Black
-            id: 722392317272653864
-            index: 0
-          - name: White
-            id: 722392286482137129
-            index: 7
         default:
           - name: Red
             id: 722391990993682452
@@ -36,6 +45,13 @@ servers:
           - name: Cyan
             id: 722392230748225567
             index: 6
+        extra:
+          - name: Black
+            id: 722392317272653864
+            index: 0
+          - name: White
+            id: 722392286482137129
+            index: 7
 
 snippets:
   hello: >
