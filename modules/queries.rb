@@ -10,10 +10,10 @@ module Queries
   } do |event, *args|
     text = args.join(' ').gsub('@', "\\@\u200D")
 
-    new_query = Query.create(server: event.server, author: event.author.id, text: text)
+    new_query = Query.create(server: event.server.id, author: event.author.id, text: text)
     log(event, "query id #{new_query.id}")
 
-    "Query ##{new_query.id} has been created."
+    event.channel.send_embed { _1.description = "Query ##{new_query.id} has been created." }
   end
 
   command :openqueries, {
@@ -28,14 +28,16 @@ module Queries
 
     queries = Query.where(server: event.server.id).map do |q|
       q.destroy! if q.created_at < Time.now - 30.days
-      { name: "##{q.id} by #{formatted_name(event.bot.user(q.user))} at #{q.created_at.to_s}", value: q.text }
+      p q
+      { name: "##{q.id} by #{formatted_name(event.bot.user(q.author))} at #{q.created_at.to_s}", value: q.text }
     end
 
-    queries = [{ name: "No queries found" }] if queries.empty?
+    queries = [{ name: '#0', value: 'No results' }] if queries.empty?
 
-    event.channel.send_embed do |e|
-      e.title = "Open Queries"
-      e.fields = queries
+    event.channel.send_embed do |m|
+      m.title = 'Open Queries'
+      m.description = 'Queries are deleted after 30 days.'
+      m.fields = queries || nil
     end
   end
 
