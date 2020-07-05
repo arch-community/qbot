@@ -26,7 +26,7 @@ module Queries
   } do |event, *args|
     log(event)
 
-    Query.where("created_at <= timeout", { timeout: Time.now - 30.days }).map(&:destroy!)
+    Query.where("created_at <= :timeout", { timeout: Time.now - 30.days }).map(&:destroy!)
 
     queries = Query.where(server: event.server.id).map do |q|
       { name: "##{q.id} by #{formatted_name(event.bot.user(q.author))} at #{q.created_at.to_s}", value: q.text }
