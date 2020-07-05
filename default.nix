@@ -23,6 +23,7 @@ in stdenv.mkDerivation {
     git
     sqlite libxml2 zlib
     libopus libsodium
+    youtube-dl
   ];
 
   LD_LIBRARY_PATH = "${libsodium}/lib:${libopus}/lib";
