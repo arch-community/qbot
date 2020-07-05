@@ -1,7 +1,15 @@
-# Allow output from commands to exceed 2000 chars
+def can_run(name, event)
+  if (m = $config.servers[event.server.id]&.modules)
+    m.filter_map { (eval _1.capitalize)&.commands&.keys }.flatten.include? name
+  else
+    true
+  end
+end
+
 module Discordrb::Commands
-  # Overwrite of the CommandBot to monkey patch command length
   class CommandBot
+    alias_method :execute!, :execute_command
+    # Allow output from commands to exceed 2000 chars
     def execute_chain(chain, event)
       t = Thread.new do
         @event_threads << t
@@ -26,6 +34,12 @@ module Discordrb::Commands
           @event_threads.delete(t)
         end
       end
+    end
+
+    # Check server modules on command execution
+    def execute_command(name, event, arguments, chained = false, check_permissions = true)
+      return unless can_run(name, event)
+      execute!(name, event, arguments, chained, check_permissions)
     end
   end
 end

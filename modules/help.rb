@@ -22,7 +22,7 @@ module Help
         command_name = command.name
       end
 
-      unless command
+      unless command && can_run(command.name, event)
         event.channel.send_embed { _1.description = "The command `#{command_name}` does not exist." }
         return
       end
@@ -62,7 +62,8 @@ module Help
           !c.attributes[:help_available] ||
           !event.bot.send(:required_roles?, event.user, c.attributes[:required_roles]) ||
           !event.bot.send(:allowed_roles?, event.user, c.attributes[:allowed_roles]) ||
-          !event.bot.send(:required_permissions?, event.user, c.attributes[:required_permissions], event.channel)
+          !event.bot.send(:required_permissions?, event.user, c.attributes[:required_permissions], event.channel) ||
+          !can_run(c.name, event)
       end
 
       case available_commands.length

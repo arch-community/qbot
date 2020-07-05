@@ -31,7 +31,7 @@ $bot = Discordrb::Commands::CommandBot.new(
 $applog.debug 'Init DB'
 require_relative 'lib/db'
 
-$config.modules.each do
+$config.global.modules.each do
   require_relative "modules/#{_1}"
   eval "$bot.include! #{_1.capitalize}"
   $applog.info "Loaded module: #{_1}"

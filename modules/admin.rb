@@ -26,7 +26,18 @@ module Admin
   } do |e|
     e.channel.send_embed do |m|
       m.title = 'Loaded modules'
-      m.description = $config.modules.join(', ')
+      m.fields = [
+        {
+          name: 'Global',
+          value: $config.global.modules.join(', '),
+        }
+      ]
+      if $config.servers[e.server.id]&.modules
+        m.fields << {
+          name: 'Local',
+          value: $config.servers[e.server.id].modules.join(', '),
+        }
+      end
     end
   end
 end

@@ -15,5 +15,9 @@ let
   };
 in stdenv.mkDerivation {
   name = "qbot";
+  src = ./.;
   buildInputs = [ ruby_2_7 env bundler' (bundix.override { bundler = bundler'; }) sqlite ];
+  installPhase = ''
+    mkdir -p $out/bin
+  '';
 }
