@@ -22,8 +22,7 @@ in stdenv.mkDerivation {
     ruby_2_7 env bundler' (bundix.override { bundler = bundler'; })
     git
     sqlite libxml2 zlib
-    libopus libsodium
-    youtube-dl
+    libopus libsodium ffmpeg youtube-dl
   ];
 
   LD_LIBRARY_PATH = "${libsodium}/lib:${libopus}/lib";
