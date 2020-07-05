@@ -20,6 +20,7 @@ in stdenv.mkDerivation {
 
   buildInputs = [
     ruby_2_7 env bundler' (bundix.override { bundler = bundler'; })
+    git
     sqlite libxml2 zlib
     libopus libsodium
   ];

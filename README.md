@@ -11,6 +11,16 @@ Code structure:
 - The bot is configured in a file called `config.yml`. Copy `config.yml.example`
   to `config.yml` and add the correct settings for your instance or server.
 
+Modules:
+- `util` provides utility commands.
+- `admin` provides commands for bot administration.
+- `help` provides the help command.
+- `queries` is a support channel management solution.
+- `snippets` allows posting configurable text snippets.
+- `colors` lets users set their color role.
+- `arch` contains commands for searching the Arch wiki and packages.
+- `music` is a fully functional music bot that uses youtube-dl.
+
 Bot CLI:
 
 - `rs` or `restart` restarts the bot.
