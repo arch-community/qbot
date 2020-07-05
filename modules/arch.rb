@@ -1,7 +1,7 @@
 $mw = MediawikiApi::Client.new "https://wiki.archlinux.org/api.php"
 
-if $config['wiki-username'] && $config['wiki-password']
-  $mw.log_in $config['wiki-username'], $config['wiki-password']
+if $config.wiki_username && $config.wiki_password
+  $mw.log_in $config.wiki_username, $config.wiki_password
 end
 
 def wiki_embed(channel, title)
@@ -34,7 +34,8 @@ end
 module Arch
   extend Discordrb::Commands::CommandContainer
 
-  command :aw, {
+  command :archwiki, {
+    aliases: [ :aw ],
     help_available: true,
     description: 'Searches the Arch Wiki',
     usage: '.aw <query>',
@@ -63,7 +64,8 @@ module Arch
     end
   end
 
-  command :ps, {
+  command :packagesearch, {
+    aliases: [ :ps ],
     help_available: true,
     description: 'Searches the Arch repositories for a package',
     usage: '.ps <query>',
@@ -87,22 +89,23 @@ module Arch
     event.channel.send_embed do |m|
       m.title = "Search results for #{query}"
       m.fields = ordered_results.first(5).map { |r|
-        s_ver = r['pkgver']
-        s_time = Time.parse(r['last_update']).strftime('%Y-%m-%d')
-        s_url = "https://www.archlinux.org/packages/#{r['repo']}/#{r['arch']}/#{r['pkgname']}"
+        ver = r['pkgver']
+        time = Time.parse(r['last_update']).strftime('%Y-%m-%d')
+        url = "https://www.archlinux.org/packages/#{r['repo']}/#{r['arch']}/#{r['pkgname']}"
 
         {
           name: "#{r['repo']}/#{r['pkgname']}",
           value: <<-END
             #{r['pkgdesc']}
-            version **#{s_ver}** | last update **#{s_time}** | [web link](#{s_url})
+            version **#{ver}** | last update **#{time}** | [web link](#{url})
           END
         }
       }
     end
   end
 
-  command :p, {
+  command :package, {
+    aliases: [ :package ],
     help_available: true,
     description: 'Shows info for a given package',
     usage: '.p <pkgname>',
