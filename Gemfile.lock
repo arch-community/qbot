@@ -33,6 +33,7 @@ GEM
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.13.1)
+    hashugar (1.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -81,6 +82,7 @@ GEM
     websocket-client-simple (0.3.0)
       event_emitter
       websocket
+    word_wrap (1.0.0)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -89,6 +91,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   discordrb
+  hashugar
   irb
   log4r
   mediawiki_api
@@ -97,6 +100,7 @@ DEPENDENCIES
   rss
   sqlite3
   tf-idf-similarity
+  word_wrap
 
 RUBY VERSION
    ruby 2.7.1p83

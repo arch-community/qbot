@@ -1,29 +1,3 @@
-def log(event, extra = nil)
-  user = event.author
-  username = formatted_name(event.author)
-
-  chan_id = $config['servers'][event.server.id]['log-channel']
-
-  Log4r::Logger['bot'].info("command execution by #{username}: #{event.message}" + (extra ? "; #{extra}" : ''))
-
-  if chan_id
-    event.bot.channel(chan_id).send_embed do |m|
-      m.author = { name: username, icon_url: user.avatar_url }
-      m.title = 'Command execution'
-      m.fields = [
-        { name: "Command", value: "#{event.message}" },
-        { name: "User ID", value: user.id, inline: true },
-        extra ? { name: "Information", value: extra } : nil
-      ].compact
-      m.timestamp = Time.now
-    end
-  end
-end
-
-def formatted_name(u)
-  "#{u.name}##{u.discriminator}"
-end
-
 module Util
   extend Discordrb::Commands::CommandContainer
 
@@ -38,8 +12,12 @@ module Util
   end
 
   command :mygit, {
-    help_available: false
+    help_available: true,
+    description: 'Posts the URL of my Git repo',
+    usage: '.mygit',
+    min_args: 0,
+    max_args: 0
   } do |event|
-    "https://github.com/dkudriavtsev/qbot"
+    $config.my_repo
   end
 end

@@ -1,8 +1,8 @@
 def get_colors(event)
-  colors_all = $config['servers'][event.server.id]['roles']['colors']
+  colors_all = $config.servers[event.server.id].roles.colors
 
-  default = colors_all['default']
-  extra = colors_all['extra']
+  default = colors_all.default
+  extra = colors_all.extra
 
   colors = default + extra
 
@@ -20,7 +20,8 @@ end
 module Colors
   extend Discordrb::Commands::CommandContainer
 
-  command :c, {
+  command :color, {
+    aliases: [ :c ],
     help_available: true,
     description: 'Sets your user color',
     usage: '.c <color>',
@@ -55,7 +56,8 @@ module Colors
     end
   end
 
-  command :lc, {
+  command :listcolors, {
+    aliases: [ :lc ],
     help_available: true,
     description: 'Lists colors',
     usage: '.lc',

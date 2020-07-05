@@ -1,7 +1,8 @@
 module Queries
   extend Discordrb::Commands::CommandContainer
 
-  command :q, {
+  command :query, {
+    aliases: [ :q ],
     help_available: true,
     description: 'Adds a query to the list of queries',
     usage: '.q <question>',
@@ -15,7 +16,8 @@ module Queries
     "Query ##{new_query.id} has been created."
   end
 
-  command :oq, {
+  command :openqueries, {
+    aliases: [ :oq ],
     help_available: true,
     description: 'Lists open queries',
     usage: '.oq',
@@ -37,7 +39,8 @@ module Queries
     end
   end
 
-  command :cq, {
+  command :closequery, {
+    aliases: [ :cq ],
     help_available: true,
     description: 'Closes a query',
     usage: '.cq <id>',
