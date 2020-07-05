@@ -15,8 +15,17 @@ let
   };
 in stdenv.mkDerivation {
   name = "qbot";
+
   src = ./.;
-  buildInputs = [ ruby_2_7 env bundler' (bundix.override { bundler = bundler'; }) sqlite ];
+
+  buildInputs = [
+    ruby_2_7 env bundler' (bundix.override { bundler = bundler'; })
+    sqlite libxml2 zlib
+    libopus libsodium
+  ];
+
+  LD_LIBRARY_PATH = "${libsodium}/lib:${libopus}/lib";
+
   installPhase = ''
     mkdir -p $out/bin
   '';

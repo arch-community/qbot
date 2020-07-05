@@ -1,11 +1,16 @@
 #!/usr/bin/env ruby
 
 Bundler.require :default
+require 'json'
 require 'yaml'
+require 'digest'
+require 'uri'
 require 'open-uri'
 
 require './lib/patches'
 require './lib/helpers'
+
+require './lib/youtube'
 
 $applog = Log4r::Logger.new 'bot'
 $applog.outputters = Log4r::Outputter.stderr
@@ -38,8 +43,12 @@ $config.global.modules.each do
 end
 
 $applog.info 'Initializing connection'
+
+$bot.ready do
+  $applog.info 'Startup complete'
+end
+
 $bot.run :async
-$applog.info 'Startup complete'
 
 while buf = Readline.readline('% ', true)
   s = buf.chomp
