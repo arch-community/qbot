@@ -1,3 +1,5 @@
+require './lib/youtube'
+
 # Play queues
 $queues = {}
 

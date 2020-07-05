@@ -10,7 +10,6 @@ require 'open-uri'
 require './lib/patches'
 require './lib/helpers'
 
-require './lib/youtube'
 
 $applog = Log4r::Logger.new 'bot'
 $applog.outputters = Log4r::Outputter.stderr
