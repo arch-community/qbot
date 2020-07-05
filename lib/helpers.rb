@@ -37,3 +37,9 @@ def log(event, extra = nil)
     end
   end
 end
+
+# Listen for a user response
+def user_response(bot, event)
+  event = bot.add_await!(Discordrb::Events::MentionEvent, in: event.channel, from: event.author)
+  event.message.text.split[1].to_i
+end
