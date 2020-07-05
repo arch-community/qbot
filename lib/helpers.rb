@@ -8,7 +8,7 @@ def formatted_name(u)
 end
 
 def prefix(id)
-  $config.servers[id].prefix || $config.default.prefix || '.'
+  $config.servers[id]&.prefix || $config.global.prefix || '.'
 end
 
 def cmd_prefix(m)
@@ -20,7 +20,7 @@ def log(event, extra = nil)
   user = event.author
   username = formatted_name(event.author)
 
-  chan_id = $config.servers[event.server.id].log_channel
+  chan_id = $config.servers[event.server.id]&.log_channel
 
   Log4r::Logger['bot'].info("command execution by #{username}: #{event.message}#{extra && "; #{extra}"}")
 

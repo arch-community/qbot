@@ -8,21 +8,28 @@ wiki_password: password
 
 my_repo: https://github.com/dkudriavtsev/qbot
 
-modules:
-  - help
-  - util
-  - admin
-  - queries
-  - colors
-    # - arch
-  - snippets
-
-default:
+global:
+  modules:
+    - help
+    - util
+    - admin
+    - queries
+    - colors
+    - arch
+    - snippets
   prefix: '.'
+  snippets:
+    - name: hello
+      text: Hello, world!
 
 servers:
+  382367629752664085:
+    prefix: '%'
+    modules:
+      - help
+      - util
+      - admin
   399812551963049995:
-    prefix: '.'
     log_channel: 573292276382695425
     roles:
       colors:
@@ -52,9 +59,8 @@ servers:
           - name: White
             id: 722392286482137129
             index: 7
-
-snippets:
-  hello: >
-    Hello, world!
+    snippets:
+      - name: arch
+        text: i use arch btw
 
 # vim: ft=yaml
