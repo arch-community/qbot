@@ -13,7 +13,7 @@ module Admin
 
     _ = m = e.message
     a = e.author
-    if a.id == config.owner
+    if a.id == $config.owner
       eval args.join(' ')
     else
       "nope"
