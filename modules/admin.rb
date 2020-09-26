@@ -1,3 +1,5 @@
+require './lib/colorlib.rb'
+
 module Admin
   extend Discordrb::Commands::CommandContainer
 
@@ -39,5 +41,51 @@ module Admin
         }
       end
     end
+  end
+
+  command :createcolorroles, {
+    aliases: [ :ccr ],
+    help_available: true,
+    description: 'Creates color roles',
+    usage: '.createcolorroles <lightness> <spread> <count>',
+    min_args: 3,
+    max_args: 3
+  } do |event, *args|
+    g = event.server
+
+    if not event.author.permission?(:administrator, event.server)
+      return "You do not have the required permissions for this."
+    end
+
+    g.roles.filter { _1.name.ends_with? '[c]' }.each do
+      event.respond "Deleting existing color role `#{_1.name}`."
+      _1.delete
+    end
+
+    l = args[0].to_f
+    size = args[1].to_f
+    num = args[2].to_i
+
+    angle = 2 * Math::PI / num
+
+    colors = (0...num).map do
+      this_angle = angle * _1
+      a = size * Math.cos(this_angle)
+      b = size * Math.sin(this_angle)
+
+      lab_to_hex [l, a, b]
+    end
+
+    colors.each.with_index do |hex, idx|
+      event.server.create_role(
+        name: "color#{idx} [c]",
+        colour: Discordrb::ColourRGB.new(hex),
+        permissions: 0,
+        reason: 'Generating color roles'
+      )
+      event.respond "Created role `color#{idx}` with color `##{hex}`."
+    end
+    
+    "Created #{colors.size} roles."
   end
 end
