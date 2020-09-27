@@ -66,6 +66,7 @@ module Help
           !can_run(c.name, event)
       end
 
+
       case available_commands.length
       when 0..25
         event.channel.send_embed do |m|

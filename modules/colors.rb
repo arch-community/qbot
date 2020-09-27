@@ -3,10 +3,10 @@ require './lib/colorlib.rb'
 ColorRole = Struct.new(:idx, :role, :id)
 
 def get_colors(event)
-  bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }
+  bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position)
   default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
 
-  extra_conf = $config.servers[event.server.id].roles.extra_colors || []
+  extra_conf = $config.servers[event.server.id]&.roles&.extra_colors || []
   extra = extra_conf.map { ColorRole.new(nil, event.server.role(_1.id), _1.id) }
 
   colors = default + extra
@@ -30,6 +30,18 @@ def assign_role(event, role_list, role, name)
     event.author.add_role role
     event.channel.send_embed { _1.description = "Your #{name} is now **#{role.name}**." }
   end
+end
+
+def color_ring(l, size, num)
+    angle = 2 * Math::PI / num
+
+    (0...num).map do
+      this_angle = angle * _1
+      a = size * Math.cos(this_angle)
+      b = size * Math.sin(this_angle)
+
+      lab_to_hex [l, a, b]
+    end
 end
 
 module Colors
@@ -113,6 +125,44 @@ module Colors
       m.title = 'All colors'
       m.description = "```#{list.join ?\n}```"
     end
+  end
+
+  command :createcolorroles, {
+    aliases: [ :ccr ],
+    help_available: false,
+    description: 'Creates color roles',
+    usage: '.createcolorroles <lightness> <spread> <count>',
+    min_args: 3,
+    max_args: 3
+  } do |event, *args|
+    g = event.server
+
+    if not event.author.permission?(:administrator, event.server)
+      return "You do not have the required permissions for this."
+    end
+
+    g.roles.filter { _1.name.ends_with? '[c]' }.each do
+      event.respond "Deleting existing color role `#{_1.name}`."
+      _1.delete
+    end
+
+    l = args[0].to_f
+    size = args[1].to_f
+    num = args[2].to_i
+
+    colors = color_ring(l, size, num)
+
+    colors.each.with_index do |hex, idx|
+      event.server.create_role(
+        name: "color#{idx} [c]",
+        colour: Discordrb::ColourRGB.new(hex),
+        permissions: 0,
+        reason: 'Generating color roles'
+      )
+      event.respond "Created role `color#{idx}` with color `##{hex}`."
+    end
+    
+    "Created #{colors.size} roles."
   end
 
   command :randcolors, {
