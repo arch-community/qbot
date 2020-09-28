@@ -3,7 +3,7 @@ require './lib/colorlib.rb'
 ColorRole = Struct.new(:idx, :role, :id)
 
 def get_colors(event)
-  bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position)
+  bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
   default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
 
   extra_conf = $config.servers[event.server.id]&.roles&.extra_colors || []
