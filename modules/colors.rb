@@ -137,7 +137,7 @@ module Colors
   } do |event, *args|
     g = event.server
 
-    if not event.author.permission?(:administrator, event.server)
+    if not event.author.permission?(:administrator)
       return "You do not have the required permissions for this."
     end
 
@@ -173,7 +173,7 @@ module Colors
     min_args: 0,
     max_args: 0
   } do |event|
-    if not event.author.permission?(:administrator, event.server)
+    if not event.author.permission?(:administrator)
       return "You do not have the required permissions for this."
     end
 
