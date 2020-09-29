@@ -5,9 +5,9 @@ ruby '~> 2.7'
 group :default do
   # Base
   # dirty hack to fix bundix problems
-  gem 'discordrb-webhooks', git: 'https://github.com/dkudriavtsev/discordrb', branch: 'voice_websocket_update', ref: '43895b3ccc2bb12a38f43b3a720ba4aaf6eafe27'
+  gem 'discordrb-webhooks', git: 'https://github.com/anna328p/discordrb', branch: 'next', ref: '4eadc9296dabf08b89a29e8c0b177664c48c6f88'
   # fix websockets not connecting
-  gem 'discordrb', git: 'https://github.com/swarley/discordrb', branch: 'voice_websocket_update'
+  gem 'discordrb', git: 'https://github.com/swarley/discordrb', branch: 'next'
   gem 'rbnacl'
 
   # Config

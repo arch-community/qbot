@@ -1,16 +1,16 @@
 GIT
-  remote: https://github.com/dkudriavtsev/discordrb
-  revision: 43895b3ccc2bb12a38f43b3a720ba4aaf6eafe27
-  ref: 43895b3ccc2bb12a38f43b3a720ba4aaf6eafe27
-  branch: voice_websocket_update
+  remote: https://github.com/anna328p/discordrb
+  revision: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
+  ref: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
+  branch: next
   specs:
     discordrb-webhooks (3.3.0)
-      rest-client (>= 2.1.0.rc1)
+      rest-client (>= 2.0.0)
 
 GIT
   remote: https://github.com/swarley/discordrb
-  revision: 6d447b3c1ab0ec708434629eaf788aaae125092e
-  branch: voice_websocket_update
+  revision: 48c11263306cdf309644d3a5fb74600e5b7bf8c4
+  branch: next
   specs:
     discordrb (3.3.0)
       discordrb-webhooks (~> 3.3.0)
