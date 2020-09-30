@@ -14,7 +14,7 @@ group :default do
   gem 'hashugar'
 
   # Help
-  gem 'word_wrap', require: 'word_wrap/core_ext'
+  gem 'word_wrap', require: [ 'word_wrap', 'word_wrap/core_ext' ]
 
   # CLI
   gem 'reline'
@@ -37,4 +37,7 @@ group :default do
   gem 'youtube-dl.rb'
   gem 'google-api-client', require: ['google/apis', 'google/apis/youtube_v3', 'googleauth', 'googleauth/stores/file_token_store']
   gem 'soundcloud'
+
+  # figlet
+  gem 'ruby_figlet'
 end
