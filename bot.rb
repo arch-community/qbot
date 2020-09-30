@@ -9,6 +9,8 @@ require 'open-uri'
 
 require './lib/patches'
 require './lib/helpers'
+require './lib/breaking_wrap'
+require './lib/cli'
 
 
 $applog = Log4r::Logger.new 'bot'
@@ -29,6 +31,11 @@ $bot = Discordrb::Commands::CommandBot.new(
   ignore_bots: true,
   no_permission_message: 'You are not allowed to do that',
   help_command: false,
+  intents: Discordrb::INTENTS.keys - [
+    :server_presences,
+    :server_message_typing,
+    :direct_message_typing
+  ]
 )
 
 
@@ -49,30 +56,6 @@ end
 
 $bot.run :async
 
-while buf = Readline.readline('% ', true)
-  s = buf.chomp
-
-  if s.start_with? 'quit', 'stop'
-    $bot.stop
-    exit
-
-  elsif s.start_with? 'reload'
-    load_config
-
-  elsif s.start_with? 'rs', 'restart'
-    $bot.stop
-    exec 'ruby', $PROGRAM_NAME
-
-  elsif s.start_with? 'irb'
-    binding.irb
-
-  elsif s == ''
-    next
-
-  else
-    puts 'Command not found'
-
-  end
-end
+QBot::run_cli
 
 $bot.sync

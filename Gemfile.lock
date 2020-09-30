@@ -124,6 +124,7 @@ GEM
     rexml (3.2.4)
     rss (0.2.9)
       rexml
+    ruby_figlet (0.6.1)
     signet (0.14.0)
       addressable (~> 2.3)
       faraday (>= 0.17.3, < 2.0)
@@ -170,6 +171,7 @@ DEPENDENCIES
   rbnacl
   reline
   rss
+  ruby_figlet
   soundcloud
   sqlite3
   tf-idf-similarity
