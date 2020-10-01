@@ -1,29 +1,33 @@
 module QBot
    def QBot::run_cli
       while buf = Readline.readline('% ', true)
-        s = buf.chomp
+         cmd = buf.chomp.split
+         s = cmd.shift
 
-        if s.start_with? 'quit', 'stop'
-          $bot.stop
-          exit
+         if s.starts_with? 'quit', 'stop'
+            $bot.stop
+            exit
 
-        elsif s.start_with? 'reload'
-          load_config
+         elsif s.start_with? 'rc', 'reload-config'
+            load_config
 
-        elsif s.start_with? 'rs', 'restart'
-          $bot.stop
-          exec 'ruby', $PROGRAM_NAME
+         elsif s.starts_with? 'rm', 'reload-module'
+            Modules.load_module cmd.shift
 
-        elsif s.start_with? 'irb'
-          binding.irb
+         elsif s.start_with? 'rs', 'restart'
+            $bot.stop
+            exec 'ruby', $PROGRAM_NAME
 
-        elsif s == ''
-          next
+         elsif s.start_with? 'irb'
+            binding.irb
 
-        else
-          puts 'Command not found'
+         elsif s == ''
+            next
 
-        end
+         else
+            puts 'Command not found'
+
+         end
       end
    end
 end

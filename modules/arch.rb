@@ -1,21 +1,25 @@
-$mw = MediawikiApi::Client.new "https://wiki.archlinux.org/api.php"
+module Arch
+  extend Discordrb::Commands::CommandContainer
 
-if $config.wiki_username && $config.wiki_password
-  $mw.log_in $config.wiki_username, $config.wiki_password
-end
+  @wiki = MediawikiApi::Client.new "https://wiki.archlinux.org/api.php"
+  attr_accessor :wiki
 
-def wiki_embed(channel, title)
-  channel.send_embed do |m|
-    m.title = "Arch Wiki: #{title}"
-    m.description = "https://wiki.archlinux.org/index.php/#{title.split.join('_')}"
+  def Arch.wiki_login(username, password)
+    @wiki.log_in(username, password)
   end
-end
 
-def search_pkg(query)
-  JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q='+query).read
-end
+  def Arch.wiki_embed(channel, title)
+    channel.send_embed do |m|
+      m.title = "Arch Wiki: #{title}"
+      m.description = "https://wiki.archlinux.org/index.php/#{title.split.join('_')}"
+    end
+  end
 
-def sort_results(res, query)
+  def Arch.search_pkg(query)
+    JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q='+query).read
+  end
+
+  def Arch.sort_results(res, query)
     corpus = res.map { |r|
       keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 2].flatten.join(' ')
       TfIdfSimilarity::Document.new("#{keywords} #{r['pkgdesc']}")
@@ -29,10 +33,7 @@ def sort_results(res, query)
     return res.map.with_index.sort_by { |r, idx|
       matrix[model.document_index(corpus[idx]), model.document_index(corpus.last)]
     }.map(&:first)
-end
-
-module Arch
-  extend Discordrb::Commands::CommandContainer
+  end
 
   command :archwiki, {
     aliases: [ :aw ],
@@ -45,14 +46,14 @@ module Arch
 
     query = qs.join(' ')
     # Check if the page exists
-    q = ($mw.query titles: query).data
+    q = (@wiki.query titles: query).data
 
     if !q['pages']['-1'] # If it exists:
       _, pg = q['pages'].first
       # Embed a link to it
-      wiki_embed(event.channel, pg['title'])
+      Arch.wiki_embed(event.channel, pg['title'])
     else # Search the wiki for the query
-      sq = ($mw.query list: 'search', srsearch: query).data
+      sq = (@wiki.query list: 'search', srsearch: query).data
       if sq['searchinfo']['totalhits'] < 1 # If not found, notify
         event.channel.send_embed do |m|
           m.title = 'No results found'
@@ -74,7 +75,7 @@ module Arch
     log(event)
 
     query = qs.join(' ')
-    response = search_pkg(query)
+    response = Arch.search_pkg(query)
 
     # Error if no results found
     res = response['results']
@@ -95,7 +96,7 @@ module Arch
 
         {
           name: "#{r['repo']}/#{r['pkgname']}",
-          value: <<-END
+          value: <<~END
             #{r['pkgdesc']}
             version **#{ver}** | last update **#{time}** | [web link](#{url})
           END
@@ -113,7 +114,10 @@ module Arch
     max_args: 1
   } do |event, pn|
     log(event)
-
-
+    "Not yet implemented!"
   end
+end
+
+if $config.wiki_username && $config.wiki_password
+  Arch::wiki_login($config.wiki_username, $config.wiki_password)
 end
