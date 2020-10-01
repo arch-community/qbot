@@ -19,13 +19,14 @@ group :default do
   # CLI
   gem 'reline'
   gem 'irb'
+  gem 'paint'
 
   # DB
   gem 'activerecord', require: 'active_record'
   gem 'sqlite3'
 
   # Logging
-  gem 'log4r'
+  gem 'log4r-color'
 
   # Arch
   gem 'mediawiki_api'
@@ -40,4 +41,8 @@ group :default do
 
   # figlet
   gem 'ruby_figlet'
+end
+
+group :test do
+  gem 'rubocop'
 end

@@ -1,5 +1,5 @@
 module QBot
-   def QBot::run_cli
+   def QBot.run_cli
       while buf = Readline.readline('% ', true)
          cmd = buf.chomp.split
          s = cmd.shift
