@@ -1,13 +1,49 @@
 require './lib/youtube'
 
-# Play queues
-$queues = {}
-
-# Now playing list
-$np = {}
-
 module Music
   extend Discordrb::Commands::CommandContainer
+
+  # Now playing list
+  @np = {}
+
+  # Play queues
+  @queues = Hash.new { |hash, key| hash[key] = Queue.new }
+
+  @threads = {}
+  def Music.play_thread(id, q)
+    @threads[q] = Thread.new {
+      v = nil
+      loop do
+        # Wait for the voicebot to initialize
+        until v
+          v = $bot.voice(id)
+          sleep 1
+        end
+
+        while (fn, info = q.pop)
+          # Play the next queued track
+          Music.np[id] = info.fulltitle || info.url
+          v.play_file(fn)
+          Music.np[id] = nil
+
+          # If there is no more music, disconnect and clear the voicebot
+          if q.empty?
+            v.destroy
+            v = nil
+            break
+          end
+        end
+      end
+    }
+  end
+
+  def Music.init_server(server)
+    play_thread server.id, @queues[server.id]
+  end
+
+  class << self
+    attr_accessor :queues, :np
+  end
 
   # Voice functionality
 
@@ -61,7 +97,7 @@ module Music
     end
 
     # Add it to this server's queue
-    $queues[event.server.id] << [filename, info]
+    Music.queues[event.server.id] << [filename, info]
     event.respond "Added **#{info.fulltitle || info.url}** to the queue."
 
     nil
@@ -143,7 +179,7 @@ module Music
   } do |event|
     log(event)
 
-    $queues[event.server.id].clear
+    Music.queues[event.server.id].clear
     event.bot.voice(event.server).stop_playing
   end
 
@@ -203,54 +239,14 @@ module Music
 
     event.channel.send_embed do |m|
       m.title = 'Now playing'
-      m.description = $np[event.server.id] || "Nothing"
+      m.description = Music.np[event.server.id] || "Nothing"
     end
 
     nil
   end
 end
 
-$bot.server_create do |s|
-  $queues[server.id] = Queue.new
+$bot.ready do
+  $bot.servers.each { |id, server| Music.init_server server }
 end
-
-$bot.ready do |e|
-  # Post-init
-
-  # Create a queue for each server
-  e.bot.servers.each do |id, server|
-    $queues[server.id] = Queue.new
-  end
-
-
-  # Play music on every server
-
-  threads = {}
-  $queues.each do |id, q|
-    # For every queue, make a thread that plays the music in the queue.
-    threads[q] = Thread.new {
-      v = nil
-      loop do
-        # Wait for the voicebot to initialize
-        until v
-          v = e.bot.voice(id)
-          sleep 1
-        end
-
-        while (fn, info = q.pop)
-          # Play the next queued track
-          $np[id] = info.fulltitle || info.url
-          v.play_file(fn)
-          $np[id] = nil
-
-          # If there is no more music, disconnect and clear the voicebot
-          if q.empty?
-            v.destroy
-            v = nil
-            break
-          end
-        end
-      end
-    }
-  end
-end
+$bot.server_create { Music.init_server _1.server }

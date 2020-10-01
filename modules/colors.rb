@@ -1,38 +1,36 @@
 require './lib/colorlib.rb'
 
-ColorRole = Struct.new(:idx, :role, :id)
+module Colors
+  extend Discordrb::Commands::CommandContainer
 
-def get_colors(event)
-  bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
-  default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
+  ColorRole = Struct.new(:idx, :role, :id)
 
-  extra_conf = $config.servers[event.server.id]&.roles&.extra_colors || []
-  extra = extra_conf.map { ColorRole.new(nil, event.server.role(_1.id), _1.id) }
+  def Colors.get_colors(event)
+    bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
+    default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
 
-  colors = default + extra
+    extra_conf = $config.servers[event.server.id]&.roles&.extra_colors || []
+    extra = extra_conf.map { ColorRole.new(nil, event.server.role(_1.id), _1.id) }
 
-  colors.each.with_index { |cr, idx| cr.idx = idx }
+    colors = default + extra
 
-  return colors, default, extra
-end
+    colors.each.with_index { |cr, idx| cr.idx = idx }
 
-$bot.member_join do |event|
-  _, default, _ = get_colors(event)
-
-  event.user.add_role(default.sample['role'])
-end
-
-def assign_role(event, role_list, role, name)
-  if event.author.roles.include? role
-    event.channel.send_embed { _1.description = "You already have that #{name}." }
-  else
-    event.author.roles -= role_list
-    event.author.add_role role
-    event.channel.send_embed { _1.description = "Your #{name} is now **#{role.name}**." }
+    return colors, default, extra
   end
-end
 
-def color_ring(l, size, num)
+
+  def Colors.assign_role(event, role_list, role, name)
+    if event.author.roles.include? role
+      event.channel.send_embed { _1.description = "You already have that #{name}." }
+    else
+      event.author.roles -= role_list
+      event.author.add_role role
+      event.channel.send_embed { _1.description = "Your #{name} is now **#{role.name}**." }
+    end
+  end
+
+  def Colors.color_ring(l, size, num)
     angle = 2 * Math::PI / num
 
     (0...num).map do
@@ -40,12 +38,9 @@ def color_ring(l, size, num)
       a = size * Math.cos(this_angle)
       b = size * Math.sin(this_angle)
 
-      lab_to_hex [l, a, b]
+      ColorLib.lab_to_hex [l, a, b]
     end
-end
-
-module Colors
-  extend Discordrb::Commands::CommandContainer
+  end
 
   command :color, {
     aliases: [ :c ],
@@ -56,12 +51,12 @@ module Colors
   } do |event, *args|
     log(event)
 
-    colors, _ = get_colors(event)
+    colors, _ = Colors.get_colors(event)
 
     req = args.join(' ')
 
     requested_color = nil
-    
+
     begin
       # Find color by index
       idx = Integer(req)
@@ -74,9 +69,9 @@ module Colors
     # Role for the requested color
     rc = requested_color.role || (return 'Color not found.')
 
-    assign_role(event, colors.map { _1.role }, rc, 'color')
+    Colors.assign_role(event, colors.map { _1.role }, rc, 'color')
   end
-  
+
   command :closestcolor, {
     aliases: [ :cc ],
     help_available: true,
@@ -87,18 +82,18 @@ module Colors
   } do |event, color|
     log(event)
 
-    colors, _ = get_colors(event)
+    colors, _ = Colors.get_colors(event)
 
-    labs = colors.sort_by { _1.idx }.map { hex_to_lab _1.role.color.hex.rjust(6,?0) }
-    compare = hex_to_lab(color)
+    labs = colors.sort_by { _1.idx }.map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6,?0) }
+    compare = ColorLib.hex_to_lab(color)
 
-    de = labs.map { cie76(compare, _1) }
+    de = labs.map { ColorLib.cie76(compare, _1) }
     min = de.each.with_index.min_by { |val, idx| val }
 
     color = colors.find { _1.idx == min[1] }
 
     event.channel.send_embed { _1.description = "Closest color found: `##{color.role.color.hex.rjust(6,?0)}`." }
-    assign_role(event, colors.map { _1.role }, color.role, 'color')
+    Colors.assign_role(event, colors.map { _1.role }, color.role, 'color')
   end
 
 
@@ -112,7 +107,7 @@ module Colors
   } do |event, *args|
     log(event)
 
-    colors, _ = get_colors(event)
+    colors, _ = Colors.get_colors(event)
 
     # Formatted list of the colors
     list = colors.sort_by { _1.idx }.map do |c|
@@ -150,7 +145,7 @@ module Colors
     size = args[1].to_f
     num = args[2].to_i
 
-    colors = color_ring(l, size, num)
+    colors = Colors.color_ring(l, size, num)
 
     colors.each.with_index do |hex, idx|
       event.server.create_role(
@@ -161,7 +156,7 @@ module Colors
       )
       event.respond "Created role `color#{idx}` with color `##{hex}`."
     end
-    
+
     "Created #{colors.size} roles."
   end
 
@@ -178,7 +173,7 @@ module Colors
     end
 
     users = event.server.members
-    colors, default, _ = get_colors(event)
+    colors, default, _ = Colors.get_colors(event)
 
     counter = 0
     users.filter { (_1.roles & colors.map(&:role)).empty? }.each do |u|
@@ -188,4 +183,10 @@ module Colors
 
     event.channel.send_embed { _1.description = "Randomized colors for #{counter} users." }
   end
+end
+
+$bot.member_join do |event|
+  _, default, _ = Colors.get_colors(event)
+
+  event.user.add_role(default.sample['role'])
 end
