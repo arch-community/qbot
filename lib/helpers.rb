@@ -1,8 +1,3 @@
-def load_config
-  $config = (YAML.load_file 'config.yml' || {}).to_hashugar
-  Log4r::Logger['bot'].info 'Loaded configuration'
-end
-
 def formatted_name(u)
   "#{u.name}##{u.discriminator}"
 end
