@@ -5,9 +5,9 @@ ruby '~> 2.7'
 group :default do
   # Base
   # dirty hack to fix bundix problems
-  gem 'discordrb-webhooks', git: 'https://github.com/anna328p/discordrb', branch: 'next', ref: '4eadc9296dabf08b89a29e8c0b177664c48c6f88'
+  gem 'discordrb-webhooks', github: 'anna328p/discordrb', branch: 'next', ref: '4eadc9296dabf08b89a29e8c0b177664c48c6f88'
   # fix websockets not connecting
-  gem 'discordrb', git: 'https://github.com/swarley/discordrb', branch: 'next'
+  gem 'discordrb', github: 'swarley/discordrb', branch: 'next'
   gem 'rbnacl'
 
   # Config
@@ -34,7 +34,7 @@ group :default do
   gem 'narray'
 
   # Music
-  gem 'youtube-dl.rb'
+  gem 'youtube-dl.rb', github: 'gkaklas/youtube-dl.rb', branch: 'terrapin-migration'
   gem 'google-api-client', require: ['google/apis', 'google/apis/youtube_v3', 'googleauth', 'googleauth/stores/file_token_store']
   gem 'soundcloud'
 

@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/anna328p/discordrb
+  remote: https://github.com/anna328p/discordrb.git
   revision: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
   ref: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
   branch: next
@@ -8,8 +8,16 @@ GIT
       rest-client (>= 2.0.0)
 
 GIT
-  remote: https://github.com/swarley/discordrb
-  revision: 48c11263306cdf309644d3a5fb74600e5b7bf8c4
+  remote: https://github.com/gkaklas/youtube-dl.rb.git
+  revision: 3504b8623eb14a3f58831c39ad678834d1b57ce4
+  branch: terrapin-migration
+  specs:
+    youtube-dl.rb (0.3.1.2016.09.11.1)
+      terrapin (>= 0.6.0)
+
+GIT
+  remote: https://github.com/swarley/discordrb.git
+  revision: a15f81cb80f416b10f3ad8578fad563017a9071b
   branch: next
   specs:
     discordrb (3.3.0)
@@ -36,8 +44,6 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     climate_control (0.2.0)
-    cocaine (0.6.0)
-      terrapin (= 0.6.0)
     concurrent-ruby (1.1.6)
     declarative (0.0.20)
     declarative-option (0.1.0)
@@ -151,8 +157,6 @@ GEM
       event_emitter
       websocket
     word_wrap (1.0.0)
-    youtube-dl.rb (0.3.1.2016.09.11.1)
-      cocaine (>= 0.5.4)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -176,7 +180,7 @@ DEPENDENCIES
   sqlite3
   tf-idf-similarity
   word_wrap
-  youtube-dl.rb
+  youtube-dl.rb!
 
 RUBY VERSION
    ruby 2.7.1p83
