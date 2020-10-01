@@ -17,6 +17,7 @@ global:
     - colors
     - arch
     - snippets
+    - figlet
   prefix: '.'
   snippets:
     - name: hello
@@ -32,33 +33,9 @@ servers:
   399812551963049995:
     log_channel: 573292276382695425
     roles:
-      colors:
-        default:
-          - name: Red
-            id: 722391990993682452
-            index: 1
-          - name: Green
-            id: 722392110053064736
-            index: 2
-          - name: Yellow
-            id: 722392143087534161
-            index: 3
-          - name: Blue
-            id: 722392174557397002
-            index: 4
-          - name: Magenta
-            id: 722392202034282516
-            index: 5
-          - name: Cyan
-            id: 722392230748225567
-            index: 6
-        extra:
-          - name: Black
-            id: 722392317272653864
-            index: 0
-          - name: White
-            id: 722392286482137129
-            index: 7
+      extra_colors:
+        - id: 722392317272653864
+        - id: 722392286482137129
     snippets:
       - name: arch
         text: i use arch btw

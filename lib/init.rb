@@ -1,11 +1,10 @@
 def print_logo(version)
   logo = File.read './lib/logo.txt'
-
-  puts "\n#{logo.chomp}  version #{version}\n\n"
+puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright, :gray]}\n\n"
 end
 
 def init_config
-  $config = (YAML.load_file 'config.yml' || {}).to_hashugar
+  $config = (YAML.load_file $options.config_path || {}).to_hashugar
 end
 
 def load_config
@@ -15,7 +14,18 @@ end
 
 def init_log
   $applog = Log4r::Logger.new 'bot'
-  $applog.outputters = Log4r::Outputter.stderr
+  #$applog.outputters = Log4r::Outputter.stderr
+
+  Log4r::ColorOutputter.new 'color', {
+    colors: {
+      debug: :white,
+      info: :green,
+      warn: :yellow,
+      error: :red,
+      fatal: :red
+    }
+  }
+  $applog.add 'color'
 end
 
 def init_bot
