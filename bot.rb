@@ -18,7 +18,7 @@ $applog.outputters = Log4r::Outputter.stderr
 
 load_config
 
-token = $config.token || raise('No token in configuration; set token')
+token     = $config.token     || raise('No token in configuration; set token')
 client_id = $config.client_id || raise('No client_id in configuration; set client_id')
 
 $applog.debug 'Init bot object'
@@ -45,10 +45,10 @@ require_relative 'lib/db'
 $applog.debug 'Init modules'
 Modules.load_all
 
-$applog.info 'Initializing connection'
+$applog.info 'Initializing connection...'
 
 $bot.ready do
-  $applog.info 'Startup complete'
+  $applog.info 'Bot ready.'
 end
 
 $bot.run :async
