@@ -28,6 +28,15 @@ in stdenv.mkDerivation {
   LD_LIBRARY_PATH = "${libsodium}/lib:${libopus}/lib";
 
   installPhase = ''
-    mkdir -p $out/bin
+    mkdir -p $out/{bin,share/qbot}
+    cp -r * $out/share/qbot
+    bin=$out/bin/qbot
+
+    cat >$bin <<EOF
+#!/bin/sh -e
+exec ${bundler'}/bin/bundle exec ${ruby_2_7}/bin/ruby $i "\$@"
+EOF
+
+    chmod +x $bin
   '';
 }
