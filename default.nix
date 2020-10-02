@@ -1,4 +1,4 @@
-with (import <nixpkgs> { overlays = [(self: super: { ruby = super.ruby_2_7; })]; });
+with (import <nixpkgs> { overlays = [(self: super: { ruby = super.ruby_2_7; })]; config.allowUnfree = true; });
 let
   oracle = symlinkJoin {
     name = "instantclient";
