@@ -10,7 +10,7 @@ module Queries
   } do |event, *args|
     text = args.join(' ').gsub('@', "\\@\u200D")
 
-    new_query = Query.create(server: event.server.id, author: event.author.id, text: text)
+    new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text: text)
     log(event, "query id #{new_query.id}")
 
     event.channel.send_embed { _1.description = "Query ##{new_query.id} has been created." }
@@ -28,8 +28,8 @@ module Queries
 
     Query.where("created_at <= :timeout", { timeout: Time.now - 30.days }).map(&:destroy!)
 
-    queries = Query.where(server: event.server.id).map do |q|
-      { name: "##{q.id} by #{formatted_name(event.bot.user(q.author))} at #{q.created_at.to_s}", value: q.text }
+    queries = Query.where(server_id: event.server.id).map do |q|
+      { name: "##{q.id} by #{formatted_name(event.bot.user(q.user_id))} at #{q.created_at.to_s}", value: q.text }
     end
 
     queries = [{ name: '#0', value: 'No results' }] if queries.empty?
@@ -53,7 +53,7 @@ module Queries
     args.each do
       id = _1.to_i
       begin
-        q = Query.find(id)
+        q = Query.where(server_id: event.server.id).find(id)
       rescue ActiveRecord::RecordNotFound
         event.respond "Query ##{id} not found."
       end

@@ -9,8 +9,8 @@ module Colors
     bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
     default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
 
-    extra_conf = $config.servers[event.server.id]&.roles&.extra_colors || []
-    extra = extra_conf.map { ColorRole.new(nil, event.server.role(_1.id), _1.id) }
+    extra_conf = ExtraColorRole.where(server_id: event.server.id).map(&:role_id) || []
+    extra = extra_conf.map { ColorRole.new(nil, event.server.role(_1), _1) }
 
     colors = default + extra
 
