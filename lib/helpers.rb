@@ -3,7 +3,12 @@ def formatted_name(u)
 end
 
 def prefix(id)
-  $config.servers[id]&.prefix || $config.global.prefix || '.'
+  if $config.global&.modules&.include? 'configuration'
+    $prefixes ||= Hash.new { |hash, key| hash[key] = Configuration.config(key).prefix || '.' }
+    $prefixes[id] || $config.global.prefix || '.'
+  else
+    $config.global.prefix || '.'
+  end
 end
 
 def cmd_prefix(m)
@@ -37,4 +42,8 @@ end
 def user_response(bot, event)
   event = bot.add_await!(Discordrb::Events::MentionEvent, in: event.channel, from: event.author)
   event.message.text.split[1].to_i
+end
+
+def embed(event, text)
+  event.channel.send_embed { _1.description = text }
 end

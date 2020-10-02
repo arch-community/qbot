@@ -24,6 +24,8 @@ group :default do
   # DB
   gem 'activerecord', require: 'active_record'
   gem 'sqlite3'
+  gem 'activerecord-oracle_enhanced-adapter'
+  gem 'ruby-oci8'
 
   # Logging
   gem 'log4r-color'

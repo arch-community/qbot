@@ -11,6 +11,7 @@ require 'open-uri'
 
 require_relative 'lib/options'
 require_relative 'lib/patches'
+require_relative 'lib/db'
 require_relative 'lib/helpers'
 require_relative 'lib/breaking_wrap'
 require_relative 'lib/modules'
@@ -21,14 +22,14 @@ $options = QBot.parse_options(ARGV)
 
 print_logo $VERSION
 
-init_config
-init_log
+$config = init_config
+$applog = init_log
 
 $applog.debug 'Init bot object'
-init_bot
+$bot = init_bot
 
 $applog.debug 'Init DB'
-require_relative 'lib/db'
+init_db
 
 $applog.debug 'Init modules'
 Modules.load_all
