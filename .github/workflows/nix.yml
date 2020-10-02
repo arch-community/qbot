@@ -15,4 +15,5 @@ jobs:
         name: qbot
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: nix-build
+    - run: result/bin/qbot --version
     - run: nix-shell --run "echo OK"
