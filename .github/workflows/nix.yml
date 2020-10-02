@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
 jobs:
-  tests:
+  build-to-cache:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.1
@@ -12,7 +12,7 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
     - uses: cachix/cachix-action@v6
       with:
-        name: mycache
+        name: qbot
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: nix-build
     - run: nix-shell --run "echo OK"
