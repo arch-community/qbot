@@ -1,42 +1,43 @@
+# Arch Linux wiki and package searching commands.
 module Arch
   extend Discordrb::Commands::CommandContainer
 
-  @wiki = MediawikiApi::Client.new "https://wiki.archlinux.org/api.php"
+  @wiki = MediawikiApi::Client.new 'https://wiki.archlinux.org/api.php'
   attr_accessor :wiki
 
-  def Arch.wiki_login(username, password)
+  def self.wiki_login(username, password)
     @wiki.log_in(username, password)
   end
 
-  def Arch.wiki_embed(channel, title)
+  def self.wiki_embed(channel, title)
     channel.send_embed do |m|
       m.title = "Arch Wiki: #{title}"
       m.description = "https://wiki.archlinux.org/index.php/#{title.split.join('_')}"
     end
   end
 
-  def Arch.search_pkg(query)
-    JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q='+query).read
+  def self.search_pkg(query)
+    JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q=' + query).read
   end
 
-  def Arch.sort_results(res, query)
-    corpus = res.map { |r|
+  def self.sort_results(res, query)
+    corpus = res.map do |r|
       keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 2].flatten.join(' ')
       TfIdfSimilarity::Document.new("#{keywords} #{r['pkgdesc']}")
-    }
+    end
     corpus << TfIdfSimilarity::Document.new(query)
 
     model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
 
     matrix = model.similarity_matrix
 
-    return res.map.with_index.sort_by { |r, idx|
+    res.map.with_index.sort_by do |_r, idx|
       matrix[model.document_index(corpus[idx]), model.document_index(corpus.last)]
-    }.map(&:first)
+    end.map(&:first)
   end
 
   command :archwiki, {
-    aliases: [ :aw ],
+    aliases: [:aw],
     help_available: true,
     description: 'Searches the Arch Wiki',
     usage: '.aw <query>',
@@ -66,7 +67,7 @@ module Arch
   end
 
   command :packagesearch, {
-    aliases: [ :ps ],
+    aliases: [:ps],
     help_available: true,
     description: 'Searches the Arch repositories for a package',
     usage: '.ps <query>',
@@ -89,7 +90,7 @@ module Arch
     # Embed the search results
     event.channel.send_embed do |m|
       m.title = "Search results for #{query}"
-      m.fields = ordered_results.first(5).map { |r|
+      m.fields = ordered_results.first(5).map do |r|
         ver = r['pkgver']
         time = Time.parse(r['last_update']).strftime('%Y-%m-%d')
         url = "https://www.archlinux.org/packages/#{r['repo']}/#{r['arch']}/#{r['pkgname']}"
@@ -101,23 +102,23 @@ module Arch
             version **#{ver}** | last update **#{time}** | [web link](#{url})
           END
         }
-      }
+      end
     end
   end
 
   command :package, {
-    aliases: [ :package ],
+    aliases: [:package],
     help_available: true,
     description: 'Shows info for a given package',
     usage: '.p <pkgname>',
     min_args: 1,
     max_args: 1
-  } do |event, pn|
+  } do |event, _pn|
     log(event)
-    "Not yet implemented!"
+    'Not yet implemented!'
   end
 end
 
-if $config.wiki_username && $config.wiki_password
-  Arch::wiki_login($config.wiki_username, $config.wiki_password)
+if QBot.config.wiki_username && QBot.config.wiki_password
+  Arch.wiki_login(QBot.config.wiki_username, QBot.config.wiki_password)
 end

@@ -1,12 +1,8 @@
 module Snippets
   extend Discordrb::Commands::CommandContainer
 
-  def Snippets.all_snippets(server)
-    $config.global.snippets + $config&.servers[server.id]&.snippets
-  end
-
   command :listsnippets, {
-    aliases: [ :ls ],
+    aliases: [:ls],
     help_available: true,
     description: 'Lists available snippets',
     usage: '.ls',
@@ -17,12 +13,12 @@ module Snippets
 
     event.channel.send_embed do |m|
       m.title = 'Available snippets'
-      m.description = Snippets.all_snippets(event.server).map { _1.name }.join(', ')
+      m.description = Snippet.where(server_id: event.server.id).map(&:name).join(', ')
     end
   end
 
   command :snippet, {
-    aliases: [ :s ],
+    aliases: [:s],
     help_available: true,
     description: 'Posts a snippet',
     usage: '.s <snippet name>',
@@ -31,7 +27,7 @@ module Snippets
   } do |event, name|
     log(event)
 
-    text = Snippets.all_snippets(event.server).find { _1.name == name }.text
+    text = Snippet.where(server_id: event.server.id, name: name).text
     event.channel.send_embed { _1.description = text || 'Snippet not found' }
   end
 end

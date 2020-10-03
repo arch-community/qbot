@@ -18,6 +18,7 @@ module Util
     min_args: 0,
     max_args: 0
   } do |event|
-    $config.my_repo
+    log(event)
+    QBot.config.my_repo
   end
 end

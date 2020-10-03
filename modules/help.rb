@@ -4,7 +4,7 @@ module Help
   extend Discordrb::Commands::CommandContainer
 
   command :help, {
-    aliases: [ :h ],
+    aliases: [:h],
     help_available: true,
     description: 'Shows a list of all available commands or displays help for a specific command',
     usage: '.help [command]',
@@ -13,7 +13,7 @@ module Help
   } do |event, command_name|
     log(event)
 
-    pfx = prefix(event.server.id)
+    pfx = ServerConfig[event.server.id].prefix
 
     if command_name
       command = event.bot.commands[command_name.to_sym]
@@ -30,11 +30,11 @@ module Help
       fields = []
 
       aliases = event.bot.command_aliases(command_name.to_sym)
-      if not aliases.empty?
+      unless aliases.empty?
         fields << {
           name: 'Aliases',
           value: aliases.map { |a| "`#{a.name}`" }.join(', '),
-          inline: true,
+          inline: true
         }
       end
 
@@ -45,7 +45,7 @@ module Help
       if parameters
         fields << {
           name: 'Accepted parameters',
-          value: "```\n#{parameters.join ?\n}\n```"
+          value: "```\n#{parameters.join "\n"}\n```"
         }
       end
 
@@ -66,14 +66,13 @@ module Help
           !can_run(c.name, event)
       end
 
-
       case available_commands.length
       when 0..25
         event.channel.send_embed do |m|
           m.title = 'List of commands'
           m.fields = available_commands.map { {
             name: "#{pfx}#{_1.name}",
-            value: _1.attributes[:description] || "",
+            value: _1.attributes[:description] || ''
           } }
         end
         return

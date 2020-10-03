@@ -1,3 +1,4 @@
+load './modules/admin/config.rb'
 module Admin
   extend Discordrb::Commands::CommandContainer
 
@@ -11,10 +12,10 @@ module Admin
 
     _ = m = e.message
     a = e.author
-    if a.id == $config.owner
+    if a.id == QBot.config.owner
       eval args.join(' ')
     else
-      "nope"
+      'nope'
     end
   end
 
@@ -29,13 +30,13 @@ module Admin
       m.fields = [
         {
           name: 'Global',
-          value: $config.global.modules.join(', '),
+          value: QBot.config.global.modules.join(', ')
         }
       ]
-      if $config.servers[e.server.id]&.modules
+      if QBot.config.servers[e.server.id]&.modules
         m.fields << {
           name: 'Local',
-          value: $config.servers[e.server.id].modules.join(', '),
+          value: Config[e.server.id].modules
         }
       end
     end

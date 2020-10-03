@@ -1,17 +1,18 @@
-ActiveRecord::Base.logger = $applog
+ActiveRecord::Base.logger = QBot.log
 
-def init_db
-  ActiveRecord::Base.establish_connection(
-    adapter: $config.database.type,
-    database: $config.database.db,
-    username: $config.database.user,
-    password: $config.database.pass
-  )
-  $applog.info 'Database connection initialized.'
-end
+module QBot
+  def self.init_db
+    ActiveRecord::Base.establish_connection(
+      adapter: @config.database.type,
+      database: @config.database.db,
+      username: @config.database.user,
+      password: @config.database.pass
+    )
+    QBot.log.info 'Database connection initialized.'
+  end
 
-def define_schema
-  ActiveRecord::Schema.define(version: 2020_10_02) do
+  def define_schema
+    ActiveRecord::Schema.define(version: 20_201_002) do
       create_table :server_configs do |t|
         t.integer :server_id, null: false
         t.text :prefix
@@ -44,10 +45,28 @@ def define_schema
       add_index :queries, :server_id, unique: true
       add_index :extra_color_roles, :server_id, unique: true
       add_index :snippets, :server_id, unique: true
+    end
   end
 end
 
 class Query < ActiveRecord::Base; end
-class ServerConfig < ActiveRecord::Base; end
+
+class ServerConfig < ActiveRecord::Base
+  # Cache config objects
+  def self.[](server_id)
+    @@configs ||= {}
+    @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id: server_id)
+  end
+
+  def modules_conf
+    @modules_json ? JSON.parse(@modules_json) : { disabled: [] }
+  end
+
+  def modules
+    global = QBot.config.global.modules
+    global - modules_conf[:disabled]
+  end
+end
+
 class ExtraColorRole < ActiveRecord::Base; end
 class Snippet < ActiveRecord::Base; end

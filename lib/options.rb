@@ -5,7 +5,7 @@ module QBot
     attr_accessor :config_path
 
     def initialize
-      @config_path = './config.yml'
+      @config_path = 'config/global.yml'
     end
 
     def define_options(parser)
@@ -13,10 +13,8 @@ module QBot
       parser.separator ''
       parser.separator 'Options:'
 
-
       parser.on('-c', '--config <file>', String,
-                "Specify location of the config file (default #{@config_path})"
-               ) do |path|
+                "Specify location of the config file (default #{@config_path})") do |path|
         @config_path = path
       end
 
@@ -26,13 +24,13 @@ module QBot
       end
 
       parser.on_tail('-v', '--version', 'Show version') do
-        puts "QBot #{$VERSION}"
+        puts "QBot #{@VERSION}"
         exit
       end
     end
   end
 
-  def QBot.parse_options(args)
+  def self.parse_options(args)
     @options = Options.new
     @args = OptionParser.new do |parser|
       @options.define_options(parser)

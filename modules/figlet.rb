@@ -8,8 +8,8 @@ module Figlet
     description: 'Renders some text as ASCII art',
     usage: '.figlet <text>',
     min_args: 1
-  } do |event, *text|
-    input = QBot::breaking_word_wrap(text.join(' '), 16)
+  } do |_event, *text|
+    input = QBot.breaking_word_wrap(text.join(' '), 16)
     figlet = RubyFiglet::Figlet.new(input).to_s
 
     <<~END

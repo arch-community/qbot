@@ -10,13 +10,13 @@ module Music
   @queues = Hash.new { |hash, key| hash[key] = Queue.new }
 
   @threads = {}
-  def Music.play_thread(id, q)
-    @threads[q] = Thread.new {
+  def self.play_thread(id, q)
+    @threads[q] = Thread.new do
       v = nil
       loop do
         # Wait for the voicebot to initialize
         until v
-          v = $bot.voice(id)
+          v = QBot.bot.voice(id)
           sleep 1
         end
 
@@ -27,17 +27,17 @@ module Music
           Music.np[id] = nil
 
           # If there is no more music, disconnect and clear the voicebot
-          if q.empty?
-            v.destroy
-            v = nil
-            break
-          end
+          next unless q.empty?
+
+          v.destroy
+          v = nil
+          break
         end
       end
-    }
+    end
   end
 
-  def Music.init_server(server)
+  def self.init_server(server)
     play_thread server.id, @queues[server.id]
   end
 
@@ -74,14 +74,12 @@ module Music
     log(event)
 
     # Join the channel if not joined already
-    if !event.bot.voice(event.server)
-      event.bot.execute_command(:join, event, [])
-    end
+    event.bot.execute_command(:join, event, []) unless event.bot.voice(event.server)
 
     url = args.join(' ')
 
     # Search YouTube if it's not a URL
-    url = "ytsearch:#{url}" if !(url =~ URI::regexp)
+    url = "ytsearch:#{url}" unless url =~ URI::DEFAULT_PARSER.make_regexp
 
     # Temporary file for the track based on a hash of its URL
     filename = "/tmp/amb-#{Digest::SHA256.hexdigest url}.opus"
@@ -91,7 +89,7 @@ module Music
     if File.exist?(filename) && File.exist?(filename + '.dat')
       info = Marshal.load(File.read(filename + '.dat'))
     else
-      event.respond "Downloading..."
+      event.respond 'Downloading...'
       info = YoutubeDL.download url, output: filename, extract_audio: true, audio_format: :opus
       File.write(filename + '.dat', Marshal.dump(info))
     end
@@ -104,8 +102,8 @@ module Music
   end
 
   def to_word(num)
-    numbers = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-    words = %w( zero one two three four five six seven eight nine ten )
+    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    words = %w[zero one two three four five six seven eight nine ten]
     map = numbers.zip(words).to_h
     map[num] || num
   end
@@ -127,13 +125,13 @@ module Music
     # Show the search results in the channel
     event.channel.send_embed do |m|
       m.title = "Search results for #{query}"
-      m.description = "To choose a result, ping the bot with its number."
-      m.fields = results.map.with_index { |r, idx|
+      m.description = 'To choose a result, ping the bot with its number.'
+      m.fields = results.map.with_index do |r, idx|
         {
           name: ":#{to_word(idx + 1)}:  #{r.snippet.title}",
           value: "#{d = r.snippet.description; d.size < 192 ? d : d[0..191].chomp + '...'}\nhttps://youtu.be/#{r.id.video_id}"
         }
-      }
+      end
     end
 
     # Get the user's response
@@ -143,8 +141,6 @@ module Music
     # Actually play the found video
     event.bot.execute_command(:play, event, [ytid])
   end
-
-
 
   command :pause, {
     help_available: true,
@@ -208,9 +204,7 @@ module Music
     vol = vol_str.to_f
 
     # Allow for both 0-1 and percentages
-    if vol > 1
-      vol /= 100.0
-    end
+    vol /= 100.0 if vol > 1
 
     event.bot.voice(event.server).volume = vol
   end
@@ -239,14 +233,14 @@ module Music
 
     event.channel.send_embed do |m|
       m.title = 'Now playing'
-      m.description = Music.np[event.server.id] || "Nothing"
+      m.description = Music.np[event.server.id] || 'Nothing'
     end
 
     nil
   end
 end
 
-$bot.ready do
-  $bot.servers.each { |id, server| Music.init_server server }
+QBot.bot.ready do |e|
+  e.bot.servers.each { |_id, server| Music.init_server server }
 end
-$bot.server_create { Music.init_server _1.server }
+QBot.bot.server_create { Music.init_server _1.server }

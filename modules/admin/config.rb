@@ -1,33 +1,9 @@
-module Configuration
+# Configuration command for the admin module.
+module Admin
   extend Discordrb::Commands::CommandContainer
 
-  def Configuration.config(server_id)
-    ServerConfig.find_or_create_by(server_id: server_id)
-  end
-
-  def Configuration.help_msg(event, command, avail)
-    cmd = prefix(event.server.id) + command
-    subcommands = avail.map { |k, v| "   #{k} - #{v}" }.join(?\n)
-    embed event, <<~END
-        ```
-        Usage: #{cmd} <subcommand> [options]
-
-        Available subcommands:
-        #{subcommands}
-        ```
-    END
-  end
-
-  def Configuration.save_prefix(event, cfg, np)
-    cfg.prefix = np
-    $prefixes[event.server.id] = np
-    cfg.save!
-
-    embed event, "New prefix `#{np}` saved."
-  end
-
   command :config, {
-    aliases: [ :cfg ],
+    aliases: [:cfg],
     help_available: true,
     description: 'Sets various configuration options for the bot',
     usage: '.cfg <args>',
@@ -45,7 +21,7 @@ module Configuration
       }
 
     when 'prefix', 'pfx'
-      cfg = Configuration.config(event.server.id)
+      cfg = Config[event.server.id]
       subcmd = args.shift
 
       case subcmd
@@ -55,9 +31,9 @@ module Configuration
           reset: 'resets the prefix to the default'
         }
       when 'set'
-        Configuration.save_prefix event, cfg, args.shift
+        Config.save_prefix event, cfg, args.shift
       when 'reset'
-        Configuration.save_prefix event, cfg, $config.global.prefix || '.'
+        Config.save_prefix event, cfg, QBot.config.global.prefix || '.'
       end
 
     when 'extra-color-role', 'ecr'
@@ -77,9 +53,9 @@ module Configuration
         return 'No extra color roles configured yet.' if role_rows.empty?
 
         roles = role_rows.map { event.server.role(_1.role_id.to_i) }
-        
+
         role_descriptions = roles.map {
-          hex = _1.color.hex.rjust(6, ?0)
+          hex = _1.color.hex.rjust(6, '0')
           "##{hex} #{_1.id} #{1.name}"
         }
 
@@ -91,7 +67,7 @@ module Configuration
 
       when 'add'
         role = event.server.role(role_id)
-        return 'Role not found.' if !role
+        return 'Role not found.' unless role
 
         begin
           ExtraColorRole.create(server_id: event.server.id, role_id: role_id)

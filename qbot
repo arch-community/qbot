@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
-
-$VERSION = '0.1a'
+# frozen-string-literal: true
 
 Bundler.require :default
 require 'json'
@@ -9,44 +8,23 @@ require 'digest'
 require 'uri'
 require 'open-uri'
 
-require_relative 'lib/options'
-require_relative 'lib/patches'
-require_relative 'lib/db'
-require_relative 'lib/helpers'
-require_relative 'lib/breaking_wrap'
-require_relative 'lib/modules'
-require_relative 'lib/cli'
-require_relative 'lib/init'
-
-$options = QBot.parse_options(ARGV)
-
-print_logo $VERSION
-
-$config = init_config
-$applog = init_log
-
-$applog.debug 'Init bot object'
-$bot = init_bot
-
-$applog.debug 'Init DB'
-init_db
-
-$applog.debug 'Init modules'
-Modules.load_all
-
-$applog.info 'Initializing connection...'
-
-$bot.run :async
-$bot.ready do
-  $applog.info 'Bot ready.'
+def require_libs(libs)
+  libs.each { require_relative "lib/#{_1}" }
 end
 
-trap :INT do
-  Thread.new { $applog.fatal 'Ctrl-C caught, exiting gracefully...' }.join
-  $bot.stop
-  exit 130
-end
+require_libs %w[
+  globals
+  options
+  patches
+  db
+  configuration
+  helpers
+  breaking_wrap
+  modules
+  cli
+  init
+]
 
-QBot.run_cli
+QBot.VERSION = '0.1a'
 
-$bot.sync
+QBot.run!
