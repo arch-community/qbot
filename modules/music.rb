@@ -106,7 +106,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     nil
   end
 
-  def to_word(num)
+  def self.to_word(num)
     numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     words = %w[zero one two three four five six seven eight nine ten]
     map = numbers.zip(words).to_h
@@ -145,7 +145,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     end
 
     # Get the user's response
-    number = user_response(bot, event)
+    number = user_response(event)
     ytid = results[number - 1].id.video_id
 
     # Actually play the found video

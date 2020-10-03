@@ -5,11 +5,12 @@ ActiveRecord::Base.logger = QBot.log
 # Database interface
 module Database
   def self.init_db
+    conf = QBot.config.database
     ActiveRecord::Base.establish_connection(
-      adapter: @config.database.type,
-      database: @config.database.db,
-      username: @config.database.user,
-      password: @config.database.pass
+      adapter: conf.type,
+      database: conf.db,
+      username: conf.user,
+      password: conf.pass
     )
     QBot.log.info 'Database connection initialized.'
   end

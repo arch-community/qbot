@@ -32,15 +32,20 @@ module Discordrb
   module Commands
     # Overwrite of the CommandBot to monkey patch command length
     class CommandBot
+      def blockify(chunk, ric)
+        if ric
+          chunk.prepend '```' unless chunk&.start_with? '```'
+          chunk << '```'      unless chunk&.end_with? '```'
+        end
+        chunk
+      end
+
       def chunked_respond(event, result)
         rc = result&.chomp
-        is_codeblock = rc&.start_with('```') && rc&.end_with?('```')
+        res_is_codeblock = rc&.start_with?('```') && rc&.end_with?('```')
+
         split_message_n(result, 1992).each do |chunk|
-          if is_codeblock
-            chunk.prepend "```\n"
-            chunk << "```\n"
-          end
-          event.respond chunk
+          event.respond blockify(chunk, res_is_codeblock)
         end
       end
 

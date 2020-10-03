@@ -17,7 +17,7 @@ module Admin
 
     case command
     when 'help', ''
-      help_msg event, 'cfg', {
+      Config.help_msg event, 'cfg', {
         help: 'show this message',
         prefix: 'set the command prefix for this server',
         'extra-color-role': 'configure extra color roles'
@@ -29,7 +29,7 @@ module Admin
 
       case subcmd
       when 'help', ''
-        help_msg event, 'cfg prefix', {
+        Config.help_msg event, 'cfg prefix', {
           set: 'set the prefix for this server',
           reset: 'resets the prefix to the default'
         }
@@ -45,7 +45,7 @@ module Admin
 
       case subcmd
       when 'help', ''
-        help_msg event, 'cfg extra-color-role', {
+        Config.help_msg event, 'cfg extra-color-role', {
           list: 'print the list of extra color roles',
           add: 'add a role (by ID) to the list of extra roles',
           remove: 'remove a role (by ID) from the list of extra roles'

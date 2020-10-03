@@ -22,7 +22,7 @@ module Help
 
     fields = []
 
-    aliases = event.bot.command_aliases(command_name.to_sym)
+    aliases = event.bot.command_aliases(name.to_sym)
     unless aliases.empty?
       fields << {
         name: 'Aliases',
@@ -45,7 +45,7 @@ module Help
     desc = command.attributes[:description]
 
     event.channel.send_embed do |m|
-      m.title = "#{pfx}#{command_name}"
+      m.title = "#{pfx}#{name}"
       m.description = desc if desc
       m.fields = fields unless fields.empty?
     end

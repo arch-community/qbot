@@ -50,3 +50,5 @@ module YouTube
     results[0].id.video_id
   end
 end
+
+YouTube.init
