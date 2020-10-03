@@ -2,7 +2,7 @@ module Queries
   extend Discordrb::Commands::CommandContainer
 
   command :query, {
-    aliases: [ :q ],
+    aliases: [:q],
     help_available: true,
     description: 'Adds a query to the list of queries',
     usage: '.q <question>',
@@ -17,19 +17,19 @@ module Queries
   end
 
   command :openqueries, {
-    aliases: [ :oq ],
+    aliases: [:oq],
     help_available: true,
     description: 'Lists open queries',
     usage: '.oq',
     min_args: 0,
     max_args: 0
-  } do |event, *args|
+  } do |event, *_args|
     log(event)
 
-    Query.where("created_at <= :timeout", { timeout: Time.now - 30.days }).map(&:destroy!)
+    Query.where('created_at <= :timeout', { timeout: Time.now - 30.days }).map(&:destroy!)
 
     queries = Query.where(server_id: event.server.id).map do |q|
-      { name: "##{q.id} by #{formatted_name(event.bot.user(q.user_id))} at #{q.created_at.to_s}", value: q.text }
+      { name: "##{q.id} by #{formatted_name(event.bot.user(q.user_id))} at #{q.created_at}", value: q.text }
     end
 
     queries = [{ name: '#0', value: 'No results' }] if queries.empty?
@@ -42,11 +42,11 @@ module Queries
   end
 
   command :closequery, {
-    aliases: [ :cq ],
+    aliases: [:cq],
     help_available: true,
     description: 'Closes a query',
     usage: '.cq <id>',
-    min_args: 1,
+    min_args: 1
   } do |event, *args|
     log(event)
 
@@ -58,11 +58,11 @@ module Queries
         event.respond "Query ##{id} not found."
       end
 
-      if not q
+      if !q
         event.respond "Query ##{id} not found."
       else
-        if event.author.id == q.author \
-            or event.author.permission?(:manage_messages, event.channel)
+        if (event.author.id == q.author) \
+            || event.author.permission?(:manage_messages, event.channel)
           q.destroy!
           event.respond "Deleted query ##{id}."
         else

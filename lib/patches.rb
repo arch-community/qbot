@@ -1,13 +1,12 @@
 def can_run(name, event)
-  if (m = $config.servers[event.server.id]&.modules)
-    m.filter_map { (eval _1.capitalize)&.commands&.keys }.flatten.include? name
-  else
-    true
-  end
+  m = ServerConfig[event.server.id].modules
+
+  m.filter_map { (eval _1.capitalize)&.commands&.keys }.flatten.include? name
 end
 
 def split_message_n(msg, n)
   return [] if msg.empty?
+
   lines = msg.lines
 
   tri = [*0..(lines.length - 1)].map { |i| lines.combination(i + 1).first }
@@ -18,6 +17,7 @@ def split_message_n(msg, n)
 
   rest = msg[ideal.length..-1].strip
   return [] unless rest
+
   ideal_ary + split_message_n(rest, n)
 end
 
@@ -38,17 +38,13 @@ module Discordrb::Commands
           else
             unless result.nil? || result.empty?
               split_message_n(result, 1992).each do |chunk|
-                if result && result.chomp.start_with?('```') && !chunk.start_with?('```')
-                  chunk.prepend "```\n"
-                end
-                if result && result.chomp.end_with?('```') && !chunk.end_with?('```')
-                  chunk << "```\n"
-                end
+                chunk.prepend "```\n" if result && result.chomp.start_with?('```') && !chunk.start_with?('```')
+                chunk << "```\n" if result && result.chomp.end_with?('```') && !chunk.end_with?('```')
                 event.respond chunk
               end
             end
           end
-        rescue => e
+        rescue StandardError => e
           log_exception(e)
         ensure
           @event_threads.delete(t)
@@ -57,9 +53,10 @@ module Discordrb::Commands
     end
 
     # Check server modules on command execution
-    alias_method :execute!, :execute_command
+    alias execute! execute_command
     def execute_command(name, event, arguments, chained = false, check_permissions = true)
       return unless can_run(name, event)
+
       execute!(name, event, arguments, chained, check_permissions)
     end
   end

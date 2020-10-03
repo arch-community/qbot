@@ -5,7 +5,7 @@ module Colors
 
   ColorRole = Struct.new(:idx, :role, :id)
 
-  def Colors.get_colors(event)
+  def self.get_colors(event)
     bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
     default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
 
@@ -16,11 +16,10 @@ module Colors
 
     colors.each.with_index { |cr, idx| cr.idx = idx }
 
-    return colors, default, extra
+    [colors, default, extra]
   end
 
-
-  def Colors.assign_role(event, role_list, role, name)
+  def self.assign_role(event, role_list, role, name)
     if event.author.roles.include? role
       event.channel.send_embed { _1.description = "You already have that #{name}." }
     else
@@ -30,7 +29,7 @@ module Colors
     end
   end
 
-  def Colors.color_ring(l, size, num)
+  def self.color_ring(l, size, num)
     angle = 2 * Math::PI / num
 
     (0...num).map do
@@ -43,15 +42,15 @@ module Colors
   end
 
   command :color, {
-    aliases: [ :c ],
+    aliases: [:c],
     help_available: true,
     description: 'Sets your user color',
     usage: '.c <color>',
-    min_args: 1,
+    min_args: 1
   } do |event, *args|
     log(event)
 
-    colors, _ = Colors.get_colors(event)
+    colors, = Colors.get_colors(event)
 
     req = args.join(' ')
 
@@ -73,7 +72,7 @@ module Colors
   end
 
   command :closestcolor, {
-    aliases: [ :cc ],
+    aliases: [:cc],
     help_available: true,
     description: 'Gives you the closest color',
     usage: '.cc <color>',
@@ -82,48 +81,47 @@ module Colors
   } do |event, color|
     log(event)
 
-    colors, _ = Colors.get_colors(event)
+    colors, = Colors.get_colors(event)
 
-    labs = colors.sort_by { _1.idx }.map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6,?0) }
+    labs = colors.sort_by { _1.idx }.map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6, '0') }
     compare = ColorLib.hex_to_lab(color)
 
     de = labs.map { ColorLib.cie76(compare, _1) }
-    min = de.each.with_index.min_by { |val, idx| val }
+    min = de.each.with_index.min_by { |val, _idx| val }
 
     color = colors.find { _1.idx == min[1] }
 
-    event.channel.send_embed { _1.description = "Closest color found: `##{color.role.color.hex.rjust(6,?0)}`." }
+    event.channel.send_embed { _1.description = "Closest color found: `##{color.role.color.hex.rjust(6, '0')}`." }
     Colors.assign_role(event, colors.map { _1.role }, color.role, 'color')
   end
 
-
   command :listcolors, {
-    aliases: [ :lc ],
+    aliases: [:lc],
     help_available: true,
     description: 'Lists colors',
     usage: '.lc',
     min_args: 0,
     max_args: 0
-  } do |event, *args|
+  } do |event, *_args|
     log(event)
 
-    colors, _ = Colors.get_colors(event)
+    colors, = Colors.get_colors(event)
 
     # Formatted list of the colors
     list = colors.sort_by { _1.idx }.map do |c|
       idx = c.idx.to_s.rjust(2)
       r = c.role
-      "#{idx}: ##{r.color.hex.rjust(6, ?0)} #{r.name}"
+      "#{idx}: ##{r.color.hex.rjust(6, '0')} #{r.name}"
     end
 
     event.channel.send_embed do |m|
       m.title = 'All colors'
-      m.description = "```#{list.join ?\n}```"
+      m.description = "```#{list.join "\n"}```"
     end
   end
 
   command :createcolorroles, {
-    aliases: [ :ccr ],
+    aliases: [:ccr],
     help_available: false,
     description: 'Creates color roles',
     usage: '.createcolorroles <lightness> <spread> <count>',
@@ -132,9 +130,7 @@ module Colors
   } do |event, *args|
     g = event.server
 
-    if not event.author.permission?(:administrator)
-      return "You do not have the required permissions for this."
-    end
+    return 'You do not have the required permissions for this.' unless event.author.permission?(:administrator)
 
     g.roles.filter { _1.name.ends_with? '[c]' }.each do
       event.respond "Deleting existing color role `#{_1.name}`."
@@ -161,23 +157,21 @@ module Colors
   end
 
   command :randcolors, {
-    aliases: [ :rc ],
+    aliases: [:rc],
     help_available: false,
     description: 'Randomizes user colors',
     usage: '.rc',
     min_args: 0,
     max_args: 0
   } do |event|
-    if not event.author.permission?(:administrator)
-      return "You do not have the required permissions for this."
-    end
+    return 'You do not have the required permissions for this.' unless event.author.permission?(:administrator)
 
     users = event.server.members
-    colors, default, _ = Colors.get_colors(event)
+    colors, default, = Colors.get_colors(event)
 
     counter = 0
     users.filter { (_1.roles & colors.map(&:role)).empty? }.each do |u|
-      u.roles += [ default.sample.role ]
+      u.roles += [default.sample.role]
       counter += 1
     end
 
@@ -185,8 +179,8 @@ module Colors
   end
 end
 
-$bot.member_join do |event|
-  _, default, _ = Colors.get_colors(event)
+QBot.bot.member_join do |event|
+  _, default, = Colors.get_colors(event)
 
   event.user.add_role(default.sample['role'])
 end

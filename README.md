@@ -36,7 +36,7 @@ Bot CLI:
 - `rs` or `restart` restarts the bot.
 - `rc` or `reload-config` reloads the config.
 - `lm` or `load-module` loads or reloads a module.
-- `irb` opens a REPL in the context of the bot. The `CommandBot` object is called `$bot`.
+- `irb` opens a REPL in the context of the bot. The `CommandBot` object is called `@bot`.
 - `quit` or `stop` stops the bot.
 
 The bot uses an SQLite database to store support queries. On first run, open `irb`
