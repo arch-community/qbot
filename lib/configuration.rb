@@ -7,7 +7,7 @@ module Config
   end
 
   def self.help_msg(event, command, avail)
-    cmd = prefix(event.server.id) + command
+    cmd = Config[event.server.id].prefix + command
     subcommands = avail.map { |k, v| "   #{k} - #{v}" }.join("\n")
     embed event, <<~TEXT
       ```

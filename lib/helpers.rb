@@ -5,7 +5,7 @@ def formatted_name(user)
 end
 
 def cmd_prefix(message)
-  pfx = ServerConfig[message.channel.server.id].prefix
+  pfx = ServerConfig[message.channel.server.id].prefix || QBot.config.global.prefix || '.'
   message.text.start_with?(pfx) ? message.text[pfx.length..-1] : nil
 end
 
@@ -34,9 +34,9 @@ def log(event, extra = nil)
 end
 
 # Listen for a user response
-def user_response(bot, event)
-  event = bot.add_await!(Discordrb::Events::MentionEvent, in: event.channel, from: event.author)
-  event.message.text.split[1].to_i
+def user_response(event)
+  response = event.bot.add_await!(Discordrb::Events::MentionEvent, in: event.channel, from: event.author)
+  response.message.text.split[1].to_i
 end
 
 def embed(event, text)

@@ -63,7 +63,7 @@ module Queries
 
       if !q
         event.respond "Query ##{id} not found."
-      elsif event.author.id == q.author \
+      elsif event.author.id == q.user_id \
             || event.author.permission?(:manage_messages, event.channel)
         q.destroy!
         event.respond "Deleted query ##{id}."
