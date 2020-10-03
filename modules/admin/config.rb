@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 # Configuration command for the admin module.
 module Admin
   extend Discordrb::Commands::CommandContainer
 
+  # rubocop: disable Metrics/BlockLength
   command :config, {
     aliases: [:cfg],
     help_available: true,
@@ -59,11 +62,7 @@ module Admin
           "##{hex} #{_1.id} #{1.name}"
         }
 
-        embed event, <<~END
-          ```
-          #{role_descriptions}
-          ```
-        END
+        embed event, "```#{role_descriptions}```"
 
       when 'add'
         role = event.server.role(role_id)
@@ -84,4 +83,5 @@ module Admin
       end
     end
   end
+  # rubocop: enable Metrics/BlockLength
 end

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './lib/youtube'
 
-module Music
+# Music Bot
+module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   extend Discordrb::Commands::CommandContainer
 
   # Now playing list
@@ -10,8 +13,9 @@ module Music
   @queues = Hash.new { |hash, key| hash[key] = Queue.new }
 
   @threads = {}
-  def self.play_thread(id, q)
-    @threads[q] = Thread.new do
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
+  def self.play_thread(id, queue)
+    @threads[queue] = Thread.new do
       v = nil
       loop do
         # Wait for the voicebot to initialize
@@ -20,14 +24,14 @@ module Music
           sleep 1
         end
 
-        while (fn, info = q.pop)
+        while (fn, info = queue.pop)
           # Play the next queued track
           Music.np[id] = info.fulltitle || info.url
           v.play_file(fn)
           Music.np[id] = nil
 
           # If there is no more music, disconnect and clear the voicebot
-          next unless q.empty?
+          next unless queue.empty?
 
           v.destroy
           v = nil
@@ -36,6 +40,7 @@ module Music
       end
     end
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
   def self.init_server(server)
     play_thread server.id, @queues[server.id]
@@ -87,7 +92,7 @@ module Music
     info = nil
     # Download the track; get info
     if File.exist?(filename) && File.exist?(filename + '.dat')
-      info = Marshal.load(File.read(filename + '.dat'))
+      info = Marshal.load(File.read(filename + '.dat')) # rubocop: disable Security/MarshalLoad
     else
       event.respond 'Downloading...'
       info = YoutubeDL.download url, output: filename, extract_audio: true, audio_format: :opus
@@ -120,16 +125,21 @@ module Music
     query = args.join(' ')
 
     # Search YouTube
-    results = youtube_search(query)
+    results = YouTube.search(query)
 
     # Show the search results in the channel
     event.channel.send_embed do |m|
       m.title = "Search results for #{query}"
       m.description = 'To choose a result, ping the bot with its number.'
       m.fields = results.map.with_index do |r, idx|
+        emoji = ":#{to_word(idx + 1)}:"
+
+        desc = r.snippet.description
+        truncated_desc = desc.size < 192 ? desc : desc[0..191].chomp + '...'
+
         {
-          name: ":#{to_word(idx + 1)}:  #{r.snippet.title}",
-          value: "#{d = r.snippet.description; d.size < 192 ? d : d[0..191].chomp + '...'}\nhttps://youtu.be/#{r.id.video_id}"
+          name: "#{emoji}  #{r.snippet.title}",
+          value: truncated_desc + "\nhttps://youtu.be/#{r.id.video_id}"
         }
       end
     end

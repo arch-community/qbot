@@ -1,20 +1,29 @@
+# frozen_string_literal: true
+
 require './lib/colorlib.rb'
 
-module Colors
+# Color role assignment
+module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   extend Discordrb::Commands::CommandContainer
 
   ColorRole = Struct.new(:idx, :role, :id)
 
+  def self.auto_color_roles(event)
+    event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
+  end
+
+  def self.indexify(ary)
+    ary.each.with_index { |cr, idx| cr.idx = idx }
+  end
+
   def self.get_colors(event)
-    bot_roles = event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
+    bot_roles = auto_color_roles(event)
     default = bot_roles.map { ColorRole.new(nil, _1, _1.id) }
 
     extra_conf = ExtraColorRole.where(server_id: event.server.id).map(&:role_id) || []
     extra = extra_conf.map { ColorRole.new(nil, event.server.role(_1), _1) }
 
-    colors = default + extra
-
-    colors.each.with_index { |cr, idx| cr.idx = idx }
+    colors = indexify(default + extra)
 
     [colors, default, extra]
   end
@@ -29,6 +38,7 @@ module Colors
     end
   end
 
+  # rubocop: disable Naming/MethodParameterName
   def self.color_ring(l, size, num)
     angle = 2 * Math::PI / num
 
@@ -40,6 +50,7 @@ module Colors
       ColorLib.lab_to_hex [l, a, b]
     end
   end
+  # rubocop: enable Naming/MethodParameterName
 
   command :color, {
     aliases: [:c],

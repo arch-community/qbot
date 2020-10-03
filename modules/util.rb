@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Utility commands
 module Util
   extend Discordrb::Commands::CommandContainer
 

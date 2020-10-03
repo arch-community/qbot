@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'optparse'
 
+# CLI options for the bot
 module QBot
+  # This class holds the definitions and values of the options
   class Options
     attr_accessor :config_path
 
@@ -13,18 +17,28 @@ module QBot
       parser.separator ''
       parser.separator 'Options:'
 
+      config_option(parser)
+      help_option(parser)
+      version_option(parser)
+    end
+
+    def config_option(parser)
       parser.on('-c', '--config <file>', String,
                 "Specify location of the config file (default #{@config_path})") do |path|
         @config_path = path
       end
+    end
 
+    def help_option(parser)
       parser.on_tail('-h', '--help', 'Show this message') do
         puts parser
         exit
       end
+    end
 
+    def version_option(parser)
       parser.on_tail('-v', '--version', 'Show version') do
-        puts "QBot #{@VERSION}"
+        puts "QBot #{@version}"
         exit
       end
     end

@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'ruby_figlet'
 
+# Text to ASCII art
 module Figlet
   extend Discordrb::Commands::CommandContainer
 
@@ -12,10 +15,6 @@ module Figlet
     input = QBot.breaking_word_wrap(text.join(' '), 16)
     figlet = RubyFiglet::Figlet.new(input).to_s
 
-    <<~END
-      ```
-      #{figlet}
-      ```
-    END
+    "```\n#{figlet}\n```"
   end
 end

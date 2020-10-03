@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 load './modules/admin/config.rb'
+
+# Administration commands
 module Admin
   extend Discordrb::Commands::CommandContainer
 
@@ -10,10 +14,10 @@ module Admin
   } do |e, *args|
     log(e)
 
-    _ = m = e.message
+    _ = m = e.message # rubocop: disable Lint/UselessAssignment
     a = e.author
     if a.id == QBot.config.owner
-      eval args.join(' ')
+      eval args.join(' ') # rubocop: disable Security/Eval
     else
       'nope'
     end

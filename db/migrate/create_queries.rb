@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the queries table
 class CreateQueries < ActiveRecord::Migration[5.0]
   def change
     create_table :queries do |t|

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 ActiveRecord::Base.logger = QBot.log
 
-module QBot
+# Database interface
+module Database
   def self.init_db
     ActiveRecord::Base.establish_connection(
       adapter: @config.database.type,
@@ -11,6 +14,7 @@ module QBot
     QBot.log.info 'Database connection initialized.'
   end
 
+  # rubocop: disable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
   def define_schema
     ActiveRecord::Schema.define(version: 20_201_002) do
       create_table :server_configs do |t|
@@ -47,15 +51,23 @@ module QBot
       add_index :snippets, :server_id, unique: true
     end
   end
+  # rubocop: enable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
 end
 
 class Query < ActiveRecord::Base; end
 
+# Helpers for the server config
 class ServerConfig < ActiveRecord::Base
   # Cache config objects
   def self.[](server_id)
+    # rubocop: disable Style/ClassVars
     @@configs ||= {}
     @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id: server_id)
+  end
+
+  def self.drop_from_cache(server_id)
+    @@configs.delete(server_id)
+    # rubocop: enable Style/ClassVars
   end
 
   def modules_conf

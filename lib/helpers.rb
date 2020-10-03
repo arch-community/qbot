@@ -1,32 +1,36 @@
-def formatted_name(u)
-  "#{u.name}##{u.discriminator}"
+# frozen_string_literal: true
+
+def formatted_name(user)
+  "#{user.name}##{user.discriminator}"
 end
 
-def cmd_prefix(m)
-  pfx = ServerConfig[m.channel.server.id].prefix
-  m.text.start_with?(pfx) ? m.text[pfx.length..-1] : nil
+def cmd_prefix(message)
+  pfx = ServerConfig[message.channel.server.id].prefix
+  message.text.start_with?(pfx) ? message.text[pfx.length..-1] : nil
+end
+
+def log_embed(event, chan_id, user, extra)
+  event.bot.channel(chan_id).send_embed do |m|
+    m.author = { name: username, icon_url: user.avatar_url }
+    m.title = 'Command execution'
+    m.fields = [
+      { name: 'Command', value: event.message.to_s },
+      { name: 'User ID', value: user.id, inline: true }
+    ]
+    extra && m.fields << [{ name: 'Information', value: extra }]
+    m.timestamp = Time.now
+  end
 end
 
 def log(event, extra = nil)
   user = event.author
-  username = formatted_name(event.author)
 
   chan_id = ServerConfig[event.server.id].log_channel_id
 
-  QBot.log.info("command execution by #{username}: #{event.message}#{extra && "; #{extra}"}")
+  QBot.log.info("command execution by #{formatted_name(user)}: " \
+                "#{event.message}#{extra && "; #{extra}"}")
 
-  if chan_id
-    event.bot.channel(chan_id).send_embed do |m|
-      m.author = { name: username, icon_url: user.avatar_url }
-      m.title = 'Command execution'
-      m.fields = [
-        { name: 'Command', value: event.message.to_s },
-        { name: 'User ID', value: user.id, inline: true },
-        extra ? { name: 'Information', value: extra } : nil
-      ].compact
-      m.timestamp = Time.now
-    end
-  end
+  log_embed(event, chan_id, user, extra) if chan_id
 end
 
 # Listen for a user response

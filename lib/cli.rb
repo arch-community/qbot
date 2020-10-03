@@ -1,6 +1,12 @@
+# frozen_string_literal: true
+
+# rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+# rubocop: disable Metrics/PerceivedComplexity, Metrics/MethodLength
+
+# QBot's command line interface
 module QBot
   def self.run_cli
-    while buf = Readline.readline('% ', true)
+    while (buf = Readline.readline('% ', true))
       cmd = buf.chomp.split
       s = cmd.shift
 
@@ -30,7 +36,7 @@ module QBot
 
       # Spin up an IRB session in the context of the bot
       elsif s.start_with? 'irb'
-        binding.irb
+        binding.irb # rubocop: disable Lint/Debugger
 
       elsif s == ''
         next
@@ -42,3 +48,5 @@ module QBot
     end
   end
 end
+# rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/MethodLength

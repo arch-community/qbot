@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'set'
 
+# Manages bot modules
 module Modules
   @all = Set.new
 
@@ -8,7 +11,12 @@ module Modules
   def self.load_module(name)
     QBot.log.info "Loading module: #{name}"
     load "./modules/#{name}.rb"
-    eval "QBot.bot.include! #{name.capitalize}"
+
+    # not sure how else this is possible?
+    # rubocop: disable Security/Eval
+    eval "QBot.bot.include! #{name.capitalize}", binding, __FILE__, __LINE__
+    # rubocop: enable Security/Eval
+
     @all << name.to_sym
   end
 
