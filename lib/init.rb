@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Initialization code for the bot
 module QBot
   def self.print_logo(version)
     logo = File.read './lib/logo.txt'
@@ -29,6 +32,7 @@ module QBot
     logger
   end
 
+  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def self.init_bot
     token     = @config.token     || raise('No token in configuration; set token')
     client_id = @config.client_id || raise('No client_id in configuration; set client_id')
@@ -53,7 +57,7 @@ module QBot
   def self.run!
     @options = parse_options(ARGV)
 
-    print_logo @VERSION
+    print_logo @version
 
     @config = init_config
     @log = init_log
@@ -62,7 +66,7 @@ module QBot
     @bot = init_bot
 
     @log.debug 'Init DB'
-    init_db
+    Database.init_db
 
     @log.debug 'Init modules'
     Modules.load_all
@@ -70,9 +74,7 @@ module QBot
     @log.info 'Initializing connection...'
 
     @bot.run :async
-    @bot.ready do
-      @log.info 'Bot ready.'
-    end
+    @bot.ready { @log.info 'Bot ready.' }
 
     trap :INT do
       Thread.new { QBot.log.fatal 'Ctrl-C caught, exiting gracefully...' }.join
@@ -84,4 +86,5 @@ module QBot
 
     @bot.sync
   end
+  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Arch Linux wiki and package searching commands.
 module Arch
   extend Discordrb::Commands::CommandContainer
@@ -20,11 +22,15 @@ module Arch
     JSON.parse URI.open('https://www.archlinux.org/packages/search/json/?q=' + query).read
   end
 
-  def self.sort_results(res, query)
-    corpus = res.map do |r|
+  def self.mkcorpus(res)
+    res.map do |r|
       keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 2].flatten.join(' ')
       TfIdfSimilarity::Document.new("#{keywords} #{r['pkgdesc']}")
     end
+  end
+
+  def self.sort_results(results, query)
+    corpus = mkcorpus(results)
     corpus << TfIdfSimilarity::Document.new(query)
 
     model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
@@ -46,22 +52,26 @@ module Arch
     log(event)
 
     query = qs.join(' ')
+
     # Check if the page exists
     q = (@wiki.query titles: query).data
 
-    if !q['pages']['-1'] # If it exists:
+    if !q['pages']['-1']
+      # If it exists:
       _, pg = q['pages'].first
       # Embed a link to it
       Arch.wiki_embed(event.channel, pg['title'])
-    else # Search the wiki for the query
+    else
+      # Search the wiki for the query
       sq = (@wiki.query list: 'search', srsearch: query).data
-      if sq['searchinfo']['totalhits'] < 1 # If not found, notify
-        event.channel.send_embed do |m|
-          m.title = 'No results found'
-        end
-      else # Embed a link to the first search result
+
+      if sq['searchinfo']['totalhits'] < 1
+        # If not found, notify
+        embed event, 'No results found'
+      else
+        # Embed a link to the first search result
         firstres = sq['search'][0]
-        wiki_embed(event.channel, firstres['title'])
+        wiki_embed event.channel, firstres['title']
       end
     end
   end
@@ -97,10 +107,10 @@ module Arch
 
         {
           name: "#{r['repo']}/#{r['pkgname']}",
-          value: <<~END
+          value: <<~VAL
             #{r['pkgdesc']}
             version **#{ver}** | last update **#{time}** | [web link](#{url})
-          END
+          VAL
         }
       end
     end

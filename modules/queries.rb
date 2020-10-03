@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Support channel management
 module Queries
   extend Discordrb::Commands::CommandContainer
 
@@ -60,14 +63,12 @@ module Queries
 
       if !q
         event.respond "Query ##{id} not found."
-      else
-        if (event.author.id == q.author) \
+      elsif event.author.id == q.author \
             || event.author.permission?(:manage_messages, event.channel)
-          q.destroy!
-          event.respond "Deleted query ##{id}."
-        else
-          event.respond "You do not have permission to delete query ##{id}."
-        end
+        q.destroy!
+        event.respond "Deleted query ##{id}."
+      else
+        event.respond "You do not have permission to delete query ##{id}."
       end
     end
 

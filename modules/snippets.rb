@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Configurable snippets
 module Snippets
   extend Discordrb::Commands::CommandContainer
 
