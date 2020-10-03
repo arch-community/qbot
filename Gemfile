@@ -59,7 +59,9 @@ group :default do
 
   # figlet
   gem 'ruby_figlet'
+end
 
+group :default, :development do
   # linting
   gem 'rubocop'
 end
