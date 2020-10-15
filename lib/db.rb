@@ -16,8 +16,8 @@ module Database
   end
 
   # rubocop: disable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
-  def define_schema
-    ActiveRecord::Schema.define(version: 20_201_002) do
+  def self.define_schema
+    ActiveRecord::Schema.define(version: 2020_10_02) do
       create_table :server_configs do |t|
         t.integer :server_id, null: false
         t.text :prefix
@@ -46,16 +46,54 @@ module Database
         t.timestamps
       end
 
+      create_table :rolegroups do |t|
+        t.integer :server_id, null: false
+        t.string :name, null: false
+        t.integer :max_roles
+        t.timestamps
+      end
+
+      create_table :grouped_role do |t|
+        t.belongs_to :rolegroup
+        t.integer :role_id, null: false
+        t.timestamps
+      end
+
+      create_table :reaction do |t|
+        t.integer :message_id
+        t.string :emoji
+        t.integer :action_type, default: 0, null: false
+        t.integer :action_target
+        t.string :action_args
+        t.timestamps
+      end
+
       add_index :server_configs, :server_id, unique: true
-      add_index :queries, :server_id, unique: true
-      add_index :extra_color_roles, :server_id, unique: true
-      add_index :snippets, :server_id, unique: true
+      add_index :queries, :server_id
+      add_index :extra_color_roles, :server_id
+      add_index :snippets, :server_id
+
+      add_index :rolegroups, :server_id
     end
   end
   # rubocop: enable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
 end
 
 class Query < ActiveRecord::Base; end
+class ExtraColorRole < ActiveRecord::Base; end
+class Snippet < ActiveRecord::Base; end
+
+class Reaction < ActiveRecord::Base
+  enum status: %i[role message command]
+end
+
+class Rolegroup < ActiveRecord::Base
+  has_many :grouped_roles, dependent: :destroy
+end
+
+class GroupedRole < ActiveRecord::Base
+  belongs_to :rolegroup
+end
 
 # Helpers for the server config
 class ServerConfig < ActiveRecord::Base
@@ -66,8 +104,8 @@ class ServerConfig < ActiveRecord::Base
     @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id: server_id)
   end
 
-  def self.drop_from_cache(server_id)
-    @@configs.delete(server_id)
+  after_update do |conf|
+    @@configs.delete(conf.server_id)
     # rubocop: enable Style/ClassVars
   end
 
@@ -80,6 +118,3 @@ class ServerConfig < ActiveRecord::Base
     global - modules_conf[:disabled]
   end
 end
-
-class ExtraColorRole < ActiveRecord::Base; end
-class Snippet < ActiveRecord::Base; end
