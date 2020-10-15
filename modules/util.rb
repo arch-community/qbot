@@ -14,9 +14,9 @@ module Util
     args.join(' ').gsub('@', "\\@\u200D")
   end
 
-  command :mygit, {
+  command :botrepo, {
     help_available: true,
-    description: 'Posts the URL of my Git repo',
+    description: 'Posts the URL of the bot\'s Git repo',
     usage: '.mygit',
     min_args: 0,
     max_args: 0
