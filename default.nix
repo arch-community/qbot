@@ -44,6 +44,7 @@ in stdenv.mkDerivation rec {
     cat >$bin <<EOF
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
+cd $out/share/qbot
 exec ${bundler}/bin/bundle exec ${ruby_2_7}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF
 

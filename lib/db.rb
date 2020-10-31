@@ -42,6 +42,7 @@ module Database
       create_table :snippets do |t|
         t.integer :server_id, null: false
         t.integer :name, null: false
+        t.boolean :embed
         t.string :text, null: false
         t.timestamps
       end
@@ -68,10 +69,18 @@ module Database
         t.timestamps
       end
 
+      create_table :quote do |t|
+        t.integer :server_id, null: false
+        t.integer :user_id, null: false
+        t.text :text, null: false
+      end
+
       add_index :server_configs, :server_id, unique: true
       add_index :queries, :server_id
       add_index :extra_color_roles, :server_id
       add_index :snippets, :server_id
+      add_index :quote, :server_id
+      add_index :quote, :user_id
 
       add_index :rolegroups, :server_id
     end
@@ -111,6 +120,10 @@ class ServerConfig < ActiveRecord::Base
 
   def modules_conf
     @modules_json ? JSON.parse(@modules_json) : { disabled: [] }
+  end
+
+  def prefix
+    @prefix ||= QBot.config.global.prefix || '.'
   end
 
   def modules
