@@ -20,7 +20,10 @@ module Admin
       Config.help_msg event, 'cfg', {
         help: 'show this message',
         prefix: 'set the command prefix for this server',
-        'extra-color-role': 'configure extra color roles'
+        'extra-color-role': 'configure extra color roles',
+        snippet: 'add, remove, or modify snippets for this server',
+        'rolegroup': 'manage groups of self-assignable roles',
+        'reaction': 'configure reaction actions'
       }
 
     when 'prefix', 'pfx'

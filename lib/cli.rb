@@ -6,12 +6,15 @@
 # QBot's command line interface
 module QBot
   def self.run_cli
-    while (buf = Readline.readline('% ', true))
+    while (buf = Reline.readline('% ', true))
       cmd = buf.chomp.split
       s = cmd.shift
 
+      if !s || s == ''
+        next
+
       # Stop the bot
-      if s.starts_with? 'quit', 'stop'
+      elsif s.starts_with? 'quit', 'stop'
         @bot.stop
         exit
 
@@ -37,9 +40,6 @@ module QBot
       # Spin up an IRB session in the context of the bot
       elsif s.start_with? 'irb'
         binding.irb # rubocop: disable Lint/Debugger
-
-      elsif s == ''
-        next
 
       else
         puts 'Command not found'
