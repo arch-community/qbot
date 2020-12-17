@@ -24,10 +24,17 @@ let
 in stdenv.mkDerivation rec {
   name = "qbot";
 
-  src = ./.;
+  src = builtins.filterSource
+    (path: type:
+      type != "directory" ||
+      baseNameOf path != "vendor" &&
+      baseNameOf path != ".git" &&
+      baseNameOf path != ".bundle")
+    ./.;
 
   buildInputs = [
-    env.wrappedRuby bundler bundix
+    env.wrappedRuby
+    bundler bundix
     git
     sqlite libxml2 zlib
     oracle-instantclient oracle

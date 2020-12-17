@@ -13,12 +13,16 @@ module Admin
     min_args: 0
   } do |event, *args|
     log(event)
+
+    return 'You do not have the required permissions for this.' unless event.author.permission?(:administrator)
+
     command = args.shift
 
     case command
     when 'help', ''
       Config.help_msg event, 'cfg', {
         help: 'show this message',
+        modules: 'enable or disable modules',
         prefix: 'set the command prefix for this server',
         'extra-color-role': 'configure extra color roles',
         snippet: 'add, remove, or modify snippets for this server',
@@ -56,25 +60,32 @@ module Admin
 
       when 'list'
         role_rows = ExtraColorRole.where(server_id: event.server.id)
-        return 'No extra color roles configured yet.' if role_rows.empty?
+        if role_rows.empty?
+          embed event, 'No extra color roles configured yet.'
+          return
+        end
 
         roles = role_rows.map { event.server.role(_1.role_id.to_i) }
 
         role_descriptions = roles.map {
           hex = _1.color.hex.rjust(6, '0')
-          "##{hex} #{_1.id} #{1.name}"
-        }
+          "##{hex} #{_1.id} #{_1.name}"
+        }.join(?\n)
 
         embed event, "```#{role_descriptions}```"
 
       when 'add'
         role = event.server.role(role_id)
-        return 'Role not found.' unless role
+        if !role
+          embed event, 'Role not found'
+          return
+        end
 
         begin
           ExtraColorRole.create(server_id: event.server.id, role_id: role_id)
         rescue ActiveRecord::RecordNotUnique
-          return 'That role is already in the list.'
+          embed event, 'That role is already in the list.'
+          return
         end
 
         embed event, "Role `#{role.name}` (`#{role.id}`) added to the list of extra color roles."
@@ -82,8 +93,78 @@ module Admin
       when 'remove', 'del', 'rm'
         ExtraColorRole.where(role_id: role_id).delete_all
 
-        embed event, "Removed #{role_id} from the list of extra color roles if it was there."
+        embed event, "Removed `#{role_id}` from the list of extra color roles, if it was present."
       end
+
+    when 'snippet', 's'
+      subcmd = args.shift
+
+      case subcmd
+      when 'help', ''
+        Config.help_msg event, 'cfg snippet', {
+          list: 'list snippets',
+          add: 'add a snippet to be recalled later',
+          remove: 'remove a snippet from the list',
+          set: 'set snippet attributes'
+        }
+
+      when 'list', 'l'
+        QBot.bot.execute_command(:listsnippets, event, [])
+
+      when 'add', 'a'
+        name = args.shift
+        text = args.join(' ')
+
+        if Snippet.find_by(server_id: event.server.id, name: name)
+          embed event, "Snippet #{name} already exists."
+          return
+        end
+
+        Snippet.create(server_id: event.server.id,
+                       name: name,
+                       text: text,
+                       embed: true)
+
+        embed event, "Created snippet #{name}."
+
+      when 'remove', 'rm', 'delete', 'd'
+        name = args.shift
+        Snippet.where(server_id: event.server.id, name: name).delete_all
+        embed event, "Removed snippet `#{name}`, if it was present."
+
+      when 'set'
+        name = args.shift
+
+        if name == 'help'
+          Config.help_msg event, 'cfg snippet <name>', {
+            embed: '(bool) is snippet a text message or an embed?'
+          }
+          return
+        end
+
+        snippet = Snippet.find_by(server_id: event.server.id, name: name)
+        if !snippet
+          embed event, "Snippet `#{name}` not found."
+          return
+        end
+
+        subcmd = args.shift
+        prop = nil
+
+        case subcmd
+        when 'embed', 'm'
+          prop = ActiveModel::Type::Boolean.new.cast(args.shift)
+          snippet.embed = prop
+          snippet.save!
+        end
+
+        embed event, "Property `#{subcmd}` of snippet `#{name}` is now `#{prop}`."
+
+      end
+
+    else
+      embed event, 'Not yet implemented.'
+      
     end
   end
   # rubocop: enable Metrics/BlockLength

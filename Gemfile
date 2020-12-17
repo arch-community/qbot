@@ -54,8 +54,8 @@ group :default do
   gem 'soundcloud'
 
   gem 'youtube-dl.rb',
-      github: 'gkaklas/youtube-dl.rb',
-      branch: 'terrapin-migration'
+      github: 'AllanKlaus/youtube-dl.rb',
+      branch: 'update-youtube-dl-2020-09-20'
 
   # figlet
   gem 'ruby_figlet'

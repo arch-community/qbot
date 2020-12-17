@@ -74,6 +74,17 @@
     };
     version = "0.2.0";
   };
+  cocaine = {
+    dependencies = ["terrapin"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1jnhqzw8xhyw6zz7wal5vna4gji602pvm0z7y6vq3w10km7sbyx2";
+      type = "gem";
+    };
+    version = "0.6.0";
+  };
   colorize = {
     groups = ["default"];
     platforms = [];
@@ -893,15 +904,15 @@
     version = "1.0.0";
   };
   "youtube-dl.rb" = {
-    dependencies = ["terrapin"];
+    dependencies = ["cocaine"];
     groups = ["default"];
     platforms = [];
     source = {
       fetchSubmodules = false;
-      rev = "3504b8623eb14a3f58831c39ad678834d1b57ce4";
-      sha256 = "1jxkdfimiqscacjvyw9zmj5xqslza3mqb6n3b4va6x948000dpwd";
+      rev = "8762518fe747864c477152a96fcfe0b51f5cbe2a";
+      sha256 = "1l9fb1id1llnq11s1nydqq347ypc386bdh2fjfpga9h4s2f4hb2q";
       type = "git";
-      url = "https://github.com/gkaklas/youtube-dl.rb.git";
+      url = "https://github.com/AllanKlaus/youtube-dl.rb.git";
     };
     version = "0.3.1.2016.09.11.1";
   };

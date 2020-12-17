@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/AllanKlaus/youtube-dl.rb.git
+  revision: 8762518fe747864c477152a96fcfe0b51f5cbe2a
+  branch: update-youtube-dl-2020-09-20
+  specs:
+    youtube-dl.rb (0.3.1.2016.09.11.1)
+      cocaine (>= 0.5.4)
+
+GIT
   remote: https://github.com/anna328p/discordrb.git
   revision: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
   ref: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
@@ -6,14 +14,6 @@ GIT
   specs:
     discordrb-webhooks (3.3.0)
       rest-client (>= 2.0.0)
-
-GIT
-  remote: https://github.com/gkaklas/youtube-dl.rb.git
-  revision: 3504b8623eb14a3f58831c39ad678834d1b57ce4
-  branch: terrapin-migration
-  specs:
-    youtube-dl.rb (0.3.1.2016.09.11.1)
-      terrapin (>= 0.6.0)
 
 GIT
   remote: https://github.com/swarley/discordrb.git
@@ -48,6 +48,8 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.1)
     climate_control (0.2.0)
+    cocaine (0.6.0)
+      terrapin (= 0.6.0)
     colorize (0.8.1)
     concurrent-ruby (1.1.7)
     declarative (0.0.20)
