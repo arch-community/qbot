@@ -41,7 +41,7 @@ module Database
 
       create_table :snippets do |t|
         t.integer :server_id, null: false
-        t.integer :name, null: false
+        t.string :name, null: false
         t.boolean :embed
         t.string :text, null: false
         t.timestamps
@@ -54,13 +54,13 @@ module Database
         t.timestamps
       end
 
-      create_table :grouped_role do |t|
+      create_table :grouped_roles do |t|
         t.belongs_to :rolegroup
         t.integer :role_id, null: false
         t.timestamps
       end
 
-      create_table :reaction do |t|
+      create_table :reactions do |t|
         t.integer :message_id
         t.string :emoji
         t.integer :action_type, default: 0, null: false
@@ -69,7 +69,7 @@ module Database
         t.timestamps
       end
 
-      create_table :quote do |t|
+      create_table :quotes do |t|
         t.integer :server_id, null: false
         t.integer :user_id, null: false
         t.text :text, null: false
@@ -79,8 +79,8 @@ module Database
       add_index :queries, :server_id
       add_index :extra_color_roles, :server_id
       add_index :snippets, :server_id
-      add_index :quote, :server_id
-      add_index :quote, :user_id
+      add_index :quotes, :server_id
+      add_index :quotes, :user_id
 
       add_index :rolegroups, :server_id
     end
@@ -113,21 +113,27 @@ class ServerConfig < ActiveRecord::Base
     @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id: server_id)
   end
 
-  after_update do |conf|
+  after_save do |conf|
     @@configs.delete(conf.server_id)
     # rubocop: enable Style/ClassVars
   end
 
   def modules_conf
-    @modules_json ? JSON.parse(@modules_json) : { disabled: [] }
+    self.modules_json ? JSON.parse(self.modules_json) : { "disabled" => [] }
   end
 
-  def prefix
-    @prefix ||= QBot.config.global.prefix || '.'
+  def get_prefix
+    if self.prefix
+      return self.prefix
+    else
+      self.prefix = QBot.config.global.prefix || '.'
+      self.save!
+      return self.prefix
+    end
   end
 
   def modules
     global = QBot.config.global.modules
-    global - modules_conf[:disabled]
+    global - modules_conf["disabled"]
   end
 end

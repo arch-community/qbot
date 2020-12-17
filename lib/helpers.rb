@@ -5,7 +5,8 @@ def formatted_name(user)
 end
 
 def cmd_prefix(message)
-  pfx = ServerConfig[message.channel.server.id].prefix || QBot.config.global.prefix || '.'
+  pfx = ServerConfig[message.server.id].get_prefix || QBot.config.global.prefix || '.'
+
   message.text.start_with?(pfx) ? message.text[pfx.length..-1] : nil
 end
 

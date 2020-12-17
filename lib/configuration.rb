@@ -22,8 +22,7 @@ module Config
   def self.save_prefix(event, cfg, new_prefix)
     cfg.prefix = new_prefix
     cfg.save!
-    ServerConfig.drop_from_cache(event.server.id)
 
-    embed event, "New prefix `#{np}` saved."
+    embed event, "New prefix `#{new_prefix}` saved."
   end
 end
