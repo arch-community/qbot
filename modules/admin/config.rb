@@ -153,12 +153,26 @@ module Admin
 
         embed event, "Created snippet `#{name}`."
 
+      when 'edit', 'set', 'e', 's'
+        name = args.shift
+        text = args.join(' ').gsub('\n', "\n")
+
+        if snippet = Snippet.find_by(server_id: event.server.id, name: name)
+          snippet.text = text
+          snippet.save!
+
+          embed event, "Snippet `#{name}` edited successfully."
+        else
+          embed event, "Snippet `#{name}` not found."
+          return
+        end
+
       when 'remove', 'rm', 'delete', 'd'
         name = args.shift
         Snippet.where(server_id: event.server.id, name: name).delete_all
         embed event, "Removed snippet `#{name}`, if it was present."
 
-      when 'set'
+      when 'prop', 'p'
         name = args.shift
 
         if name == 'help'
