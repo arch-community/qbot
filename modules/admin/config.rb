@@ -22,6 +22,7 @@ module Admin
     when 'help', ''
       Config.help_msg event, 'cfg', {
         help: 'show this message',
+        'log-channel': 'log bot events to a specific channel',
         modules: 'enable or disable modules',
         prefix: 'set the command prefix for this server',
         'extra-color-role': 'configure extra color roles',
@@ -29,6 +30,31 @@ module Admin
         'rolegroup': 'manage groups of self-assignable roles',
         'reaction': 'configure reaction actions'
       }
+
+    when 'log-channel', 'lc'
+      cfg = Config[event.server.id]
+      subcmd = args.shift
+
+      case subcmd
+      when 'help', ''
+        Config.help_msg event, 'cfg log-channel', {
+          set: 'set the log channel ID for this server',
+          reset: 'disable logging to a channel'
+        }
+      when 'set'
+        new_id = args.shift.to_i
+
+        cfg.log_channel_id = new_id
+        cfg.save!
+
+        embed event, "The log channel is now <##{new_id}>."
+
+      when 'reset'
+        cfg.log_channel_id = nil
+        cfg.save!
+
+        embed event, 'The log channel has been disabled.'
+      end
 
     when 'prefix', 'pfx'
       cfg = Config[event.server.id]

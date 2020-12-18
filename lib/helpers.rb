@@ -12,10 +12,10 @@ end
 
 def log_embed(event, chan_id, user, extra)
   event.bot.channel(chan_id).send_embed do |m|
-    m.author = { name: username, icon_url: user.avatar_url }
+    m.author = { name: formatted_name(user), icon_url: user.avatar_url }
     m.title = 'Command execution'
     m.fields = [
-      { name: 'Command', value: event.message.to_s },
+      { name: 'Command', value: event.message.to_s, inline: true },
       { name: 'User ID', value: user.id, inline: true }
     ]
     extra && m.fields << [{ name: 'Information', value: extra }]
