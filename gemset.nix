@@ -226,6 +226,17 @@
     };
     version = "0.45.1";
   };
+  google-search = {
+    dependencies = ["json"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0lzn6k9ivl24m6xcyjq4w98d5i44gham0dff48gwkfpg3jw4xmrh";
+      type = "gem";
+    };
+    version = "1.0.3";
+  };
   googleauth = {
     dependencies = ["faraday" "jwt" "memoist" "multi_json" "os" "signet"];
     groups = ["default"];
@@ -342,6 +353,16 @@
     };
     version = "1.2.7";
   };
+  json = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "09znxpi9vyi5c2cdzmwah5rqng59yjlzqjyw8hyxwncfav8ymlpq";
+      type = "gem";
+    };
+    version = "2.4.1";
+  };
   jwt = {
     groups = ["default"];
     platforms = [];
@@ -425,6 +446,16 @@
     };
     version = "1.0.2";
   };
+  mini_portile2 = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "15zplpfw3knqifj9bpf604rb3wc1vhq6363pd6lvhayng8wql5vy";
+      type = "gem";
+    };
+    version = "2.4.0";
+  };
   minitest = {
     groups = ["default"];
     platforms = [];
@@ -484,6 +515,17 @@
       type = "gem";
     };
     version = "0.11.0";
+  };
+  nokogiri = {
+    dependencies = ["mini_portile2"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0xmf60nj5kg9vaj5bysy308687sgmkasgx06vbbnf94p52ih7si2";
+      type = "gem";
+    };
+    version = "1.10.10";
   };
   opus-ruby = {
     dependencies = ["ffi"];
@@ -902,6 +944,17 @@
       type = "gem";
     };
     version = "1.0.0";
+  };
+  xkcd = {
+    dependencies = ["google-search" "nokogiri"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "04zqqnw23hlp8sl1yfilk59srzwypcgx273n8zdz437lrdydqasf";
+      type = "gem";
+    };
+    version = "1.1.1";
   };
   "youtube-dl.rb" = {
     dependencies = ["cocaine"];
