@@ -26,10 +26,21 @@ end
 QBot.bot.message do |event|
   sc = ServerConfig[event.server.id]
   return if event.author.id == QBot.bot.profile.id
+
+  contents = event.message.text
+
   unless sc.modules_conf["disabled"].include? "blacklist"
     bl = BlacklistEntry.where(channel_id: event.channel.id)
     bl.map(&:re).each do |r|
       if r.match? event.message.text
+        event.message.author.pm <<~END
+          Your message contained text blocked by the following blacklist entry: `#{r}`.
+
+          Original message:
+          ```
+          #{contents}
+          ```
+        END
         event.message.delete
         break
       end
