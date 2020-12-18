@@ -61,6 +61,7 @@ group :default do
   gem 'ruby_figlet'
 
   # xkcd
+  gem 'open_uri_redirections'
   gem 'xkcd'
 end
 
