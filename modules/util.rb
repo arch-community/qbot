@@ -24,4 +24,22 @@ module Util
     log(event)
     QBot.config.my_repo
   end
+
+  command :avatar, {
+    help_available: true,
+    description: 'Posts the URL of a user\'s avatar',
+    usage: '.avatar',
+    min_args: 0,
+    max_args: 1
+  } do |event, user|
+    log(event)
+
+    if (id = user.to_i) != 0
+      event.respond event.bot.user(id).avatar_url
+    elsif event.message.mentions[0]
+      event.respond event.message.mentions[0].avatar_url
+    else
+      event.respond event.author.avatar_url
+    end
+  end
 end
