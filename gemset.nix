@@ -527,6 +527,16 @@
     };
     version = "1.10.10";
   };
+  open_uri_redirections = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0kn05dxh2mry50jwb3ssn9f3cdnzqa7r0xiyrh6zkn5i0sq2krir";
+      type = "gem";
+    };
+    version = "0.2.1";
+  };
   opus-ruby = {
     dependencies = ["ffi"];
     groups = ["default"];

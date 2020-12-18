@@ -125,6 +125,7 @@ GEM
     netrc (0.11.0)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    open_uri_redirections (0.2.1)
     opus-ruby (1.0.1)
       ffi
     os (1.1.1)
@@ -220,6 +221,7 @@ DEPENDENCIES
   log4r-color
   mediawiki_api
   narray
+  open_uri_redirections
   paint
   rbnacl
   reline

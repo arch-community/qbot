@@ -28,7 +28,8 @@ module Admin
         'extra-color-role': 'configure extra color roles',
         snippet: 'add, remove, or modify snippets for this server',
         'rolegroup': 'manage groups of self-assignable roles',
-        'reaction': 'configure reaction actions'
+        'reaction': 'configure reaction actions',
+        'blacklist': 'manage blacklist entries'
       }
 
     when 'log-channel', 'lc'
@@ -202,6 +203,58 @@ module Admin
 
       end
 
+    when 'blacklist', 'bl'
+
+      if args[0].to_i != 0
+        channel_id = args.shift.to_i
+      else
+        channel_id = event.channel.id
+      end
+      
+      subcmd = args.shift
+
+      case subcmd
+      when 'help', ''
+        Config.help_msg event, 'cfg blacklist [channel]', {
+          add: 'add an entry to the blacklist for this channel',
+          remove: 'remove an entry from the blacklist by its ID',
+          list: 'show all blacklist entries with their IDs',
+          clear: 'remove all blacklist entries for this channel'
+        }
+
+      when 'add', 'a'
+        entry = BlacklistEntry.create(server_id: event.server.id,
+                                      channel_id: event.channel.id,
+                                      regex: args.join(' '))
+
+        embed event, "Entry was successfully added. (ID #{entry.id})"
+
+      when 'remove', 'delete', 'rm', 'd'
+        id = args.shift.to_i
+
+        if BlacklistEntry.delete(id)
+          embed event, "Removed entry with ID #{id}."
+        else
+          embed event, 'That entry does not exist.'
+        end
+
+      when 'list', 'l'
+        bl = BlacklistEntry.where(channel_id: channel_id)
+
+        event.channel.send_embed do |m|
+          m.title = "Blacklist entries"
+          m.description = bl.map { "`#{_1.id}`: `#{_1.regex}`" }.join(?\n)
+        end
+
+      when 'clear'
+        bl = BlacklistEntry.where(channel_id: channel_id)
+        count = bl.size
+        bl.delete_all
+
+        embed event, "#{count} entries removed."
+
+      end
+    
     else
       embed event, 'Not yet implemented.'
       

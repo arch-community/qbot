@@ -75,6 +75,14 @@ module Database
         t.text :text, null: false
       end
 
+      create_table :blacklist_entries do |t|
+        t.integer :server_id, null: false
+        t.integer :channel_id, null: false
+        t.string :regex, null: false
+
+        t.timestamps
+      end
+
       add_index :server_configs, :server_id, unique: true
       add_index :queries, :server_id
       add_index :extra_color_roles, :server_id
@@ -91,6 +99,11 @@ end
 class Query < ActiveRecord::Base; end
 class ExtraColorRole < ActiveRecord::Base; end
 class Snippet < ActiveRecord::Base; end
+class BlacklistEntry < ActiveRecord::Base
+  def re
+    Regexp.new self.regex
+  end
+end
 
 class Reaction < ActiveRecord::Base
   enum status: %i[role message command]
