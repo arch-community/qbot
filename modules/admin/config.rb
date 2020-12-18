@@ -139,10 +139,10 @@ module Admin
 
       when 'add', 'a'
         name = args.shift
-        text = args.join(' ')
+        text = args.join(' ').gsub('\n', "\n")
 
         if Snippet.find_by(server_id: event.server.id, name: name)
-          embed event, "Snippet #{name} already exists."
+          embed event, "Snippet `#{name}` already exists."
           return
         end
 
@@ -151,7 +151,7 @@ module Admin
                        text: text,
                        embed: true)
 
-        embed event, "Created snippet #{name}."
+        embed event, "Created snippet `#{name}`."
 
       when 'remove', 'rm', 'delete', 'd'
         name = args.shift

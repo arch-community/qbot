@@ -43,3 +43,7 @@ end
 def embed(event, text)
   event.channel.send_embed { _1.description = text }
 end
+
+def unescape(s)
+  "\"#{s}\"".undump
+end
