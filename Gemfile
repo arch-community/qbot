@@ -59,6 +59,9 @@ group :default do
 
   # figlet
   gem 'ruby_figlet'
+
+  # xkcd
+  gem 'xkcd'
 end
 
 group :default, :development do
