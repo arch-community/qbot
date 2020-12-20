@@ -24,7 +24,7 @@ module Arch
 
   def self.mkcorpus(res)
     res.map do |r|
-      keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 2].flatten.join(' ')
+      keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 10].flatten.join(' ')
       TfIdfSimilarity::Document.new("#{keywords} #{r['pkgdesc']}")
     end
   end
