@@ -37,7 +37,7 @@ module Arch
 
     matrix = model.similarity_matrix
 
-    res.map.with_index.sort_by do |_r, idx|
+    results.map.with_index.sort_by do |_r, idx|
       matrix[model.document_index(corpus[idx]), model.document_index(corpus.last)]
     end.map(&:first)
   end
