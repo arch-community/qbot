@@ -227,15 +227,21 @@ module Admin
                                       channel_id: event.channel.id,
                                       regex: args.join(' '))
 
-        embed event, "Entry was successfully added. (ID #{entry.id})"
+        embed event, "Entry was successfully added with ID `#{entry.id}`."
 
       when 'remove', 'delete', 'rm', 'd'
         id = args.shift.to_i
 
-        if BlacklistEntry.delete(id)
-          embed event, "Removed entry with ID #{id}."
-        else
-          embed event, 'That entry does not exist.'
+        begin
+          entry = BlacklistEntry.find(id)
+          if entry.server_id == event.server.id
+            entry.destroy!
+            embed event, "Removed entry with ID `#{id}`."
+          else
+            embed event, "Cannot find entry `#{id}` on this server."
+          end
+        rescue ActiveRecord::RecordNotFound
+          embed event, "Cannot find entry `#{id}`."
         end
 
       when 'list', 'l'
