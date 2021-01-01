@@ -77,7 +77,11 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     end
 
     # Role for the requested color
-    rc = requested_color.role || (return 'Color not found.')
+    rc = requested_color&.role
+    if !rc
+      embed event, 'Color not found.'
+      return
+    end
 
     Colors.assign_role(event, colors.map { _1.role }, rc, 'color')
   end
@@ -139,11 +143,14 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 3,
     max_args: 3
   } do |event, *args|
-    g = event.server
+    log event
 
-    return 'You do not have the required permissions for this.' unless event.author.permission?(:administrator)
+    unless event.author.permission?(:administrator)
+      embed event, 'You do not have the required permissions for this.'
+      return
+    end
 
-    g.roles.filter { _1.name.ends_with? '[c]' }.each do
+    event.server.roles.filter { _1.name.ends_with? '[c]' }.each do
       event.respond "Deleting existing color role `#{_1.name}`."
       _1.delete
     end
@@ -164,7 +171,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       event.respond "Created role `color#{idx}` with color `##{hex}`."
     end
 
-    "Created #{colors.size} roles."
+    embed event, "Created #{colors.size} roles."
   end
 
   command :randcolors, {
@@ -175,7 +182,12 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    return 'You do not have the required permissions for this.' unless event.author.permission?(:administrator)
+    log event
+
+    unless event.author.permission?(:administrator)
+      embed event, 'You do not have the required permissions for this.'
+      return
+    end
 
     users = event.server.members
     colors, default, = Colors.get_colors(event)
