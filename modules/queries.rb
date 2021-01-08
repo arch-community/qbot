@@ -16,7 +16,7 @@ module Queries
     new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text: text)
     log(event, "query id #{new_query.id}")
 
-    event.channel.send_embed { _1.description = "Query ##{new_query.id} has been created." }
+    embed event, "Query ##{new_query.id} has been created."
   end
 
   command :openqueries, {

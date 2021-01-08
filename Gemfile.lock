@@ -217,6 +217,7 @@ DEPENDENCIES
   discordrb-webhooks!
   google-api-client
   hashugar
+  i18n
   irb
   log4r-color
   mediawiki_api

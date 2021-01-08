@@ -1,0 +1,105 @@
+en:
+  no_perms: 'sina ken ala pali e ni tan ni: ken sina li lili.'
+
+  descriptions:
+    config: 'o ante e nasin pali ilo'
+    help: 'o lukin e nimi pali ale, anu o lukin e sona pi nimi pali wan'
+
+  help:
+    aliases: 'nimi ante'
+    usage: 'nasin kepeken'
+    valid-params: 'nasin ken'
+    list-title: 'nimi pali ale'
+    not-found: 'nimi pali `%s` li lon ala.'
+
+  cfg:
+    usage: 'o kepeken sama ni:'
+    subcmd: 'nimi pali lili'
+    options: 'nasin pali'
+    avail_subcmd: 'sina ken kepeken e nimi pali lili ni:'
+
+    help:
+      help: 'o pana e nasin kepeken pi pali lili ale'
+      log-channel: 'o ante e tomo toki pi pali ilo lon tenpo ale'
+      modules: 'o ante e ken pali pi kulupu pi nimi pali'
+      prefix: 'o ante e nimi lili pi open pi nimi pali'
+      extra-color-role: 'o ante e poki kule namako'
+      snippet: 'o ante e toki nimi 📄'
+      rolegroup: 'o pali e kulupu poki'
+      reaction: 'jan li namako e toki la, o pali e seme?'
+      blacklist: 'o ante e weka pi toki ike'
+
+    log-channel:
+      help:
+        set: 'o ante e nimi nanpa pi tomo pi pali ilo'
+        reset: 'o weka e sona pi tomo pi pali ilo'
+
+      set:
+        success: 'tomo sin pi pali ilo li <#%s>.'
+      reset:
+        success: 'tomo pi pali ilo li weka.'
+
+    modules:
+
+    prefix:
+      help:
+        set: 'set the prefix for this server'
+        reset: 'reset the prefix to the default'
+
+    extra-color-role:
+      help:
+        list: 'print the list of extra color roles'
+        add: 'add a role (by ID) to the list of extra roles'
+        remove: 'remove a role (by ID) from the list of extra roles'
+
+      list:
+        no-roles: 'No extra color roles configured yet.'
+      add:
+        not-found: 'Role not found.'
+        non-unique: 'That role is already in the list.'
+        success: 'Role `%s` (`%s`) added to the list of extra color roles.'
+      remove:
+        success: 'Role `%s` removed from the list of extra color roles, if it was present.'
+
+    snippet:
+      add:
+        non-unique: 'Snippet `%s` already exists.'
+        success: 'Created snippet `%s`.'
+      edit:
+        not-found: 'Snippet `%s` not found.'
+        success: 'Snippet `%s` edited successfully.'
+      remove:
+        success: 'Removed snippet `%s`, if it was present.'
+      prop:
+        help:
+          embed: '(bool) is snippet sent as an embed or a normal message?'
+
+        success: 'Property `%s` of snippet `%s` is now `%s`.'
+
+    rolegroup:
+
+    reaction:
+
+    blacklist:
+      "[channel]":
+        help:
+          add: 'add an entry to the blacklist for this channel'
+          remove: 'remove an entry from the blacklist by its ID'
+          list: 'show all blacklist entries and their IDs'
+          clear: 'remove all blacklist entries for this channel'
+
+      add:
+        success: 'Entry was successfully added with ID `%s`.'
+
+      remove:
+        not-found: 'Cannot find entry `%s`.'
+        wrong-server: 'Cannot find entry `%s` on this server.'
+        success: 'Removed entry with ID `%s`.'
+
+      list:
+        title: 'Blacklist entries'
+
+      clear:
+        success: '%s blacklist entries removed.'
+
+    nyi: 'Not yet implemented.'

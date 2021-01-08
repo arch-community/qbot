@@ -15,6 +15,8 @@ group :default do
       ref: '4eadc9296dabf08b89a29e8c0b177664c48c6f88'
   gem 'rbnacl'
 
+  gem 'i18n'
+
   # Config
   gem 'hashugar'
 

@@ -26,6 +26,12 @@ module Database
         t.timestamps
       end
 
+      create_table :user_configs do |t|
+        t.integer :user_id, null: false
+        t.json :contents
+        t.timestamps
+      end
+
       create_table :queries do |t|
         t.integer :server_id, null: false
         t.integer :user_id, null: false
@@ -84,6 +90,7 @@ module Database
       end
 
       add_index :server_configs, :server_id, unique: true
+      add_index :user_configs, :user_id, unique: true
       add_index :queries, :server_id
       add_index :extra_color_roles, :server_id
       add_index :snippets, :server_id
@@ -148,5 +155,19 @@ class ServerConfig < ActiveRecord::Base
   def modules
     global = QBot.config.global.modules
     global - modules_conf["disabled"]
+  end
+end
+
+class UserConfig < ActiveRecord::Base
+  # Cache config objects
+  def self.[](uid)
+    # rubocop: disable Style/ClassVars
+    @@configs ||= {}
+    @@configs[uid] ||= UserConfig.find_or_create_by(user_id: uid)
+  end
+
+  after_save do |conf|
+    @@configs.delete(conf.user_id)
+    # rubocop: enable Style/ClassVars
   end
 end
