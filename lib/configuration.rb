@@ -6,14 +6,19 @@ module Config
     ServerConfig[server_id]
   end
 
-  def self.help_msg(event, command, avail)
-    cmd = Config[event.server.id].prefix + command
-    subcommands = avail.map { |k, v| "   #{k} - #{v}" }.join("\n")
-    embed event, <<~TEXT
-      ```
-      Usage: #{cmd} <subcommand> [options]
+  def self.help_msg(e, command, avail)
+    cmd = Config[e.server.id].prefix + command
+    tid_pfx = command.split.join('.')
+    descriptions = avail.map { |name| t(e, "#{tid_pfx}.help.#{name}") }
+    subcommands = avail.zip(descriptions).map { |cmd, desc|
+      "    #{cmd} - #{desc}"
+    }.join(?\n)
 
-      Available subcommands:
+    embed e, <<~TEXT
+      ```
+      #{t e, 'cfg.usage'} #{cmd} <#{t e, 'cfg.subcmd'}> [#{t e, 'cfg.options'}]
+
+      #{t e, 'cfg.avail_subcmd'}
       #{subcommands}
       ```
     TEXT

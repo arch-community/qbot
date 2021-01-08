@@ -16,7 +16,7 @@ module Help
     end
 
     if !command || !can_run(command.name, event)
-      embed event, "The command `#{name}` does not exist."
+      embed event, t(event, 'help.not-found', name)
       return
     end
 
@@ -25,24 +25,28 @@ module Help
     aliases = event.bot.command_aliases(name.to_sym)
     unless aliases.empty?
       fields << {
-        name: 'Aliases',
+        name: t(event, 'help.aliases'),
         value: aliases.map { |a| "`#{a.name}`" }.join(', '),
         inline: true
       }
     end
 
     if (usage = command.attributes[:usage])
-      fields << { name: 'Usage', value: "`#{usage}`", inline: true }
+      fields << {
+        name: t(event, 'help.usage'),
+        value: "`#{usage}`",
+        inline: true
+      }
     end
 
     if (parameters = command.attributes[:parameters])
       fields << {
-        name: 'Accepted parameters',
+        name: t(event, 'help.valid-params'),
         value: "```\n#{parameters.join "\n"}\n```"
       }
     end
 
-    desc = command.attributes[:description]
+    desc = t(event, "descriptions.#{command.name}")
 
     event.channel.send_embed do |m|
       m.title = "#{pfx}#{name}"
@@ -67,17 +71,20 @@ module Help
 
   def self.embed_full(event, avail, pfx)
     event.channel.send_embed do |m|
-      m.title = 'List of commands'
-      m.fields = avail.map { {
-        name: "#{pfx}#{_1.name}",
-        value: _1.attributes[:description] || ''
-      } }
+      m.title = t(event, 'help.list-title')
+      m.fields = avail.map {
+        desc = t(event, "descriptions.#{_1.name}") || ''
+        {
+          name: "#{pfx}#{_1.name}",
+          value: desc
+        }
+      }
     end
   end
 
   def self.embed_compact(event, avail, pfx)
     event.channel.send_embed do |m|
-      m.title = 'List of commands'
+      m.title = t(event, 'help.list-title')
       m.description = avail.map { "`#{pfx}#{_1.name}`" }.join(', ')
     end
   end
@@ -95,7 +102,6 @@ module Help
   command :help, {
     aliases: [:h],
     help_available: true,
-    description: 'Shows a list of all available commands or displays help for a specific command',
     usage: '.help [command]',
     min_args: 0,
     max_args: 1

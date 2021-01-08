@@ -17,6 +17,7 @@ require_libs %w[
   options
   patches
   db
+  i18n
   configuration
   helpers
   breaking_wrap
@@ -25,5 +26,5 @@ require_libs %w[
   init
 ]
 
-QBot.version = '0.1a'
+QBot.version = '0.2a'
 QBot.run!

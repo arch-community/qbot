@@ -7,7 +7,16 @@ end
 def cmd_prefix(message)
   pfx = ServerConfig[message.server.id].get_prefix || QBot.config.global.prefix || '.'
 
-  message.text.start_with?(pfx) ? message.text[pfx.length..-1] : nil
+  normal = message.text.start_with?(pfx)
+  spaced = message.text.start_with?(pfx + ' ')
+
+  if spaced
+    return message.text[(pfx.length+1)..-1]
+  elsif normal
+    return message.text[pfx.length..-1]
+  else
+    return nil
+  end
 end
 
 def log_embed(event, chan_id, user, extra)
@@ -38,10 +47,6 @@ end
 def user_response(event)
   response = event.bot.add_await!(Discordrb::Events::MentionEvent, in: event.channel, from: event.author)
   response.message.text.split[1].to_i
-end
-
-def embed(event, text)
-  event.channel.send_embed { _1.description = text }
 end
 
 def unescape(s)

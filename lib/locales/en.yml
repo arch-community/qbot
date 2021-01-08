@@ -1,0 +1,105 @@
+en:
+  no_perms: 'You do not have the required permissions to perform this action.'
+
+  descriptions:
+    config: 'Sets various configuration options for the bot'
+    help: 'Shows a list of all available commands or displays help for a specific command'
+
+  help:
+    aliases: 'Aliases'
+    usage: 'Usage'
+    valid-params: 'Accepted parameters'
+    list-title: 'List of commands'
+    not-found: "The command `%s` does not exist."
+
+  cfg:
+    usage: 'Usage:'
+    subcmd: 'subcommand'
+    options: 'options'
+    avail_subcmd: 'Available subcommands:'
+
+    help:
+      help: 'show this message'
+      log-channel: 'log bot events to a specific channel'
+      modules: 'enable or disable modules'
+      prefix: 'set the command prefix for this server'
+      extra-color-role: 'configure extra color roles'
+      snippet: 'add, remove, or modify snippets for this server'
+      rolegroup: 'manage groups of self-assignable roles'
+      reaction: 'configure reaction actions'
+      blacklist: 'manage blacklist entries'
+
+    log-channel:
+      help:
+        set: 'set the log channel ID for this server'
+        reset: 'disable logging commands to a channel'
+
+      set:
+        success: "The log channel is now <#%s>."
+      reset:
+        success: "The log channel has been disabled."
+
+    modules:
+
+    prefix:
+      help:
+        set: 'set the prefix for this server'
+        reset: 'reset the prefix to the default'
+
+    extra-color-role:
+      help:
+        list: 'print the list of extra color roles'
+        add: 'add a role (by ID) to the list of extra roles'
+        remove: 'remove a role (by ID) from the list of extra roles'
+
+      list:
+        no-roles: 'No extra color roles configured yet.'
+      add:
+        not-found: 'Role not found.'
+        non-unique: 'That role is already in the list.'
+        success: 'Role `%s` (`%s`) added to the list of extra color roles.'
+      remove:
+        success: 'Role `%s` removed from the list of extra color roles, if it was present.'
+
+    snippet:
+      add:
+        non-unique: 'Snippet `%s` already exists.'
+        success: 'Created snippet `%s`.'
+      edit:
+        not-found: 'Snippet `%s` not found.'
+        success: 'Snippet `%s` edited successfully.'
+      remove:
+        success: 'Removed snippet `%s`, if it was present.'
+      prop:
+        help:
+          embed: '(bool) is snippet sent as an embed or a normal message?'
+
+        success: 'Property `%s` of snippet `%s` is now `%s`.'
+
+    rolegroup:
+
+    reaction:
+
+    blacklist:
+      "[channel]":
+        help:
+          add: 'add an entry to the blacklist for this channel'
+          remove: 'remove an entry from the blacklist by its ID'
+          list: 'show all blacklist entries and their IDs'
+          clear: 'remove all blacklist entries for this channel'
+
+      add:
+        success: 'Entry was successfully added with ID `%s`.'
+
+      remove:
+        not-found: 'Cannot find entry `%s`.'
+        wrong-server: 'Cannot find entry `%s` on this server.'
+        success: 'Removed entry with ID `%s`.'
+
+      list:
+        title: 'Blacklist entries'
+
+      clear:
+        success: '%s blacklist entries removed.'
+
+    nyi: 'Not yet implemented.'

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 load './modules/admin/config.rb'
+load './modules/admin/user_config.rb'
 
 # Administration commands
 module Admin
