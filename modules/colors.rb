@@ -77,7 +77,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     # Role for the requested color
     rc = requested_color&.role
-    if !rc
+    unless rc
       embed event, t('colors.color.not-found')
       return
     end
@@ -104,7 +104,10 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     color = colors.find { _1.idx == min[1] }
 
-    event.channel.send_embed { _1.description = t('colors.closest.found', ?# + color.role.color.hex.rjust(6, '0')) }
+    event.channel.send_embed {
+      _1.description = t('colors.closest.found',
+                         '#' + color.role.color.hex.rjust(6, '0'))
+    }
     Colors.assign_role(event, colors.map { _1.role }, color.role, 'color')
   end
 
@@ -164,7 +167,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
         permissions: 0,
         reason: 'Generating color roles'
       )
-      event.respond t('colors.ccr.created', "color#{idx}", ?# + hex)
+      event.respond t('colors.ccr.created', "color#{idx}", '#' + hex)
     end
 
     embed event, t('colors.ccr.success', colors.size)

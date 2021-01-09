@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Creates a table for user configurations
 class CreateUserConfigs < ActiveRecord::Migration[6.0]
   def change
     create_table :user_configs do |t|

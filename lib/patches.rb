@@ -97,4 +97,3 @@ module Discordrb
     end
   end
 end
-

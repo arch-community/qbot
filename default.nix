@@ -19,6 +19,9 @@ let
       ruby-oci8 = attrs: {
         LD_LIBRARY_PATH = "${oracle}/lib";
       };
+      nokogiri = attrs: {
+        buildInputs = [ pkgconfig zlib.dev ];
+      };
     };
   };
 in stdenv.mkDerivation rec {
@@ -36,7 +39,7 @@ in stdenv.mkDerivation rec {
     env.wrappedRuby
     bundler bundix
     git
-    sqlite libxml2 zlib
+    sqlite libxml2 zlib.dev zlib libiconv
     oracle-instantclient oracle
     libopus libsodium ffmpeg youtube-dl
   ];

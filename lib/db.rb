@@ -17,7 +17,7 @@ module Database
 
   # rubocop: disable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
   def self.define_schema
-    ActiveRecord::Schema.define(version: 2020_10_02) do
+    ActiveRecord::Schema.define(version: 2020_10_02) do # rubocop: disable Style/NumericLiterals
       create_table :server_configs do |t|
         t.integer :server_id, null: false
         t.text :prefix
@@ -106,20 +106,25 @@ end
 class Query < ActiveRecord::Base; end
 class ExtraColorRole < ActiveRecord::Base; end
 class Snippet < ActiveRecord::Base; end
+
+# Entry in a channel blacklist
 class BlacklistEntry < ActiveRecord::Base
   def re
-    Regexp.new self.regex
+    Regexp.new regex
   end
 end
 
+# Reaction action
 class Reaction < ActiveRecord::Base
   enum status: %i[role message command]
 end
 
+# Group of roles
 class Rolegroup < ActiveRecord::Base
   has_many :grouped_roles, dependent: :destroy
 end
 
+# Rule in a rolegroup
 class GroupedRole < ActiveRecord::Base
   belongs_to :rolegroup
 end
@@ -139,25 +144,25 @@ class ServerConfig < ActiveRecord::Base
   end
 
   def modules_conf
-    self.modules_json ? JSON.parse(self.modules_json) : { "disabled" => [] }
+    modules_json ? JSON.parse(modules_json) : { 'disabled' => [] }
   end
 
-  def get_prefix
-    if self.prefix
-      return self.prefix
-    else
-      self.prefix = QBot.config.global.prefix || '.'
-      self.save!
-      return self.prefix
+  def server_prefix
+    unless prefix
+      prefix = QBot.config.global.prefix || '.'
+      save!
     end
+
+    prefix
   end
 
   def modules
     global = QBot.config.global.modules
-    global - modules_conf["disabled"]
+    global - modules_conf['disabled']
   end
 end
 
+# User configuration table
 class UserConfig < ActiveRecord::Base
   # Cache config objects
   def self.[](uid)
