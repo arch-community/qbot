@@ -81,6 +81,7 @@ en:
       success: 'Your %s is now **%s**.'
     color:
       not-found: 'Color not found.'
+      role-type-name: 'color'
     closest:
       found: 'Closest color found: `%s`.'
     list:

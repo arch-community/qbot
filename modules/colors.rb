@@ -82,7 +82,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       return
     end
 
-    Colors.assign_role(event, colors.map { _1.role }, rc, 'color')
+    Colors.assign_role(event, colors.map { _1.role }, rc, t('colors.color.role-type-name'))
   end
 
   command :closestcolor, {
