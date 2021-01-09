@@ -80,7 +80,7 @@ tp:
       already-have: 'tenpo ni la, sina lon poki %s.'
       success: 'poki %s sina li sama **%s** sin.'
     color:
-      not-found: 'Color not found.'
+      not-found: 'kule pi nimi ni li lon ala.'
       role-type-name: 'kule'
     closest:
       found: 'kule sama wile sina li `%s`.'
@@ -194,6 +194,8 @@ tp:
       help:
         set: 'o ante e sitelen open pi nimi pali'
         reset: 'o ante e sitelen open tawa "."'
+
+      saved: 'sitelen open sin pi nimi pali li `%s`.'
 
     extra-color-role:
       help:
