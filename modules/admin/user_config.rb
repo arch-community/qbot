@@ -4,8 +4,8 @@
 module Admin
   extend Discordrb::Commands::CommandContainer
 
-  command :userconfig, {
-    aliases: [:ucfg, :uc],
+  command :userconfig, { # rubocop: disable Metrics/BlockLength
+    aliases: %i[ucfg uc],
     help_available: true,
     usage: '.set <args>',
     min_args: 0
@@ -14,7 +14,7 @@ module Admin
 
     case command
     when 'help', nil
-      Config.help_msg event, 'uc', [ :help, :language ]
+      Config.help_msg event, 'uc', %i[help language]
 
     when 'language', 'lang', 'l'
       uc = UserConfig[event.user.id]
@@ -22,7 +22,7 @@ module Admin
       subcmd = args.shift
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'uc language', [ :list, :set, :reset ]
+        Config.help_msg event, 'uc language', %i[list set reset]
 
       when 'list', 'l'
         event.channel.send_embed do |m|
@@ -51,7 +51,7 @@ module Admin
 
         embed event, t('uc.language.reset.success', lang)
       end
-        
+
     else
       embed event, t('cfg.nyi')
     end

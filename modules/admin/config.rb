@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop: disable Metrics/ModuleLength
 # Configuration command for the admin module.
 module Admin
   extend Discordrb::Commands::CommandContainer
@@ -19,10 +20,9 @@ module Admin
 
     case command
     when 'help', nil
-      Config.help_msg event, 'cfg', [
-        :help, :'log-channel', :modules, :prefix,
-        :'extra-color-role', :snippet, :rolegroup,
-        :reaction, :blacklist
+      Config.help_msg event, 'cfg', %i[
+        help log-channel modules prefix extra-color-role
+        snippet rolegroup reaction blacklist
       ]
 
     when 'log-channel', 'lc'
@@ -31,7 +31,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg log-channel', [ :set, :reset ]
+        Config.help_msg event, 'cfg log-channel', %i[set reset]
       when 'set'
         new_id = args.shift.to_i
 
@@ -53,7 +53,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg prefix', [ :set, :reset ]
+        Config.help_msg event, 'cfg prefix', %i[set reset]
       when 'set'
         Config.save_prefix event, cfg, args.join(' ')
       when 'reset'
@@ -66,7 +66,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg extra-color-role', [ :list, :add, :remove ]
+        Config.help_msg event, 'cfg extra-color-role', %i[list add remove]
 
       when 'list'
         role_rows = ExtraColorRole.where(server_id: event.server.id)
@@ -80,13 +80,13 @@ module Admin
         role_descriptions = roles.map {
           hex = _1.color.hex.rjust(6, '0')
           "##{hex} #{_1.id} #{_1.name}"
-        }.join(?\n)
+        }.join("\n")
 
         embed event, "```#{role_descriptions}```"
 
       when 'add'
         role = event.server.role(role_id)
-        if !role
+        unless role
           embed event, t('cfg.extra-color-role.add.not-found')
           return
         end
@@ -111,7 +111,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg snippet', [ :list, :add, :remove, :set ]
+        Config.help_msg event, 'cfg snippet', %i[list add remove set]
 
       when 'list', 'l'
         QBot.bot.execute_command(:listsnippets, event, [])
@@ -136,7 +136,7 @@ module Admin
         name = args.shift
         text = args.join(' ').gsub('\n', "\n")
 
-        if snippet = Snippet.find_by(server_id: event.server.id, name: name)
+        if (snippet = Snippet.find_by(server_id: event.server.id, name: name))
           snippet.text = text
           snippet.save!
 
@@ -155,12 +155,12 @@ module Admin
         name = args.shift
 
         if name == 'help'
-          Config.help_msg event, 'cfg snippet prop', [ :embed ]
+          Config.help_msg event, 'cfg snippet prop', %i[embed]
           return
         end
 
         snippet = Snippet.find_by(server_id: event.server.id, name: name)
-        if !snippet
+        unless snippet
           embed event, t('cfg.snippet.edit.not-found', name)
           return
         end
@@ -181,17 +181,17 @@ module Admin
 
     when 'blacklist', 'bl'
 
-      if args[0].to_i != 0
-        channel_id = args.shift.to_i
-      else
-        channel_id = event.channel.id
-      end
-      
+      channel_id = if args[0].to_i != 0
+                     args.shift.to_i
+                   else
+                     event.channel.id
+                   end
+
       subcmd = args.shift
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg blacklist [channel]', [ :add, :remove, :list, :clear ]
+        Config.help_msg event, 'cfg blacklist [channel]', %i[add remove list clear]
 
       when 'add', 'a'
         entry = BlacklistEntry.create(server_id: event.server.id,
@@ -220,7 +220,7 @@ module Admin
 
         event.channel.send_embed do |m|
           m.title = t('cfg.blacklist.list.title')
-          m.description = bl.map { "`#{_1.id}`: `#{_1.regex}`" }.join(?\n)
+          m.description = bl.map { "`#{_1.id}`: `#{_1.regex}`" }.join("\n")
         end
 
       when 'clear'
@@ -231,11 +231,12 @@ module Admin
         embed event, t('cfg.blacklist.clear.success', count)
 
       end
-    
+
     else
       embed event, t('cfg.nyi')
-      
+
     end
   end
   # rubocop: enable Metrics/BlockLength
 end
+# rubocop: enable Metrics/ModuleLength

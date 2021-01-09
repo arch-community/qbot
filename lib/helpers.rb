@@ -4,18 +4,17 @@ def formatted_name(user)
   "#{user.name}##{user.discriminator}"
 end
 
+def find_prefix(message)
+  ServerConfig[message.server.id].server_prefix || QBot.config.global.prefix || '.'
+end
+
 def cmd_prefix(message)
-  pfx = ServerConfig[message.server.id].get_prefix || QBot.config.global.prefix || '.'
+  pfx = find_prefix(message)
 
-  normal = message.text.start_with?(pfx)
-  spaced = message.text.start_with?(pfx + ' ')
-
-  if spaced
-    return message.text[(pfx.length+1)..-1]
-  elsif normal
-    return message.text[pfx.length..-1]
-  else
-    return nil
+  if message.text.start_with?(pfx + ' ')
+    message.text[(pfx.length + 1)..-1]
+  elsif message.text.start_with?(pfx)
+    message.text[pfx.length..-1]
   end
 end
 
@@ -49,6 +48,6 @@ def user_response(event)
   response.message.text.split[1].to_i
 end
 
-def unescape(s)
-  "\"#{s}\"".undump
+def unescape(str)
+  "\"#{str}\"".undump
 end

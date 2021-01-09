@@ -5,7 +5,7 @@ require 'xkcd'
 # monkey-patch to fix redirects
 class XKCD
   def self.comic
-    open("https://dynamic.xkcd.com/random/comic/", allow_redirections: :all)
+    open('https://dynamic.xkcd.com/random/comic/', allow_redirections: :all)
       .base_uri.to_s
   end
 end

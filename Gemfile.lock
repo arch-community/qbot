@@ -101,7 +101,7 @@ GEM
     io-console (0.5.6)
     irb (1.2.7)
       reline (>= 0.1.5)
-    json (2.4.1)
+    json (2.5.1)
     jwt (2.2.2)
     log4r-color (1.2.2)
       colorize

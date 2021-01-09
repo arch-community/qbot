@@ -10,11 +10,10 @@ module QBot
       cmd = buf.chomp.split
       s = cmd.shift
 
-      if !s || s == ''
-        next
+      next if !s || s == ''
 
       # Stop the bot
-      elsif s.starts_with? 'quit', 'stop'
+      if s.starts_with? 'quit', 'stop'
         @bot.stop
         exit
 

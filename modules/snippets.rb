@@ -15,7 +15,7 @@ module Snippets
 
     snippets = Snippet.where(server_id: event.server.id)
 
-    if !snippets || snippets.size == 0
+    if !snippets || snippets.empty?
       embed event, t('snippets.list.none-found')
     else
       event.channel.send_embed do |m|
