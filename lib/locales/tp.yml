@@ -240,7 +240,7 @@ tp:
           clear: 'o weka e lipu weka'
 
       add:
-        success: 'nimi sin li lon. nimi nanpa ona li `%s`.'
+        success: 'nimi weka sin li lon. nimi nanpa ona li `%s`.'
 
       remove:
         not-found: 'nimi pi nimi nanpa `%s` li lon ala.'
