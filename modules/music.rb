@@ -54,7 +54,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :join, {
     help_available: true,
-    description: 'Joins the voice channel',
     usage: '.join',
     min_args: 0,
     max_args: 0
@@ -64,15 +63,14 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     vc = event.author.voice_channel
     if vc
       event.bot.voice_connect(vc)
-      "Successfully joined the channel **#{vc.name}**!"
+      embed event, t('music.join.success', vc.mention)
     else
-      'You are not in a voice channel!'
+      embed event, t('music.join.not-in-voice')
     end
   end
 
   command :play, {
     help_available: true,
-    description: 'Plays music from a URL',
     usage: '.play <url>',
     min_args: 1
   } do |event, *args|
@@ -94,14 +92,14 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     if File.exist?(filename) && File.exist?(filename + '.dat')
       info = Marshal.load(File.read(filename + '.dat')) # rubocop: disable Security/MarshalLoad
     else
-      event.respond 'Downloading...'
+      event.respond t('music.play.downloading')
       info = YoutubeDL.download url, output: filename, extract_audio: true, audio_format: :opus
       File.write(filename + '.dat', Marshal.dump(info))
     end
 
     # Add it to this server's queue
     Music.queues[event.server.id] << [filename, info]
-    event.respond "Added **#{info.fulltitle || info.url}** to the queue."
+    embed event, t('music.play.success', info.fulltitle || info.url)
 
     nil
   end
@@ -129,8 +127,8 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     # Show the search results in the channel
     event.channel.send_embed do |m|
-      m.title = "Search results for #{query}"
-      m.description = 'To choose a result, ping the bot with its number.'
+      m.title = t('music.yt.results-title', query)
+      m.description = t('music.yt.ping-with-number')
       m.fields = results.map.with_index do |r, idx|
         emoji = ":#{to_word(idx + 1)}:"
 
@@ -154,7 +152,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :pause, {
     help_available: true,
-    description: 'Pauses the audio',
     usage: '.pause',
     min_args: 0,
     max_args: 0
@@ -166,7 +163,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :resume, {
     help_available: true,
-    description: 'Resumes paused audio',
     usage: '.pause',
     min_args: 0,
     max_args: 0
@@ -178,7 +174,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :stop, {
     help_available: true,
-    description: 'Stops playback',
     usage: '.pause',
     min_args: 0,
     max_args: 0
@@ -191,7 +186,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :skip, {
     help_available: true,
-    description: 'Skips the current track',
     usage: '.skip',
     min_args: 0,
     max_args: 0
@@ -204,7 +198,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :volume, {
     help_available: true,
-    description: 'Sets the bot volume for this server',
     usage: '.volume <percentage>',
     min_args: 1,
     max_args: 1
@@ -221,7 +214,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :seek, {
     help_available: true,
-    description: 'Skips forward a few seconds',
     usage: '.seek <time>',
     min_args: 1,
     max_args: 1
@@ -234,7 +226,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   command :np, {
     help_available: true,
-    description: 'Now playing',
     usage: '.np',
     min_args: 0,
     max_args: 0
@@ -242,8 +233,8 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     log(event)
 
     event.channel.send_embed do |m|
-      m.title = 'Now playing'
-      m.description = Music.np[event.server.id] || 'Nothing'
+      m.title = t('music.np.title')
+      m.description = Music.np[event.server.id] || t('music.np.nothing')
     end
 
     nil

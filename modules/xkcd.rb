@@ -16,7 +16,6 @@ module Xkcd
 
   command :xkcd, {
     help_available: true,
-    description: 'Gets an XKCD comic by ID or name',
     usage: '.xkcd',
     min_args: 0
   } do |event, *args|

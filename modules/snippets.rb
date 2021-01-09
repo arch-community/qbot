@@ -7,7 +7,6 @@ module Snippets
   command :listsnippets, {
     aliases: [:ls],
     help_available: true,
-    description: 'Lists available snippets',
     usage: '.ls',
     min_args: 0,
     max_args: 0
@@ -17,10 +16,10 @@ module Snippets
     snippets = Snippet.where(server_id: event.server.id)
 
     if !snippets || snippets.size == 0
-      embed event, 'No available snippets.'
+      embed event, t(event, 'snippets.list.none-found')
     else
       event.channel.send_embed do |m|
-        m.title = 'Available snippets'
+        m.title = t(event, 'snippets.list.title')
         m.description = snippets.map(&:name).join(', ')
       end
     end
@@ -29,7 +28,6 @@ module Snippets
   command :snippet, {
     aliases: [:s],
     help_available: true,
-    description: 'Posts a snippet',
     usage: '.s <snippet name>',
     min_args: 1,
     max_args: 1
@@ -45,7 +43,7 @@ module Snippets
         event.respond snippet.text
       end
     else
-      embed event, 'Snippet not found!'
+      embed event, t('snippets.snippet.not-found')
     end
   end
 end

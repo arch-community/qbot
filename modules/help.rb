@@ -16,7 +16,7 @@ module Help
     end
 
     if !command || !can_run(command.name, event)
-      embed event, t(event, 'help.not-found', name)
+      embed event, t('help.not-found', name)
       return
     end
 
@@ -25,7 +25,7 @@ module Help
     aliases = event.bot.command_aliases(name.to_sym)
     unless aliases.empty?
       fields << {
-        name: t(event, 'help.aliases'),
+        name: t('help.aliases'),
         value: aliases.map { |a| "`#{a.name}`" }.join(', '),
         inline: true
       }
@@ -33,7 +33,7 @@ module Help
 
     if (usage = command.attributes[:usage])
       fields << {
-        name: t(event, 'help.usage'),
+        name: t('help.usage'),
         value: "`#{usage}`",
         inline: true
       }
@@ -41,12 +41,12 @@ module Help
 
     if (parameters = command.attributes[:parameters])
       fields << {
-        name: t(event, 'help.valid-params'),
+        name: t('help.valid-params'),
         value: "```\n#{parameters.join "\n"}\n```"
       }
     end
 
-    desc = t(event, "descriptions.#{command.name}")
+    desc = t "descriptions.#{command.name}"
 
     event.channel.send_embed do |m|
       m.title = "#{pfx}#{name}"
@@ -71,9 +71,9 @@ module Help
 
   def self.embed_full(event, avail, pfx)
     event.channel.send_embed do |m|
-      m.title = t(event, 'help.list-title')
+      m.title = t 'help.list-title'
       m.fields = avail.map {
-        desc = t(event, "descriptions.#{_1.name}") || ''
+        desc = t("descriptions.#{_1.name}") || ''
         {
           name: "#{pfx}#{_1.name}",
           value: desc
@@ -84,7 +84,7 @@ module Help
 
   def self.embed_compact(event, avail, pfx)
     event.channel.send_embed do |m|
-      m.title = t(event, 'help.list-title')
+      m.title = t 'help.list-title'
       m.description = avail.map { "`#{pfx}#{_1.name}`" }.join(', ')
     end
   end

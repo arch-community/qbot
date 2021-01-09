@@ -2,8 +2,97 @@ en:
   no_perms: 'You do not have the required permissions to perform this action.'
 
   descriptions:
-    config: 'Sets various configuration options for the bot'
     help: 'Shows a list of all available commands or displays help for a specific command'
+
+    config: 'Sets various configuration options for the bot'
+    userconfig: 'Configure user settings that apply across servers'
+
+    listsnippets: 'Lists available snippets'
+    snippet: 'Posts a snippet'
+
+    color: 'Sets your user color role'
+    closestcolor: 'Gives you the closest color, by hex code'
+    listcolors: 'Lists colors available on the server'
+    createcolorroles: 'Creates color roles'
+    randcolors: 'Randomizes colors for all users'
+
+    query: 'Adds a query to the list of queries'
+    openqueries: 'Lists open queries'
+    closequery: 'Closes a query by ID'
+
+    join: 'Joins the voice channel'
+    play: 'Plays music from a URL'
+    yt: 'Searches YouTube for a video to play'
+    pause: 'Pauses the audio'
+    resume: 'Resumed paused audio'
+    stop: 'Stops playback'
+    skip: 'Skips the current track'
+    volume: 'Sets the bot volume for this server'
+    seek: 'Skips forward a few seconds'
+    np: 'Shows the currently playing track'
+
+    eval: 'Evaluates some code. Owner-only.'
+    modules: 'Shows a list of currently loaded modules'
+
+    echo: 'Echoes a string'
+    botrepo: "Posts the URL of the bot's Git repo"
+    avatar: "Posts the URL of a user's avatar"
+
+    archwiki: 'Searches the Arch wiki'
+    packagesearch: 'Searches for a package in the Arch repositories'
+    package: 'Shows info for a given package'
+
+    blacklist: 'Lists blacklist entries for a channel'
+
+    xkcd: 'Gets an XKCD comic by ID or name'
+
+  admin:
+    eval:
+      nope: 'nope'
+    modules:
+      title: 'Loaded modules'
+      global: 'Global'
+      local: 'Local'
+
+  arch:
+    wiki:
+      no-results: 'No results found'
+    ps:
+      no-results: 'No results found'
+      title: 'Search results for %s'
+      version: 'version'
+      last-update: 'last update'
+      link: 'web link'
+
+  blacklist:
+    bl:
+      title: Blacklist entries
+    message: >-
+      Your message contained text blocked by the blacklist entry `%s`.
+
+      For your convenience, the original message is included below.
+      ```
+      %s
+      ```
+
+  colors:
+    assign-role:
+      already-have: 'You already have that %s.'
+      success: 'Your %s is now **%s**.'
+    color:
+      not-found: 'Color not found.'
+    closest:
+      found: 'Closest color found: `%s`.'
+    list:
+      title: 'All colors'
+    ccr:
+      deleting: 'Deleting existing color role `%s`.'
+      created: 'Created role `%s` with color `%s`.'
+      success: 'Created %s roles.'
+    rc:
+      success: 'Randomized colors for %s users.'
+
+  figlet:
 
   help:
     aliases: 'Aliases'
@@ -11,6 +100,65 @@ en:
     valid-params: 'Accepted parameters'
     list-title: 'List of commands'
     not-found: "The command `%s` does not exist."
+
+  music:
+    join:
+      success: 'Successfully joined the channel %s!'
+      not-in-voice: 'You are not in a voice channel!'
+    play:
+      downloading: 'Downloading...'
+      success: 'Added **%s** to the queue.'
+    yt:
+      results-title: 'Search results for %s'
+      ping-with-number: 'To choose a result, ping the bot with its number.'
+    np:
+      title: 'Now playing'
+      nothing: 'Nothing'
+
+  queries:
+    query:
+      success: 'Query #%s has been created.'
+    oq:
+      title: 'Open queries'
+      no-results: 'No results'
+      deleted-after-30d: 'Queries are deleted after 30 days.'
+      entry-name: '#%s by %s at %s'
+    cq:
+      not-found: 'Query #%s not found.'
+      success: 'Deleted query #%s.'
+      no-perms: 'You do not have permission to delete query #%s.'
+
+  roles:
+
+  snippets:
+    list:
+      none-found: 'No available snippets.'
+      title: 'Available snippets'
+    snippet:
+      not-found: 'Snippet not found.'
+
+  xkcd:
+
+  uc:
+    help:
+      help: 'show this message'
+      language: 'set the language the bot responds with'
+
+    language:
+      help:
+        list: 'show available languages'
+        set: 'change your user language'
+        reset: 'set your user language to the default (English)'
+
+      list:
+        title: 'Available languages'
+
+      set:
+        not-found: 'Language `%s` not found.'
+        success: 'Your language is now `%s`.'
+
+      reset:
+        success: 'Language successfully reset to `%s`.'
 
   cfg:
     usage: 'Usage:'
@@ -45,6 +193,8 @@ en:
       help:
         set: 'set the prefix for this server'
         reset: 'reset the prefix to the default'
+
+      saved: 'New prefix `%s` saved.'
 
     extra-color-role:
       help:

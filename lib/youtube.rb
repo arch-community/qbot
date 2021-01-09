@@ -6,8 +6,8 @@ module YouTube
 
   @redirect_uri = 'http://localhost'
   @application_name = 'AMusicBot'
-  @client_secrets_path = 'yt-client-secret.json'
-  @credentials_path = 'yt-credentials.yml'
+  @client_secrets_path = 'config/yt-client-secret.json'
+  @credentials_path = 'config/yt-credentials.yml'
   @scope = Google::Apis::YoutubeV3::AUTH_YOUTUBE_READONLY
 
   class << self; attr_accessor :service; end

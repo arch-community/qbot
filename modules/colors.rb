@@ -30,11 +30,11 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   def self.assign_role(event, role_list, role, name)
     if event.author.roles.include? role
-      event.channel.send_embed { _1.description = "You already have that #{name}." }
+      event.channel.send_embed { _1.description = t 'colors.assign-role.already-have', name }
     else
       event.author.roles -= role_list
       event.author.add_role role
-      event.channel.send_embed { _1.description = "Your #{name} is now **#{role.name}**." }
+      event.channel.send_embed { _1.description = t 'colors.assign-role.success', name, role.name }
     end
   end
 
@@ -55,7 +55,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   command :color, {
     aliases: [:c],
     help_available: true,
-    description: 'Sets your user color',
     usage: '.c <color>',
     min_args: 1
   } do |event, *args|
@@ -79,7 +78,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     # Role for the requested color
     rc = requested_color&.role
     if !rc
-      embed event, 'Color not found.'
+      embed event, t('colors.color.not-found')
       return
     end
 
@@ -89,7 +88,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   command :closestcolor, {
     aliases: [:cc],
     help_available: true,
-    description: 'Gives you the closest color',
     usage: '.cc <color>',
     min_args: 1,
     max_args: 1
@@ -106,14 +104,13 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     color = colors.find { _1.idx == min[1] }
 
-    event.channel.send_embed { _1.description = "Closest color found: `##{color.role.color.hex.rjust(6, '0')}`." }
+    event.channel.send_embed { _1.description = t('colors.closest.found', ?# + color.role.color.hex.rjust(6, '0')) }
     Colors.assign_role(event, colors.map { _1.role }, color.role, 'color')
   end
 
   command :listcolors, {
     aliases: [:lc],
     help_available: true,
-    description: 'Lists colors',
     usage: '.lc',
     min_args: 0,
     max_args: 0
@@ -130,7 +127,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     end
 
     event.channel.send_embed do |m|
-      m.title = 'All colors'
+      m.title = t 'colors.list.title'
       m.description = "```#{list.join "\n"}```"
     end
   end
@@ -138,7 +135,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   command :createcolorroles, {
     aliases: [:ccr],
     help_available: false,
-    description: 'Creates color roles',
     usage: '.createcolorroles <lightness> <spread> <count>',
     min_args: 3,
     max_args: 3
@@ -146,12 +142,12 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     log event
 
     unless event.author.permission?(:administrator)
-      embed event, 'You do not have the required permissions for this.'
+      embed event, t(:no_perms)
       return
     end
 
     event.server.roles.filter { _1.name.ends_with? '[c]' }.each do
-      event.respond "Deleting existing color role `#{_1.name}`."
+      event.respond t('colors.ccr.deleting', _1.name)
       _1.delete
     end
 
@@ -168,16 +164,15 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
         permissions: 0,
         reason: 'Generating color roles'
       )
-      event.respond "Created role `color#{idx}` with color `##{hex}`."
+      event.respond t('colors.ccr.created', "color#{idx}", ?# + hex)
     end
 
-    embed event, "Created #{colors.size} roles."
+    embed event, t('colors.ccr.success', colors.size)
   end
 
   command :randcolors, {
     aliases: [:rc],
     help_available: false,
-    description: 'Randomizes user colors',
     usage: '.rc',
     min_args: 0,
     max_args: 0
@@ -185,7 +180,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     log event
 
     unless event.author.permission?(:administrator)
-      embed event, 'You do not have the required permissions for this.'
+      embed event, t(:no_perms)
       return
     end
 
@@ -198,7 +193,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       counter += 1
     end
 
-    event.channel.send_embed { _1.description = "Randomized colors for #{counter} users." }
+    event.channel.send_embed { _1.description = t('colors.rc.success', counter) }
   end
 end
 

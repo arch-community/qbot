@@ -1,4 +1,4 @@
-en:
+tp:
   no_perms: 'sina ken ala pali e ni tan ni: ken sina li lili.'
 
   descriptions:
@@ -24,7 +24,7 @@ en:
       modules: 'o ante e ken pali pi kulupu pi nimi pali'
       prefix: 'o ante e nimi lili pi open pi nimi pali'
       extra-color-role: 'o ante e poki kule namako'
-      snippet: 'o ante e toki nimi 📄'
+      snippet: 'o ante e toki nimi'
       rolegroup: 'o pali e kulupu poki'
       reaction: 'jan li namako e toki la, o pali e seme?'
       blacklist: 'o ante e weka pi toki ike'
@@ -43,38 +43,38 @@ en:
 
     prefix:
       help:
-        set: 'set the prefix for this server'
-        reset: 'reset the prefix to the default'
+        set: 'o ante e sitelen open pi nimi pali'
+        reset: 'o ante e sitelen open tawa "."'
 
     extra-color-role:
       help:
-        list: 'print the list of extra color roles'
-        add: 'add a role (by ID) to the list of extra roles'
-        remove: 'remove a role (by ID) from the list of extra roles'
+        list: 'o lukin e poki kule namako ale'
+        add: 'nimi nanpa la o pana e poki kule sin tawa ilo'
+        remove: 'nimi nanpa la o weka e poki kule namako tan ilo'
 
       list:
-        no-roles: 'No extra color roles configured yet.'
+        no-roles: 'poki kule namako li lon ala.'
       add:
-        not-found: 'Role not found.'
-        non-unique: 'That role is already in the list.'
-        success: 'Role `%s` (`%s`) added to the list of extra color roles.'
+        not-found: 'poki kule ni li lon ala.'
+        non-unique: 'tenpo ni la poki kule ni li lon. sina ken ala pana e ona.'
+        success: 'poki kule `%s` (`%s`) li lon sin.'
       remove:
-        success: 'Role `%s` removed from the list of extra color roles, if it was present.'
+        success: 'ona li lon la, poki kule `%s` li weka.'
 
     snippet:
       add:
-        non-unique: 'Snippet `%s` already exists.'
-        success: 'Created snippet `%s`.'
+        non-unique: 'tenpo pini la, toki nimi `%s` li lon. sina ken ala pana e ona.'
+        success: 'toki nimi `%s` li lon sin.'
       edit:
-        not-found: 'Snippet `%s` not found.'
-        success: 'Snippet `%s` edited successfully.'
+        not-found: 'toki nimi `%s` li lon ala.'
+        success: 'toki nimi `%s` li ante.'
       remove:
-        success: 'Removed snippet `%s`, if it was present.'
+        success: 'ona li lon la, toki nimi `%s` li weka.'
       prop:
         help:
-          embed: '(bool) is snippet sent as an embed or a normal message?'
+          embed: '(bool) toki nimi ni li lon ala lon insa poki?'
 
-        success: 'Property `%s` of snippet `%s` is now `%s`.'
+        success: 'namako `%s` pi toki nimi `%s` li sama `%s` sin.'
 
     rolegroup:
 
@@ -83,23 +83,23 @@ en:
     blacklist:
       "[channel]":
         help:
-          add: 'add an entry to the blacklist for this channel'
-          remove: 'remove an entry from the blacklist by its ID'
-          list: 'show all blacklist entries and their IDs'
-          clear: 'remove all blacklist entries for this channel'
+          add: 'o pana e nimi tawa lipu weka pi toki ike'
+          remove: 'o weka e nimi tan lipu weka pi toki ike'
+          list: 'o pana e lipu weka ale'
+          clear: 'o weka e lipu weka'
 
       add:
-        success: 'Entry was successfully added with ID `%s`.'
+        success: 'nimi sin li lon. nimi nanpa ona li `%s`.'
 
       remove:
-        not-found: 'Cannot find entry `%s`.'
-        wrong-server: 'Cannot find entry `%s` on this server.'
-        success: 'Removed entry with ID `%s`.'
+        not-found: 'nimi pi nimi nanpa `%s` li lon ala.'
+        wrong-server: 'nimi pi nimi nanpa `%s` li lon ala kulupu ni.'
+        success: 'nimi pi nimi nanpa `%s` li weka.'
 
       list:
-        title: 'Blacklist entries'
+        title: 'lipu weka pi toki ike'
 
       clear:
-        success: '%s blacklist entries removed.'
+        success: 'nimi weka %s li weka.'
 
-    nyi: 'Not yet implemented.'
+    nyi: 'ilo li ken ala pali e ni lon tenpo ni.'
