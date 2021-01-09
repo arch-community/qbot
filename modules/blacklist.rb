@@ -7,7 +7,6 @@ module Blacklist
   command :blacklist, {
     aliases: [:bl],
     help_available: true,
-    description: 'Lists blacklist entries for a channel',
     usage: '.bl [channel]',
     min_args: 0,
     max_args: 1
@@ -17,7 +16,7 @@ module Blacklist
     bl = BlacklistEntry.where(channel_id: channel_id)
     
     event.channel.send_embed do |m|
-      m.title = "Blacklist entries"
+      m.title = t('blacklist.bl.title')
       m.description = bl.map(&:regex).map { "`#{_1}`" }.join(?\n)
     end
   end
@@ -33,14 +32,7 @@ QBot.bot.message do |event|
     bl = BlacklistEntry.where(channel_id: event.channel.id)
     bl.map(&:re).each do |r|
       if r.match? event.message.text
-        event.message.author.pm <<~END
-          Your message contained text blocked by the following blacklist entry: `#{r}`.
-
-          Original message:
-          ```
-          #{contents}
-          ```
-        END
+        event.message.author.pm t('blacklist.message', r, contents)
         event.message.delete
         break
       end

@@ -6,7 +6,6 @@ module Util
 
   command :echo, {
     help_available: true,
-    description: 'Echoes a string',
     usage: '.echo <string>',
     min_args: 1
   } do |event, *args|
@@ -16,7 +15,6 @@ module Util
 
   command :botrepo, {
     help_available: true,
-    description: 'Posts the URL of the bot\'s Git repo',
     usage: '.mygit',
     min_args: 0,
     max_args: 0
@@ -27,7 +25,6 @@ module Util
 
   command :avatar, {
     help_available: true,
-    description: 'Posts the URL of a user\'s avatar',
     usage: '.avatar',
     min_args: 0,
     max_args: 1

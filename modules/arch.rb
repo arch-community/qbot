@@ -45,7 +45,6 @@ module Arch
   command :archwiki, {
     aliases: [:aw],
     help_available: true,
-    description: 'Searches the Arch Wiki',
     usage: '.aw <query>',
     min_args: 1
   } do |event, *qs|
@@ -67,7 +66,7 @@ module Arch
 
       if sq['searchinfo']['totalhits'] < 1
         # If not found, notify
-        embed event, 'No results found'
+        embed event, t('arch.wiki.no-results')
       else
         # Embed a link to the first search result
         firstres = sq['search'][0]
@@ -91,7 +90,7 @@ module Arch
     # Error if no results found
     res = response['results']
     if res.empty?
-      event.channel.send_embed { _1.title = 'No results found' }
+      embed event, t('arch.ps.no-results')
       return
     end
 
@@ -99,7 +98,7 @@ module Arch
 
     # Embed the search results
     event.channel.send_embed do |m|
-      m.title = "Search results for #{query}"
+      m.title = t('arch.ps.title', query)
       m.fields = ordered_results.first(5).map do |r|
         ver = r['pkgver']
         time = Time.parse(r['last_update']).strftime('%Y-%m-%d')
@@ -109,7 +108,7 @@ module Arch
           name: "#{r['repo']}/#{r['pkgname']}",
           value: <<~VAL
             #{r['pkgdesc']}
-            version **#{ver}** | last update **#{time}** | [web link](#{url})
+            #{t 'arch.ps.version'} **#{ver}** | #{t 'arch.ps.last-update'} **#{time}** | [#{t 'arch.ps.link'}](#{url})
           VAL
         }
       end
@@ -119,13 +118,12 @@ module Arch
   command :package, {
     aliases: [:package],
     help_available: true,
-    description: 'Shows info for a given package',
     usage: '.p <pkgname>',
     min_args: 1,
     max_args: 1
   } do |event, _pn|
     log(event)
-    'Not yet implemented!'
+    embed event, t('cfg.nyi')
   end
 end
 

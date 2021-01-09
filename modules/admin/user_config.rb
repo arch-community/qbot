@@ -7,39 +7,52 @@ module Admin
   command :userconfig, {
     aliases: [:ucfg, :uc],
     help_available: true,
-    description: 'Allows users to configure various settings',
     usage: '.set <args>',
     min_args: 0
   } do |event, *args|
     command = args.shift
 
     case command
-    when 'help', ''
-      Config.help_msg event, 'uc', {
-        help: 'show this message',
-        language: 'set the language the bot uses with you'
-      }
+    when 'help', nil
+      Config.help_msg event, 'uc', [ :help, :language ]
 
-    when 'language', 'lang'
+    when 'language', 'lang', 'l'
+      uc = UserConfig[event.user.id]
+
       subcmd = args.shift
       case subcmd
-      when 'help', ''
-        Config.help_msg event, 'uc language', {
-          list: 'show available languages',
-          set: 'change your user language',
-          reset: 'change your user language to English'
-        }
+      when 'help', nil
+        Config.help_msg event, 'uc language', [ :list, :set, :reset ]
 
       when 'list', 'l'
+        event.channel.send_embed do |m|
+          m.title = t 'uc.language.list.title'
+          m.description = I18n.available_locales.map(&:to_s).join(', ')
+        end
 
       when 'set', 's'
+        lang = args.shift
+        if I18n.available_locales.map(&:to_s).include? lang
+          uc.contents ||= {}
+          uc.contents['lang'] = lang
+          uc.save!
+          embed event, t('uc.language.set.success', lang)
+        else
+          embed event, t('uc.language.set.not-found', lang)
+        end
 
       when 'reset', 'rs'
+        lang = I18n.default_locale.to_s
 
+        uc.contents ||= {}
+        uc.contents['lang'] = lang
+        uc.save!
+
+        embed event, t('uc.language.reset.success', lang)
       end
         
     else
-      embed event, 'Not yet implemented!'
+      embed event, t('cfg.nyi')
     end
   end
 end

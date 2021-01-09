@@ -88,8 +88,13 @@ module Discordrb
       def execute_command(name, event, arguments, chained = false, check_permissions = true)
         return unless can_run(name, event)
 
+        uc = UserConfig[event.user.id]
+        lang = uc.contents && uc.contents['lang']&.to_sym || I18n.default_locale
+        I18n.locale = lang
+
         execute!(name, event, arguments, chained, check_permissions)
       end
     end
   end
 end
+
