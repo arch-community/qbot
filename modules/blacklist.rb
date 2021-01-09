@@ -29,6 +29,10 @@ QBot.bot.message do |event|
     break
   end
 
+  uc = UserConfig[event.user.id]
+  lang = uc.contents && uc.contents['lang']&.to_sym || I18n.default_locale
+  I18n.locale = lang
+
   contents = event.message.text
 
   bl = BlacklistEntry.where(channel_id: event.channel.id)
