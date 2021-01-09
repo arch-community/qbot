@@ -43,7 +43,7 @@ module Arch
   end
 
   command :archwiki, {
-    aliases: [:aw],
+    aliases: [:aw, :'arch-chan-uwu'], # joke
     help_available: true,
     usage: '.aw <query>',
     min_args: 1
