@@ -234,8 +234,8 @@ tp:
     blacklist:
       "[channel]":
         help:
-          add: 'o pana e nimi tawa lipu weka pi toki ike'
-          remove: 'o weka e nimi tan lipu weka pi toki ike'
+          add: 'o pana e nimi weka tawa lipu weka pi toki ike'
+          remove: 'o weka e nimi weka tan lipu weka pi toki ike'
           list: 'o pana e lipu weka ale'
           clear: 'o weka e lipu weka'
 
@@ -243,9 +243,9 @@ tp:
         success: 'nimi weka sin li lon. nimi nanpa ona li `%s`.'
 
       remove:
-        not-found: 'nimi pi nimi nanpa `%s` li lon ala.'
-        wrong-server: 'nimi pi nimi nanpa `%s` li lon ala kulupu ni.'
-        success: 'nimi pi nimi nanpa `%s` li weka.'
+        not-found: 'nimi weka pi nimi nanpa `%s` li lon ala.'
+        wrong-server: 'nimi weka pi nimi nanpa `%s` li lon ala kulupu ni.'
+        success: 'nimi weka pi nimi nanpa `%s` li weka.'
 
       list:
         title: 'lipu weka pi toki ike'
