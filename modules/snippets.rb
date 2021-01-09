@@ -16,10 +16,10 @@ module Snippets
     snippets = Snippet.where(server_id: event.server.id)
 
     if !snippets || snippets.size == 0
-      embed event, t(event, 'snippets.list.none-found')
+      embed event, t('snippets.list.none-found')
     else
       event.channel.send_embed do |m|
-        m.title = t(event, 'snippets.list.title')
+        m.title = t('snippets.list.title')
         m.description = snippets.map(&:name).join(', ')
       end
     end
