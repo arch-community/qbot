@@ -36,6 +36,7 @@ module Admin
           uc.contents ||= {}
           uc.contents['lang'] = lang
           uc.save!
+          I18n.locale = lang.to_sym
           embed event, t('uc.language.set.success', lang)
         else
           embed event, t('uc.language.set.not-found', lang)
