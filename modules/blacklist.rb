@@ -31,7 +31,6 @@ QBot.bot.message do |event|
 
   uc = UserConfig[event.user.id]
   lang = uc.contents && uc.contents['lang']&.to_sym || I18n.default_locale
-  p lang
   I18n.locale = lang
 
   contents = event.message.text
