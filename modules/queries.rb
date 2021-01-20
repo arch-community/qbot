@@ -32,7 +32,7 @@ module Queries
     queries = Query.where(server_id: event.server.id).map do |q|
       {
         name: t('queries.oq.entry-name',
-                q.id, formatted_name(event.bot.user(q.user_id), q.created_at)),
+                q.id, formatted_name(event.bot.user(q.user_id)), q.created_at),
         value: q.text
       }
     end
