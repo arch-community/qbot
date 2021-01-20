@@ -131,23 +131,21 @@
     platforms = [];
     source = {
       fetchSubmodules = false;
-      rev = "a15f81cb80f416b10f3ad8578fad563017a9071b";
-      sha256 = "1w6zwiz6jc0540ggifsn0v2sf6xi7fn6jrr1jid8hqy0g000jwgx";
+      rev = "fa276767d02261e7d81a6e359d0e88d1012ed33b";
+      sha256 = "1980adardgi9zrzj5gzhbqyldvbwk45pxfai0rr14h67n5qwxa8m";
       type = "git";
-      url = "https://github.com/swarley/discordrb.git";
+      url = "https://github.com/shardlab/discordrb.git";
     };
-    version = "3.3.0";
+    version = "3.4.0";
   };
   discordrb-webhooks = {
     dependencies = ["rest-client"];
     groups = ["default"];
     platforms = [];
     source = {
-      fetchSubmodules = false;
-      rev = "4eadc9296dabf08b89a29e8c0b177664c48c6f88";
-      sha256 = "1srrimaswjyqf3vab8qwz224pz77p9lkags06zyfc6y3cmbm6qjf";
-      type = "git";
-      url = "https://github.com/anna328p/discordrb";
+      remotes = ["https://rubygems.org"];
+      sha256 = "16536r8j9qj66q36k8pv7b7sfz3nr5jgarab77q945yl2fg0wvvf";
+      type = "gem";
     };
     version = "3.3.0";
   };
@@ -703,6 +701,16 @@
     };
     version = "3.2.4";
   };
+  rmagick = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0ajn6aisf9hh3x5zrs7n02pg5xy3m8x38gh9cn7b3klzgp3djla5";
+      type = "gem";
+    };
+    version = "4.1.2";
+  };
   rss = {
     dependencies = ["rexml"];
     groups = ["default"];
@@ -939,10 +947,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0f11rcn4qgffb1rq4kjfwi7di79w8840x9l74pkyif5arp0mb08x";
+      sha256 = "0dib6p55sl606qb4vpwrvj5wh881kk4aqn2zpfapf8ckx7g14jw8";
       type = "gem";
     };
-    version = "1.2.8";
+    version = "1.2.9";
   };
   websocket-client-simple = {
     dependencies = ["event_emitter" "websocket"];

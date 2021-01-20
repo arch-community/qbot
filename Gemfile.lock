@@ -7,20 +7,11 @@ GIT
       cocaine (>= 0.5.4)
 
 GIT
-  remote: https://github.com/anna328p/discordrb.git
-  revision: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
-  ref: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
-  branch: next
+  remote: https://github.com/shardlab/discordrb.git
+  revision: fa276767d02261e7d81a6e359d0e88d1012ed33b
+  branch: main
   specs:
-    discordrb-webhooks (3.3.0)
-      rest-client (>= 2.0.0)
-
-GIT
-  remote: https://github.com/swarley/discordrb.git
-  revision: a15f81cb80f416b10f3ad8578fad563017a9071b
-  branch: next
-  specs:
-    discordrb (3.3.0)
+    discordrb (3.4.0)
       discordrb-webhooks (~> 3.3.0)
       ffi (>= 1.9.24)
       opus-ruby
@@ -54,6 +45,8 @@ GEM
     concurrent-ruby (1.1.7)
     declarative (0.0.20)
     declarative-option (0.1.0)
+    discordrb-webhooks (3.3.0)
+      rest-client (>= 2.1.0.rc1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.6)
@@ -154,6 +147,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.2.4)
+    rmagick (4.1.2)
     rss (0.2.9)
       rexml
     rubocop (0.92.0)
@@ -199,7 +193,7 @@ GEM
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     unicode_utils (1.4.0)
-    websocket (1.2.8)
+    websocket (1.2.9)
     websocket-client-simple (0.3.0)
       event_emitter
       websocket
@@ -216,7 +210,6 @@ DEPENDENCIES
   activerecord
   activerecord-oracle_enhanced-adapter
   discordrb!
-  discordrb-webhooks!
   google-api-client
   hashugar
   i18n
@@ -228,6 +221,7 @@ DEPENDENCIES
   paint
   rbnacl
   reline
+  rmagick
   rss
   rubocop
   ruby-oci8

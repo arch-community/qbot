@@ -7,18 +7,18 @@ ruby '~> 2.7'
 # rubocop: disable Metrics/BlockLength
 group :default do
   # Base
-  gem 'discordrb', github: 'swarley/discordrb', branch: 'next'
+  gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
   # dirty hack to fix bundix problems
-  gem 'discordrb-webhooks',
-      github: 'anna328p/discordrb',
-      branch: 'next',
-      ref: '4eadc9296dabf08b89a29e8c0b177664c48c6f88'
-  gem 'rbnacl'
+  # gem 'discordrb-webhooks',
+  #     github: 'anna328p/discordrb',
+  #     branch: 'main',
+  #     ref: '4f5a7f06d653aaa3aabd305495520e154525fcd2'
 
-  gem 'i18n'
+  gem 'rbnacl'
 
   # Config
   gem 'hashugar'
+  gem 'i18n'
 
   # Help
   gem 'word_wrap',
@@ -65,6 +65,9 @@ group :default do
   # xkcd
   gem 'open_uri_redirections'
   gem 'xkcd'
+
+  # preview color roles
+  gem 'rmagick'
 end
 
 group :default, :development do
