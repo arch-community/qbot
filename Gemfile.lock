@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/swarley/discordrb.git
-  revision: a15f81cb80f416b10f3ad8578fad563017a9071b
+  revision: eb693934d6b4806ed86f283f987246d528c95566
   branch: next
   specs:
     discordrb (3.3.0)
@@ -64,7 +64,7 @@ GEM
       http-cookie (~> 1.0.0)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.13.1)
+    ffi (1.14.2)
     google-api-client (0.45.1)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 0.9)
@@ -113,7 +113,7 @@ GEM
     memoist (0.16.2)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mime-types-data (3.2020.1104)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
@@ -199,7 +199,7 @@ GEM
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     unicode_utils (1.4.0)
-    websocket (1.2.8)
+    websocket (1.2.9)
     websocket-client-simple (0.3.0)
       event_emitter
       websocket
