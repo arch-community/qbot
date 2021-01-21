@@ -130,7 +130,7 @@ GEM
     opus-ruby (1.0.1)
       ffi
     os (1.1.1)
-    paint (2.2.0)
+    paint (2.2.1)
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
