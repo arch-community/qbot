@@ -51,3 +51,11 @@ end
 def unescape(str)
   "\"#{str}\"".undump
 end
+
+def cmd_target(event, arg)
+  if (id = arg.to_i) != 0
+    event.bot.user(id)
+  else
+    event.message.mentions[0] || event.author
+  end
+end
