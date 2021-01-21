@@ -23,6 +23,14 @@ module Util
     QBot.config.my_repo
   end
 
+  def self.full_avatar(user)
+    url = user.avatar_url
+
+    full_url = url.end_with?('.gif') ? url : user.avatar_url('png')
+
+    "#{full_url}?size=1024"
+  end
+
   command :avatar, {
     help_available: true,
     usage: '.avatar',
@@ -31,12 +39,8 @@ module Util
   } do |event, user|
     log(event)
 
-    if (id = user.to_i) != 0
-      event.respond event.bot.user(id).avatar_url
-    elsif event.message.mentions[0]
-      event.respond event.message.mentions[0].avatar_url
-    else
-      event.respond event.author.avatar_url
-    end
+    target_user = cmd_target(event, user)
+
+    event.respond Util.full_avatar(target_user)
   end
 end
