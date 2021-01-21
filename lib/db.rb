@@ -104,7 +104,9 @@ module Database
 end
 
 class Query < ActiveRecord::Base; end
+
 class ExtraColorRole < ActiveRecord::Base; end
+
 class Snippet < ActiveRecord::Base; end
 
 # Entry in a channel blacklist

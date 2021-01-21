@@ -11,10 +11,10 @@ end
 def cmd_prefix(message)
   pfx = find_prefix(message)
 
-  if message.text.start_with?(pfx + ' ')
-    message.text[(pfx.length + 1)..-1]
+  if message.text.start_with?("#{pfx} ")
+    message.text[(pfx.length + 1)..]
   elsif message.text.start_with?(pfx)
-    message.text[pfx.length..-1]
+    message.text[pfx.length..]
   end
 end
 

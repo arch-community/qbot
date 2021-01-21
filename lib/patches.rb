@@ -85,6 +85,7 @@ module Discordrb
 
       # Check server modules on command execution
       alias execute! execute_command
+      # rubocop: disable Style/OptionalBooleanParameter
       def execute_command(name, event, arguments, chained = false, check_permissions = true)
         return unless can_run(name, event)
 
@@ -94,6 +95,7 @@ module Discordrb
 
         execute!(name, event, arguments, chained, check_permissions)
       end
+      # rubocop: enable Style/OptionalBooleanParameter
     end
   end
 end

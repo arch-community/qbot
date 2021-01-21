@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-I18n.load_path << Dir[File.expand_path('lib/locales') + '/*.yml']
+I18n.load_path << Dir["#{File.expand_path('lib/locales')}/*.yml"]
 I18n.config.available_locales = %i[en tp]
 I18n.default_locale = :en
 
