@@ -35,7 +35,7 @@ GEM
     activerecord (6.0.3.3)
       activemodel (= 6.0.3.3)
       activesupport (= 6.0.3.3)
-    activerecord-oracle_enhanced-adapter (6.0.4)
+    activerecord-oracle_enhanced-adapter (6.0.6)
       activerecord (~> 6.0.0)
       ruby-plsql (>= 0.6.0)
     activesupport (6.0.3.3)
@@ -129,7 +129,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.2)
+    minitest (5.14.3)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -204,7 +204,7 @@ GEM
     thrift (0.11.0.0)
     thrift_client (0.11.0)
       thrift (~> 0.11.0)
-    tzinfo (1.2.7)
+    tzinfo (1.2.9)
       thread_safe (~> 0.1)
     uber (0.1.0)
     unf (0.1.4)
@@ -220,7 +220,7 @@ GEM
     xkcd (1.1.1)
       google-search
       nokogiri (>= 1.5.0)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
