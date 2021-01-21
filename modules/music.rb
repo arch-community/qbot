@@ -86,15 +86,16 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     # Temporary file for the track based on a hash of its URL
     filename = "/tmp/amb-#{Digest::SHA256.hexdigest url}.opus"
+    data_filename = "#{filename}.dat"
 
     info = nil
     # Download the track; get info
-    if File.exist?(filename) && File.exist?(filename + '.dat')
-      info = Marshal.load(File.read(filename + '.dat')) # rubocop: disable Security/MarshalLoad
+    if File.exist?(filename) && File.exist?(data_filename)
+      info = Marshal.load(File.read(data_filename)) # rubocop: disable Security/MarshalLoad
     else
       event.respond t('music.play.downloading')
       info = YoutubeDL.download url, output: filename, extract_audio: true, audio_format: :opus
-      File.write(filename + '.dat', Marshal.dump(info))
+      File.write(data_filename, Marshal.dump(info))
     end
 
     # Add it to this server's queue
@@ -133,7 +134,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
         emoji = ":#{to_word(idx + 1)}:"
 
         desc = r.snippet.description
-        truncated_desc = desc.size < 192 ? desc : desc[0..191].chomp + '...'
+        truncated_desc = desc.size < 192 ? desc : "#{desc[0..191].chomp}..."
 
         {
           name: "#{emoji}  #{r.snippet.title}",

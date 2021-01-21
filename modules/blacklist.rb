@@ -36,11 +36,11 @@ QBot.bot.message do |event|
   contents = event.message.text
 
   bl = BlacklistEntry.where(channel_id: event.channel.id)
-  bl.map(&:re)
-    .filter { |re| re.match? event.message.text }
-    .each do |r|
-      event.message.author.pm t('blacklist.message', r, contents)
-      event.message.delete
-      break
-    end
+    .filter { |entry| entry.re.match? event.message.text }
+    .first
+
+  if bl
+    event.message.author.pm t('blacklist.message', bl.re, contents)
+    event.message.delete
+  end
 end

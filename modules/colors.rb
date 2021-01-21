@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/colorlib.rb'
+require './lib/colorlib'
 
 # Color role assignment
 module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
@@ -82,7 +82,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       return
     end
 
-    Colors.assign_role(event, colors.map { _1.role }, rc, t('colors.color.role-type-name'))
+    Colors.assign_role(event, colors.map(&:role), rc, t('colors.color.role-type-name'))
   end
 
   command :closestcolor, {
@@ -96,7 +96,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     colors, = Colors.get_colors(event)
 
-    labs = colors.sort_by { _1.idx }.map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6, '0') }
+    labs = colors.sort_by(&:idx).map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6, '0') }
     compare = ColorLib.hex_to_lab(color)
 
     de = labs.map { ColorLib.cie76(compare, _1) }
@@ -106,9 +106,9 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     event.channel.send_embed {
       _1.description = t('colors.closest.found',
-                         '#' + color.role.color.hex.rjust(6, '0'))
+                         "##{color.role.color.hex.rjust(6, '0')}")
     }
-    Colors.assign_role(event, colors.map { _1.role }, color.role, 'color')
+    Colors.assign_role(event, colors.map(&:role), color.role, 'color')
   end
 
   command :listcolors, {
@@ -123,7 +123,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     colors, = Colors.get_colors(event)
 
     # Formatted list of the colors
-    list = colors.sort_by { _1.idx }.map do |c|
+    list = colors.sort_by(&:idx).map do |c|
       idx = c.idx.to_s.rjust(2)
       r = c.role
       "#{idx}: ##{r.color.hex.rjust(6, '0')} #{r.name}"
@@ -167,7 +167,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
         permissions: 0,
         reason: 'Generating color roles'
       )
-      event.respond t('colors.ccr.created', "color#{idx}", '#' + hex)
+      event.respond t('colors.ccr.created', "color#{idx}", "##{hex}")
     end
 
     embed event, t('colors.ccr.success', colors.size)
