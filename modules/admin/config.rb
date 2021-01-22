@@ -16,17 +16,18 @@ module Admin
 
     return t(:no_perms) unless event.author.permission?(:administrator)
 
+    cfg = ServerConfig[event.server.id]
+
     command = args.shift
 
     case command
     when 'help', nil
       Config.help_msg event, 'cfg', %i[
-        help log-channel modules prefix extra-color-role
-        snippet rolegroup reaction blacklist
+        help log-channel modules prefix colors
+        snippet rolegroup reaction blacklist misc
       ]
 
     when 'log-channel', 'lc'
-      cfg = Config[event.server.id]
       subcmd = args.shift
 
       case subcmd
@@ -48,7 +49,6 @@ module Admin
       end
 
     when 'prefix', 'pfx'
-      cfg = Config[event.server.id]
       subcmd = args.shift
 
       case subcmd
@@ -60,50 +60,79 @@ module Admin
         Config.save_prefix event, cfg, QBot.config.global.prefix || '.'
       end
 
-    when 'extra-color-role', 'ecr'
+    when 'colors', 'c'
       subcmd = args.shift
-      role_id = args.shift.to_i
-
       case subcmd
-      when 'help', nil
-        Config.help_msg event, 'cfg extra-color-role', %i[list add remove]
+      when 'help', 'h', nil
+        Config.help_msg event, 'cfg colors', %i[extra-color-role bare-colors]
+      when 'extra-color-role', 'ecr'
+        opt = args.shift
+        role_id = args.shift.to_i
 
-      when 'list'
-        role_rows = ExtraColorRole.where(server_id: event.server.id)
-        if role_rows.empty?
-          embed event, t('cfg.extra-color-role.list.no-roles')
-          return
+        case opt
+        when 'help', nil
+          Config.help_msg event, 'cfg colors extra-color-role', %i[list add remove]
+
+        when 'list'
+          role_rows = ExtraColorRole.where(server_id: event.server.id)
+          if role_rows.empty?
+            embed event, t('cfg.colors.extra-color-role.list.no-roles')
+            return
+          end
+
+          roles = role_rows.map { event.server.role(_1.role_id.to_i) }
+
+          role_descriptions = roles.map {
+            hex = _1.color.hex.rjust(6, '0')
+            "##{hex} #{_1.id} #{_1.name}"
+          }.join("\n")
+
+          embed event, "```#{role_descriptions}```"
+
+        when 'add'
+          role = event.server.role(role_id)
+          unless role
+            embed event, t('cfg.colors.extra-color-role.add.not-found')
+            return
+          end
+
+          begin
+            ExtraColorRole.create(server_id: event.server.id, role_id: role_id)
+          rescue ActiveRecord::RecordNotUnique
+            embed event, t('cfg.colors.extra-color-role.add.non-unique')
+            return
+          end
+
+          embed event, t('cfg.colors.extra-color-role.add.success', role.name, role.id)
+
+        when 'remove', 'del', 'rm'
+          ExtraColorRole.where(role_id: role_id).delete_all
+
+          embed event, t('cfg.colors.extra-color-role.remove.success', role_id)
         end
 
-        roles = role_rows.map { event.server.role(_1.role_id.to_i) }
+      when 'bare-colors', 'bc'
+        opt = args.shift
 
-        role_descriptions = roles.map {
-          hex = _1.color.hex.rjust(6, '0')
-          "##{hex} #{_1.id} #{_1.name}"
-        }.join("\n")
+        case opt
+        when 'help', nil
+          Config.help_msg event, 'cfg colors bare-colors', %i[enable disable show]
 
-        embed event, "```#{role_descriptions}```"
+        when 'enable', 'on', 'true', 't'
+          cfg.options['bare-colors'] = true
+          cfg.save!
+          embed event, t('cfg.colors.bare-colors.toggled-on')
 
-      when 'add'
-        role = event.server.role(role_id)
-        unless role
-          embed event, t('cfg.extra-color-role.add.not-found')
-          return
+        when 'disable', 'off', 'false', 'f'
+          cfg.options['bare-colors'] = false
+          cfg.save!
+          embed event, t('cfg.colors.bare-colors.toggled-off')
+
+        when 'show', 'view'
+          opt = cfg.options['bare-colors'] ? 'true' : 'false'
+
+          embed event, t('cfg.colors.bare-colors.show', opt)
         end
-
-        begin
-          ExtraColorRole.create(server_id: event.server.id, role_id: role_id)
-        rescue ActiveRecord::RecordNotUnique
-          embed event, t('cfg.extra-color-role.add.non-unique')
-          return
-        end
-
-        embed event, t('cfg.extra-color-role.add.success', role.name, role.id)
-
-      when 'remove', 'del', 'rm'
-        ExtraColorRole.where(role_id: role_id).delete_all
-
-        embed event, t('cfg.extra-color-role.remove.success', role_id)
       end
 
     when 'snippet', 's'
@@ -230,6 +259,15 @@ module Admin
 
         embed event, t('cfg.blacklist.clear.success', count)
 
+      end
+
+    when 'misc', 'm'
+      subcmd = args.shift
+      cfg.options ||= {}
+
+      case subcmd
+      when 'help', nil
+        Config.help_msg event, 'cfg misc', %i[]
       end
 
     else

@@ -4,7 +4,7 @@ def can_run(name, event)
   m = ServerConfig[event.server.id].modules
 
   # rubocop: disable Security/Eval
-  m.filter_map { (eval _1.capitalize)&.commands&.keys }.flatten.include? name
+  m.filter_map { _1.capitalize.constantize&.commands&.keys }.any? { _1.include? name }
   # rubocop: enable Security/Eval
 end
 

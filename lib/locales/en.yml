@@ -172,11 +172,12 @@ en:
       log-channel: 'log bot events to a specific channel'
       modules: 'enable or disable modules'
       prefix: 'set the command prefix for this server'
-      extra-color-role: 'configure extra color roles'
-      snippet: 'add, remove, or modify snippets for this server'
+      colors: 'change handling of color roles'
+      snippet: 'modify snippets for this server'
       rolegroup: 'manage groups of self-assignable roles'
       reaction: 'configure reaction actions'
       blacklist: 'manage blacklist entries'
+      misc: 'setup miscellaneous options'
 
     log-channel:
       help:
@@ -197,20 +198,35 @@ en:
 
       saved: 'New prefix `%s` saved.'
 
-    extra-color-role:
+    colors:
       help:
-        list: 'print the list of extra color roles'
-        add: 'add a role (by ID) to the list of extra roles'
-        remove: 'remove a role (by ID) from the list of extra roles'
+        extra-color-role: 'configure extra color roles'
+        bare-colors: 'detect color roles named by their hex colors'
 
-      list:
-        no-roles: 'No extra color roles configured yet.'
-      add:
-        not-found: 'Role not found.'
-        non-unique: 'That role is already in the list.'
-        success: 'Role `%s` (`%s`) added to the list of extra color roles.'
-      remove:
-        success: 'Role `%s` removed from the list of extra color roles, if it was present.'
+      extra-color-role:
+        help:
+          list: 'print the list of extra color roles'
+          add: 'add a role (by ID) to the list of extra roles'
+          remove: 'remove a role (by ID) from the list of extra roles'
+
+        list:
+          no-roles: 'No extra color roles configured yet.'
+        add:
+          not-found: 'Role not found.'
+          non-unique: 'That role is already in the list.'
+          success: 'Role `%s` (`%s`) added to the list of extra color roles.'
+        remove:
+          success: 'Role `%s` removed from the list of extra color roles, if it was present.'
+
+      bare-colors:
+        help:
+          enable: 'enable detection of bare hex color roles'
+          disable: 'disable detection of bare hex color roles'
+          show: 'display the current status of this option'
+
+        toggled-on: 'Color roles named by their bare hex color will now be detected.'
+        toggled-off: 'Color roles named by their bare hex color will no longer be detected.'
+        show: 'The current state of this option is `%s`.'
 
     snippet:
       add:
@@ -252,5 +268,7 @@ en:
 
       clear:
         success: '%s blacklist entries removed.'
+
+    misc:
 
     nyi: 'Not yet implemented.'
