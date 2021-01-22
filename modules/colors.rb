@@ -8,16 +8,18 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   ColorRole = Struct.new(:idx, :role, :id)
 
-  def self.is_hex_color?(name)
-    name.match? /^#?[[:xdigit:]]{6}$/
+  def self.hex_color?(name)
+    name.match?(/^#?[[:xdigit:]]{6}$/)
+  end
+
+  def self.color_role?(role, cfg)
+    role.name.ends_with?('[c]') ||
+      (cfg.options['bare-colors'] && hex_color?(role.name))
   end
 
   def self.auto_color_roles(event)
     cfg = ServerConfig[event.server.id]
-    event.server.roles.tap { p _1.map(&:name) }.filter do |role|
-      role.name.ends_with?('[c]') ||
-        (cfg.options['bare-colors'] && is_hex_color?(role.name))
-    end.sort_by(&:position).reverse
+    event.server.roles.filter { color_role?(_1, cfg) }.sort_by(&:position).reverse
   end
 
   def self.indexify(ary)
