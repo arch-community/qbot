@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+##
 # Adds a table for blacklist entries to the database.
 class CreateBlacklistEntries < ActiveRecord::Migration[6.0]
   def change
