@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop: disable Metrics/ModuleLength
+# rubocop: disable Metrics/ModuleLength, Metrics/BlockNesting
 # Configuration command for the admin module.
 module Admin
   extend Discordrb::Commands::CommandContainer
@@ -277,4 +277,4 @@ module Admin
   end
   # rubocop: enable Metrics/BlockLength
 end
-# rubocop: enable Metrics/ModuleLength
+# rubocop: enable Metrics/ModuleLength, Metrics/BlockNesting

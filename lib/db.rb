@@ -20,4 +20,4 @@ end
 
 glob = File.join(__dir__, 'db', 'models', '*.rb')
 
-Dir[glob].each { |file| p file; load file }
+Dir[glob].each { load _1 }
