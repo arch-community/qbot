@@ -8,8 +8,16 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   ColorRole = Struct.new(:idx, :role, :id)
 
+  def self.is_hex_color?(name)
+    name.match? /^#?[[:xdigit:]]{6}$/
+  end
+
   def self.auto_color_roles(event)
-    event.server.roles.filter { _1.name.ends_with? '[c]' }.sort_by(&:position).reverse
+    cfg = ServerConfig[event.server.id]
+    event.server.roles.tap { p _1.map(&:name) }.filter do |role|
+      role.name.ends_with?('[c]') ||
+        (cfg.options['bare-colors'] && is_hex_color?(role.name))
+    end.sort_by(&:position).reverse
   end
 
   def self.indexify(ary)
@@ -30,11 +38,11 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   def self.assign_role(event, role_list, role, name)
     if event.author.roles.include? role
-      event.channel.send_embed { _1.description = t 'colors.assign-role.already-have', name }
+      embed event, t('colors.assign-role.already-have', name)
     else
       event.author.roles -= role_list
       event.author.add_role role
-      event.channel.send_embed { _1.description = t 'colors.assign-role.success', name, role.name }
+      embed event, t('colors.assign-role.success', name, role.name)
     end
   end
 
@@ -104,10 +112,9 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     color = colors.find { _1.idx == min[1] }
 
-    event.channel.send_embed {
-      _1.description = t('colors.closest.found',
-                         "##{color.role.color.hex.rjust(6, '0')}")
-    }
+    embed event, t('colors.closest.found',
+                   "##{color.role.color.hex.rjust(6, '0')}")
+
     Colors.assign_role(event, colors.map(&:role), color.role, 'color')
   end
 
@@ -196,7 +203,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       counter += 1
     end
 
-    event.channel.send_embed { _1.description = t('colors.rc.success', counter) }
+    embed event, t('colors.rc.success', counter)
   end
 end
 

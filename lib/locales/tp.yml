@@ -77,7 +77,7 @@ tp:
 
   colors:
     assign-role:
-      already-have: 'tenpo ni la, sina lon poki %s.'
+      already-have: 'sina awen lon poki %s.'
       success: 'poki %s sina li sama **%s** sin.'
     color:
       not-found: 'kule pi nimi ni li lon ala.'
@@ -104,7 +104,7 @@ tp:
 
   music:
     join:
-      success: 'ilo lon sin tomo pi toki uta %s.'
+      success: 'ilo li lon sin tomo pi toki uta %s.'
       not-in-voice: 'sina lon ala tomo pi toki uta.'
     play:
       downloading: 'ilo li kama jo e kalama...'
@@ -225,7 +225,7 @@ tp:
         help:
           embed: '(bool) toki nimi ni li lon ala lon insa poki?'
 
-        success: 'namako `%s` pi toki nimi `%s` li sama `%s` sin.'
+        success: 'namako `%s` pi toki nimi `%s` li kama sama `%s`.'
 
     rolegroup:
 

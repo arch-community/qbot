@@ -7,6 +7,8 @@ class ServerConfig < ActiveRecord::Base
     # rubocop: disable Style/ClassVars
     @@configs ||= {}
     @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id: server_id)
+    @@configs[server_id].options ||= {}
+    @@configs[server_id]
   end
 
   after_save do |conf|
