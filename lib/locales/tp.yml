@@ -172,11 +172,12 @@ tp:
       log-channel: 'o ante e tomo toki pi pali ilo lon tenpo ale'
       modules: 'o ante e ken pali pi kulupu pi nimi pali'
       prefix: 'o ante e nimi lili pi open pi nimi pali'
-      extra-color-role: 'o ante e poki kule namako'
+      colors: 'o ante e nasin kule'
       snippet: 'o ante e toki nimi'
       rolegroup: 'o pali e kulupu poki'
       reaction: 'jan li namako e toki la, o pali e seme?'
       blacklist: 'o ante e weka pi toki ike'
+      misc: 'o ante e anu ante'
 
     log-channel:
       help:
@@ -197,20 +198,35 @@ tp:
 
       saved: 'sitelen open sin pi nimi pali li `%s`.'
 
-    extra-color-role:
+    colors:
       help:
-        list: 'o lukin e poki kule namako ale'
-        add: 'nimi nanpa la o pana e poki kule sin tawa ilo'
-        remove: 'nimi nanpa la o weka e poki kule namako tan ilo'
+        extra-color-role: 'o ante e poki kule namako'
+        bare-colors: 'o ante e ken kepeken pi poki kule pi nimi kule taso'
 
-      list:
-        no-roles: 'poki kule namako li lon ala.'
-      add:
-        not-found: 'poki kule ni li lon ala.'
-        non-unique: 'tenpo ni la poki kule ni li lon. sina ken ala pana e ona.'
-        success: 'poki kule `%s` (`%s`) li lon sin.'
-      remove:
-        success: 'ona li lon la, poki kule `%s` li weka.'
+      extra-color-role:
+        help:
+          list: 'o lukin e poki kule namako ale'
+          add: 'nimi nanpa la o pana e poki kule sin tawa ilo'
+          remove: 'nimi nanpa la o weka e poki kule namako tan ilo'
+
+        list:
+          no-roles: 'poki kule namako li lon ala.'
+        add:
+          not-found: 'poki kule ni li lon ala.'
+          non-unique: 'tenpo ni la poki kule ni li lon. sina ken ala pana e ona.'
+          success: 'poki kule `%s` (`%s`) li lon sin.'
+        remove:
+          success: 'ona li lon la, poki kule `%s` li weka.'
+
+      bare-colors:
+        help:
+          enable: 'o ken e kepeken pi poki kule pi nimi kule taso'
+          disable: 'o ken ala e kepeken pi poki ni'
+          show: 'o pana e nasin awen ni'
+
+        toggled-on: 'ni la, ilo li ken kepeken e poki kule pi nimi kule taso.'
+        toggled-off: 'ni la, ilo li ken ala kepeken e poki kule pi nimi kule taso.'
+        show: 'nasin awen ni li `%s`.'
 
     snippet:
       add:
@@ -252,5 +268,7 @@ tp:
 
       clear:
         success: 'nimi weka %s li weka.'
+
+    misc:
 
     nyi: 'ilo li ken ala pali e ni lon tenpo ni.'
