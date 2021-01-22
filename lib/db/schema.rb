@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Schema of the main database used by qbot.
 module Database
   # rubocop: disable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
   def self.define_schema
@@ -9,6 +11,7 @@ module Database
         t.text :prefix
         t.text :modules_json
         t.integer :log_channel_id
+        t.json :options
         t.timestamps
       end
 
