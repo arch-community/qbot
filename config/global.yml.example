@@ -1,43 +1,52 @@
+# bot credentials
 token: placeholder
 client_id: 1234
 
+# user ID of the owner, for .eval
 owner: 165998239273844736
 
+# credentials for the Arch wiki
 wiki_username: username
 wiki_password: password
 
-my_repo: https://github.com/dkudriavtsev/qbot
+database:
+  # by default, sqlite3
+  type: sqlite3
+  db: db/database.sqlite3
 
+  # or you can use Oracle SQL:
+  # type: oracle_enhanced
+  # db: dbname
+  # user: qbot
+  # pass: password
+
+# URL of the bot's git repo, used for .botrepo
+my_repo: https://github.com/anna328p/qbot
+
+# global configuration
 global:
+  # which modules to load into the bot
+  # and enable on all servers?
   modules:
-    - help
-    - util
     - admin
-    - queries
-    - colors
     - arch
-    - snippets
+    - blacklist
+    - colors
     - figlet
+    - help
+    - music
+    - queries
+    - roles
+    - snippets
+    - util
+    - xkcd
+
+  # default prefix
   prefix: '.'
+
+  # global snippets, available on all servers
   snippets:
     - name: hello
       text: Hello, world!
-
-servers:
-  382367629752664085:
-    prefix: '%'
-    modules:
-      - help
-      - util
-      - admin
-  399812551963049995:
-    log_channel: 573292276382695425
-    roles:
-      extra_colors:
-        - id: 722392317272653864
-        - id: 722392286482137129
-    snippets:
-      - name: arch
-        text: i use arch btw
 
 # vim: ft=yaml
