@@ -5,10 +5,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "00jj8namy5niq7grl5lrsr4y351rxpj1b69k1i9gvb1hnpghl099";
+      sha256 = "0byi7yv3zm2b1bi2i424phf5sd1q7i5682f0d1ly75v08iax9fdj";
       type = "gem";
     };
-    version = "6.0.3.4";
+    version = "6.1.1";
   };
   activerecord = {
     dependencies = ["activemodel" "activesupport"];
@@ -16,10 +16,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "06qvvp73z8kq9sd2mhw6p9124q5pfkswjga2fidz4c73zbr79r3g";
+      sha256 = "1np967p465ydls2c2qwsnh7bhijw7l6mjirbnjkj8fqvm73s43yi";
       type = "gem";
     };
-    version = "6.0.3.4";
+    version = "6.1.1";
   };
   activerecord-oracle_enhanced-adapter = {
     dependencies = ["activerecord" "ruby-plsql"];
@@ -27,10 +27,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0vkkw41skvd8pkc8xbk5a67zbwrvx7g5zjzr979yzl90y5zqp8y9";
+      sha256 = "1lg6r4sdky6f2xvpvkxj5nxifgjasr8yxiiy0bdvn55zrh2a3bx9";
       type = "gem";
     };
-    version = "6.0.6";
+    version = "6.1.1";
   };
   activesupport = {
     dependencies = ["concurrent-ruby" "i18n" "minitest" "tzinfo" "zeitwerk"];
@@ -38,10 +38,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1axidc4mikgi4yxs0ynw2c54jyrs5lxprxmzv6m3aayi9rg6rk5j";
+      sha256 = "08pahpg5444lv5arqxnh6x8mdayfn7jh464k7ywypfxjhqaxkmx1";
       type = "gem";
     };
-    version = "6.0.3.4";
+    version = "6.1.1";
   };
   addressable = {
     dependencies = ["public_suffix"];
@@ -894,16 +894,6 @@
     };
     version = "1.1.0";
   };
-  thread_safe = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "0nmhcgq6cgz44srylra07bmaw99f5271l0dpsvl5f75m44l0gmwy";
-      type = "gem";
-    };
-    version = "0.3.6";
-  };
   thrift = {
     groups = ["default"];
     platforms = [];
@@ -926,15 +916,15 @@
     version = "0.11.0";
   };
   tzinfo = {
-    dependencies = ["thread_safe"];
+    dependencies = ["concurrent-ruby"];
     groups = ["default"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0zwqqh6138s8b321fwvfbywxy00lw1azw4ql3zr0xh1aqxf8cnvj";
+      sha256 = "10qp5x7f9hvlc0psv9gsfbxg4a7s0485wsbq1kljkxq94in91l4z";
       type = "gem";
     };
-    version = "1.2.9";
+    version = "2.0.4";
   };
   uber = {
     groups = ["default"];
