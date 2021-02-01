@@ -13,7 +13,7 @@ module QBot
       next if !s || s == ''
 
       # Stop the bot
-      if s.starts_with? 'quit', 'stop'
+      if s.start_with? 'quit', 'stop'
         @bot.stop
         exit
 
@@ -22,7 +22,7 @@ module QBot
         load_config
 
       # Load or reload a module
-      elsif s.starts_with? 'lm', 'load-module'
+      elsif s.start_with? 'lm', 'load-module'
         name = cmd.shift
 
         begin
