@@ -31,7 +31,6 @@ module QBot
 
     logger
   end
-
   # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def self.init_bot
     token     = @config.token     || raise('No token in configuration; set token')
@@ -87,4 +86,6 @@ module QBot
     @bot.sync
   end
   # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
+  
+  $blargh = 15        
 end
