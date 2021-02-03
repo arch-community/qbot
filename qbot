@@ -26,5 +26,5 @@ require_libs %w[
   init
 ]
 
-QBot.version = '0.2a'
+QBot.version = '6.3.4'
 QBot.run!
