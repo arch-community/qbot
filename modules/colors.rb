@@ -117,7 +117,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     embed event, t('colors.closest.found',
                    "##{color.role.color.hex.rjust(6, '0')}")
 
-    Colors.assign_role(event, colors.map(&:role), color.role, 'color')
+    Colors.assign_role(event, colors.map(&:role), color.role, t('colors.color.role-type-name'))
   end
 
   command :listcolors, {
