@@ -779,6 +779,17 @@
     };
     version = "1.4.1";
   };
+  rubocop-checkstyle_formatter = {
+    dependencies = ["rubocop"];
+    groups = ["default" "development"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0qh4p3w0h5dprwcznpq8nivdm08v5pzgy9p4z3wwdhn7zlchadjb";
+      type = "gem";
+    };
+    version = "0.4.0";
+  };
   ruby-oci8 = {
     groups = ["default"];
     platforms = [];

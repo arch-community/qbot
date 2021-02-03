@@ -179,6 +179,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
+    rubocop-checkstyle_formatter (0.4.0)
+      rubocop (>= 0.35.1)
     ruby-oci8 (2.2.9)
     ruby-plsql (0.7.1)
     ruby-progressbar (1.11.0)
@@ -242,6 +244,7 @@ DEPENDENCIES
   reline
   rss
   rubocop
+  rubocop-checkstyle_formatter
   ruby-oci8
   ruby_figlet
   soundcloud

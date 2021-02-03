@@ -69,6 +69,7 @@ end
 
 group :default, :development do
   # linting
-  gem 'rubocop'
+  gem 'rubocop', require: false
+  gem 'rubocop-checkstyle_formatter', require: false
 end
 # rubocop: enable Metrics/BlockLength
