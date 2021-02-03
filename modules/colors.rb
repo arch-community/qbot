@@ -13,7 +13,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   end
 
   def self.color_role?(role, cfg)
-    role.name.ends_with?('[c]') ||
+    role.name.end_with?('[c]') ||
       (cfg.options['bare-colors'] && hex_color?(role.name))
   end
 
