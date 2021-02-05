@@ -158,7 +158,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       return
     end
 
-    event.server.roles.filter { _1.name.ends_with? '[c]' }.each do
+    event.server.roles.filter { _1.name.end_with? '[c]' }.each do
       event.respond t('colors.ccr.deleting', _1.name)
       _1.delete
     end
