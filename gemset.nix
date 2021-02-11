@@ -5,10 +5,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0byi7yv3zm2b1bi2i424phf5sd1q7i5682f0d1ly75v08iax9fdj";
+      sha256 = "1vm4932v9yd58jl00wmcj9m5yf1dx6g8vsczwsphzl3y44qik7ni";
       type = "gem";
     };
-    version = "6.1.1";
+    version = "6.1.2.1";
   };
   activerecord = {
     dependencies = ["activemodel" "activesupport"];
@@ -16,10 +16,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1np967p465ydls2c2qwsnh7bhijw7l6mjirbnjkj8fqvm73s43yi";
+      sha256 = "1yil163iby39xzyx2ypbvi0mxsv5g0szijnxn7d2jx610fr4xc6a";
       type = "gem";
     };
-    version = "6.1.1";
+    version = "6.1.2.1";
   };
   activerecord-oracle_enhanced-adapter = {
     dependencies = ["activerecord" "ruby-plsql"];
@@ -27,10 +27,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1lg6r4sdky6f2xvpvkxj5nxifgjasr8yxiiy0bdvn55zrh2a3bx9";
+      sha256 = "0g2hjfxk28a5nvqmcbasf7ffarxi9qy7hb0dkq6mqchzjqm5dg7p";
       type = "gem";
     };
-    version = "6.1.1";
+    version = "6.1.2";
   };
   activesupport = {
     dependencies = ["concurrent-ruby" "i18n" "minitest" "tzinfo" "zeitwerk"];
@@ -38,10 +38,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "08pahpg5444lv5arqxnh6x8mdayfn7jh464k7ywypfxjhqaxkmx1";
+      sha256 = "0l729rdms7prans9qbwzrl6kkirxdlsz409m29q2kakgccavfmbi";
       type = "gem";
     };
-    version = "6.1.1";
+    version = "6.1.2.1";
   };
   addressable = {
     dependencies = ["public_suffix"];
@@ -391,10 +391,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "166xravh6r82w46d8hcjrg55gnyjdf0501g16lb48i2h06k363l2";
+      sha256 = "00c95xk8c9wzcs5imsrm85jk06y8l4dbnzhvqap98nprr9mxxnvl";
       type = "gem";
     };
-    version = "1.3.2";
+    version = "1.3.3";
   };
   json = {
     groups = ["default"];
@@ -699,10 +699,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0zinl7l63gzy6y477j8w1azfm5655h2026hxl49w4c73qcfdjj3x";
+      sha256 = "18xpix2hn4x4hihn0fjsv6i7jr7zjfbwzs94hwn48klyq3yrym2h";
       type = "gem";
     };
-    version = "0.2.2";
+    version = "0.2.3";
   };
   representable = {
     dependencies = ["declarative" "declarative-option" "uber"];
