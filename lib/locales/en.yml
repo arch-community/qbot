@@ -229,6 +229,12 @@ en:
         show: 'The current state of this option is `%s`.'
 
     snippet:
+      help:
+        list: 'show all snippets'
+        add: 'add a snippet to the list'
+        remove: 'remove a snippet by name'
+        set: 'change the text of a snippet'
+
       add:
         non-unique: 'Snippet `%s` already exists.'
         success: 'Created snippet `%s`.'

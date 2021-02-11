@@ -229,6 +229,12 @@ tp:
         show: 'nasin awen ni li `%s`.'
 
     snippet:
+      help:
+        list: 'o pana e lipu pi toki nimi ale'
+        add: 'o pana e toki nimi tawa lipu'
+        remove: 'nimi la o weka e toki nimi tan lipu'
+        set: 'o ante e sitelen lon tiki nimi'
+
       add:
         non-unique: 'tenpo pini la, toki nimi `%s` li lon. sina ken ala pana e ona.'
         success: 'toki nimi `%s` li lon sin.'
