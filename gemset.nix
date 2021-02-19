@@ -5,10 +5,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1vm4932v9yd58jl00wmcj9m5yf1dx6g8vsczwsphzl3y44qik7ni";
+      sha256 = "07m85r00cd1dzxg65zr9wjrdqppw51b5ka9c5mrz92vnw18kfb70";
       type = "gem";
     };
-    version = "6.1.2.1";
+    version = "6.1.3";
   };
   activerecord = {
     dependencies = ["activemodel" "activesupport"];
@@ -16,10 +16,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1yil163iby39xzyx2ypbvi0mxsv5g0szijnxn7d2jx610fr4xc6a";
+      sha256 = "03kr6vslwd9iw89jidjpjlp7prr2rf7kpsfa4fz03g9by0kliivs";
       type = "gem";
     };
-    version = "6.1.2.1";
+    version = "6.1.3";
   };
   activerecord-oracle_enhanced-adapter = {
     dependencies = ["activerecord" "ruby-plsql"];
@@ -38,10 +38,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0l729rdms7prans9qbwzrl6kkirxdlsz409m29q2kakgccavfmbi";
+      sha256 = "00a4db64g8w5yyk6hzak2nqrmdfvyh5zc9cvnm9gglwbi87ss28h";
       type = "gem";
     };
-    version = "6.1.2.1";
+    version = "6.1.3";
   };
   addressable = {
     dependencies = ["public_suffix"];
@@ -370,10 +370,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1kr0bx9323fv5ys6nlhsy05kmwcbs94h6ac7ka9qqywy0vbdvrrv";
+      sha256 = "08p6b13p99j1rrcrw1l3v0kb9mxbsvy6nk31r8h4rnszdgzpga32";
       type = "gem";
     };
-    version = "1.8.7";
+    version = "1.8.9";
   };
   io-console = {
     groups = ["default"];
@@ -763,10 +763,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1wz0prg4kx36smbk7fib4a8cdxrj5b5b31c8bavm082vgcpfk759";
+      sha256 = "1ncd6w4sc112j86j9j12ws7flxfi8dk8nal2kyxg7phdfr703qlz";
       type = "gem";
     };
-    version = "1.9.0";
+    version = "1.10.0";
   };
   rubocop-ast = {
     dependencies = ["parser"];
