@@ -46,6 +46,8 @@ en:
 
     xkcd: 'Gets an XKCD comic by ID or name'
 
+    poll: 'Sets up a poll in a channel'
+
   admin:
     eval:
       nope: 'nope'

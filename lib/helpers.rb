@@ -59,3 +59,14 @@ def cmd_target(event, arg)
     event.message.mentions[0] || event.author
   end
 end
+
+def to_word(num)
+  numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  words = %w[zero one two three four five six seven eight nine ten]
+  map = numbers.zip(words).to_h
+  map[num] || num
+end
+
+def to_emoji(num)
+  [num.to_s.ord, 65039, 8419].map { _1.chr(Encoding::UTF_8) }.join
+end

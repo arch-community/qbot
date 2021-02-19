@@ -46,6 +46,8 @@ tp:
 
     xkcd: 'nimi nanpa anu nimi la o pana e sitelen pi tomo XKCD'
 
+    poll: 'o pana e wile sona sina tawa tomo'
+
   admin:
     eval:
       nope: 'o ala'

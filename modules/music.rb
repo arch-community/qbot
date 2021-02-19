@@ -105,13 +105,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     nil
   end
 
-  def self.to_word(num)
-    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    words = %w[zero one two three four five six seven eight nine ten]
-    map = numbers.zip(words).to_h
-    map[num] || num
-  end
-
   command :yt, {
     help_available: true,
     description: 'Searches YouTube for a video to play',
