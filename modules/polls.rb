@@ -8,14 +8,18 @@ module Polls
 
   command :poll, {
     help_available: true,
-    usage: '.poll <channel> <title> <options>',
+    usage: '.poll [channel] <title> <options>',
     min_args: 1
   } do |event, *args|
     log(event)
 
-    ch, title, *opts = args.join(' ').shellsplit
-
-    channel = event.bot.channel(ch)
+    m_args = args.join(' ').shellsplit
+    if (channel = event.bot.channel(m_args[0]))
+      m_args.shift
+    else
+      channel = event.channel
+    end
+    title, *opts = *m_args
 
     embed_msg = channel.send_embed do |m|
       m.title = title
