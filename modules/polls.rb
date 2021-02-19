@@ -20,7 +20,7 @@ module Polls
     embed_msg = channel.send_embed do |m|
       m.title = title
       m.description = opts.map.with_index do |arg, idx|
-        ":#{to_word(idx+1)}:#{"\u00A0"*3}#{arg}"
+        ":#{to_word(idx + 1)}:#{"\u00A0" * 3}#{arg}"
       end.join("\n")
     end
 

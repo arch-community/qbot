@@ -68,5 +68,5 @@ def to_word(num)
 end
 
 def to_emoji(num)
-  [num.to_s.ord, 65039, 8419].map { _1.chr(Encoding::UTF_8) }.join
+  [num.to_s.ord, 65_039, 8_419].map { _1.chr(Encoding::UTF_8) }.join
 end
