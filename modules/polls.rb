@@ -30,7 +30,7 @@ module Polls
       end.join("\n")
       m.footer = {
         icon_url: bot_user.avatar_url,
-        text: "type:poll / #{bot_user.username} v#{QBot.version}"
+        text: "type:poll opts:#{opts.size} / #{bot_user.username} v#{QBot.version}"
       }
     end
 
@@ -43,10 +43,16 @@ module Polls
 end
 
 QBot.bot.reaction_add do |event|
-  numbers = [*1..9].map { to_emoji _1 }
-  if event.message.embeds.first&.footer&.text&.include?('type:poll') \
-      && event.user.id != QBot.bot.bot_user.id \
-      && !(numbers.include? event.emoji.name)
-    event.message.delete_reaction(event.user, event.emoji)
+  footer_text = event.message.embeds.first&.footer&.text
+  if footer_text&.include?('type:poll') \
+      && event.user.id != QBot.bot.bot_user.id
+    matches = footer_text.match(/opts:(\d+)/)
+    num = matches && matches[1]&.to_i
+
+    last = num || 9
+    numbers = [*1..last].map { to_emoji _1 }
+
+    numbers.include?(event.emoji.name) && \
+      event.message.delete_reaction(event.user, event.emoji)
   end
 end
