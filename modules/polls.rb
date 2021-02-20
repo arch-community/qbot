@@ -21,11 +21,17 @@ module Polls
     end
     title, *opts = *m_args
 
+    bot_user = event.bot.bot_user
+
     embed_msg = channel.send_embed do |m|
       m.title = title
       m.description = opts.map.with_index do |arg, idx|
         ":#{to_word(idx + 1)}:#{"\u00A0" * 3}#{arg}"
       end.join("\n")
+      m.footer = {
+        icon_url: bot_user.avatar_url,
+        text: "type:poll / #{bot_user.username} v#{QBot.version}"
+      }
     end
 
     opts.each.with_index do |_, idx|
