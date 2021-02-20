@@ -52,7 +52,7 @@ QBot.bot.reaction_add do |event|
     last = num || 9
     numbers = [*1..last].map { to_emoji _1 }
 
-    numbers.include?(event.emoji.name) && \
+    numbers.include?(event.emoji.name) || \
       event.message.delete_reaction(event.user, event.emoji)
   end
 end
