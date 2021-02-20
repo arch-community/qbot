@@ -6,6 +6,17 @@ require 'shellwords'
 module Polls
   extend Discordrb::Commands::CommandContainer
 
+  def self.channel_arg(event, args)
+    m_args = args.join(' ').shellsplit
+    if (channel = event.bot.channel(m_args[0]))
+      m_args.shift
+    else
+      channel = event.channel
+    end
+
+    [channel, *m_args]
+  end
+
   command :poll, {
     help_available: true,
     usage: '.poll [channel] <title> <options>',
@@ -13,13 +24,12 @@ module Polls
   } do |event, *args|
     log(event)
 
-    m_args = args.join(' ').shellsplit
-    if (channel = event.bot.channel(m_args[0]))
-      m_args.shift
-    else
-      channel = event.channel
+    channel, title, *opts = channel_arg(event, args)
+
+    unless event.author.permission?(:send_messages, channel)
+      embed event, t(:no_perms)
+      return
     end
-    title, *opts = *m_args
 
     bot_user = event.bot.bot_user
 
