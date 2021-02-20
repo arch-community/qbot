@@ -43,8 +43,10 @@ module Polls
 end
 
 QBot.bot.reaction_add do |event|
+  numbers = [1..9].map { to_emoji _1 }
   if event.message.embeds.first&.footer&.text&.include?('type:poll') \
-      && event.user.id != QBot.bot.bot_user.id
+      && event.user.id != QBot.bot.bot_user.id \
+      && !(numbers.include? event.emoji.name)
     event.message.delete_reaction(event.user, event.emoji)
   end
 end
