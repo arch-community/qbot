@@ -41,3 +41,10 @@ module Polls
     nil
   end
 end
+
+QBot.bot.reaction_add do |event|
+  if event.message.embeds.first&.footer&.text&.include?('type:poll') \
+      && event.user.id != QBot.bot.bot_user.id
+    event.message.delete_reaction(event.user, event.emoji)
+  end
+end
