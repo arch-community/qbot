@@ -34,6 +34,10 @@ module Polls
     bot_user = event.bot.bot_user
 
     embed_msg = channel.send_embed do |m|
+      m.author = {
+        icon_url: event.author.avatar_url,
+        name: event.author.username
+      }
       m.title = title
       m.description = opts.map.with_index do |arg, idx|
         ":#{to_word(idx + 1)}:#{"\u00A0" * 3}#{arg}"
