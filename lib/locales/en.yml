@@ -118,6 +118,9 @@ en:
       title: 'Now playing'
       nothing: 'Nothing'
 
+  polls:
+    cross-server: 'That channel is on a different server.'
+
   queries:
     query:
       success: 'Query #%s has been created.'

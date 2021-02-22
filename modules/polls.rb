@@ -17,25 +17,36 @@ module Polls
     [channel, *m_args]
   end
 
-  def self.send_poll(event, channel, title, opts)
+  def self.add_n_reacts(message, count)
+    count.times do |idx|
+      message.create_reaction to_emoji(idx + 1)
+    end
+  end
+
+  def self.poll_body(opts)
+    opts.map.with_index do |arg, idx|
+      "#{to_emoji(idx + 1)}#{"\u00A0" * 3}#{arg}"
+    end.join("\n")
+  end
+
+  def self.poll_footer(event, n_opts)
     bot_user = event.bot.bot_user
 
+    {
+      icon_url: bot_user.avatar_url,
+      text: "type:poll opts:#{n_opts} / " \
+      "#{bot_user.username} v#{QBot.version}"
+    }
+  end
+
+  def self.send_poll(event, channel, title, opts)
     embed_msg = channel.send_embed do |m|
       m.title = title
-      m.description = opts.map.with_index do |arg, idx|
-        ":#{to_word(idx + 1)}:#{"\u00A0" * 3}#{arg}"
-      end.join("\n")
-      m.footer = {
-        icon_url: bot_user.avatar_url,
-        text: "type:poll opts:#{opts.size} / " \
-          "#{bot_user.username} v#{QBot.version}"
-      }
+      m.description = poll_body(opts)
+      m.footer = poll_footer(event, opts.size)
     end
 
-    opts.each.with_index do |_, idx|
-      embed_msg.create_reaction to_emoji(idx + 1)
-    end
-
+    add_n_reacts(embed_msg, opts.size)
     embed_msg
   end
 
@@ -49,7 +60,7 @@ module Polls
     channel, title, *opts = channel_arg(event, args)
 
     if channel.server != event.server
-      embed event, 'That channel is on a different server.'
+      embed event, t('polls.cross-server')
       return
     end
 

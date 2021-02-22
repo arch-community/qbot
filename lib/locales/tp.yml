@@ -118,6 +118,9 @@ tp:
       title: 'kalama lon tenpo ni:'
       nothing: 'kalama ala'
 
+  polls:
+    cross-server: 'tomo toki ni li lon kulupu ante.'
+
   queries:
     query:
       success: 'wile sona sina li lon lipu. nimi nanpa ona li #%s.'
