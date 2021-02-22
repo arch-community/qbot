@@ -17,20 +17,7 @@ module Polls
     [channel, *m_args]
   end
 
-  command :poll, {
-    help_available: true,
-    usage: '.poll [channel] <title> <options>',
-    min_args: 1
-  } do |event, *args|
-    log(event)
-
-    channel, title, *opts = channel_arg(event, args)
-
-    unless event.author.permission?(:send_messages, channel)
-      embed event, t(:no_perms)
-      return
-    end
-
+  def self.send_poll(event, channel, title, opts)
     bot_user = event.bot.bot_user
 
     embed_msg = channel.send_embed do |m|
@@ -40,13 +27,39 @@ module Polls
       end.join("\n")
       m.footer = {
         icon_url: bot_user.avatar_url,
-        text: "type:poll opts:#{opts.size} / #{bot_user.username} v#{QBot.version}"
+        text: "type:poll opts:#{opts.size} / " \
+          "#{bot_user.username} v#{QBot.version}"
       }
     end
 
     opts.each.with_index do |_, idx|
       embed_msg.create_reaction to_emoji(idx + 1)
     end
+
+    embed_msg
+  end
+
+  command :poll, {
+    help_available: true,
+    usage: '.poll [channel] <title> <options>',
+    min_args: 1
+  } do |event, *args|
+    log(event)
+
+    channel, title, *opts = channel_arg(event, args)
+
+    if channel.server != event.server
+      embed event, 'That channel is on a different server.'
+      return
+    end
+
+    unless event.author.permission?(:send_messages, channel) &&
+           event.channel == channel ||
+           event.author.permission?(:manage_messages, channel)
+      embed event, t(:no_perms)
+    end
+
+    send_poll(event, channel, title, opts)
 
     nil
   end
