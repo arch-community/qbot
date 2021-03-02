@@ -152,7 +152,7 @@ GEM
     rake (13.0.1)
     rbnacl (7.1.1)
       ffi
-    regexp_parser (2.0.3)
+    regexp_parser (2.1.1)
     reline (0.2.4)
       io-console (~> 0.5)
     representable (3.0.4)
@@ -168,7 +168,7 @@ GEM
     rexml (3.2.4)
     rss (0.2.9)
       rexml
-    rubocop (1.10.0)
+    rubocop (1.11.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
