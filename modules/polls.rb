@@ -39,8 +39,16 @@ module Polls
     }
   end
 
+  def self.poll_author(user)
+    {
+      icon_url: user.avatar_url,
+      name: user.username
+    }
+  end
+
   def self.send_poll(event, channel, title, opts)
     embed_msg = channel.send_embed do |m|
+      m.author = poll_author(event.author)
       m.title = title
       m.description = poll_body(opts)
       m.footer = poll_footer(event, opts.size)
@@ -66,7 +74,7 @@ module Polls
 
     unless event.author.permission?(:send_messages, channel) &&
            event.channel == channel ||
-           event.author.permission?(:manage_messages, channel)
+           event.author.permission?(:administrator)
       embed event, t(:no_perms)
     end
 
