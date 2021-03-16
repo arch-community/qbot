@@ -40,9 +40,8 @@ group :default do
 
   # Arch
   gem 'mediawiki_api'
-  gem 'narray'
   gem 'rss'
-  gem 'tf-idf-similarity'
+  gem 'picky'
 
   # Music
   gem 'google-api-client',
