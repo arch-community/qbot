@@ -5,7 +5,7 @@ def formatted_name(user)
 end
 
 def find_prefix(message)
-  ServerConfig[message.server.id].server_prefix || QBot.config.global.prefix || '.'
+  ServerConfig[message.server.id].server_prefix
 end
 
 def cmd_prefix(message)

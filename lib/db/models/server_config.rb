@@ -21,12 +21,14 @@ class ServerConfig < ActiveRecord::Base
   end
 
   def server_prefix
-    unless prefix
-      prefix = QBot.config.global.prefix || '.'
+    pfx = prefix.dup
+
+    if prefix.nil?
+      self.prefix = QBot.config.global.prefix || '.'
       save!
     end
 
-    prefix
+    pfx
   end
 
   def modules
