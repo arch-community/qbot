@@ -1,4 +1,4 @@
-with (import <nixpkgs> { overlays = [(self: super: { ruby = super.ruby_2_7; })]; config.allowUnfree = true; });
+with (import <nixpkgs> { config.allowUnfree = true; });
 let
   oracle = symlinkJoin {
     name = "instantclient";
@@ -10,7 +10,7 @@ let
   };
   env = bundlerEnv {
     name = "qbot-bundler-env";
-    inherit ruby;
+    ruby = ruby_2_7;
     gemfile  = ./Gemfile;
     lockfile = ./Gemfile.lock;
     gemset   = ./gemset.nix;
