@@ -64,6 +64,16 @@
     };
     version = "2.4.2";
   };
+  bottom = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "18mqd9jq97w8sxmbxsdlvw54hd8zwfs2r8ysiax0spm16kp9879i";
+      type = "gem";
+    };
+    version = "0.1.0";
+  };
   climate_control = {
     groups = ["default"];
     platforms = [];

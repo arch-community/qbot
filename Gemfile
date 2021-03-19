@@ -65,6 +65,9 @@ group :default do
   # xkcd
   gem 'open_uri_redirections'
   gem 'xkcd'
+
+  # bottom
+  gem 'bottom'
 end
 
 group :default, :development do

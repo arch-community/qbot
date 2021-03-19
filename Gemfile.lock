@@ -47,6 +47,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
+    bottom (0.1.0)
     climate_control (0.2.0)
     cocaine (0.6.0)
       terrapin (= 0.6.0)
@@ -229,6 +230,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activerecord-oracle_enhanced-adapter
+  bottom
   discordrb!
   discordrb-webhooks!
   google-api-client
