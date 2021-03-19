@@ -48,6 +48,8 @@ en:
 
     poll: 'Sets up a poll in a channel'
 
+    figlet: 'Converts some text into ASCII art'
+
   admin:
     eval:
       nope: 'nope'

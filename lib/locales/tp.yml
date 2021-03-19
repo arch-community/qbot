@@ -48,6 +48,8 @@ tp:
 
     poll: 'o pana e wile sona sina tawa tomo'
 
+    figlet: 'o suli e toki'
+
   admin:
     eval:
       nope: 'o ala'
