@@ -111,7 +111,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     color = colors.find { _1.idx == min[1] }
 
     embed t('colors.closest.found',
-                   "##{color.role.color.hex.rjust(6, '0')}")
+            "##{color.role.color.hex.rjust(6, '0')}")
 
     Colors.assign_role(event, colors.map(&:role), color.role, t('colors.color.role-type-name'))
   end

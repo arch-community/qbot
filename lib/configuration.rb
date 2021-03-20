@@ -27,7 +27,7 @@ module Config
     avail.zip(descriptions).map { |cmd, desc| "    #{cmd} - #{desc}" }.join("\n")
   end
 
-  def self.save_prefix(event, cfg, new_prefix)
+  def self.save_prefix(_event, cfg, new_prefix)
     cfg.prefix = new_prefix
     cfg.save!
 

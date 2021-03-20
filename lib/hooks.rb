@@ -5,13 +5,13 @@
 # TODO: replace with a proper hook registry
 module Discordrb
   module Commands
+    # Overrides for CommandBot
     class CommandBot
       attr_accessor :embed_target
 
       alias execute! execute_command
 
       # rubocop: disable Style/OptionalBooleanParameter
-      # rubocop: disable Metrics/MethodLength
 
       def execute_command(name, event, arguments, chained = false, check_permissions = true)
         # Check server modules on command execution
@@ -31,8 +31,7 @@ module Discordrb
         execute!(name, event, arguments, chained, check_permissions)
       end
 
-      # rubocop: enable Metrics/MethodLength
       # rubocop: enable Style/OptionalBooleanParameter
-      end
+    end
   end
 end

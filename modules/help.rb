@@ -69,7 +69,7 @@ module Help
   end
   # rubocop: enable Metrics/AbcSize
 
-  def self.embed_full(event, avail, pfx)
+  def self.embed_full(_event, avail, pfx)
     embed do |m|
       m.title = t 'help.list-title'
       m.fields = avail.map {
@@ -82,7 +82,7 @@ module Help
     end
   end
 
-  def self.embed_compact(event, avail, pfx)
+  def self.embed_compact(_event, avail, pfx)
     embed do |m|
       m.title = t 'help.list-title'
       m.description = avail.map { "`#{pfx}#{_1.name}`" }.join(', ')

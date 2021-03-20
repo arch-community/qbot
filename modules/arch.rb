@@ -79,7 +79,7 @@ module Arch
     description: 'Searches the Arch repositories for a package',
     usage: '.ps <query>',
     min_args: 1
-  } do |event, *qs|
+  } do |_event, *qs|
     query = qs.join(' ')
     response = Arch.search_pkg(query)
 
@@ -117,7 +117,7 @@ module Arch
     usage: '.p <pkgname>',
     min_args: 1,
     max_args: 1
-  } do |event, _pn|
+  } do |_event, _pn|
     embed t('cfg.nyi')
   end
 end

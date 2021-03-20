@@ -8,7 +8,7 @@ module Util
     help_available: true,
     usage: '.echo <string>',
     min_args: 1
-  } do |event, *args|
+  } do |_event, *args|
     args.join(' ').gsub('@', "\\@\u200D")
   end
 
@@ -17,7 +17,7 @@ module Util
     usage: '.mygit',
     min_args: 0,
     max_args: 0
-  } do |event|
+  } do |_event|
     QBot.config.my_repo
   end
 
