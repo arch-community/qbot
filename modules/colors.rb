@@ -40,11 +40,11 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
   def self.assign_role(event, role_list, role, name)
     if event.author.roles.include? role
-      embed event, t('colors.assign-role.already-have', name)
+      embed t('colors.assign-role.already-have', name)
     else
       event.author.roles -= role_list
       event.author.add_role role
-      embed event, t('colors.assign-role.success', name, role.name)
+      embed t('colors.assign-role.success', name, role.name)
     end
   end
 
@@ -86,7 +86,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     # Role for the requested color
     rc = requested_color&.role
     unless rc
-      embed event, t('colors.color.not-found')
+      embed t('colors.color.not-found')
       return
     end
 
@@ -110,7 +110,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     color = colors.find { _1.idx == min[1] }
 
-    embed event, t('colors.closest.found',
+    embed t('colors.closest.found',
                    "##{color.role.color.hex.rjust(6, '0')}")
 
     Colors.assign_role(event, colors.map(&:role), color.role, t('colors.color.role-type-name'))
@@ -146,7 +146,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     max_args: 3
   } do |event, *args|
     unless event.author.permission?(:administrator)
-      embed event, t(:no_perms)
+      embed t(:no_perms)
       return
     end
 
@@ -171,7 +171,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       event.respond t('colors.ccr.created', "color#{idx}", "##{hex}")
     end
 
-    embed event, t('colors.ccr.success', colors.size)
+    embed t('colors.ccr.success', colors.size)
   end
 
   command :randcolors, {
@@ -182,7 +182,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     max_args: 0
   } do |event|
     unless event.author.permission?(:administrator)
-      embed event, t(:no_perms)
+      embed t(:no_perms)
       return
     end
 
@@ -195,7 +195,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       counter += 1
     end
 
-    embed event, t('colors.rc.success', counter)
+    embed t('colors.rc.success', counter)
   end
 end
 

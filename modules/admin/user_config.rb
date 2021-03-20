@@ -37,9 +37,9 @@ module Admin
           uc.contents['lang'] = lang
           uc.save!
           I18n.locale = lang.to_sym
-          embed event, t('uc.language.set.success', lang)
+          embed t('uc.language.set.success', lang)
         else
-          embed event, t('uc.language.set.not-found', lang)
+          embed t('uc.language.set.not-found', lang)
         end
 
       when 'reset', 'rs'
@@ -49,11 +49,11 @@ module Admin
         uc.contents['lang'] = lang
         uc.save!
 
-        embed event, t('uc.language.reset.success', lang)
+        embed t('uc.language.reset.success', lang)
       end
 
     else
-      embed event, t('cfg.nyi')
+      embed t('cfg.nyi')
     end
   end
 end

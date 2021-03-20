@@ -61,9 +61,9 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     vc = event.author.voice_channel
     if vc
       event.bot.voice_connect(vc)
-      embed event, t('music.join.success', vc.mention)
+      embed t('music.join.success', vc.mention)
     else
-      embed event, t('music.join.not-in-voice')
+      embed t('music.join.not-in-voice')
     end
   end
 
@@ -96,7 +96,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
 
     # Add it to this server's queue
     Music.queues[event.server.id] << [filename, info]
-    embed event, t('music.play.success', info.fulltitle || info.url)
+    embed t('music.play.success', info.fulltitle || info.url)
 
     nil
   end

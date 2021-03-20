@@ -10,7 +10,7 @@ module Config
     cmd = Config[event.server.id].prefix + command
     subcmds = subcommands(command, avail)
 
-    embed event, <<~TEXT
+    embed <<~TEXT
       ```
       #{t 'cfg.usage'} #{cmd} <#{t 'cfg.subcmd'}> [#{t 'cfg.options'}]
 
@@ -31,6 +31,6 @@ module Config
     cfg.prefix = new_prefix
     cfg.save!
 
-    embed event, t('cfg.prefix.saved', new_prefix)
+    embed t('cfg.prefix.saved', new_prefix)
   end
 end

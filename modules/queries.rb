@@ -14,7 +14,7 @@ module Queries
 
     new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text: text)
 
-    embed event, t('queries.query.success', new_query.id)
+    embed t('queries.query.success', new_query.id)
   end
 
   command :openqueries, {
@@ -54,20 +54,20 @@ module Queries
       begin
         q = Query.where(server_id: event.server.id).find(id)
       rescue ActiveRecord::RecordNotFound
-        embed event, t('queries.cq.not-found', id)
+        embed t('queries.cq.not-found', id)
         return
       end
 
       if !q
-        embed event, t('queries.cq.not-found', id)
+        embed t('queries.cq.not-found', id)
         return
       elsif event.author.id == q.user_id \
             || event.author.permission?(:manage_messages, event.channel)
         q.destroy!
-        embed event, t('queries.cq.success', id)
+        embed t('queries.cq.success', id)
         return
       else
-        embed event, t('queries.cq.no-perms', id)
+        embed t('queries.cq.no-perms', id)
       end
     end
 

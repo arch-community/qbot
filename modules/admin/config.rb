@@ -37,13 +37,13 @@ module Admin
         cfg.log_channel_id = new_id
         cfg.save!
 
-        embed event, t('cfg.log-channel.set.success', new_id)
+        embed t('cfg.log-channel.set.success', new_id)
 
       when 'reset'
         cfg.log_channel_id = nil
         cfg.save!
 
-        embed event, t('cfg.log-channel.reset.success')
+        embed t('cfg.log-channel.reset.success')
       end
 
     when 'prefix', 'pfx'
@@ -74,7 +74,7 @@ module Admin
         when 'list'
           role_rows = ExtraColorRole.where(server_id: event.server.id)
           if role_rows.empty?
-            embed event, t('cfg.colors.extra-color-role.list.no-roles')
+            embed t('cfg.colors.extra-color-role.list.no-roles')
             return
           end
 
@@ -85,28 +85,28 @@ module Admin
             "##{hex} #{_1.id} #{_1.name}"
           }.join("\n")
 
-          embed event, "```#{role_descriptions}```"
+          embed "```#{role_descriptions}```"
 
         when 'add'
           role = event.server.role(role_id)
           unless role
-            embed event, t('cfg.colors.extra-color-role.add.not-found')
+            embed t('cfg.colors.extra-color-role.add.not-found')
             return
           end
 
           begin
             ExtraColorRole.create(server_id: event.server.id, role_id: role_id)
           rescue ActiveRecord::RecordNotUnique
-            embed event, t('cfg.colors.extra-color-role.add.non-unique')
+            embed t('cfg.colors.extra-color-role.add.non-unique')
             return
           end
 
-          embed event, t('cfg.colors.extra-color-role.add.success', role.name, role.id)
+          embed t('cfg.colors.extra-color-role.add.success', role.name, role.id)
 
         when 'remove', 'del', 'rm'
           ExtraColorRole.where(role_id: role_id).delete_all
 
-          embed event, t('cfg.colors.extra-color-role.remove.success', role_id)
+          embed t('cfg.colors.extra-color-role.remove.success', role_id)
         end
 
       when 'bare-colors', 'bc'
@@ -119,17 +119,17 @@ module Admin
         when 'enable', 'on', 'true', 't'
           cfg.options['bare-colors'] = true
           cfg.save!
-          embed event, t('cfg.colors.bare-colors.toggled-on')
+          embed t('cfg.colors.bare-colors.toggled-on')
 
         when 'disable', 'off', 'false', 'f'
           cfg.options['bare-colors'] = false
           cfg.save!
-          embed event, t('cfg.colors.bare-colors.toggled-off')
+          embed t('cfg.colors.bare-colors.toggled-off')
 
         when 'show', 'view'
           opt = cfg.options['bare-colors'] ? 'true' : 'false'
 
-          embed event, t('cfg.colors.bare-colors.show', opt)
+          embed t('cfg.colors.bare-colors.show', opt)
         end
       end
 
@@ -148,7 +148,7 @@ module Admin
         text = args.join(' ').gsub('\n', "\n")
 
         if Snippet.find_by(server_id: event.server.id, name: name)
-          embed event, t('cfg.snippet.add.non-unique', name)
+          embed t('cfg.snippet.add.non-unique', name)
           return
         end
 
@@ -157,7 +157,7 @@ module Admin
                        text: text,
                        embed: true)
 
-        embed event, t('cfg.snippet.add.success', name)
+        embed t('cfg.snippet.add.success', name)
 
       when 'edit', 'set', 'e', 's'
         name = args.shift
@@ -167,16 +167,16 @@ module Admin
           snippet.text = text
           snippet.save!
 
-          embed event, t('cfg.snippet.edit.success', name)
+          embed t('cfg.snippet.edit.success', name)
         else
-          embed event, t('cfg.snippet.edit.not-found', name)
+          embed t('cfg.snippet.edit.not-found', name)
           return
         end
 
       when 'remove', 'rm', 'delete', 'd'
         name = args.shift
         Snippet.where(server_id: event.server.id, name: name).delete_all
-        embed event, t('cfg.snippet.remove.success', name)
+        embed t('cfg.snippet.remove.success', name)
 
       when 'prop', 'p'
         name = args.shift
@@ -188,7 +188,7 @@ module Admin
 
         snippet = Snippet.find_by(server_id: event.server.id, name: name)
         unless snippet
-          embed event, t('cfg.snippet.edit.not-found', name)
+          embed t('cfg.snippet.edit.not-found', name)
           return
         end
 
@@ -202,7 +202,7 @@ module Admin
           snippet.save!
         end
 
-        embed event, t('cfg.snippet.prop.success', subcmd, name, prop)
+        embed t('cfg.snippet.prop.success', subcmd, name, prop)
 
       end
 
@@ -225,7 +225,7 @@ module Admin
                                       channel_id: event.channel.id,
                                       regex: args.join(' '))
 
-        embed event, t('cfg.blacklist.add.success', entry.id)
+        embed t('cfg.blacklist.add.success', entry.id)
 
       when 'remove', 'delete', 'rm', 'd'
         id = args.shift.to_i
@@ -234,12 +234,12 @@ module Admin
           entry = BlacklistEntry.find(id)
           if entry.server_id == event.server.id
             entry.destroy!
-            embed event, t('cfg.blacklist.remove.success', id)
+            embed t('cfg.blacklist.remove.success', id)
           else
-            embed event, t('cfg.blacklist.remove.wrong-server', id)
+            embed t('cfg.blacklist.remove.wrong-server', id)
           end
         rescue ActiveRecord::RecordNotFound
-          embed event, t('cfg.blacklist.remove.not-found', id)
+          embed t('cfg.blacklist.remove.not-found', id)
         end
 
       when 'list', 'l'
@@ -255,7 +255,7 @@ module Admin
         count = bl.size
         bl.delete_all
 
-        embed event, t('cfg.blacklist.clear.success', count)
+        embed t('cfg.blacklist.clear.success', count)
 
       end
 
@@ -269,7 +269,7 @@ module Admin
       end
 
     else
-      embed event, t('cfg.nyi')
+      embed t('cfg.nyi')
 
     end
   end

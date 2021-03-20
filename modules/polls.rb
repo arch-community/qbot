@@ -72,11 +72,11 @@ module Polls
     channel, title, *opts = channel_arg(event, args)
 
     if channel.server != event.server
-      embed event, t('polls.cross-server')
+      embed t('polls.cross-server')
     elsif opts.size > 9
-      embed event, t('polls.too-many-opts')
+      embed t('polls.too-many-opts')
     elsif !poll_allowed?(event, channel)
-      embed event, t(:no_perms)
+      embed t(:no_perms)
     else
       send_poll(event, channel, title, opts)
     end

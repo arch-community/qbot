@@ -16,7 +16,7 @@ module Help
     end
 
     if !command || !can_run(command.name, event)
-      embed event, t('help.not-found', name)
+      embed t('help.not-found', name)
       return
     end
 

@@ -14,7 +14,7 @@ module Snippets
     snippets = Snippet.where(server_id: event.server.id)
 
     if !snippets || snippets.empty?
-      embed event, t('snippets.list.none-found')
+      embed t('snippets.list.none-found')
     else
       event.channel.send_embed do |m|
         m.title = t('snippets.list.title')
@@ -34,12 +34,12 @@ module Snippets
 
     if snippet
       if snippet.embed
-        embed event, snippet.text
+        embed snippet.text
       else
         event.respond snippet.text
       end
     else
-      embed event, t('snippets.snippet.not-found')
+      embed t('snippets.snippet.not-found')
     end
   end
 end

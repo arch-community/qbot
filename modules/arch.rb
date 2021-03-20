@@ -64,7 +64,7 @@ module Arch
 
       if sq['searchinfo']['totalhits'] < 1
         # If not found, notify
-        embed event, t('arch.wiki.no-results')
+        embed t('arch.wiki.no-results')
       else
         # Embed a link to the first search result
         firstres = sq['search'][0]
@@ -86,7 +86,7 @@ module Arch
     # Error if no results found
     res = response['results']
     if res.empty?
-      embed event, t('arch.ps.no-results')
+      embed t('arch.ps.no-results')
       return
     end
 
@@ -118,7 +118,7 @@ module Arch
     min_args: 1,
     max_args: 1
   } do |event, _pn|
-    embed event, t('cfg.nyi')
+    embed t('cfg.nyi')
   end
 end
 
