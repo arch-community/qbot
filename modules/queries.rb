@@ -13,7 +13,6 @@ module Queries
     text = args.join(' ').gsub('@', "\\@\u200D")
 
     new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text: text)
-    log(event, "query id #{new_query.id}")
 
     embed event, t('queries.query.success', new_query.id)
   end
@@ -25,8 +24,6 @@ module Queries
     min_args: 0,
     max_args: 0
   } do |event, *_args|
-    log(event)
-
     Query.where('created_at <= :timeout', { timeout: Time.now - 30.days }).map(&:destroy!)
 
     queries = Query.where(server_id: event.server.id).map do |q|
@@ -52,8 +49,6 @@ module Queries
     usage: '.cq <id>',
     min_args: 1
   } do |event, *args|
-    log(event)
-
     args.each do
       id = _1.to_i
       begin

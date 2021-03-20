@@ -1,0 +1,38 @@
+# frozen_string_literal: true
+
+##
+# Things that get run on command execution
+# TODO: replace with a proper hook registry
+module Discordrb
+  module Commands
+    class CommandBot
+      attr_accessor :embed_target
+
+      alias execute! execute_command
+
+      # rubocop: disable Style/OptionalBooleanParameter
+      # rubocop: disable Metrics/MethodLength
+
+      def execute_command(name, event, arguments, chained = false, check_permissions = true)
+        # Check server modules on command execution
+        return unless can_run(name, event)
+
+        # Set the user's locale for response strings
+        uc = UserConfig[event.user.id]
+        lang = uc.contents && uc.contents['lang']&.to_sym || I18n.default_locale
+        I18n.locale = lang
+
+        # Log the event
+        log(event)
+
+        # Set the default embed target
+        @embed_target = event
+
+        execute!(name, event, arguments, chained, check_permissions)
+      end
+
+      # rubocop: enable Metrics/MethodLength
+      # rubocop: enable Style/OptionalBooleanParameter
+      end
+  end
+end

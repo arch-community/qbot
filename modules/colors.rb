@@ -68,8 +68,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     usage: '.c <color>',
     min_args: 1
   } do |event, *args|
-    log(event)
-
     colors, = Colors.get_colors(event)
 
     req = args.join(' ')
@@ -102,8 +100,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 1,
     max_args: 1
   } do |event, color|
-    log(event)
-
     colors, = Colors.get_colors(event)
 
     labs = colors.sort_by(&:idx).map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6, '0') }
@@ -127,8 +123,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event, *_args|
-    log(event)
-
     colors, = Colors.get_colors(event)
 
     # Formatted list of the colors
@@ -151,8 +145,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 3,
     max_args: 3
   } do |event, *args|
-    log event
-
     unless event.author.permission?(:administrator)
       embed event, t(:no_perms)
       return
@@ -189,8 +181,6 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log event
-
     unless event.author.permission?(:administrator)
       embed event, t(:no_perms)
       return

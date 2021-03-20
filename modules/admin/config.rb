@@ -12,8 +12,6 @@ module Admin
     usage: '.cfg <args>',
     min_args: 0
   } do |event, *args|
-    log(event)
-
     return t(:no_perms) unless event.author.permission?(:administrator)
 
     cfg = ServerConfig[event.server.id]

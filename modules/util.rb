@@ -9,7 +9,6 @@ module Util
     usage: '.echo <string>',
     min_args: 1
   } do |event, *args|
-    log(event)
     args.join(' ').gsub('@', "\\@\u200D")
   end
 
@@ -19,7 +18,6 @@ module Util
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
     QBot.config.my_repo
   end
 
@@ -37,8 +35,6 @@ module Util
     min_args: 0,
     max_args: 1
   } do |event, user|
-    log(event)
-
     target_user = cmd_target(event, user)
 
     event.respond Util.full_avatar(target_user)
@@ -50,7 +46,6 @@ module Util
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
     b = event.bot
     u = b.bot_user
 

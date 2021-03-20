@@ -106,8 +106,6 @@ module Help
     min_args: 0,
     max_args: 1
   } do |event, command_name|
-    log(event)
-
     pfx = ServerConfig[event.server.id].prefix
 
     if command_name

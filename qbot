@@ -16,6 +16,7 @@ require_libs %w[
   globals
   options
   patches
+  hooks
   db
   i18n
   configuration
@@ -26,5 +27,5 @@ require_libs %w[
   init
 ]
 
-QBot.version = '6.5.0'
+QBot.version = '6.5.1'
 QBot.run!

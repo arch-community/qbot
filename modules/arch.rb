@@ -48,8 +48,6 @@ module Arch
     usage: '.aw <query>',
     min_args: 1
   } do |event, *qs|
-    log(event)
-
     query = qs.join(' ')
 
     # Check if the page exists
@@ -82,8 +80,6 @@ module Arch
     usage: '.ps <query>',
     min_args: 1
   } do |event, *qs|
-    log(event)
-
     query = qs.join(' ')
     response = Arch.search_pkg(query)
 
@@ -122,7 +118,6 @@ module Arch
     min_args: 1,
     max_args: 1
   } do |event, _pn|
-    log(event)
     embed event, t('cfg.nyi')
   end
 end

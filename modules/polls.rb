@@ -69,8 +69,6 @@ module Polls
     usage: '.poll [channel] <title> <options>',
     min_args: 1
   } do |event, *args|
-    log(event)
-
     channel, title, *opts = channel_arg(event, args)
 
     if channel.server != event.server

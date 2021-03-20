@@ -11,8 +11,6 @@ module Snippets
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     snippets = Snippet.where(server_id: event.server.id)
 
     if !snippets || snippets.empty?
@@ -32,8 +30,6 @@ module Snippets
     min_args: 1,
     max_args: 1
   } do |event, name|
-    log(event)
-
     snippet = Snippet.find_by(server_id: event.server.id, name: name)
 
     if snippet

@@ -80,20 +80,6 @@ module Discordrb
         end
       end
       # rubocop: enable Metrics/MethodLength
-
-      # Check server modules on command execution
-      alias execute! execute_command
-      # rubocop: disable Style/OptionalBooleanParameter
-      def execute_command(name, event, arguments, chained = false, check_permissions = true)
-        return unless can_run(name, event)
-
-        uc = UserConfig[event.user.id]
-        lang = uc.contents && uc.contents['lang']&.to_sym || I18n.default_locale
-        I18n.locale = lang
-
-        execute!(name, event, arguments, chained, check_permissions)
-      end
-      # rubocop: enable Style/OptionalBooleanParameter
     end
   end
 end

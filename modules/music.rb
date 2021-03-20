@@ -58,8 +58,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     vc = event.author.voice_channel
     if vc
       event.bot.voice_connect(vc)
@@ -74,8 +72,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     usage: '.play <url>',
     min_args: 1
   } do |event, *args|
-    log(event)
-
     # Join the channel if not joined already
     event.bot.execute_command(:join, event, []) unless event.bot.voice(event.server)
 
@@ -111,8 +107,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     usage: '.yt <query>',
     min_args: 1
   } do |event, *args|
-    log(event)
-
     # Get the search query
     query = args.join(' ')
 
@@ -150,8 +144,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     event.bot.voice(event.server).pause
   end
 
@@ -161,8 +153,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     event.bot.voice(event.server).continue
   end
 
@@ -172,8 +162,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     Music.queues[event.server.id].clear
     event.bot.voice(event.server).stop_playing
   end
@@ -184,8 +172,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     event.bot.voice(event.server).stop_playing
     event.bot.execute_command(:np, event, [])
   end
@@ -196,8 +182,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 1,
     max_args: 1
   } do |event, vol_str|
-    log(event)
-
     vol = vol_str.to_f
 
     # Allow for both 0-1 and percentages
@@ -212,8 +196,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 1,
     max_args: 1
   } do |event, sec_str|
-    log(event)
-
     sec = sec_str.to_i
     event.bot.voice(event.server).skip(sec)
   end
@@ -224,8 +206,6 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    log(event)
-
     event.channel.send_embed do |m|
       m.title = t('music.np.title')
       m.description = Music.np[event.server.id] || t('music.np.nothing')
