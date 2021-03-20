@@ -34,8 +34,8 @@ module Polls
 
     {
       icon_url: bot_user.avatar_url,
-      text: "type:poll opts:#{n_opts} / " \
-      "#{bot_user.username} v#{QBot.version}"
+      text: "poll:#{n_opts} / " \
+      "#{formatted_name event.author}"
     }
   end
 
@@ -48,7 +48,7 @@ module Polls
 
   def self.send_poll(event, channel, title, opts)
     embed_msg = channel.send_embed do |m|
-      m.author = poll_author(event.author)
+      # m.author = poll_author(event.author)
       m.title = title
       m.description = poll_body(opts)
       m.footer = poll_footer(event, opts.size)
@@ -56,6 +56,12 @@ module Polls
 
     add_n_reacts(embed_msg, opts.size)
     embed_msg
+  end
+
+  def self.poll_allowed?(event, channel)
+    event.author.permission?(:send_messages, channel) &&
+      event.channel == channel ||
+      event.author.permission?(:administrator)
   end
 
   command :poll, {
@@ -69,16 +75,13 @@ module Polls
 
     if channel.server != event.server
       embed event, t('polls.cross-server')
-      return
-    end
-
-    unless event.author.permission?(:send_messages, channel) &&
-           event.channel == channel ||
-           event.author.permission?(:administrator)
+    elsif opts.size > 9
+      embed event, t('polls.too-many-opts')
+    elsif !poll_allowed?(event, channel)
       embed event, t(:no_perms)
+    else
+      send_poll(event, channel, title, opts)
     end
-
-    send_poll(event, channel, title, opts)
 
     nil
   end
@@ -87,8 +90,10 @@ end
 QBot.bot.reaction_add do |event|
   footer_text = event.message.embeds.first&.footer&.text
   if footer_text&.include?('type:poll') \
+      || footer_text&.include?('poll:') \
       && event.user.id != QBot.bot.bot_user.id
-    matches = footer_text.match(/opts:(\d+)/)
+    matches = footer_text.match(/opts:(\d+)/) \
+      || footer_text.match(/poll:(\d+)/)
     num = matches && matches[1]&.to_i
 
     last = num || 9
