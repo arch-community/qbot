@@ -48,7 +48,7 @@ module Help
 
     desc = t "descriptions.#{command.name}"
 
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = "#{pfx}#{name}"
       m.description = desc if desc
       m.fields = fields unless fields.empty?
@@ -70,7 +70,7 @@ module Help
   # rubocop: enable Metrics/AbcSize
 
   def self.embed_full(event, avail, pfx)
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t 'help.list-title'
       m.fields = avail.map {
         desc = t("descriptions.#{_1.name}") || ''
@@ -83,7 +83,7 @@ module Help
   end
 
   def self.embed_compact(event, avail, pfx)
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t 'help.list-title'
       m.description = avail.map { "`#{pfx}#{_1.name}`" }.join(', ')
     end

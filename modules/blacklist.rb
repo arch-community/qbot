@@ -15,7 +15,7 @@ module Blacklist
 
     bl = BlacklistEntry.where(channel_id: channel_id)
 
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t('blacklist.bl.title')
       m.description = bl.map(&:regex).map { "`#{_1}`" }.join("\n")
     end

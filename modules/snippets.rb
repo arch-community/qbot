@@ -16,7 +16,7 @@ module Snippets
     if !snippets || snippets.empty?
       embed t('snippets.list.none-found')
     else
-      event.channel.send_embed do |m|
+      embed do |m|
         m.title = t('snippets.list.title')
         m.description = snippets.map(&:name).join(', ')
       end

@@ -12,7 +12,7 @@ module Arch
   end
 
   def self.wiki_embed(channel, title)
-    channel.send_embed do |m|
+    embed(target: channel) do |m|
       m.title = "Arch Wiki: #{title}"
       m.description = "https://wiki.archlinux.org/index.php/#{title.split.join('_')}"
     end
@@ -93,7 +93,7 @@ module Arch
     ordered_results = sort_results(res, query)
 
     # Embed the search results
-    event.channel.send_embed do |m|
+    embed do
       m.title = t('arch.ps.title', query)
       m.fields = ordered_results.first(5).map do |r|
         ver = r['pkgver']

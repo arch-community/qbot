@@ -25,7 +25,7 @@ module Admin
         Config.help_msg event, 'uc language', %i[list set reset]
 
       when 'list', 'l'
-        event.channel.send_embed do |m|
+        embed do |m|
           m.title = t 'uc.language.list.title'
           m.description = I18n.available_locales.map(&:to_s).join(', ')
         end

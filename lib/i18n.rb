@@ -8,11 +8,11 @@ def t(tid, *fields)
   I18n.t(tid) % fields
 end
 
-def embed(text, target_channel = nil)
-  channel = target_channel || QBot.bot.embed_target
+def embed(text = nil, target: nil)
+  channel = target || QBot.bot.embed_target
 
   channel.send_embed do |m|
-    m.description = text
+    m.description = text if text
     yield m if block_given?
   end
 end

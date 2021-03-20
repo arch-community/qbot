@@ -47,7 +47,7 @@ module Polls
   end
 
   def self.send_poll(event, channel, title, opts)
-    embed_msg = channel.send_embed do |m|
+    embed_msg = embed(target: channel) do |m|
       # m.author = poll_author(event.author)
       m.title = title
       m.description = poll_body(opts)

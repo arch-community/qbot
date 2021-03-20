@@ -114,7 +114,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     results = YouTube.search(query)
 
     # Show the search results in the channel
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t('music.yt.results-title', query)
       m.description = t('music.yt.ping-with-number')
       m.fields = results.map.with_index do |r, idx|
@@ -206,7 +206,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event|
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t('music.np.title')
       m.description = Music.np[event.server.id] || t('music.np.nothing')
     end

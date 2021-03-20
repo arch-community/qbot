@@ -28,7 +28,7 @@ module Admin
     usage: '.modules',
     min_args: 0, max_args: 0
   } do |e|
-    e.channel.send_embed do |m|
+    embed do |m|
       m.title = t('admin.modules.title')
       m.fields = [
         {

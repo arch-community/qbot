@@ -245,7 +245,7 @@ module Admin
       when 'list', 'l'
         bl = BlacklistEntry.where(channel_id: channel_id)
 
-        event.channel.send_embed do |m|
+        embed do |m|
           m.title = t('cfg.blacklist.list.title')
           m.description = bl.map { "`#{_1.id}`: `#{_1.regex}`" }.join("\n")
         end

@@ -132,7 +132,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       "#{idx}: ##{r.color.hex.rjust(6, '0')} #{r.name}"
     end
 
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t 'colors.list.title'
       m.description = "```#{list.join "\n"}```"
     end

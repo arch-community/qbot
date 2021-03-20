@@ -49,7 +49,7 @@ module Util
     b = event.bot
     u = b.bot_user
 
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t('util.invite.title', u.username)
       m.description = t('util.invite.desc',
                         u.username, b.invite_url(permission_bits: '339078224'))

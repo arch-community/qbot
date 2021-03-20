@@ -36,7 +36,7 @@ module Queries
 
     queries = [{ name: '#0', value: t('queries.oq.no-results') }] if queries.empty?
 
-    event.channel.send_embed do |m|
+    embed do |m|
       m.title = t('queries.oq.title')
       m.description = t('queries.oq.deleted-after-30d')
       m.fields = queries || nil

@@ -19,7 +19,7 @@ def cmd_prefix(message)
 end
 
 def log_embed(event, chan_id, user, extra)
-  event.bot.channel(chan_id).send_embed do |m|
+  embed(target: event.bot.channel(chan_id)) do |m|
     m.author = { name: formatted_name(user), icon_url: user.avatar_url }
     m.title = 'Command execution'
     m.fields = [
