@@ -147,6 +147,11 @@ tp:
 
   xkcd:
 
+  util:
+    invite:
+      title: 'pana e %s'
+      desc: '[linja ni la, sina ken pana e %s tawa kulupu sina.](%s)'
+
   uc:
     help:
       help: 'o pana e lipu sona pi nimi pali ni'

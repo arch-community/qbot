@@ -43,4 +43,22 @@ module Util
 
     event.respond Util.full_avatar(target_user)
   end
+
+  command :invite, {
+    help_available: true,
+    usage: '.invite',
+    min_args: 0,
+    max_args: 0
+  } do |event|
+    log(event)
+    b = event.bot
+    u = b.bot_user
+
+    event.channel.send_embed do |m|
+      m.title = t('util.invite.title', u.username)
+      m.description = t('util.invite.desc',
+                        u.username, b.invite_url(permission_bits: '339078224'))
+      m.thumbnail = { url: u.avatar_url }
+    end
+  end
 end

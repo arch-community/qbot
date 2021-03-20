@@ -147,6 +147,11 @@ en:
 
   xkcd:
 
+  util:
+    invite:
+      title: "Invite %s"
+      desc: "[Click this link to invite %s to your server.](%s)"
+
   uc:
     help:
       help: 'show this message'
