@@ -22,6 +22,9 @@ let
       nokogiri = attrs: {
         buildInputs = [ pkgconfig zlib.dev ];
       };
+      mimemagic = attrs: {
+        FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
+      };
     };
   };
 in stdenv.mkDerivation rec {
