@@ -52,7 +52,7 @@ en_kawaii:
     poll: "Sets up a poll in a channel. Democracy \\\\(^_^)/"
 
     figlet: >-
-            Someone told me this "make speach big", I don"t know what that means but it sounds fun!
+            Someone told me what this does is "make speach big", I don't know what that means but it sounds fun!
 
   admin:
     eval:
@@ -76,9 +76,9 @@ en_kawaii:
     bl:
       title: Blacklist entries
     message: >-
-      Sorry I can"t let you send that (>.<) `%s`
+      Sorry I can't let you send that (>.<) `%s`
 
-      Here"s what you sent though, so pwease don"t do it next time! (^_^)
+      Here's what you sent though, so pwease don"t do it next time! (^_^)
       ```
       %s
       ```
@@ -91,7 +91,7 @@ en_kawaii:
       not-found: "Sorry, I couldn't find it (*_ _)人"
       role-type-name: "color"
     closest:
-      found: "The cloests color I could find was `%s`, I hope you like it (^_^)"
+      found: "The closest color I could find was `%s`, I hope you like it (^_^)"
     list:
       title: "The whole entire rainbow!"
     ccr:
@@ -158,7 +158,7 @@ en_kawaii:
 
   uc:
     help:
-      help: "You already know what does does, dummy! (๑˃́ꇴ˂̀)"
+      help: "You already know what this does, dummy! (๑˃́ꇴ˂̀)"
       language: "Choose what language I talk to you in! I'm still the best language though (^_-)"
 
     language:
@@ -184,13 +184,13 @@ en_kawaii:
     avail_subcmd: "Available subcommands:"
 
     help:
-      help: "You already know what does does, dummy! (๑˃́ꇴ˂̀)"
+      help: "You already know what this does, dummy! (๑˃́ꇴ˂̀)"
       log-channel: "Log when people use me to a specific channel"
       modules: "Enable or disable some of my modules (^◡^)"
       prefix: "Set my command prefix so I don't accidentally run into other bots! (ﾉ>ڡ<)"
       colors: "Change the settings of my color roles! I love colors!"
       snippet: "Let me save some of your notes for you! (^_^)"
-      rolegroup: "Set some assignable roles people can grab from me!"
+      rolegroup: "Set some assignable roles people can get from me!"
       reaction: "Tell me to do something when a reaction occurs on a message!"
       blacklist: "Manage my blacklist entries per channel. Please don't add an empty entry (◕﹏◕)"
       misc: "Setup some of my other options! \\\\(^_^)/"
