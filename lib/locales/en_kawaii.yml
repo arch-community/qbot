@@ -78,8 +78,8 @@ en_kawaii:
     message: >-
       Sorry I can't let you send that (>.<) `%s`
 
-      Here's what you sent though, so pwease don"t do it next time! (^_^)
-      ```
+      Here's what you sent though, so pwease don't do it next time! (^_^)
+      ```md
       %s
       ```
 
@@ -172,7 +172,7 @@ en_kawaii:
 
       set:
         not-found: "I couldn't find `%s`, but please don't leave me (◕﹏◕)"
-        success: "I'll start talking to you like this from now on! I hope we can get along! (^_^)"
+        success: "I'll start talking to you like this from now on! I hope we can get along! (^◡^)"
 
       reset:
         success: "Bye (╥︣﹏╥᷅). I'll start talking to you in `%s`."
