@@ -10,7 +10,8 @@ let
   };
   env = bundlerEnv {
     name = "qbot-bundler-env";
-    ruby = ruby_2_7;
+    ruby = ruby_3_0;
+    bundler = bundler.override { ruby = ruby_3_0; };
     gemfile  = ./Gemfile;
     lockfile = ./Gemfile.lock;
     gemset   = ./gemset.nix;
@@ -39,8 +40,7 @@ in stdenv.mkDerivation rec {
     ./.;
 
   buildInputs = [
-    env.wrappedRuby
-    bundler bundix
+    env.wrappedRuby env bundix
     git
     sqlite libxml2 zlib.dev zlib libiconv
     oracle-instantclient oracle
