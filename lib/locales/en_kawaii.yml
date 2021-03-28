@@ -12,21 +12,21 @@ en_kawaii:
     listsnippets: "Let me dig through my notes for a second (>.<)"
     snippet: "You really want to see what I wrote? (\\*^人^\\*)"
 
-    color: "I love colors! \\\\(^_^)/"
+    color: "I love colors! \\\\(^◡^)/"
     closestcolor: "Hex codes too hard for me (⌣́_⌣̀) but I'll try my best for you!"
-    listcolors: "Yay! Rainbow! \\\\(^_^)/"
+    listcolors: "Yay! Rainbow! \\\\(^◡^)/"
     createcolorroles: "More colors for everyone! \\\\(^ヮ^)/"
-    randcolors: "Everyone should try new colors sometime. (^_^)"
+    randcolors: "Everyone should try new colors sometime. (^◡^)"
 
     query: "Ask me a question and I'll ask all my friends about it! (｣^ﾛ^)｣"
     openqueries: "See the questions asked by my other friends! (⌣́_⌣̀) I can't help but maybe you can!"
     closequery: "Pwease answer the question before you close it (◕﹏◕)"
 
-    join: "Have me join the voice channel you're in so we can all listen to music together! (^_^)"
-    play: "Have me put on some music from a URL"
+    join: "Have me join the voice channel you're in so we can all listen to music together! (^◡^)"
+    play: "Have me put on some music from a URL! Remember to donate waves (~^◡^)~"
     yt: "I can search YouTube for a video to play for you guys"
     pause: "Tell me to pause the song for now"
-    resume: "Tell me to resume the song again! \\\\(^_^)/"
+    resume: "Tell me to resume the song again! \\\\(^◡^)/"
     stop: "Turn off the speakers (◕⌓◕)"
     skip: "Tell me to skip the current song (◕﹏◕)"
     volume: "Tell me what volume to set the speakers to. Please don't set it to 1,000% (◕﹏◕)"
@@ -43,13 +43,13 @@ en_kawaii:
 
     archwiki: "Help vampires are the worst (╯Ò_Ó)╯"
     packagesearch: "Ow! A package fell on my head (ﾉ>ڡ<)"
-    package: "More information about the package! I know I'll get my revenge someday (^_^)"
+    package: "More information about the package! I know I'll get my revenge someday (^◡^)"
 
     blacklist: "Lists blacklist entries for a channel"
 
     xkcd: "XKCD comics are so funny (^◡^)"
 
-    poll: "Sets up a poll in a channel. Democracy \\\\(^_^)/"
+    poll: "Sets up a poll in a channel. Democracy \\\\(^◡^)/"
 
     figlet: >-
             Someone told me what this does is "make speach big", I don't know what that means but it sounds fun!
@@ -59,15 +59,15 @@ en_kawaii:
       nope: "Nope (*_ _)人"
     modules:
       title: "Loaded modules"
-      global: "Everywhere (⌐^_^)⌐"
-      local: "Here ¬(^_^¬)"
+      global: "Everywhere (⌐^◡^)⌐"
+      local: "Here ¬(^◡^¬)"
 
   arch:
     wiki:
       no-results: "I looked everywhere but couldn't find it (*_ _)人"
     ps:
       no-results: "I looked everywhere but couldn't find it (*_ _)人"
-      title: "Here's what I found for `%s` \\\\(^_^)/"
+      title: "Here's what I found for `%s` \\\\(^◡^)/"
       version: "version"
       last-update: "last updated"
       link: "link"
@@ -78,7 +78,7 @@ en_kawaii:
     message: >-
       Sorry I can't let you send that (>.<) `%s`
 
-      Here's what you sent though, so pwease don't do it next time! (^_^)
+      Here's what you sent though, so pwease don't do it next time! (^◡^)
       ```md
       %s
       ```
@@ -86,12 +86,12 @@ en_kawaii:
   colors:
     assign-role:
       already-have: "You already have that %s dummy!"
-      success: "Now your %s is **%s**, hooray \\\\(^_^)/"
+      success: "Now your %s is **%s**, hooray \\\\(^◡^)/"
     color:
       not-found: "Sorry, I couldn't find it (*_ _)人"
       role-type-name: "color"
     closest:
-      found: "The closest color I could find was `%s`, I hope you like it (^_^)"
+      found: "The closest color I could find was `%s`, I hope you like it (^◡^)"
     list:
       title: "The whole entire rainbow!"
     ccr:
@@ -99,14 +99,14 @@ en_kawaii:
       created: "I made role `%s` with color `%s`, hooray!"
       success: "I made %s roles! (^◡^)"
     rc:
-      success: "I randomized colors for %s users! Now everyone can try new ones \\\\(^_^)/"
+      success: "I randomized colors for %s users! Now everyone can try new ones \\\\(^◡^)/"
 
   figlet:
 
   help:
     aliases: "Aliases"
     usage: "Usage"
-    valid-params: "Options I like (^_^)"
+    valid-params: "Options I like (^◡^)"
     list-title: "Here's everything I can do!"
     not-found: "Sorry, I don't have `%s` (*_ _)人"
 
@@ -118,7 +118,7 @@ en_kawaii:
       downloading: "I'm downloading the song so we can all listen to it together!"
       success: "Added **%s** to the song queue for later!"
     yt:
-      results-title: "Here's what I found for %s! (^_^)"
+      results-title: "Here's what I found for %s! (^◡^)"
       ping-with-number: "To choose one of these options, ping me with the option number!"
     np:
       title: "We're all listening to"
@@ -129,7 +129,7 @@ en_kawaii:
 
   queries:
     query:
-      success: "Your query is #%s! Hooray \\\\(^_^)/"
+      success: "Your query is #%s! Hooray \\\\(^◡^)/"
     oq:
       title: "All the questions!"
       no-results: "Sorry, I looked everywhere but couldn't find it (*_ _)人"
@@ -137,7 +137,7 @@ en_kawaii:
       entry-name: "#%s by %s at %s"
     cq:
       not-found: "Sorry, I couldn't find query #%s (*_ _)人"
-      success: "I removed query #%s! I hope their answer was solved (^_^)"
+      success: "I removed query #%s! I hope their answer was solved (^◡^)"
       no-perms: "Sorry! I can't let you delete query #%s. (*_ _)人"
 
   roles:
@@ -145,7 +145,7 @@ en_kawaii:
   snippets:
     list:
       none-found: "Looks like I forgot to write anything down (ﾉ>ڡ<)"
-      title: "Here are all my notes (^_^)"
+      title: "Here are all my notes (^◡^)"
     snippet:
       not-found: "I couldn't find this page, I'll look again (>.<)"
 
@@ -153,17 +153,17 @@ en_kawaii:
 
   util:
     invite:
-      title: "Invite %s to your server! (^_^)"
+      title: "Invite %s to your server! (^◡^)"
       desc: "[Click this link to invite %s to your server](%s) so we can be together even more (^◡^)"
 
   uc:
     help:
       help: "You already know what this does, dummy! (๑˃́ꇴ˂̀)"
-      language: "Choose what language I talk to you in! I'm still the best language though (^_-)"
+      language: "Choose what language I talk to you in! I'm still the best language though (｡•̀◡-)✧"
 
     language:
       help:
-        list: "These are all the languages I can speak! \\\\(^_^)/"
+        list: "These are all the languages I can speak! \\\\(^◡^)/"
         set: "No, I want to be with you forever! (╥︣﹏╥᷅)"
         reset: "Do you really want to abandon me for English? (◕﹏◕)"
 
@@ -189,11 +189,11 @@ en_kawaii:
       modules: "Enable or disable some of my modules (^◡^)"
       prefix: "Set my command prefix so I don't accidentally run into other bots! (ﾉ>ڡ<)"
       colors: "Change the settings of my color roles! I love colors!"
-      snippet: "Let me save some of your notes for you! (^_^)"
+      snippet: "Let me save some of your notes for you! (^◡^)"
       rolegroup: "Set some assignable roles people can get from me!"
       reaction: "Tell me to do something when a reaction occurs on a message!"
       blacklist: "Manage my blacklist entries per channel. Please don't add an empty entry (◕﹏◕)"
-      misc: "Setup some of my other options! \\\\(^_^)/"
+      misc: "Setup some of my other options! \\\\(^◡^)/"
 
     log-channel:
       help:
@@ -201,7 +201,7 @@ en_kawaii:
         reset: "Disable the action log channel for now (◕﹏◕)"
 
       set:
-        success: "I'll tell you when people use me in <#%s>! (^_^)"
+        success: "I'll tell you when people use me in <#%s>! (^◡^)"
       reset:
         success: "No more logging from me (◕﹏◕)"
 
@@ -221,8 +221,8 @@ en_kawaii:
 
       extra-color-role:
         help:
-          list: "Show the list of all the extra colors people can choose from! (^_^)"
-          add: "Let me add a role (by ID) to the list of colors people can choose from \\\\(^_^)/"
+          list: "Show the list of all the extra colors people can choose from! (^◡^)"
+          add: "Let me add a role (by ID) to the list of colors people can choose from \\\\(^◡^)/"
           remove: "Make me remove a role (by ID) from the list of colors people can choose from (◕﹏◕)"
 
         list:
@@ -230,23 +230,23 @@ en_kawaii:
         add:
           not-found: "Sorry, I couldn't find that role (>.<)"
           non-unique: "You already added that role dummy!"
-          success: "Role `%s` (`%s`) is a color now! More colors for everyone \\\\(^_^)/"
+          success: "Role `%s` (`%s`) is a color now! More colors for everyone \\\\(^◡^)/"
         remove:
           success: "I removed `%s` from the list of colors. (◕﹏◕)"
 
       bare-colors:
         help:
-          enable: "Add roles named after hex colors to the color list (^_^)"
+          enable: "Add roles named after hex colors to the color list (^◡^)"
           disable: "Remove roles named after hex colors to the color list (◕﹏◕)"
           show: "Am I supposed to add hex colors to the list? I forgot (ﾉ>ڡ<)"
 
-        toggled-on: "Hex colors for everyone! \\\\(^_^)/"
+        toggled-on: "Hex colors for everyone! \\\\(^◡^)/"
         toggled-off: "I won't add hex colors to the list anymore (◕﹏◕)"
-        show: "Right now, this setting is `%s`! (^_^)"
+        show: "Right now, this setting is `%s`! (^◡^)"
 
     snippet:
       help:
-        list: "Here's all my notes! (^_^)"
+        list: "Here's all my notes! (^◡^)"
         add: "You want me to write this down too? (◕﹏◕)"
         remove: "No! Don't rip out my notes! (╥︣﹏╥᷅)"
         set: "You want to try your new eraser on my notes? (◕﹏◕)"
@@ -256,14 +256,14 @@ en_kawaii:
         success: "Okay! I wrote `%s` down for whenever you need it (^◡^)"
       edit:
         not-found: "I must've forgotten to write `%s` down (ﾉ>ڡ<)"
-        success: "Your eraser worked super well on `%s`! I've written down the new notes too! (^_^)"
+        success: "Your eraser worked super well on `%s`! I've written down the new notes too! (^◡^)"
       remove:
         success: "No!! My note page (╥︣﹏╥᷅)"
       prop:
         help:
           embed: "(bool) Should I send my notes as an embed?"
 
-        success: "I changed `%s` of note page `%s` to `%s`! \\\\(^_^)/"
+        success: "I changed `%s` of note page `%s` to `%s`! \\\\(^◡^)/"
 
     rolegroup:
 
@@ -273,9 +273,9 @@ en_kawaii:
       "[channel]":
         help:
           add: "Add a blacklist entry for this channel. Regex is hard (◕﹏◕)"
-          remove: "Remove a blacklist entry for this channel so people can talk again (^_^)"
+          remove: "Remove a blacklist entry for this channel so people can talk again (^◡^)"
           list: "Show all the blacklist entries on this channel by ID!"
-          clear: "Delete all the blacklist entries on this channel! Free speech \\\\(^_^)/"
+          clear: "Delete all the blacklist entries on this channel! Free speech \\\\(^◡^)/"
 
       add:
         success: "I added your blacklist entry as `#%s`. (◕⌓◕)"
@@ -289,8 +289,8 @@ en_kawaii:
         title: "All the blacklist entries (◕﹏◕)"
 
       clear:
-        success: "%s blacklist entries removed! Now we can talk all we want (^_^)"
+        success: "%s blacklist entries removed! Now we can talk all we want (^◡^)"
 
     misc:
 
-    nyi: "I'll have this ready for you soon! (^_^)"
+    nyi: "I'll have this ready for you soon! (^◡^)"
