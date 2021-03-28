@@ -56,7 +56,7 @@ en_kawaii:
 
   admin:
     eval:
-      nope: "Nope (*_ _)人"
+      nope: "Nope (*\\_ \\_)人"
     modules:
       title: "Loaded modules"
       global: "Everywhere (⌐^◡^)⌐"
@@ -64,9 +64,9 @@ en_kawaii:
 
   arch:
     wiki:
-      no-results: "I looked everywhere but couldn't find it (*_ _)人"
+      no-results: "I looked everywhere but couldn't find it (*\\_ \\_)人"
     ps:
-      no-results: "I looked everywhere but couldn't find it (*_ _)人"
+      no-results: "I looked everywhere but couldn't find it (*\\_ \\_)人"
       title: "Here's what I found for `%s` \\\\(^◡^)/"
       version: "version"
       last-update: "last updated"
@@ -88,7 +88,7 @@ en_kawaii:
       already-have: "You already have that %s dummy!"
       success: "Now your %s is **%s**, hooray \\\\(^◡^)/"
     color:
-      not-found: "Sorry, I couldn't find it (*_ _)人"
+      not-found: "Sorry, I couldn't find it (*\\_ \\_)人"
       role-type-name: "color"
     closest:
       found: "The closest color I could find was `%s`, I hope you like it (^◡^)"
@@ -108,7 +108,7 @@ en_kawaii:
     usage: "Usage"
     valid-params: "Options I like (^◡^)"
     list-title: "Here's everything I can do!"
-    not-found: "Sorry, I don't have `%s` (*_ _)人"
+    not-found: "Sorry, I don't have `%s` (*\\_ \\_)人"
 
   music:
     join:
@@ -125,20 +125,20 @@ en_kawaii:
       nothing: "Nothing (◕⌓◕)"
 
   polls:
-    cross-server: "Sorry, I can't let you send it there because it's on a different server (*_ _)人"
+    cross-server: "Sorry, I can't let you send it there because it's on a different server (*\\_ \\_)人"
 
   queries:
     query:
       success: "Your query is #%s! Hooray \\\\(^◡^)/"
     oq:
       title: "All the questions!"
-      no-results: "Sorry, I looked everywhere but couldn't find it (*_ _)人"
-      deleted-after-30d: "Sorry, I have to delete queries in 30 days (*_ _)人"
+      no-results: "Sorry, I looked everywhere but couldn't find it (*\\_ \\_)人"
+      deleted-after-30d: "Sorry, I have to delete queries in 30 days (*\\_ \\_)人"
       entry-name: "#%s by %s at %s"
     cq:
-      not-found: "Sorry, I couldn't find query #%s (*_ _)人"
+      not-found: "Sorry, I couldn't find query #%s (*\\_ \\_)人"
       success: "I removed query #%s! I hope their answer was solved (^◡^)"
-      no-perms: "Sorry! I can't let you delete query #%s. (*_ _)人"
+      no-perms: "Sorry! I can't let you delete query #%s. (*\\_ \\_)人"
 
   roles:
 
@@ -281,7 +281,7 @@ en_kawaii:
         success: "I added your blacklist entry as `#%s`. (◕⌓◕)"
 
       remove:
-        not-found: "I couldn't find blacklist entry `%s` (*_ _)人"
+        not-found: "I couldn't find blacklist entry `%s` (*\\_ \\_)人"
         wrong-server: "This is the wrong server for entry `%s` dummy!"
         success: "I deleted blacklist entry `%s` for you!"
 
