@@ -122,6 +122,7 @@ tp:
 
   polls:
     cross-server: 'tomo toki ni li lon kulupu ante.'
+    too-many-opts: 'wile sona sina la, ante mute ike li lon.'
 
   queries:
     query:
