@@ -126,6 +126,7 @@ en_kawaii:
 
   polls:
     cross-server: "Sorry, I can't let you send it there because it's on a different server (*\\_ \\_)人"
+    too-many-opts: "No... not so many options (◕﹏◕)"
 
   queries:
     query:
