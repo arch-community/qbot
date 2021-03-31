@@ -82,7 +82,7 @@ en_kawaii:
       ```md
       %s
       ```
-	unblock: "%s, please unblock me (◕﹏◕)"
+  unblock: "%s, please unblock me (◕﹏◕)"
 
   colors:
     assign-role:
