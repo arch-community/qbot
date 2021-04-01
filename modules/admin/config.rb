@@ -12,7 +12,10 @@ module Admin
     usage: '.cfg <args>',
     min_args: 0
   } do |event, *args|
-    return t(:no_perms) unless event.author.permission?(:administrator)
+    unless event.author.permission?(:administrator)
+      embed t(:no_perms)
+      return
+    end
 
     cfg = ServerConfig[event.server.id]
 
