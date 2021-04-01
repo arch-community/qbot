@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-require 'xkcd'
-
-# monkey-patch to fix redirects
-class XKCD
-  def self.comic
-    open('https://dynamic.xkcd.com/random/comic/', allow_redirections: :all)
-      .base_uri.to_s
-  end
-end
-
 # XKCD comic fetching
 module Xkcd
   extend Discordrb::Commands::CommandContainer
+  
+  def self.xkcd_embed(comic_info)
+    embed do |m|
+      m.title = "xkcd: #{comic_info[:safe_title]}"
+      m.url = XKCD.comic_url(comic_info)
+      m.image = { url: comic_info[:img] }
+      m.footer = { text: comic_info[:alt] }
+    end
+  end
 
   command :xkcd, {
     help_available: true,
@@ -21,11 +20,12 @@ module Xkcd
   } do |event, *args|
     if args[0]&.to_i
       num = args.shift.to_i
-      event.respond XKCD.get_comic num
+      xkcd_embed(XKCD.get_info num)
     elsif args[0]
-      event.respond XKCD.search args.join
+      # Searching not implemented yet
+      embed t('nyi')
     else
-      event.respond XKCD.comic
+      xkcd_embed(XKCD.random_info)
     end
   end
 end

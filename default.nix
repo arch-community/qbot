@@ -1,34 +1,50 @@
-with (import <nixpkgs> { config.allowUnfree = true; });
 let
-  oracle = symlinkJoin {
+  pkgs = (import <nixpkgs> { config.allowUnfree = true; });
+
+  oracle = pkgs.symlinkJoin {
     name = "instantclient";
-    paths = with oracle-instantclient; [ out lib dev ];
+    paths = with pkgs.oracle-instantclient; [ out lib dev ];
     postBuild = ''
       mkdir -p $out/lib/sdk
-      ln -s ${oracle-instantclient.dev}/include $out/lib/sdk/include
+      ln -s ${pkgs.oracle-instantclient.dev}/include $out/lib/sdk/include
     '';
   };
-  env = bundlerEnv {
+
+  ruby' = pkgs.ruby_3_0;
+
+  bundler' = pkgs.bundler.override { ruby = ruby'; };
+
+  bundix' = pkgs.bundix.override { bundler = bundler'; };
+
+  bundlerEnv' = pkgs.bundlerEnv.override {
+    ruby = ruby';
+    bundler = bundler';
+  };
+
+  env = bundlerEnv' {
     name = "qbot-bundler-env";
-    ruby = ruby_3_0;
-    bundler = bundler.override { ruby = ruby_3_0; };
+
     gemfile  = ./Gemfile;
     lockfile = ./Gemfile.lock;
     gemset   = ./gemset.nix;
     gemdir   = ./.;
+
+    ruby = ruby';
+    bundler = bundler';
+
     gemConfig = pkgs.defaultGemConfig // {
       ruby-oci8 = attrs: {
         LD_LIBRARY_PATH = "${oracle}/lib";
       };
       nokogiri = attrs: {
-        buildInputs = [ pkgconfig zlib.dev ];
+        buildInputs = with pkgs; [ pkgconfig zlib.dev ];
       };
       mimemagic = attrs: {
-        FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
+        FREEDESKTOP_MIME_TYPES_PATH = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
       };
     };
   };
-in stdenv.mkDerivation rec {
+in pkgs.stdenv.mkDerivation rec {
   name = "qbot";
 
   src = builtins.filterSource
@@ -39,7 +55,7 @@ in stdenv.mkDerivation rec {
       baseNameOf path != ".bundle")
     ./.;
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     env.wrappedRuby env bundix
     git
     sqlite libxml2 zlib.dev zlib libiconv
@@ -47,7 +63,7 @@ in stdenv.mkDerivation rec {
     libopus libsodium ffmpeg youtube-dl
   ];
 
-  LD_LIBRARY_PATH = "${libsodium}/lib:${libopus}/lib:${oracle}/lib";
+  LD_LIBRARY_PATH = with pkgs; "${libsodium}/lib:${libopus}/lib:${oracle}/lib";
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}
@@ -58,7 +74,7 @@ in stdenv.mkDerivation rec {
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 cd $out/share/qbot
-exec ${bundler}/bin/bundle exec ${ruby_2_7}/bin/ruby $out/share/qbot/qbot "\$@"
+exec ${bundler'}/bin/bundle exec ${ruby'}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF
 
     chmod +x $bin

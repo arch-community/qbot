@@ -1,4 +1,4 @@
-BA="--ruby=ruby_2_7"
+BA="--ruby=ruby_3_0"
 
 bundix $BA -l
 bundix $BA -m

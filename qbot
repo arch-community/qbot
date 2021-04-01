@@ -21,11 +21,12 @@ require_libs %w[
   i18n
   configuration
   helpers
+  xkcd
   breaking_wrap
   modules
   cli
   init
 ]
 
-QBot.version = '7.0.0'
+QBot.version = '7.1.0'
 QBot.run!
