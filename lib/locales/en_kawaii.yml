@@ -80,8 +80,10 @@ en_kawaii:
 
       Here's what you sent though, so pwease don't do it next time! (^◡^)
       ```md
+      
       %s
       ```
+  unblock: "%s, please unblock me (◕﹏◕)"
 
   colors:
     assign-role:

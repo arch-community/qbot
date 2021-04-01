@@ -41,7 +41,12 @@ QBot.bot.message do |event|
        .first
 
   if bl
-    event.message.author.pm t('blacklist.message', bl.re, contents)
     event.message.delete
+    begin
+      event.message.author.pm t('blacklist.message', bl.re, contents)
+    rescue Discordrb::Errors::NoPermission
+      # Catch the nopermission error and ask for an unblock
+      event.respond t('blacklist.unblock', event.message.author.mention)
+    end
   end
 end
