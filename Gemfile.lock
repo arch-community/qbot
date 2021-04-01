@@ -8,20 +8,20 @@ GIT
 
 GIT
   remote: https://github.com/anna328p/discordrb.git
-  revision: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
-  ref: 4eadc9296dabf08b89a29e8c0b177664c48c6f88
-  branch: next
+  revision: 9ccbda50c00f47d4c3a672c990001c6a49d2982e
+  ref: 9ccbda50c00f47d4c3a672c990001c6a49d2982e
+  branch: main
   specs:
-    discordrb-webhooks (3.3.0)
+    discordrb-webhooks (3.4.2)
       rest-client (>= 2.0.0)
 
 GIT
-  remote: https://github.com/swarley/discordrb.git
-  revision: eb693934d6b4806ed86f283f987246d528c95566
-  branch: next
+  remote: https://github.com/shardlab/discordrb.git
+  revision: 75d3e6a8fd2cda78a1e3c8e4585b33372b5800e4
+  branch: main
   specs:
-    discordrb (3.3.0)
-      discordrb-webhooks (~> 3.3.0)
+    discordrb (3.4.2)
+      discordrb-webhooks (~> 3.4.2)
       ffi (>= 1.9.24)
       opus-ruby
       rest-client (>= 2.0.0)

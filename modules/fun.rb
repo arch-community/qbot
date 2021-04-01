@@ -7,5 +7,5 @@ module Fun
 end
 
 QBot.bot.mention do |event|
-  event.respond(QBot.config.ping_emote || "I got pinged :o")
+  event.respond(QBot.config.ping_emote || 'I got pinged :o')
 end

@@ -141,12 +141,12 @@
     platforms = [];
     source = {
       fetchSubmodules = false;
-      rev = "eb693934d6b4806ed86f283f987246d528c95566";
-      sha256 = "1y70hw51q0cg06fmffjhdxlsl8b981mrfxsbcj2ipmi3b1k0yi12";
+      rev = "75d3e6a8fd2cda78a1e3c8e4585b33372b5800e4";
+      sha256 = "090h0gffwr9czx9py1140f2xw0szz6j0j3bxv4632x4n9v6qjcsd";
       type = "git";
-      url = "https://github.com/swarley/discordrb.git";
+      url = "https://github.com/shardlab/discordrb.git";
     };
-    version = "3.3.0";
+    version = "3.4.2";
   };
   discordrb-webhooks = {
     dependencies = ["rest-client"];
@@ -154,12 +154,12 @@
     platforms = [];
     source = {
       fetchSubmodules = false;
-      rev = "4eadc9296dabf08b89a29e8c0b177664c48c6f88";
-      sha256 = "1srrimaswjyqf3vab8qwz224pz77p9lkags06zyfc6y3cmbm6qjf";
+      rev = "9ccbda50c00f47d4c3a672c990001c6a49d2982e";
+      sha256 = "10nqjwn22sanmmmgarswksjbjz8pjfs4bgw46jjgwgbd0diq3snp";
       type = "git";
       url = "https://github.com/anna328p/discordrb.git";
     };
-    version = "3.3.0";
+    version = "3.4.2";
   };
   domain_name = {
     dependencies = ["unf"];

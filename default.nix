@@ -56,7 +56,7 @@ in pkgs.stdenv.mkDerivation rec {
     ./.;
 
   buildInputs = with pkgs; [
-    env.wrappedRuby env bundix
+    env.wrappedRuby env bundix'
     git
     sqlite libxml2 zlib.dev zlib libiconv
     oracle-instantclient oracle

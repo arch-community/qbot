@@ -9,9 +9,10 @@ def t(tid, *fields)
 end
 
 def embed(text = nil, target: nil)
-  channel = target || QBot.bot.embed_target
+  target ||= QBot.bot.embed_target
+  reply_target = target.is_a?(Discordrb::Events::MessageEvent) ? target.message : nil
 
-  channel.send_embed do |m|
+  target.send_embed('', nil, nil, false, false, reply_target) do |m|
     m.description = text if text
     yield m if block_given?
   end
