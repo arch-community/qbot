@@ -18,7 +18,9 @@ module Xkcd
     usage: '.xkcd',
     min_args: 0
   } do |_, *args|
-    if args[0]&.to_i
+    if args[0].downcase.start_with? 'l'
+      xkcd_embed(XKCD.latest_info)
+    elsif args[0]&.to_i
       num = args.shift.to_i
       xkcd_embed(XKCD.get_info(num))
     elsif args[0]
