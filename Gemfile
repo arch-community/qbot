@@ -32,7 +32,7 @@ group :default do
   # DB
   gem 'activerecord', require: 'active_record'
   gem 'activerecord-oracle_enhanced-adapter'
-  #gem 'ruby-oci8'
+  gem 'ruby-oci8'
   gem 'sqlite3'
 
   # Logging
