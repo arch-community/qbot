@@ -78,6 +78,7 @@ en:
       ```
       %s
       ```
+    unblock: "%s, you have blocked the bot. This can break functionality. Please unblock it."
 
   colors:
     assign-role:
