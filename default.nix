@@ -64,6 +64,7 @@ in pkgs.stdenv.mkDerivation rec {
   ];
 
   LD_LIBRARY_PATH = with pkgs; "${libsodium}/lib:${libopus}/lib:${oracle}/lib";
+  NLS_LANG = "American_America.UTF8";
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}
