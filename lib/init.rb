@@ -73,8 +73,12 @@ module QBot
 
     @log.info 'Initializing connection...'
 
+    @bot.ready do |event|
+      @log.info 'Bot ready.'
+      event.bot.playing = "version #{version}"
+    end
+
     @bot.run :async
-    @bot.ready { @log.info 'Bot ready.' }
 
     trap :INT do
       Thread.new { QBot.log.fatal 'Ctrl-C caught, exiting gracefully...' }.join
