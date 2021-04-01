@@ -123,6 +123,7 @@ en:
   polls:
     cross-server: 'That channel is on a different server.'
     too-many-opts: 'Your poll has too many options.'
+    title-too-long: 'The title of your poll is too long.'
 
   queries:
     query:

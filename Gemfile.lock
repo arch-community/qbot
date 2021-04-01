@@ -185,7 +185,6 @@ GEM
       parser (>= 2.7.1.5)
     rubocop-checkstyle_formatter (0.4.0)
       rubocop (>= 0.35.1)
-    ruby-oci8 (2.2.9)
     ruby-plsql (0.7.1)
     ruby-progressbar (1.11.0)
     ruby_figlet (0.6.1)
@@ -251,7 +250,6 @@ DEPENDENCIES
   rss
   rubocop
   rubocop-checkstyle_formatter
-  ruby-oci8
   ruby_figlet
   soundcloud
   sqlite3
@@ -261,7 +259,7 @@ DEPENDENCIES
   youtube-dl.rb!
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.0.0p0
 
 BUNDLED WITH
-   2.1.4
+   2.2.15
