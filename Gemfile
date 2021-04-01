@@ -7,11 +7,11 @@ ruby '~> 3.0'
 # rubocop: disable Metrics/BlockLength
 group :default do
   # Base
-  gem 'discordrb', github: 'swarley/discordrb', branch: 'next'
+  gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
   # dirty hack to fix bundix problems
   gem 'discordrb-webhooks',
       github: 'anna328p/discordrb',
-      branch: 'next',
+      branch: 'main',
       ref: '4eadc9296dabf08b89a29e8c0b177664c48c6f88'
   gem 'rbnacl'
 
