@@ -75,6 +75,8 @@ module Polls
       embed t('polls.cross-server')
     elsif opts.size > 9
       embed t('polls.too-many-opts')
+    elsif title.length > 256
+      embed t('polls.title-too-long')
     elsif !poll_allowed?(event, channel)
       embed t(:no_perms)
     else

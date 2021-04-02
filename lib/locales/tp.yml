@@ -124,6 +124,7 @@ tp:
   polls:
     cross-server: 'tomo toki ni li lon kulupu ante.'
     too-many-opts: 'wile sona sina la, ante mute ike li lon.'
+    title-too-long: 'nimi pi wile sona sina li suli ike a.'
 
   queries:
     query:
