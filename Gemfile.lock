@@ -111,7 +111,7 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     io-console (0.5.9)
-    irb (1.3.4)
+    irb (1.3.5)
       reline (>= 0.1.5)
     jwt (2.2.2)
     log4r-color (1.2.2)
