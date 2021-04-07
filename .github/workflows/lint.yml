@@ -1,4 +1,4 @@
-name: RuboCop
+name: Lint
 on:
   pull_request:
   push:
@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2
+      with: # Needed for commitlint
+        fetch-depth: 0
 
     - name: Set up Ruby 3.0
       uses: ruby/setup-ruby@v1
@@ -31,8 +33,14 @@ jobs:
     - name: Run RuboCop
       run: bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter --out /tmp/checkstyle.xml
 
+    - name: Lint commit messages 
+      uses: wagoid/commitlint-github-action@v2
+
+    - name: Lint Markdown
+      uses: avto-dev/markdown-lint@v1.5.0
+
     - uses: check-run-reporter/action@v2.0.0
       if: ${{ always() }}
       with:
-        token: '97b42a40-d071-4ba3-9f47-e4081f944a21'
+        token: '2005ace6-d376-42b7-ac05-1d3b8e8e9d24'
         report: '/tmp/checkstyle.xml'
