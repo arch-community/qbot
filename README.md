@@ -37,7 +37,7 @@ Clone this Git repository. cd into the directory and enter a `nix-shell`.
 
 #### Otherwise
 
-Install Ruby, at least version 2.7 (higher versions untested). Install bundler.
+Install Ruby, at least version 3.0 (higher versions untested). Install bundler.
 
 Clone this Git repository. Enter the directory. Run `bundle install` to set up
 the environment.

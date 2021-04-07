@@ -2,6 +2,9 @@
 
 ## Development
 
+qbot uses [Conventional Commits]. Make sure that your commit messages follow
+the spec.
+
 Code structure:
 
 - `qbot` is the main executable that loads the rest of the bot.
@@ -31,3 +34,5 @@ Copy the file `lib/locales/en.yml` to your new locale. Change the language code
 at the top. Translate all of the strings. Send a pull request.
 
 Your commit should be named something like "i18n: added x translation".
+
+[Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
