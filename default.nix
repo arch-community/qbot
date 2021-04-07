@@ -1,18 +1,18 @@
 { stdenv, lib, symlinkJoin, makeWrapper
 , pkg-config, git
-, ruby_3_0, bundler, bundix, defaultGemConfig, bundlerApp
+, ruby_3_0, bundler, bundix, defaultGemConfig, bundlerEnv
 , libsodium, libopus, ffmpeg, youtube-dl
 , sqlite, zlib, shared-mime-info, libxml2, libiconv
 , figlet }:
 
 let
-  ruby' = pkgs.ruby_3_0;
+  ruby' = ruby_3_0;
 
-  bundler' = pkgs.bundler.override { ruby = ruby'; };
+  bundler' = bundler.override { ruby = ruby'; };
 
-  bundix' = pkgs.bundix.override { bundler = bundler'; };
+  bundix' = bundix.override { bundler = bundler'; };
 
-  bundlerEnv' = pkgs.bundlerEnv.override {
+  bundlerEnv' = bundlerEnv.override {
     ruby = ruby';
     bundler = bundler';
   };
@@ -28,16 +28,16 @@ let
     ruby = ruby';
     bundler = bundler';
 
-    gemConfig = pkgs.defaultGemConfig // {
+    gemConfig = defaultGemConfig // {
       nokogiri = attrs: {
-        buildInputs = with pkgs; [ pkgconfig zlib.dev ];
+        buildInputs = [ pkg-config zlib.dev ];
       };
       mimemagic = attrs: {
-        FREEDESKTOP_MIME_TYPES_PATH = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
+        FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
       };
     };
   };
-in pkgs.stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "qbot";
 
   src = builtins.filterSource
@@ -48,8 +48,8 @@ in pkgs.stdenv.mkDerivation rec {
       baseNameOf path != ".bundle")
     ./.;
 
-  buildInputs = with pkgs; [
-    env.wrappedRuby env bundix' git
+  buildInputs = [
+    env bundix' git
     sqlite libxml2 zlib.dev zlib libiconv
     libopus libsodium ffmpeg youtube-dl
   ];

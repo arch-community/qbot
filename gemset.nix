@@ -21,17 +21,6 @@
     };
     version = "6.1.3.1";
   };
-  activerecord-oracle_enhanced-adapter = {
-    dependencies = ["activerecord" "ruby-plsql"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "025hgw3wxdq5lkqqhaqwxh5kp7y4i2ad4iyfwbpxgk84l3fsqhpj";
-      type = "gem";
-    };
-    version = "6.1.4";
-  };
   activesupport = {
     dependencies = ["concurrent-ruby" "i18n" "minitest" "tzinfo" "zeitwerk"];
     groups = ["default"];
@@ -779,26 +768,6 @@
       type = "gem";
     };
     version = "0.4.0";
-  };
-  ruby-oci8 = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1jq3aibxqzk41m18wparnz5y8kp40wwrhcw5fblm9riiilis4shh";
-      type = "gem";
-    };
-    version = "2.2.9";
-  };
-  ruby-plsql = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "08xrmkmv718bhwdfnq9wxh3bna3gplzz8pxm9spw83yahr5kw3yj";
-      type = "gem";
-    };
-    version = "0.7.1";
   };
   ruby-progressbar = {
     groups = ["default" "development"];
