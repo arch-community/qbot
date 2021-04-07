@@ -1,15 +1,11 @@
+{ stdenv, lib, symlinkJoin, makeWrapper
+, pkg-config, git
+, ruby_3_0, bundler, bundix, defaultGemConfig, bundlerApp
+, libsodium, libopus, ffmpeg, youtube-dl
+, sqlite, zlib, shared-mime-info, libxml2, libiconv
+, figlet }:
+
 let
-  pkgs = (import <nixpkgs> { config.allowUnfree = true; });
-
-  oracle = pkgs.symlinkJoin {
-    name = "instantclient";
-    paths = with pkgs.oracle-instantclient; [ out lib dev ];
-    postBuild = ''
-      mkdir -p $out/lib/sdk
-      ln -s ${pkgs.oracle-instantclient.dev}/include $out/lib/sdk/include
-    '';
-  };
-
   ruby' = pkgs.ruby_3_0;
 
   bundler' = pkgs.bundler.override { ruby = ruby'; };
@@ -33,9 +29,6 @@ let
     bundler = bundler';
 
     gemConfig = pkgs.defaultGemConfig // {
-      ruby-oci8 = attrs: {
-        LD_LIBRARY_PATH = "${oracle}/lib";
-      };
       nokogiri = attrs: {
         buildInputs = with pkgs; [ pkgconfig zlib.dev ];
       };
@@ -56,15 +49,12 @@ in pkgs.stdenv.mkDerivation rec {
     ./.;
 
   buildInputs = with pkgs; [
-    env.wrappedRuby env bundix'
-    git
+    env.wrappedRuby env bundix' git
     sqlite libxml2 zlib.dev zlib libiconv
-    oracle-instantclient oracle
     libopus libsodium ffmpeg youtube-dl
   ];
 
-  LD_LIBRARY_PATH = with pkgs; "${libsodium}/lib:${libopus}/lib:${oracle}/lib";
-  NLS_LANG = "American_America.UTF8";
+  LD_LIBRARY_PATH = lib.makeLibraryPath [ libsodium libopus ];
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}
