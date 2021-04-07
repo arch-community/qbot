@@ -75,7 +75,7 @@ in pkgs.stdenv.mkDerivation rec {
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 cd $out/share/qbot
-exec ${bundler'}/bin/bundle exec ${ruby'}/bin/ruby $out/share/qbot/qbot "\$@"
+exec ${env}/bin/bundle exec ${env.wrappedRuby}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF
 
     chmod +x $bin
