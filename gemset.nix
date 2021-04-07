@@ -1,37 +1,4 @@
 {
-  activemodel = {
-    dependencies = ["activesupport"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "118slj94hif5g1maaijlxsywrq75h7qdz20bq62303pkrzabjaxm";
-      type = "gem";
-    };
-    version = "6.1.3.1";
-  };
-  activerecord = {
-    dependencies = ["activemodel" "activesupport"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1jva5iqnjmj76mhhxcvx6xzda071cy80bhxn3r79f76pvgwwyymg";
-      type = "gem";
-    };
-    version = "6.1.3.1";
-  };
-  activerecord-oracle_enhanced-adapter = {
-    dependencies = ["activerecord" "ruby-plsql"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "025hgw3wxdq5lkqqhaqwxh5kp7y4i2ad4iyfwbpxgk84l3fsqhpj";
-      type = "gem";
-    };
-    version = "6.1.4";
-  };
   activesupport = {
     dependencies = ["concurrent-ruby" "i18n" "minitest" "tzinfo" "zeitwerk"];
     groups = ["default"];
@@ -224,6 +191,16 @@
       type = "gem";
     };
     version = "1.15.0";
+  };
+  figlet = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "12hnd88mbfah6iv7gaxxmixky9ik0psapn3l7bg856rjf7yd8y4c";
+      type = "gem";
+    };
+    version = "1.1.0";
   };
   gems = {
     groups = ["default"];
@@ -632,6 +609,164 @@
     };
     version = "4.0.6";
   };
+  qbot = {
+    groups = ["default"];
+    platforms = [{
+      engine = "maglev";
+    } {
+      engine = "maglev";
+    } {
+      engine = "maglev";
+      version = "1.8";
+    } {
+      engine = "maglev";
+      version = "1.8";
+    } {
+      engine = "maglev";
+      version = "1.9";
+    } {
+      engine = "maglev";
+      version = "1.9";
+    } {
+      engine = "maglev";
+      version = "2.0";
+    } {
+      engine = "maglev";
+      version = "2.0";
+    } {
+      engine = "maglev";
+      version = "2.1";
+    } {
+      engine = "maglev";
+      version = "2.1";
+    } {
+      engine = "maglev";
+      version = "2.2";
+    } {
+      engine = "maglev";
+      version = "2.2";
+    } {
+      engine = "maglev";
+      version = "2.3";
+    } {
+      engine = "maglev";
+      version = "2.3";
+    } {
+      engine = "maglev";
+      version = "2.4";
+    } {
+      engine = "maglev";
+      version = "2.4";
+    } {
+      engine = "maglev";
+      version = "2.5";
+    } {
+      engine = "maglev";
+      version = "2.5";
+    } {
+      engine = "maglev";
+      version = "2.6";
+    } {
+      engine = "maglev";
+      version = "2.6";
+    } {
+      engine = "rbx";
+    } {
+      engine = "rbx";
+    } {
+      engine = "rbx";
+      version = "1.8";
+    } {
+      engine = "rbx";
+      version = "1.9";
+    } {
+      engine = "rbx";
+      version = "2.0";
+    } {
+      engine = "rbx";
+      version = "2.1";
+    } {
+      engine = "rbx";
+      version = "2.2";
+    } {
+      engine = "rbx";
+      version = "2.3";
+    } {
+      engine = "rbx";
+      version = "2.4";
+    } {
+      engine = "rbx";
+      version = "2.5";
+    } {
+      engine = "rbx";
+      version = "2.6";
+    } {
+      engine = "ruby";
+    } {
+      engine = "ruby";
+    } {
+      engine = "ruby";
+    } {
+      engine = "ruby";
+      version = "1.8";
+    } {
+      engine = "ruby";
+      version = "1.8";
+    } {
+      engine = "ruby";
+      version = "1.9";
+    } {
+      engine = "ruby";
+      version = "1.9";
+    } {
+      engine = "ruby";
+      version = "2.0";
+    } {
+      engine = "ruby";
+      version = "2.0";
+    } {
+      engine = "ruby";
+      version = "2.1";
+    } {
+      engine = "ruby";
+      version = "2.1";
+    } {
+      engine = "ruby";
+      version = "2.2";
+    } {
+      engine = "ruby";
+      version = "2.2";
+    } {
+      engine = "ruby";
+      version = "2.3";
+    } {
+      engine = "ruby";
+      version = "2.3";
+    } {
+      engine = "ruby";
+      version = "2.4";
+    } {
+      engine = "ruby";
+      version = "2.4";
+    } {
+      engine = "ruby";
+      version = "2.5";
+    } {
+      engine = "ruby";
+      version = "2.5";
+    } {
+      engine = "ruby";
+      version = "2.6";
+    } {
+      engine = "ruby";
+      version = "2.6";
+    }];
+    source = {
+      path = ./.;
+      type = "path";
+    };
+    version = "7.5.0";
+  };
   racc = {
     groups = ["default"];
     platforms = [];
@@ -780,26 +915,6 @@
     };
     version = "0.4.0";
   };
-  ruby-oci8 = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1jq3aibxqzk41m18wparnz5y8kp40wwrhcw5fblm9riiilis4shh";
-      type = "gem";
-    };
-    version = "2.2.9";
-  };
-  ruby-plsql = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "08xrmkmv718bhwdfnq9wxh3bna3gplzz8pxm9spw83yahr5kw3yj";
-      type = "gem";
-    };
-    version = "0.7.1";
-  };
   ruby-progressbar = {
     groups = ["default" "development"];
     platforms = [];
@@ -809,16 +924,6 @@
       type = "gem";
     };
     version = "1.11.0";
-  };
-  ruby_figlet = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1a1blsaljddfkn86nsh33p0h9qk0m8ic3m6n6vvdvy2086rxggzz";
-      type = "gem";
-    };
-    version = "0.6.1";
   };
   scribe = {
     dependencies = ["rake" "thrift_client"];

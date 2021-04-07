@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.0'
+gemspec
 
 # rubocop: disable Metrics/BlockLength
 group :default do
@@ -30,9 +30,6 @@ group :default do
   gem 'reline'
 
   # DB
-  gem 'activerecord', require: 'active_record'
-  gem 'activerecord-oracle_enhanced-adapter'
-  gem 'ruby-oci8'
   gem 'sqlite3'
 
   # Logging
@@ -60,7 +57,7 @@ group :default do
       branch: 'update-youtube-dl-2020-09-20'
 
   # figlet
-  gem 'ruby_figlet'
+  gem 'figlet'
 
   # xkcd
   gem 'open_uri_redirections'

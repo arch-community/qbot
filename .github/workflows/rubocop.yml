@@ -34,5 +34,5 @@ jobs:
     - uses: check-run-reporter/action@v2.0.0
       if: ${{ always() }}
       with:
-        token: '97b42a40-d071-4ba3-9f47-e4081f944a21'
+        token: '2005ace6-d376-42b7-ac05-1d3b8e8e9d24'
         report: '/tmp/checkstyle.xml'

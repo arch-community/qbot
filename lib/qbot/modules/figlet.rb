@@ -1,19 +1,23 @@
 # frozen_string_literal: true
 
-require 'ruby_figlet'
+require 'figlet'
 
 # Text to ASCII art
 module Figlet
   extend Discordrb::Commands::CommandContainer
+
 
   command :figlet, {
     help_available: true,
     description: 'Renders some text as ASCII art',
     usage: '.figlet <text>',
     min_args: 1
-  } do |_event, *text|
+  } do |_, *text|
+    font = Figlet::Font.new('standard.flf')
+    ts = Figlet::Typesetter.new(font)
+
     input = QBot.breaking_word_wrap(text.join(' '), 16)
-    figlet = RubyFiglet::Figlet.new(input).to_s
+    figlet = ts[input]
 
     "```\n#{figlet}\n```"
   end

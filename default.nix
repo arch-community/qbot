@@ -1,83 +1,45 @@
+{ stdenv, lib, symlinkJoin, makeWrapper
+, pkg-config, git
+, ruby_3_0, bundler, bundix, defaultGemConfig, bundlerApp
+, libsodium, libopus, ffmpeg, youtube-dl
+, sqlite, zlib, shared-mime-info, libxml2, libiconv
+, figlet }:
+
 let
-  pkgs = (import <nixpkgs> { config.allowUnfree = true; });
+  ruby' = ruby_3_0;
+in bundlerApp rec {
+  pname = "qbot";
 
-  oracle = pkgs.symlinkJoin {
-    name = "instantclient";
-    paths = with pkgs.oracle-instantclient; [ out lib dev ];
-    postBuild = ''
-      mkdir -p $out/lib/sdk
-      ln -s ${pkgs.oracle-instantclient.dev}/include $out/lib/sdk/include
-    '';
-  };
+  gemdir = ./.;
+  
+  gemfile  = ./Gemfile;
+  lockfile = ./Gemfile.lock;
+  gemset   = ./gemset.nix;
 
-  ruby' = pkgs.ruby_3_0;
+  exes = [ "qbot" ];
 
-  bundler' = pkgs.bundler.override { ruby = ruby'; };
+  ruby = ruby';
 
-  bundix' = pkgs.bundix.override { bundler = bundler'; };
-
-  bundlerEnv' = pkgs.bundlerEnv.override {
-    ruby = ruby';
-    bundler = bundler';
-  };
-
-  env = bundlerEnv' {
-    name = "qbot-bundler-env";
-
-    gemfile  = ./Gemfile;
-    lockfile = ./Gemfile.lock;
-    gemset   = ./gemset.nix;
-    gemdir   = ./.;
-
-    ruby = ruby';
-    bundler = bundler';
-
-    gemConfig = pkgs.defaultGemConfig // {
-      ruby-oci8 = attrs: {
-        LD_LIBRARY_PATH = "${oracle}/lib";
-      };
-      nokogiri = attrs: {
-        buildInputs = with pkgs; [ pkgconfig zlib.dev ];
-      };
-      mimemagic = attrs: {
-        FREEDESKTOP_MIME_TYPES_PATH = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
-      };
+  gemConfig = defaultGemConfig // {
+    nokogiri = attrs: {
+      buildInputs = [ pkg-config zlib.dev ];
+    };
+    mimemagic = attrs: {
+      FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
     };
   };
-in pkgs.stdenv.mkDerivation rec {
-  name = "qbot";
 
-  src = builtins.filterSource
-    (path: type:
-      type != "directory" ||
-      baseNameOf path != "vendor" &&
-      baseNameOf path != ".git" &&
-      baseNameOf path != ".bundle")
-    ./.;
-
-  buildInputs = with pkgs; [
-    env.wrappedRuby env bundix'
-    git
+  buildInputs = [
     sqlite libxml2 zlib.dev zlib libiconv
-    oracle-instantclient oracle
     libopus libsodium ffmpeg youtube-dl
+    figlet
+    git bundix
+    makeWrapper
   ];
 
-  LD_LIBRARY_PATH = with pkgs; "${libsodium}/lib:${libopus}/lib:${oracle}/lib";
-  NLS_LANG = "American_America.UTF8";
-
-  installPhase = ''
-    mkdir -p $out/{bin,share/qbot}
-    cp -r * $out/share/qbot
-    bin=$out/bin/qbot
-
-    cat >$bin <<EOF
-#!/bin/sh -e
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
-cd $out/share/qbot
-exec ${bundler'}/bin/bundle exec ${ruby'}/bin/ruby $out/share/qbot/qbot "\$@"
-EOF
-
-    chmod +x $bin
+  postBuild = ''
+    wrapProgram $out/bin/qbot \
+      --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ libsodium libopus ]}"
+      --set FLF_DIR "${figlet}/share/figlet\'
   '';
 }

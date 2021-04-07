@@ -1,7 +1,8 @@
-#!/usr/bin/env ruby
 # frozen-string-literal: true
 
+require 'bundler'
 Bundler.require :default
+
 require 'json'
 require 'yaml'
 require 'digest'
@@ -9,10 +10,11 @@ require 'uri'
 require 'open-uri'
 
 def require_libs(libs)
-  libs.each { require_relative "lib/#{_1}" }
+  libs.each { require "qbot/#{_1}" }
 end
 
 require_libs %w[
+  version
   globals
   options
   patches
@@ -27,6 +29,3 @@ require_libs %w[
   cli
   init
 ]
-
-QBot.version = '7.5.0'
-QBot.run!
