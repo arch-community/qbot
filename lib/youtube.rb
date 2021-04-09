@@ -46,9 +46,7 @@ module YouTube
     results.items
   end
 
-  def self.results_getid(results)
-    results[0].id.video_id
-  end
+  def self.results_getid(results) = results[0].id.video_id
 end
 
 YouTube.init

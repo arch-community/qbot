@@ -42,9 +42,7 @@ module Music # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
-  def self.init_server(server)
-    play_thread server.id, @queues[server.id]
-  end
+  def self.init_server(server) = play_thread(server.id, @queues[server.id])
 
   class << self
     attr_accessor :queues, :np

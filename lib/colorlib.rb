@@ -20,13 +20,11 @@ module ColorLib
   D65 = [ 95.047, 100, 108.883 ].freeze
   # rubocop: enable Layout/SpaceInsideArrayLiteralBrackets
 
-  def self.hex_to_rgb(hex)
+  def self.hex_to_rgb(hex) =
     hex.chars.last(6).each_slice(2).map { _1.join.to_i(16) }
-  end
 
-  def self.rgb_to_hex(rgb)
+  def self.rgb_to_hex(rgb) =
     rgb.map { _1.round.clamp(0, 255).to_s(16).rjust(2, '0') }.join
-  end
 
   def self.rgb_to_xyz(rgb)
     r, g, b = rgb.map { _1 / 256.0 }
@@ -88,11 +86,7 @@ module ColorLib
     cie76(lab1, lab2)
   end
 
-  def self.hex_to_lab(hex)
-    xyz_to_lab(rgb_to_xyz(hex_to_rgb(hex)))
-  end
+  def self.hex_to_lab(hex) = xyz_to_lab(rgb_to_xyz(hex_to_rgb(hex)))
 
-  def self.lab_to_hex(lab)
-    rgb_to_hex(xyz_to_rgb(lab_to_xyz(lab)))
-  end
+  def self.lab_to_hex(lab) = rgb_to_hex(xyz_to_rgb(lab_to_xyz(lab)))
 end

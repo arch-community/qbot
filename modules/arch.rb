@@ -7,9 +7,7 @@ module Arch
   @wiki = MediawikiApi::Client.new 'https://wiki.archlinux.org/api.php'
   attr_accessor :wiki
 
-  def self.wiki_login(username, password)
-    @wiki.log_in(username, password)
-  end
+  def self.wiki_login(username, password) = @wiki.log_in(username, password)
 
   def self.wiki_embed(channel, title)
     embed(target: channel) do |m|
@@ -18,9 +16,8 @@ module Arch
     end
   end
 
-  def self.search_pkg(query)
+  def self.search_pkg(query) =
     JSON.parse URI.open("https://www.archlinux.org/packages/search/json/?q=#{query}").read
-  end
 
   def self.mkcorpus(res)
     res.map do |r|

@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-def formatted_name(user)
-  "#{user.name}##{user.discriminator}"
-end
+def formatted_name(user) = "#{user.name}##{user.discriminator}"
 
-def find_prefix(message)
-  ServerConfig[message.server.id].server_prefix
-end
+def find_prefix(message) = ServerConfig[message.server.id].server_prefix
 
 def cmd_prefix(message)
   pfx = find_prefix(message)
@@ -48,9 +44,7 @@ def user_response(event)
   response.message.text.split[1].to_i
 end
 
-def unescape(str)
-  "\"#{str}\"".undump
-end
+def unescape(str) = "\"#{str}\"".undump
 
 def cmd_target(event, arg)
   if (id = arg.to_i) != 0
@@ -67,6 +61,5 @@ def to_word(num)
   map[num] || num
 end
 
-def to_emoji(num)
+def to_emoji(num) =
   [num.to_s.ord, 65_039, 8_419].map { _1.chr(Encoding::UTF_8) }.join
-end

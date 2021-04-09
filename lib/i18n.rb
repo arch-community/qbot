@@ -7,9 +7,7 @@ I18n.config.available_locales = %i[en tp en_kawaii]
 I18n.default_locale = :en
 I18n.fallbacks = [ :en ]
 
-def t(tid, *fields)
-  I18n.t(tid) % fields
-end
+def t(tid, *fields) = I18n.t(tid) % fields
 
 def embed(text = nil, target: nil)
   target ||= QBot.bot.embed_target

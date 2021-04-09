@@ -2,9 +2,7 @@
 
 # Config helpers
 module Config
-  def self.[](server_id)
-    ServerConfig[server_id]
-  end
+  def self.[](server_id) = ServerConfig[server_id]
 
   def self.help_msg(event, command, avail)
     cmd = Config[event.server.id].prefix + command

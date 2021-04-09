@@ -4,9 +4,7 @@
 module Tokipona
   extend Discordrb::Commands::CommandContainer
 
-  def self.tpo_field(text, limit: 0)
-    { name: 'tokipona.org', value: text }
-  end
+  def self.tpo_field(text, limit: 0) = { name: 'tokipona.org', value: text }
 
   def self.pu_desc(query)
     dict = TPDict.instance

@@ -2,7 +2,5 @@
 
 # Entry in a channel blacklist
 class BlacklistEntry < ActiveRecord::Base
-  def re
-    Regexp.new regex
-  end
+  def re = Regexp.new(regex)
 end

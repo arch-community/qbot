@@ -15,17 +15,11 @@ class TPDict
     'http://tokipona.org/nimi_pu.txt'
   ].freeze
 
-  def sourcelist
-    SOURCES.join(', ')
-  end
+  def sourcelist = SOURCES.join(', ')
 
-  def get_all(urls)
-    urls.map { YAML.safe_load(URI.open(_1)) }
-  end
+  def get_all(urls) = urls.map { YAML.safe_load(URI.open(_1)) }
 
-  def merge_defs(yamls)
-    yamls.each_with_object({}) { _2.merge! _1 }
-  end
+  def merge_defs(yamls) = yamls.each_with_object({}) { _2.merge! _1 }
 
   def process_tp_inli(input)
     input.transform_values do |v|
@@ -36,9 +30,7 @@ class TPDict
     end
   end
 
-  def load_tp_inli
-    process_tp_inli(merge_defs(get_all(SOURCES)))
-  end
+  def load_tp_inli = process_tp_inli(merge_defs(get_all(SOURCES)))
 
   def load_pu
     YAML
@@ -60,13 +52,9 @@ class TPDict
     0..10 => '⁰'
   }.freeze
 
-  def freq_char(freq)
-    FREQ_MAP.select { _1.include? freq }.values.first
-  end
+  def freq_char(freq) = FREQ_MAP.select { _1.include? freq }.values.first
 
-  def freqlist(vals)
-    vals.map { "#{_1}#{freq_char _2}" }.join(', ')
-  end
+  def freqlist(vals) = vals.map { "#{_1}#{freq_char _2}" }.join(', ')
 
   def query_tp_inli(query, limit: 0, overflow_text: '[...]')
     data = @tp_inli[query] || (return nil)
