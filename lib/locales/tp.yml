@@ -193,16 +193,16 @@ tp:
 
       set:
         not-found: 'ilo li ken ala toki kepeken nasin `%s`.'
-        success: 'ilo li toki tawa sina la, ona li kepeken e nasin toki `%s`.'
+        success: 'ilo li toki tawa sina la, ona li kepeken nasin toki `%s`.'
 
       reset:
-        success: 'ilo li toki tawa sina la, ona li kepeken e nasin toki `%s`.'
+        success: 'ilo li toki tawa sina la, ona li kepeken nasin toki `%s`.'
 
   cfg:
     usage: 'o kepeken sama ni:'
     subcmd: 'nimi pali lili'
     options: 'nasin pali'
-    avail_subcmd: 'sina ken kepeken e nimi pali lili ni:'
+    avail_subcmd: 'sina ken kepeken nimi pali lili ni:'
 
     help:
       help: 'pana e lipu ni'
@@ -261,8 +261,8 @@ tp:
           disable: 'ken ala e kepeken pi poki ni'
           show: 'pana e nasin awen ni'
 
-        toggled-on: 'ni la, ilo li ken kepeken e poki kule pi nimi kule taso.'
-        toggled-off: 'ni la, ilo li ken ala kepeken e poki kule pi nimi kule taso.'
+        toggled-on: 'ni la, ilo li ken kepeken poki kule pi nimi kule taso.'
+        toggled-off: 'ni la, ilo li ken ala kepeken poki kule pi nimi kule taso.'
         show: 'nasin awen ni li `%s`.'
 
     snippet:
