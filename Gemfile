@@ -15,7 +15,11 @@ group :default do
       ref: '9ccbda50c00f47d4c3a672c990001c6a49d2982e'
   gem 'rbnacl'
 
-  gem 'i18n'
+  gem 'i18n',
+      require: [
+        'i18n',
+        'i18n/backend/fallbacks'
+      ]
 
   # Config
   gem 'hashugar'

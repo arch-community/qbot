@@ -50,6 +50,10 @@ en:
 
     figlet: 'Converts some text into ASCII art'
 
+    nimi: 'Queries definitions for a toki pona word'
+    tpo: 'Queries usage data for a toki pona word from tokipona.org'
+    tpsources: 'Displays attribution information for toki pona data'
+
   admin:
     eval:
       nope: 'nope'
@@ -148,12 +152,29 @@ en:
     snippet:
       not-found: 'Snippet not found.'
 
-  xkcd:
+  tokipona:
+    attrib:
+      title: 'toki pona data sources'
+      text: >-
+        toki pona was created by Sonja Lang. the pu dictionary is in the public domain.
+        tokipona.org data was gathered by Sonja Lang and can be found at %s.
+        other data was taken from ilo Salana, which is in the public domain.
+
+      footer: 'for attribution, see .%s'
+
+    nimi:
+      not-found: 'This word was not found in pu.'
+      overflow: '(see .tpo)'
+
+    tpo:
+      not-found: 'This word was not found in the tokipona.org data.'
 
   util:
     invite:
       title: "Invite %s"
       desc: "[Click this link to invite %s to your server.](%s)"
+
+  xkcd:
 
   uc:
     help:

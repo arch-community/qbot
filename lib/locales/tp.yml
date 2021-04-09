@@ -2,53 +2,57 @@ tp:
   no_perms: 'sina ken ala pali e ni tan ni: ken sina li lili.'
 
   descriptions:
-    help: 'o lukin e nimi pali ale, anu o lukin e sona pi nimi pali wan'
+    help: 'lukin e nimi pali ale. lukin e sona pi nimi pali wan'
 
-    config: 'o ante e nasin pali ilo'
-    userconfig: 'sina la o ante e nasin pali ilo. ilo li pali kepeken nasin ni lon kulupu ale.'
+    config: 'ante e nasin pali ilo'
+    userconfig: 'sina la ante e nasin pali ilo. ni li tawa kulupu ale.'
 
-    listsnippets: 'o pana e lipu pi toki nimi ale'
-    snippet: 'o toki e toki nimi'
+    listsnippets: 'pana e lipu pi toki nimi ale'
+    snippet: 'toki e toki nimi'
 
-    color: 'o ante e poki kule sina'
-    closestcolor: 'sina wile e kule pi nanpa kule la, o ante e poki kule sina tawa kule sama ni'
-    listcolors: 'o lukin e poki kule ale'
-    createcolorroles: 'o pali e poki pi kule ale'
-    randcolors: 'o pana e poki kule tawa jan pi kule ala'
+    color: 'kama jo e poki kule'
+    closestcolor: 'nanpa kule la, kama jo e poki kule sama ona'
+    listcolors: 'lukin e poki kule ale'
+    createcolorroles: 'pali e poki pi kule ale'
+    randcolors: 'pana e poki kule tawa jan pi kule ala'
 
-    query: 'o pana e wile sona sina tawa lipu'
-    openqueries: 'o lukin e lipu ale pi wile sona'
-    closequery: 'o weka e lipu sina pi wile sona'
+    query: 'pana e wile sona sina tawa lipu'
+    openqueries: 'lukin e wile sona ale lon lipu'
+    closequery: 'weka e wile sona tan lipu'
 
-    join: 'o tawa e ilo tawa tomo pi toki uta'
-    play: 'o pana e kalama musi linluwi tawa tomo pi toki uta'
-    yt: 'o pana e kalama musi tan lipu Jutu tawa tomo pi toki uta'
-    pause: 'o kalama ala'
-    resume: 'o kalama sin'
-    stop: 'o weka e kalama ala tan ilo'
-    skip: 'o weka e kalama musi ni'
-    volume: 'o ante e wawa kalama'
-    seek: 'o ante e tenpo lon kalama musi'
-    np: 'o pana e nimi pi kalama musi lon tenpo ni'
+    join: 'tawa e ilo tawa tomo pi toki uta'
+    play: 'pana e kalama musi linluwi tawa tomo pi toki uta'
+    yt: 'pana e kalama musi tan lipu Jutu tawa tomo pi toki uta'
+    pause: 'pake e kalama'
+    resume: 'awen sin e kalama'
+    stop: 'weka e kalama ale tan ilo'
+    skip: 'weka e kalama ni tan ilo'
+    volume: 'ante e wawa kalama'
+    seek: 'ante e tenpo musi lon kalama musi'
+    np: 'pana e sona pi kalama musi ni'
 
-    eval: 'o pali sama toki ilo ni'
-    modules: 'o pana e lipu pi kulupu ale pi nimi wawa'
+    eval: 'pali sama toki ilo ni'
+    modules: 'pana e kulupu ale pi nimi wawa'
 
-    echo: 'o pana e toki sama toki sina'
-    botrepo: 'o pana e linja linluwi pi tomo pali ilo'
-    avatar: 'o pana e linja linluwi pi sitelen sinpin jan'
+    echo: 'pana e toki sama toki sina'
+    botrepo: 'pana e linja linluwi pi tomo pali ilo'
+    avatar: 'pana e linja linluwi pi sitelen sinpin jan'
 
-    archwiki: 'o alasa e lipu sona lon tomo sona pi nasin ilo Asu'
-    packagesearch: 'o alasa e kulupu pali pi nasin ilo Asu'
-    package: 'o pana e lipu sona pi kulupu pali pi nasin ilo Asu'
+    archwiki: 'alasa e lipu sona lon tomo sona pi nasin ilo Asu'
+    packagesearch: 'alasa e kulupu pali lon nasin ilo Asu'
+    package: 'pana e lipu sona pi kulupu pali lon nasin ilo Asu'
 
-    blacklist: 'o pana e lipu pi weka jaki pi tomo toki ni'
+    blacklist: 'pana e lipu pi weka jaki lon tomo toki ni'
 
-    xkcd: 'nimi nanpa anu nimi la o pana e sitelen pi tomo XKCD'
+    xkcd: 'pana e sitelen pi lipu XKCD'
 
-    poll: 'o pana e wile sona sina tawa tomo'
+    poll: 'pana e wile sona sina tawa tomo'
 
-    figlet: 'o suli e toki'
+    figlet: 'suli e toki'
+
+    nimi: 'pana e kon pi nimi pi toki pona'
+    tpo: 'nimi la, pana e kon tan wile pi jan mute'
+    tpsources: 'pana e lon pi lipu pi wile jan'
 
   admin:
     eval:
@@ -148,12 +152,29 @@ tp:
     snippet:
       not-found: 'toki nimi ni li lon ala.'
 
-  xkcd:
+  tokipona:
+    attrib:
+      title: 'tan lipu pi sona nimi'
+      text: >-
+        toki pona li tan jan Sonja. jan ale li ken kepeken lipu nimi ona.
+        sona lon tokipona.org li tan jan Sonja. ona li lon %s.
+        sona ante li tan ilo Salana. jan ale li ken kepeken ona.
+
+      footer: 'tan pi sona ni li lon .%s'
+
+    nimi:
+      not-found: 'nimi ni li lon ala lipu pu.'
+      overflow: '(lon .tpo)'
+
+    tpo:
+      not-found: 'sona pi nimi ni li lon ala tokipona.org.'
 
   util:
     invite:
       title: 'pana e %s'
       desc: '[linja ni la, sina ken pana e %s tawa kulupu sina.](%s)'
+
+  xkcd:
 
   uc:
     help:

@@ -22,11 +22,12 @@ require_libs %w[
   configuration
   helpers
   xkcd
+  tpdict
   breaking_wrap
   modules
   cli
   init
 ]
 
-QBot.version = '7.5.0'
+QBot.version = '7.6.0'
 QBot.run!
