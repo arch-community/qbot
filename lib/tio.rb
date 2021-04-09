@@ -12,18 +12,21 @@ module TIO
   API_BASE = 'https://tio.run'
 
   def self.run_endpoint
-    @@run_endpoint ||= URI.open(
-      API_BASE + Nokogiri::HTML.parse(URI.open(API_BASE)).xpath('//head/script[2]/@src')[0]
-    ).readlines.grep(/^var runURL/)[0][14..-4]
+    @run_endpoint ||= URI.parse(
+      API_BASE +
+        Nokogiri::HTML
+          .parse(URI.parse(API_BASE).open)
+          .xpath('//head/script[2]/@src')[0]
+    ).open.readlines.grep(/^var runURL/)[0][14..-4]
   end
 
   def self.gzdeflate(str) =
     Zlib::Deflate.new(nil, -Zlib::MAX_WBITS).deflate(str, Zlib::FINISH)
 
-  def self.gzinflate(str) =
-    Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(str)
+  def self.gzinflate(str) = Zlib::Inflate.new(-Zlib::MAX_WBITS).inflate(str)
 
-  def self.languages = JSON.parse(URI.open("#{API_BASE}/languages.json").read)
+  def self.languages =
+    JSON.parse(URI.parse("#{API_BASE}/languages.json").open.read)
 
   def self.languages_by_category(category) =
     languages.filter { |_, v| v['categories'].include? category.to_s }
@@ -48,27 +51,28 @@ module TIO
     gzdeflate(val)
   end
 
+  def self.settings = '/'
+
+  def self.new_token =
+    Random.new.bytes(16).unpack('C16').map { format '%02x', _1 }.join
+
+  def self.post_req(uri, data)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+
+    request = Net::HTTP::Post.new(uri.path)
+    request.body = data
+
+    https.request(request)
+  end
+
   def self.run(language, code, flags = nil, input = nil, arguments = [])
     req_body = make_req(language, code, flags, input, arguments)
 
-    args = '/' # purpose unknown
+    uri = pp URI("#{API_BASE}#{run_endpoint}#{settings}#{new_token}")
+    post_res = post_req(uri, req_body)
 
-    request_count = 0
-    begin
-      token = Random.new.bytes(16).chars.map { |c| c.ord.to_s(16) }.join
-      uri_string = API_BASE + run_endpoint + args + token
-
-      uri = URI(uri_string)
-      post_res = Net::HTTP.post(uri, req_body)
-      request_count += 1
-      post_res.value
-    rescue Net::HTTPServerException
-      retry if request_count < 5
-      raise
-    end
-
-    res = gzinflate(post_res.body[10..-1])
-
-    res.split(res[0..15])[1..-1].map(&:chomp)
+    res = gzinflate(post_res.body[10..])
+    res.split(res[0..15])[1..].map(&:chomp)
   end
 end

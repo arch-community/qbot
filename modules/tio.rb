@@ -23,8 +23,8 @@ module Tio
     rc = doc.root.children
 
     walk_tree(rc)
-      .filter { |elem| elem.type == :codespan }
-      .map { |s| pp s.value }
+      .filter { _1.type == :codespan }
+      .map(&:value)
   end
 
   command :tio, {
@@ -36,12 +36,12 @@ module Tio
 
     res = TIO.run(lang, code, nil, input)[0].gsub('```', '\\```').gsub('@', "\\@\u200D")
     msg = embed "```\n#{res}\n```" do |m|
-      m.footer = { text: "tio:#{event.user.id}"}
+      m.footer = { text: "tio:#{event.user.id}" }
     end
 
     msg.create_reaction('❌')
   end
-  
+
   command :tiolangs, {
     help_available: true,
     usage: '.tiolangs [category]',
@@ -50,7 +50,7 @@ module Tio
   } do |_, cat|
     langs = cat ? (TIO.languages_by_category(cat) || []) : TIO.languages
 
-    embed langs.keys.join(", ").truncate(2048)
+    embed langs.keys.join(', ').truncate(2048)
   end
 end
 
