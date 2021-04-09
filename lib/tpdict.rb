@@ -15,9 +15,20 @@ class TPDict
     'http://tokipona.org/nimi_pu.txt'
   ].freeze
 
+  FREQ_MAP = {
+    81..100 => '⁵',
+    61..80 => '⁴',
+    41..60 => '³',
+    21..40 => '²',
+    11..20 => '¹',
+    0..10 => '⁰'
+  }.freeze
+
   def sourcelist = SOURCES.join(', ')
 
+  # rubocop: disable Security/Open
   def get_all(urls) = urls.map { YAML.safe_load(URI.open(_1)) }
+  # rubocop: enable Security/Open
 
   def merge_defs(yamls) = yamls.each_with_object({}) { _2.merge! _1 }
 
@@ -42,15 +53,6 @@ class TPDict
     @tp_inli = load_tp_inli
     @pu = load_pu
   end
-
-  FREQ_MAP = {
-    81..100 => '⁵',
-    61..80 => '⁴',
-    41..60 => '³',
-    21..40 => '²',
-    11..20 => '¹',
-    0..10 => '⁰'
-  }.freeze
 
   def freq_char(freq) = FREQ_MAP.select { _1.include? freq }.values.first
 

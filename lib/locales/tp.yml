@@ -37,6 +37,7 @@ tp:
     echo: 'pana e toki sama toki sina'
     botrepo: 'pana e linja linluwi pi tomo pali ilo'
     avatar: 'pana e linja linluwi pi sitelen sinpin jan'
+    invite: 'pana e ilo tawa kulupu ante'
 
     archwiki: 'alasa e lipu sona lon tomo sona pi nasin ilo Asu'
     packagesearch: 'alasa e kulupu pali lon nasin ilo Asu'
@@ -204,21 +205,21 @@ tp:
     avail_subcmd: 'sina ken kepeken e nimi pali lili ni:'
 
     help:
-      help: 'o pana e nasin kepeken pi pali lili ale'
-      log-channel: 'o ante e tomo toki pi pali ilo lon tenpo ale'
-      modules: 'o ante e ken pali pi kulupu pi nimi pali'
-      prefix: 'o ante e nimi lili pi open pi nimi pali'
-      colors: 'o ante e nasin kule'
-      snippet: 'o ante e toki nimi'
-      rolegroup: 'o pali e kulupu poki'
-      reaction: 'jan li namako e toki la, o pali e seme?'
-      blacklist: 'o ante e weka pi toki ike'
-      misc: 'o ante e anu ante'
+      help: 'pana e lipu ni'
+      log-channel: 'ante e tomo toki pi pali ilo'
+      modules: 'ante e kulupu pi nimi pali'
+      prefix: 'ante e nimi open pi nimi pali'
+      colors: 'ante e nasin kule'
+      snippet: 'ante e toki nimi'
+      rolegroup: 'ante e kulupu poki'
+      reaction: 'ante e pali pi namako toki'
+      blacklist: 'ante e weka pi toki ike'
+      misc: 'ante e nasin ilo ante'
 
     log-channel:
       help:
-        set: 'o ante e nimi nanpa pi tomo pi pali ilo'
-        reset: 'o weka e sona pi tomo pi pali ilo'
+        set: 'pana e nimi nanpa pi tomo pi pali ilo'
+        reset: 'weka e sona pi tomo pi pali ilo'
 
       set:
         success: 'tomo sin pi pali ilo li <#%s>.'
@@ -229,21 +230,21 @@ tp:
 
     prefix:
       help:
-        set: 'o ante e sitelen open pi nimi pali'
-        reset: 'o ante e sitelen open tawa "."'
+        set: 'ante e sitelen open pi nimi pali'
+        reset: 'ante e sitelen open tawa "."'
 
       saved: 'sitelen open sin pi nimi pali li `%s`.'
 
     colors:
       help:
-        extra-color-role: 'o ante e poki kule namako'
-        bare-colors: 'o ante e ken kepeken pi poki kule pi nimi kule taso'
+        extra-color-role: 'ante e poki kule namako'
+        bare-colors: 'ante e ken kepeken poki pi nimi kule taso'
 
       extra-color-role:
         help:
-          list: 'o lukin e poki kule namako ale'
-          add: 'nimi nanpa la o pana e poki kule sin tawa ilo'
-          remove: 'nimi nanpa la o weka e poki kule namako tan ilo'
+          list: 'lukin e poki kule namako ale'
+          add: 'nimi nanpa la pana e poki kule sin tawa ilo'
+          remove: 'nimi nanpa la weka e poki kule namako tan ilo'
 
         list:
           no-roles: 'poki kule namako li lon ala.'
@@ -256,9 +257,9 @@ tp:
 
       bare-colors:
         help:
-          enable: 'o ken e kepeken pi poki kule pi nimi kule taso'
-          disable: 'o ken ala e kepeken pi poki ni'
-          show: 'o pana e nasin awen ni'
+          enable: 'ken e kepeken poki pi nimi kule taso'
+          disable: 'ken ala e kepeken pi poki ni'
+          show: 'pana e nasin awen ni'
 
         toggled-on: 'ni la, ilo li ken kepeken e poki kule pi nimi kule taso.'
         toggled-off: 'ni la, ilo li ken ala kepeken e poki kule pi nimi kule taso.'
@@ -266,10 +267,10 @@ tp:
 
     snippet:
       help:
-        list: 'o pana e lipu pi toki nimi ale'
-        add: 'o pana e toki nimi tawa lipu'
-        remove: 'nimi la o weka e toki nimi tan lipu'
-        set: 'o ante e sitelen lon tiki nimi'
+        list: 'pana e lipu pi toki nimi ale'
+        add: 'pana e toki nimi tawa lipu'
+        remove: 'nimi la weka e toki nimi tan lipu'
+        set: 'ante e sitelen lon toki nimi'
 
       add:
         non-unique: 'tenpo pini la, toki nimi `%s` li lon. sina ken ala pana e ona.'
@@ -292,10 +293,10 @@ tp:
     blacklist:
       "[channel]":
         help:
-          add: 'o pana e nimi weka tawa lipu weka pi toki ike'
-          remove: 'o weka e nimi weka tan lipu weka pi toki ike'
-          list: 'o pana e lipu weka ale'
-          clear: 'o weka e lipu weka'
+          add: 'pana e nimi weka tawa lipu weka'
+          remove: 'weka e nimi weka tan lipu weka'
+          list: 'pana e lipu weka ale'
+          clear: 'weka e lipu weka ale'
 
       add:
         success: 'nimi weka sin li lon. nimi nanpa ona li `%s`.'
