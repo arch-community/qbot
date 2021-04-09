@@ -30,8 +30,8 @@ class TPDict
   def process_tp_inli(input)
     input.transform_values do |v|
       v.map do |usage|
-        w, c = usage.split
-        [w, c.to_i]
+        *w, c = usage.split
+        [w.join(' '), c.to_i]
       end
     end
   end
