@@ -15,5 +15,5 @@ jobs:
         name: qbot
         authToken: '${{ secrets.CACHIX_AUTHTOKEN }}'
     - run: nix-build ./shell.nix
-    - run: nix-shell --run "./result/bin/qbot --help"
+    - run: ./result/bin/qbot --help
     - run: nix-shell --run "echo OK"
