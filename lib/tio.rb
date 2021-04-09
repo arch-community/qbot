@@ -69,7 +69,7 @@ module TIO
   def self.run(language, code, flags = nil, input = nil, arguments = [])
     req_body = make_req(language, code, flags, input, arguments)
 
-    uri = pp URI("#{API_BASE}#{run_endpoint}#{settings}#{new_token}")
+    uri = URI("#{API_BASE}#{run_endpoint}#{settings}#{new_token}")
     post_res = post_req(uri, req_body)
 
     res = gzinflate(post_res.body[10..])
