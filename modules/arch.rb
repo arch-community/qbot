@@ -17,7 +17,7 @@ module Arch
   end
 
   def self.search_pkg(query) =
-    JSON.parse URI.open("https://www.archlinux.org/packages/search/json/?q=#{query}").read
+    JSON.parse(URI.open("https://www.archlinux.org/packages/search/json/?q=#{query}").read)
 
   def self.mkcorpus(res)
     res.map do |r|
