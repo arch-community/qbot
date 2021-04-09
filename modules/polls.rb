@@ -91,7 +91,7 @@ QBot.bot.reaction_add do |event|
   footer_text = event.message.embeds.first&.footer&.text
   if footer_text&.include?('type:poll') \
       || footer_text&.include?('poll:') \
-      && event.user.id != QBot.bot.bot_user.id
+      && event.user.id != event.bot.bot_user.id
     matches = footer_text.match(/opts:(\d+)/) \
       || footer_text.match(/poll:(\d+)/)
     num = matches && matches[1]&.to_i

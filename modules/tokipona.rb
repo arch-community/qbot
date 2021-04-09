@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+##
 # Toki Pona commands
 module Tokipona
   extend Discordrb::Commands::CommandContainer

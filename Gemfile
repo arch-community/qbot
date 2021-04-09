@@ -69,6 +69,11 @@ group :default do
 
   # bottom
   gem 'bottom'
+
+  # tio
+  gem 'nokogiri'
+  gem 'kramdown', require: ['kramdown', 'kramdown/document']
+  gem 'kramdown-parser-gfm', require: 'kramdown/parser/gfm'
 end
 
 group :default, :development do
