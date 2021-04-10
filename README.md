@@ -27,13 +27,19 @@ Modules:
 - `util` provides simple utility commands.
 - `xkcd` allows searching and posting XKCD comics.
 
-## Running qbot
+## Invite qbot to your own server
+
+[Click this link](https://discord.com/oauth2/authorize?client_id=660591224482168842&permissions=339078224&scope=bot) to invite qbot to your own server.
+
+## Running your own instance of qbot
 
 ### Set up the environment
 
 #### With Nix
 
-Clone this Git repository. cd into the directory and enter a `nix-shell`.
+Clone this Git repository and enter its directory.
+
+Run `nix-build ./shell.nix`. The resulting executable is at `result/bin/qbot`.
 
 #### Otherwise
 
@@ -42,12 +48,14 @@ Install Ruby, at least version 3.0 (higher versions untested). Install bundler.
 Clone this Git repository. Enter the directory. Run `bundle install` to set up
 the environment.
 
+To start the bot, run `bundle exec qbot`.
+
 ### Run the bot
 
 qbot is configured in a YAML file at `config/global.yml`. Copy the example
 config to `config/global.yml` and add the correct settings for your instance.
 
-To start the bot, run `bundle exec qbot`.
+Start the bot.
 
 qbot uses an SQLite database to store per-server configuration and user data.
 To initialize the database, let qbot fully start up, then enter `irb` into the
@@ -62,7 +70,7 @@ Bot CLI:
 - `rc` or `reload-config` reloads the config.
 - `lm` or `load-module` loads or reloads a module.
 - `irb` opens a REPL in the context of the bot.
-  - The `CommandBot` object is called `bot`.
+  - The `CommandBot` object is called `QBot.bot`.
 - `quit` or `stop` stops the bot.
 
 ## Contributing
