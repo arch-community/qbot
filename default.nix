@@ -64,7 +64,7 @@ in stdenv.mkDerivation rec {
   ];
 
   LD_LIBRARY_PATH = lib.makeLibraryPath [ libsodium libopus ];
-  FC_CONFIG_FILE = "${src}/lib/resources/tokipona/fc-config.xml";
+  FONTCONFIG_FILE = "${src}/lib/resources/tokipona/fc-config.xml";
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}
@@ -74,7 +74,7 @@ in stdenv.mkDerivation rec {
     cat >$bin <<EOF
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
-export FC_CONFIG_FILE=${FC_CONFIG_FILE}
+export FONTCONFIG_FILE=${FONTCONFIG_FILE}
 cd $out/share/qbot
 exec ${env}/bin/bundle exec ${env.wrappedRuby}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF
