@@ -84,6 +84,8 @@ module Discordrb
   end
 end
 
+##
+# StringIO derivative that presents a fake path to discordrb
 class ImageStringIO < StringIO
   def path = 'image.png'
 end
