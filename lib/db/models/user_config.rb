@@ -8,6 +8,7 @@ class UserConfig < ActiveRecord::Base
     @@configs ||= {}
     @@configs[uid] ||= UserConfig.find_or_create_by(user_id: uid)
     @@configs[uid].contents ||= {}
+    @@configs[uid]
   end
 
   after_save do |conf|
