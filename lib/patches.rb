@@ -83,3 +83,7 @@ module Discordrb
     end
   end
 end
+
+class ImageStringIO < StringIO
+  def path = 'image.png'
+end

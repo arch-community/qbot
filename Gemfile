@@ -74,6 +74,10 @@ group :default do
   gem 'kramdown', require: ['kramdown', 'kramdown/document']
   gem 'kramdown-parser-gfm', require: 'kramdown/parser/gfm'
   gem 'nokogiri'
+
+  # image generation
+  gem 'rails-html-sanitizer'
+  gem 'rmagick'
 end
 
 group :default, :development do

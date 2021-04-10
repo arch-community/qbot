@@ -7,6 +7,7 @@ class UserConfig < ActiveRecord::Base
     # rubocop: disable Style/ClassVars
     @@configs ||= {}
     @@configs[uid] ||= UserConfig.find_or_create_by(user_id: uid)
+    @@configs[uid].contents ||= {}
   end
 
   after_save do |conf|

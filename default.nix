@@ -2,6 +2,7 @@
 , pkg-config, git
 , ruby_3_0, bundler, bundix, defaultGemConfig, bundlerEnv
 , libsodium, libopus, ffmpeg, youtube-dl
+, imagemagick7, pango
 , sqlite, zlib, shared-mime-info, libxml2, libiconv
 , figlet }:
 
@@ -16,6 +17,10 @@ let
     ruby = ruby';
     bundler = bundler';
   };
+
+  imagemagick7' = imagemagick7.overrideAttrs (oa: with oa; {
+    buildInputs = oa.buildInputs ++ [ pango ];
+  });
 
   env = bundlerEnv' {
     name = "qbot-bundler-env";
@@ -35,6 +40,9 @@ let
       mimemagic = attrs: {
         FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
       };
+      rmagick = attrs: {
+        buildInputs = [ pkg-config imagemagick7' ];
+      };
     };
   };
 in stdenv.mkDerivation rec {
@@ -52,9 +60,11 @@ in stdenv.mkDerivation rec {
     env bundix' git
     sqlite libxml2 zlib.dev zlib libiconv
     libopus libsodium ffmpeg youtube-dl
+    imagemagick7'
   ];
 
   LD_LIBRARY_PATH = lib.makeLibraryPath [ libsodium libopus ];
+  FC_CONFIG_FILE = "${src}/lib/resources/tokipona/fc-config.xml";
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}
@@ -64,6 +74,7 @@ in stdenv.mkDerivation rec {
     cat >$bin <<EOF
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
+export FC_CONFIG_FILE=${FC_CONFIG_FILE}
 cd $out/share/qbot
 exec ${env}/bin/bundle exec ${env.wrappedRuby}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF

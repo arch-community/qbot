@@ -33,7 +33,6 @@ module Admin
       when 'set', 's'
         lang = args.shift
         if I18n.available_locales.map(&:to_s).include? lang
-          uc.contents ||= {}
           uc.contents['lang'] = lang
           uc.save!
           I18n.locale = lang.to_sym
@@ -45,7 +44,6 @@ module Admin
       when 'reset', 'rs'
         lang = I18n.default_locale.to_s
 
-        uc.contents ||= {}
         uc.contents['lang'] = lang
         uc.save!
 

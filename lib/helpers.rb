@@ -19,7 +19,7 @@ def log_embed(event, chan_id, user, extra)
     m.author = { name: formatted_name(user), icon_url: user.avatar_url }
     m.title = 'Command execution'
     m.fields = [
-      { name: 'Command', value: event.message.to_s, inline: true },
+      { name: 'Command', value: event.message.to_s.truncate(1024), inline: true },
       { name: 'User ID', value: user.id, inline: true }
     ]
     extra && m.fields << [{ name: 'Information', value: extra }]
