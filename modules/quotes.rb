@@ -24,12 +24,32 @@ module Quotes
     nil
   end
 
+  command :quote, {
+    help_available: false, # TODO write help later
+    usage: '.quote @user quote_id',
+    min_args: 1,
+    max_args: 2,
+  } do |event, target, quote|
+    target_id = Integer(target[3..-2])
+    if quote
+      quote_id = Integer(quote)
+      result = Quote.find_by(server_id: event.server.id,
+                            user_id: target_id,
+                            id: quote_id)
+      if result then embed result.text else embed 'not found' end # TODO t()
+    else
+      results = Quote.where(server_id: event.server.id,
+                            user_id: target_id)
+      result = results.maximum('text')
+      embed result
+    end
+  end
+
   # REFER TO WIKI FOR FUNCIONALITY
   # https://wiki.archlinux.org/index.php/Phrik#Grab
   # TODO
   # next step is to write a command to get a quote from the database
   # before this happens, I must:
-  # - create the table for this
-  # - make .grab write to the DB
   # - write documentation for .grab
+  # - make target_id safer
 end
