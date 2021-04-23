@@ -24,6 +24,7 @@ Modules:
   by URL. (Currently broken)
 - `queries` helps manage support channels using a database of support questions.
 - `snippets` lets users invoke configurable text snippets.
+- `quotes` lets users grab quotes from users and reference them.
 - `util` provides simple utility commands.
 - `xkcd` allows searching and posting XKCD comics.
 
