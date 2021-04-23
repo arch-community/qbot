@@ -24,9 +24,25 @@ module Quotes
     embed t('quotes.grab.failure', target)
   end
 
+  command :listquotes, {
+    help_available: true,
+    usage: '.listquotes @user',
+    min_args: 1,
+    max_args: 1,
+  } do |event, target|
+    target_id = Integer(target[3..-2])
+    quotes = Quote.where(server_id: event.server.id,
+                        user_id: target_id)
+    quote_list = ""
+    quotes.find_each do |q|
+      quote_list += "id: #{q.id}\n#{q.text}\n"
+    end
+    if quote_list != "" then embed quote_list else embed t('quotes.list.empty', target) end
+  end
+
   command :quote, {
     help_available: true,
-    usage: '.quote @user quote_id',
+    usage: '.quote @user [quote_id]',
     min_args: 1,
     max_args: 2,
   } do |event, target, quote|
@@ -57,9 +73,4 @@ module Quotes
                                user_id: target_id).order(Arel.sql('RANDOM()')).first
     if random_quote then embed random_quote.text else embed t('quotes.rquote.failure', target) end
   end
-
-  # REFER TO WIKI FOR FUNCIONALITY
-  # https://wiki.archlinux.org/index.php/Phrik#Grab
-  # TODO
-  # - Improve on Integer() casts for IDs
 end
