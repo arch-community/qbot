@@ -159,6 +159,8 @@ en_kawaii:
       failure: "I couldn't find anything for %s. (*\\_ \\_)人"
     quote:
       failure: "That quote doesn't exist dummy! (๑˃́ꇴ˂̀)"
+    list:
+      empty: "I couldn't find anything for %s. (*\\_ \\_)人"
     rquote:
       failure: "I couldn't find anything for %s. (*\\_ \\_)人"
 
