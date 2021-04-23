@@ -18,7 +18,7 @@ module Quotes
                      user_id: m.author.id,
                      text: m.content)
         embed t('quotes.grab.success')
-        break
+        return
       end
     }
     embed t('quotes.grab.failure', target)
@@ -40,7 +40,8 @@ module Quotes
     else
       results = Quote.where(server_id: event.server.id,
                             user_id: target_id)
-      result = results.maximum('text')
+      result_id = results.maximum('id')
+      result = Quote.find(result_id).text
       embed result
     end
   end
