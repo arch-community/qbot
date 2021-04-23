@@ -37,7 +37,7 @@ module Quotes
                             user_id: target_id,
                             id: quote_id)
       if result then embed result.text else embed t('quotes.quote.failure', target, quote_id) end
-    else
+    else # return the most recent quote by default
       results = Quote.where(server_id: event.server.id,
                             user_id: target_id)
       result_id = results.maximum('id')
@@ -46,11 +46,20 @@ module Quotes
     end
   end
 
+  command :rquote, {
+    help_available: false,
+    usage: '.rquote @user',
+    min_args: 1,
+    min_args: 1,
+  } do |event, target|
+    target_id = Integer(target[3..-2])
+    random_quote = Quote.where(server_id: event.server.id,
+                               user_id: target_id).order(Arel.sql('RANDOM()')).first.text
+    embed random_quote
+  end
+
   # REFER TO WIKI FOR FUNCIONALITY
   # https://wiki.archlinux.org/index.php/Phrik#Grab
   # TODO
-  # next step is to write a command to get a quote from the database
-  # before this happens, I must:
-  # - write documentation for .grab
-  # - make target_id safer
+  # - Improve on Integer() casts for IDs
 end
