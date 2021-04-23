@@ -12,6 +12,7 @@ en:
 
     grab: 'Stores last message from user as a quote'
     quote: 'Retrieves quote from user'
+    rquote: 'Retrieves a random quote from user'
 
     color: 'Sets your user color role'
     closestcolor: 'Gives you the closest color, by hex code'
@@ -161,6 +162,8 @@ en:
       failure: 'No recent messages from %s...'
     quote:
       failure: 'No such quote id from user: %s, %d...'
+    rquote:
+      failure: 'No quotes from %s...'
 
   tokipona:
     attrib:
