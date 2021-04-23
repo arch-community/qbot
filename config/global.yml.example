@@ -38,6 +38,7 @@ global:
     - queries
     - roles
     - snippets
+    - quotes
     - util
     - xkcd
 
