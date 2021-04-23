@@ -10,6 +10,9 @@ en:
     listsnippets: 'Lists available snippets'
     snippet: 'Posts a snippet'
 
+    grab: 'Stores last message from user as a quote'
+    quote: 'Retrieves quote from user'
+
     color: 'Sets your user color role'
     closestcolor: 'Gives you the closest color, by hex code'
     listcolors: 'Lists colors available on the server'
@@ -151,6 +154,13 @@ en:
       title: 'Available snippets'
     snippet:
       not-found: 'Snippet not found.'
+
+  quotes:
+    grab:
+      success: 'Quote successfully grabbed!'
+      failure: 'No recent messages from %s...'
+    quote:
+      failure: 'No such quote id from user: %s, %d...'
 
   tokipona:
     attrib:
