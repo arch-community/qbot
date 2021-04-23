@@ -5,7 +5,7 @@ module Quotes
   extend Discordrb::Commands::CommandContainer
 
   command :grab, {
-    help_available: false, # TODO write help later
+    help_available: true,
     usage: '.grab @user',
     min_args: 1,
     max_args: 1,
@@ -17,15 +17,15 @@ module Quotes
         Quote.create(server_id: event.server.id,
                      user_id: m.author.id,
                      text: m.content)
-        # TODO embed t(something.quotes.success) -- write docs later
+        embed t('quotes.grab.success')
         break
       end
     }
-    nil
+    embed t('quotes.grab.failure', target)
   end
 
   command :quote, {
-    help_available: false, # TODO write help later
+    help_available: true,
     usage: '.quote @user quote_id',
     min_args: 1,
     max_args: 2,
@@ -36,7 +36,7 @@ module Quotes
       result = Quote.find_by(server_id: event.server.id,
                             user_id: target_id,
                             id: quote_id)
-      if result then embed result.text else embed 'not found' end # TODO t()
+      if result then embed result.text else embed t('quotes.quote.failure', target, quote_id) end
     else
       results = Quote.where(server_id: event.server.id,
                             user_id: target_id)
