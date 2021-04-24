@@ -11,16 +11,15 @@ module Quotes
     max_args: 1,
   } do |event, target|
     target_id = event.message.mentions[0].id
-    event.channel.history(5, event.message.id).each { |m|
-      if (m.author.id == target_id) and (not m.from_bot?)
-        Quote.create(server_id: event.server.id,
-                     user_id: m.author.id,
-                     text: m.content)
-        embed t('quotes.grab.success')
-        return
-      end
-    }
-    embed t('quotes.grab.failure', target)
+    quote = event.channel.history(20, event.message.id).find { |m| m.author.id == target_id and not m.from_bot? }
+    if quote
+      Quote.create(server_id: event.server.id,
+                   user_id: quote.author.id,
+                   text: quote.content)
+      embed t('quotes.grab.success')
+    else
+      embed t('quotes.grab.failure', target)
+    end
   end
 
   command :listquotes, {
