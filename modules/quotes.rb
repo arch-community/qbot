@@ -31,11 +31,11 @@ module Quotes
     target_id = event.message.mentions[0].id
     quotes = Quote.where(server_id: event.server.id,
                         user_id: target_id)
-    quote_list = ""
-    quotes.find_each do |q|
-      quote_list += "id: #{q.id}\n#{q.text}\n"
+    if !quotes || quotes.empty?
+      embed t('quotes.list.empty', target)
+    else
+      embed quotes.map{|q| "#{q.id} : #{q.text}"}.join("\n")
     end
-    if quote_list != "" then embed quote_list else embed t('quotes.list.empty', target) end
   end
 
   command :quote, {
