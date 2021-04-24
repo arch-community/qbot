@@ -40,23 +40,27 @@ module Quotes
 
   command :quote, {
     help_available: true,
-    usage: '.quote @user [quote_id]',
+    usage: '.quote <quote id | @user>',
     min_args: 1,
-    max_args: 2,
-  } do |event, target, quote|
+    max_args: 1,
+  } do |event, quote|
     target_id = event.message.mentions[0].id
-    if quote
+    if /^[\d]+$/.match(quote)
       quote_id = Integer(quote)
-      result = Quote.find_by(server_id: event.server.id,
-                            user_id: target_id,
-                            id: quote_id)
-      if result then embed result.text else embed t('quotes.quote.failure', target, quote_id) end
-    else # return the most recent quote by default
+      result = Quote.find(quote_id)
+      if !result
+        embed t('quotes.quote.failure', target, quote_id)
+      else
+        embed result.text
+      end
+    elsif target_id
       results = Quote.where(server_id: event.server.id,
                             user_id: target_id)
-      result_id = results.maximum('id')
-      result = Quote.find(result_id).text
-      embed result
+      if !results || results.empty?
+        embed t('quotes.list.empty', "<@!#{target_id}>")
+      else
+        embed results.last.text
+      end
     end
   end
 
