@@ -43,28 +43,33 @@ QBot.bot.reaction_add do |event|
 	## TODO: Settings support
 	emoji_name = (nil ? nil : QBot.config.global.starboard.emoji)
 	min = (nil ? nil : QBot.config.global.starboard.minimum)
-	starboard = event.bot.channel("835525656611389450")
-	sbmsg = StarboardEntry.where(message_id: event.message.id)
+	starboard = 835525656611389450
+	starboard_channel = event.bot.channel(starboard)
+	sb_entry = StarboardEntry.where(message_id: event.message.id)
 	# Handle reactions
-	## TODO: See if db has message
 	if (starboard) \
 			&& (event.emoji.name == emoji_name) \
-			&& !(sbmsg) \
-			&& (event.message.channel != starboard)
+			&& !(sb_entry) \
+			&& (event.channel.id != starboard)
 		# Count reactions
 		rcount = event.message.reacted_with(event.emoji, limit: min).length
 		if rcount >= min
 			# Send starboard embed
 			## Create embed
-			embed_msg = embed(target: starboard) do |m|
+			embed_msg = embed(target: starboard_channel) do |m|
 				m.author = embed_author(event.message.author)
 				m.description = event.message.content
+				#m.fields = embed_fields(event)
 				m.image = embed_image(event.message)
 				m.footer = {text: event.message.id}
 				m.timestamp = event.message.creation_time
 			end
 			## Send embed
-			embed_msg
+			starboard_msg = embed_msg
+			# Add entry to database
+			StarboardEntry.create(message_id: event.message.id,
+									starboard_id: starboard_msg.id,
+									server_id: event.server.id)
 		end
 	end
 end
@@ -79,24 +84,20 @@ QBot.bot.message_delete do |event|
 	# Get settings from db
 	## TODO: Replace nil with setting values
 	delete_msgs = (nil ? nil : false)
-	starboard = event.bot.channel("835509994828464129")
+	starboard = 835509994828464129
+	starboard_channel = event.bot.channel(starboard)
 
-	## TODO: Delete entries from db if starboard msg was deleted
 	# Handle deletions
 	## Handle starboard message deletion
-	if event.channel.id == starboard.id
+	if event.channel.id == starboard
 		# Delete message from records
-		## TODO: Get message using footer_text& to delete activerecord entry
-		sbmsg = StarboardEntry.where(starboard_id: event.id)
-		sbmsg.destroy
-	end
+		sb_entries = StarboardEntry.where(starboard_id: event.id)
+		sb_entries.destroy_all
 	## Handle original message deletion
-	if delete_msgs ### TODO: Get setting of delete or not
+	else delete_msgs
 		# Delete message
-		sbmsg = StarboardEntry.where(message_id: event.id)
-		# TODO: Set up the database models to delete the message
-		event.bot.channel("835509994828464129").load_message(sbmsg.starboard_id).delete
-		sbmsg.destroy
+		sb_entry = StarboardEntry.where(message_id: event.id).first
+		starboard_channel.load_message(sb_entry.starboard_id).delete
 	end
 end
 

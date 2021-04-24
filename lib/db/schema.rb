@@ -78,7 +78,7 @@ module Database
         t.timestamps
       end
 
-      create_table :starboard_entries do [t]
+      create_table :starboard_entries do |t|
         t.integer :server_id, null: false
         t.integer :message_id, null: false, unique: true
         t.integer :starboard_id, null: false, unique: true
