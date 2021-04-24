@@ -10,8 +10,7 @@ module Quotes
     min_args: 1,
     max_args: 1,
   } do |event, target|
-    # TODO make this nicer. Feels like a hack.
-    target_id = Integer(target[3..-2])
+    target_id = event.message.mentions[0].id
     event.channel.history(5, event.message.id).each { |m|
       if (m.author.id == target_id) and (not m.from_bot?)
         Quote.create(server_id: event.server.id,
@@ -30,7 +29,7 @@ module Quotes
     min_args: 1,
     max_args: 1,
   } do |event, target|
-    target_id = Integer(target[3..-2])
+    target_id = event.message.mentions[0].id
     quotes = Quote.where(server_id: event.server.id,
                         user_id: target_id)
     quote_list = ""
@@ -46,7 +45,7 @@ module Quotes
     min_args: 1,
     max_args: 2,
   } do |event, target, quote|
-    target_id = Integer(target[3..-2])
+    target_id = event.message.mentions[0].id
     if quote
       quote_id = Integer(quote)
       result = Quote.find_by(server_id: event.server.id,
@@ -68,7 +67,7 @@ module Quotes
     min_args: 1,
     min_args: 1,
   } do |event, target|
-    target_id = Integer(target[3..-2])
+    target_id = event.message.mentions[0].id
     random_quote = Quote.where(server_id: event.server.id,
                                user_id: target_id).order(Arel.sql('RANDOM()')).first
     if random_quote then embed random_quote.text else embed t('quotes.rquote.failure', target) end
