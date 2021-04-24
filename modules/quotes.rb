@@ -73,6 +73,10 @@ module Quotes
     target_id = event.message.mentions[0].id
     random_quote = Quote.where(server_id: event.server.id,
                                user_id: target_id).order(Arel.sql('RANDOM()')).first
-    if random_quote then embed random_quote.text else embed t('quotes.rquote.failure', target) end
+    if random_quote
+      embed random_quote.text
+    else
+      embed t('quotes.rquote.failure', target)
+    end
   end
 end
