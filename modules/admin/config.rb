@@ -275,6 +275,10 @@ module Admin
           break
         end
         if event.message.emoji.first
+          unless event.message.emoji.first.server.id == event.server.id
+            embed t('cfg.starboard.emoji.cross-server')
+            break
+          end
           cfg.options['starboard-emoji'] = event.message.emoji.first.name
         elsif event.message.emoji?
           cfg.options['starboard-emoji'] = opt
