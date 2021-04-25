@@ -284,7 +284,7 @@ module Admin
           cfg.options['starboard-emoji'] = opt
         end
         cfg.save!
-        embed t('cfg.starboard.emoji.success', opt)
+        embed t('cfg.starboard.success', opt)
       when 'minimum-reacts', 'min', 'm'
         opt = args.shift
         if opt == "show" || opt == "s"
@@ -297,7 +297,7 @@ module Admin
         end
         cfg.options['starboard-minimum'] = opt.to_i
         cfg.save!
-        embed t('cfg.starboard.minimum-reacts.success', opt)
+        embed t('cfg.starboard.success', opt)
       when 'channel', 'c'
         opt = args.shift
         if opt == "show" || opt == "s"
@@ -311,16 +311,20 @@ module Admin
         channel = event.bot.channel(opt)
         cfg.options['starboard-channel'] = channel.id
         cfg.save!
-        embed t('cfg.starboard.channel.success', channel.mention)
+        embed t('cfg.starboard.success', channel.mention)
       when 'delete-messages', 'delete', 'd'
         opt = ActiveModel::Type::Boolean.new.cast(args.shift)
         if opt == "show" || opt == "s"
-          embed t('cfg.starboard.delete.show-opt', cfg.options['starboard-delete'] ? "true" : "false")
+          if cfg.options['starboard-delete']
+            embed t('cfg.starboard.delete.enabled')
+          else
+            embed t('cfg.starboard.delete.disabled')
+          end
           break
         end
         cfg.options['starboard-delete'] = opt
         cfg.save!
-        embed t('cfg.starboard.delete.success', opt)
+        embed t('cfg.starboard.success', opt)
       end
 
     when 'misc', 'm'

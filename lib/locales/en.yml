@@ -285,6 +285,27 @@ en:
 
         success: 'Property `%s` of snippet `%s` is now `%s`.'
 
+    starboard:
+      help:
+        emoji: 'set the starboard reaction'
+        minimum-reacts: 'set the amount of reactions required for starboard'
+        channel: 'set the starboard channel'
+        delete-msgs: '(bool) will starboard messages be removed with the original?'
+
+      emoji:
+        show-opt: 'The starboard emoji is `%s`.'
+        none-provided: 'Please provide a valid emoji'
+
+      minimum-reacts:
+        show-opt: 'The minimum number of reactions to appear on the starboard is `%s`.'
+        too-low: 'Please provide a number greater than 0.'
+
+      delete:
+        enabled: 'Starboard messages will be removed when the original is deleted.'
+        disabled: 'Starboard messages will not be removed when the original is deleted.'
+
+      success: 'The indicated value is now set to `%s`.'
+
     rolegroup:
 
     reaction:
@@ -314,3 +335,5 @@ en:
     misc:
 
     nyi: 'Not yet implemented.'
+
+# vim: ft=yaml:ts=2:sw=2:set expandtab
