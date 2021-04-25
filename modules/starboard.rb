@@ -8,9 +8,7 @@ end
 # Reaction event handler
 QBot.bot.reaction_add do |event|
   scfg = ServerConfig[event.server.id]
-  if scfg.modules_conf['disabled'].include? 'starboard'
-    break
-  end
+  break if scfg.modules_conf['disabled'].include? 'starboard'
 
   # Define functions for embed
   ## Get author
@@ -20,22 +18,19 @@ QBot.bot.reaction_add do |event|
       name: user.username
     }
   end
+
   ## Get message attachment
   def embed_image(message)
-    if message.attachments.first
-      image = {
-        url: message.attachments.first.url
-      }
-    else
-      image = nil
-    end
-    image
+    {
+      url: message.attachments.first.url
+    }
   end
+
   ## Get field text
   def embed_fields(event)
     [{
-      name: "Message",
-      value: format("[#%s](%s)", event.channel.name, event.message.link)
+      name: 'Message',
+      value: format('[#%s](%s)', event.channel.name, event.message.link)
     }]
   end
 
@@ -45,23 +40,25 @@ QBot.bot.reaction_add do |event|
   starboard = scfg.options['starboard-channel']
   sb_entry = StarboardEntry.where(message_id: event.message.id).first
   # Handle reactions
-  if (starboard) \
+  if starboard \
       && (event.emoji.name == emoji_name) \
-      && !(sb_entry) \
+      && !sb_entry \
       && (event.channel.id != starboard)
     # Get channel from cache
     starboard_channel = event.bot.channel(starboard)
     # Count reactions and reject the author of the message from the count
-    rcount = event.message.reacted_with(event.emoji, limit: min + 1).reject{ |user| user.id == event.message.author.id }.length
+    rcount = event.message.reacted_with(event.emoji, limit: min + 1).reject do |user|
+      user.id == event.message.author.id
+    end.length
     if rcount >= min
       # Send starboard embed
       ## Create embed
       embed_msg = embed(target: starboard_channel) do |m|
         m.author = embed_author(event.message.author)
         m.description = event.message.content
-        #m.fields = embed_fields(event)
+        # m.fields = embed_fields(event)
         m.image = embed_image(event.message)
-        m.footer = {text: event.message.id}
+        m.footer = { text: event.message.id }
         m.timestamp = event.message.creation_time
       end
       ## Send embed
@@ -77,9 +74,7 @@ end
 # Deletion event handler
 QBot.bot.message_delete do |event|
   scfg = ServerConfig[event.channel.server.id]
-  if scfg.modules_conf['disabled'].include? 'starboard'
-    break
-  end
+  break if scfg.modules_conf['disabled'].include? 'starboard'
 
   # Get values from db
   delete_msgs = scfg.options['starboard-delete']
@@ -94,7 +89,8 @@ QBot.bot.message_delete do |event|
     # Delete message from records
     sb_entries.destroy_all
   ## Handle original message deletion
-  else delete_msgs && sb_entry
+  else
+    delete_msgs && sb_entry
     # Delete message
     starboard_channel.load_message(sb_entry.starboard_id).delete
   end
