@@ -304,6 +304,10 @@ en:
         enabled: 'Starboard messages will be removed when the original is deleted.'
         disabled: 'Starboard messages will not be removed when the original is deleted.'
 
+      channel:
+        show-opt: 'The starboard channel is %s.'
+        success: 'The starboard channel is now %s.'
+
       success: 'The indicated value is now set to `%s`.'
 
     rolegroup:

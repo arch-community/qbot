@@ -274,14 +274,13 @@ module Admin
           embed t('cfg.starboard.emoji.show-opt', cfg.options['starboard-emoji'])
           break
         end
-        unless event.message.emoji?
-          embed t('cfg.starboard.emoji.none-provided')
-          break
-        end
         if event.message.emoji.first
           cfg.options['starboard-emoji'] = event.message.emoji.first.name
-        else
+        elsif event.message.emoji?
           cfg.options['starboard-emoji'] = opt
+        else
+          embed t('cfg.starboard.emoji.none-provided')
+          break
         end
         cfg.save!
         embed t('cfg.starboard.success', opt)
@@ -311,7 +310,7 @@ module Admin
         channel = event.bot.channel(opt)
         cfg.options['starboard-channel'] = channel.id
         cfg.save!
-        embed t('cfg.starboard.success', channel.mention)
+        embed t('cfg.starboard.channel.success', channel.mention)
       when 'delete-messages', 'delete', 'd'
         opt = ActiveModel::Type::Boolean.new.cast(args.shift)
         if opt == "show" || opt == "s"
