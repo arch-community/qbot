@@ -40,12 +40,11 @@ QBot.bot.reaction_add do |event|
 	end
 
 	# Get variables from db
-	## TODO: Settings support
-	emoji_name = (nil ? nil : QBot.config.global.starboard.emoji)
-	min = (nil ? nil : QBot.config.global.starboard.minimum)
-	starboard = 835525656611389450
+	emoji_name = (scfg.options['starboard-emoji'] || QBot.config.global.starboard.emoji)
+	min = (scfg.options['starboard-minimum'] || QBot.config.global.starboard.minimum)
+	starboard = scfg.options['starboard-channel']
 	starboard_channel = event.bot.channel(starboard)
-	sb_entry = StarboardEntry.where(message_id: event.message.id)
+	sb_entry = StarboardEntry.where(message_id: event.message.id).first
 	# Handle reactions
 	if (starboard) \
 			&& (event.emoji.name == emoji_name) \
@@ -81,22 +80,21 @@ QBot.bot.message_delete do |event|
 		break
 	end
 
-	# Get settings from db
-	## TODO: Replace nil with setting values
-	delete_msgs = (nil ? nil : false)
-	starboard = 835509994828464129
+	# Get values from db
+	delete_msgs = scfg.options['starboard-delete']
+	starboard = scfg.options['starboard-channel']
 	starboard_channel = event.bot.channel(starboard)
+	sb_entries = StarboardEntry.where(starboard_id: event.id)
+	sb_entry = StarboardEntry.where(message_id: event.id).first
 
 	# Handle deletions
 	## Handle starboard message deletion
 	if event.channel.id == starboard
 		# Delete message from records
-		sb_entries = StarboardEntry.where(starboard_id: event.id)
 		sb_entries.destroy_all
 	## Handle original message deletion
-	else delete_msgs
+	else delete_msgs && sb_entry
 		# Delete message
-		sb_entry = StarboardEntry.where(message_id: event.id).first
 		starboard_channel.load_message(sb_entry.starboard_id).delete
 	end
 end
