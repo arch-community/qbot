@@ -15,6 +15,7 @@ module Quotes
     if quote
       saved_quote = Quote.create(server_id: event.server.id,
                                  user_id: quote.author.id,
+                                 message_id: event.message.id,
                                  text: quote.content)
       embed t('quotes.grab.success', saved_quote.id)
     else
