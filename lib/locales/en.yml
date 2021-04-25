@@ -159,7 +159,7 @@ en:
 
   quotes:
     grab:
-      success: 'Quote successfully grabbed!'
+      success: 'Quote successfully grabbed, with quote id %d'
       failure: 'No recent messages from %s...'
     quote:
       failure: 'No such quote id from user: %s, %d...'
