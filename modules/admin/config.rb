@@ -308,9 +308,10 @@ module Admin
           embed t('cfg.starboard.channel.invalid-channel')
           break
         end
-        cfg.options['starboard-channel'] = event.bot.channel(opt).id
+        channel = event.bot.channel(opt)
+        cfg.options['starboard-channel'] = channel.id
         cfg.save!
-        embed t('cfg.starboard.channel.success', opt.mention)
+        embed t('cfg.starboard.channel.success', channel.mention)
       when 'delete-messages', 'delete', 'd'
         opt = ActiveModel::Type::Boolean.new.cast(args.shift)
         if opt == "show" || opt == "s"
