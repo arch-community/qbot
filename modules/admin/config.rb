@@ -26,6 +26,7 @@ module Admin
       Config.help_msg event, 'cfg', %i[
         help log-channel modules prefix colors
         snippet rolegroup reaction blacklist misc
+		starboard
       ]
 
     when 'log-channel', 'lc'
@@ -262,6 +263,42 @@ module Admin
 
       end
 
+    when 'starboard', 'sb'
+      subcmd = args.shift
+      case subcmd
+      when 'help', 'h', nil
+        Config.help_msg event, 'cfg starboard', %i[emoji minimum-reacts channel delete-msgs]
+      when 'emoji', 'e'
+        unless event.message.emoji?
+          embed t('cfg.starboard.emoji.none-provided')
+          break
+        end
+        opt = event.message.emoji.first.name
+        cfg.options['starboard-emoji'] = opt
+        embed t('cfg.starboard.emoji.success', opt)
+      when 'minimum-reacts', 'min', 'm'
+        opt = args.shift.first.to_i
+        unless opt > 0
+          embed t('cfg.starboard.minimum-reacts.too-low')
+          break
+        end
+        cfg.options['starboard-minimum'] = opt
+        embed t('cfg.starboard.minimum-reacts.success', opt)
+      when 'channel', 'c'
+        opt = event.bot.channel(args.shift)
+        unless opt
+          embed t('cfg.starboard.channel.invalid-channel')
+          break
+        end
+        cfg.options['starboard-channel'] = opt.id
+        embed t('cfg.starboard.channel.success', opt.mention)
+      when 'delete-messages', 'delete', 'd'
+        opt = ActiveModel::Type::Boolean.new.cast(args.shift)
+        cfg.options['starboard-delete'] = opt
+        embed t('cfg.starboard.delete.success', opt)
+      end
+    end
+
     when 'misc', 'm'
       subcmd = args.shift
       cfg.options ||= {}
@@ -279,3 +316,4 @@ module Admin
   # rubocop: enable Metrics/BlockLength
 end
 # rubocop: enable Metrics/ModuleLength, Metrics/BlockNesting
+# vim: ts=2:sw=2:set expandtab
