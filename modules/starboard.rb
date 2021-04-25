@@ -21,6 +21,7 @@ QBot.bot.reaction_add do |event|
 
   ## Get message attachment
   def embed_image(message)
+    return unless message.attachments.first
     {
       url: message.attachments.first.url
     }
