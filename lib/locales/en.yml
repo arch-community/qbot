@@ -214,6 +214,7 @@ en:
       reaction: 'configure reaction actions'
       blacklist: 'manage blacklist entries'
       misc: 'setup miscellaneous options'
+      starboard: 'configure the starboard'
 
     log-channel:
       help:
