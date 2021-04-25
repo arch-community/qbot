@@ -5,53 +5,59 @@ module Starboard
   extend Discordrb::Commands::CommandContainer
 end
 
+# Define functions for embed
+## Get author
+def embed_author(user)
+  {
+    icon_url: user.avatar_url,
+    name: user.username
+  }
+end
+
+## Get message attachment
+def embed_image(message)
+  return unless message.attachments.first
+
+  {
+    url: message.attachments.first.url
+  }
+end
+
+## Get field text
+def embed_fields(event)
+  [{
+    name: 'Message',
+    value: format('[#%<name>s](%<link>s)', name: event.channel.name, link: event.message.link)
+  }]
+end
+
+# Get variables
+def fetch_values(config, event)
+  [
+    config.options['starboard-channel'],
+    StarboardEntry.where(message_id: event.message.id).first
+  ]
+end
+
 # Reaction event handler
 QBot.bot.reaction_add do |event|
   scfg = ServerConfig[event.server.id]
   break if scfg.modules_conf['disabled'].include? 'starboard'
 
-  # Define functions for embed
-  ## Get author
-  def embed_author(user)
-    {
-      icon_url: user.avatar_url,
-      name: user.username
-    }
-  end
-
-  ## Get message attachment
-  def embed_image(message)
-    return unless message.attachments.first
-
-    {
-      url: message.attachments.first.url
-    }
-  end
-
-  ## Get field text
-  def embed_fields(event)
-    [{
-      name: 'Message',
-      value: format('[#%<name>s](%<link>s)', name: event.channel.name, link: event.message.link)
-    }]
-  end
-
   # Get variables from db
+  fetch_values(scfg, event) => [starboard, sb_entry]
   emoji_name = (scfg.options['starboard-emoji'] || QBot.config.global.starboard.emoji)
   min = (scfg.options['starboard-minimum'] || QBot.config.global.starboard.minimum_reacts)
-  starboard = scfg.options['starboard-channel']
-  sb_entry = StarboardEntry.where(message_id: event.message.id).first
+
   # Handle reactions
-  if starboard \
-      && (event.emoji.name == emoji_name) \
-      && !sb_entry \
-      && (event.channel.id != starboard)
+  if starboard && !sb_entry && (event.emoji.name == emoji_name) && (event.channel.id != starboard)
     # Get channel from cache
     starboard_channel = event.bot.channel(starboard)
     # Count reactions and reject the author of the message from the count
     rcount = event.message.reacted_with(event.emoji, limit: min + 1).reject do |user|
       user.id == event.message.author.id
     end.length
+
     if rcount >= min
       # Send starboard embed
       ## Create embed
@@ -66,9 +72,7 @@ QBot.bot.reaction_add do |event|
       ## Send embed
       starboard_msg = embed_msg
       # Add entry to database
-      StarboardEntry.create(message_id: event.message.id,
-                            starboard_id: starboard_msg.id,
-                            server_id: event.server.id)
+      StarboardEntry.create(message_id: event.message.id, starboard_id: starboard_msg.id, server_id: event.server.id)
     end
   end
 end
@@ -79,21 +83,19 @@ QBot.bot.message_delete do |event|
   break if scfg.modules_conf['disabled'].include? 'starboard'
 
   # Get values from db
+  fetch_values(scfg, event) => [starboard, sb_entry]
   delete_msgs = scfg.options['starboard-delete']
-  starboard = scfg.options['starboard-channel']
-  starboard_channel = event.bot.channel(starboard)
-  sb_entries = StarboardEntry.where(starboard_id: event.id)
-  sb_entry = StarboardEntry.where(message_id: event.id).first
 
   # Handle deletions
   ## Handle starboard message deletion
   if event.channel.id == starboard
     # Delete message from records
+    sb_entries = StarboardEntry.where(starboard_id: event.id)
     sb_entries.destroy_all
   ## Handle original message deletion
-  else
-    delete_msgs && sb_entry
+  elsif delete_msgs && sb_entry
     # Delete message
+    starboard_channel = event.bot.channel(starboard)
     starboard_channel.load_message(sb_entry.starboard_id).delete
   end
 end
