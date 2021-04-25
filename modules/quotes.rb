@@ -34,7 +34,7 @@ module Quotes
     if !quotes || quotes.empty?
       embed t('quotes.list.empty', target)
     else
-      embed quotes.map{|q| "#{q.id} : #{q.text}"}.join("\n")
+      embed quotes.map{ "`#{_1.id}`: #{_1.text}" }.join("\n")
     end
   end
 
