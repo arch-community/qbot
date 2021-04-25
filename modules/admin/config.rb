@@ -270,64 +270,69 @@ module Admin
         Config.help_msg event, 'cfg starboard', %i[emoji minimum-reacts channel delete-msgs]
       when 'emoji', 'e'
         opt = args.shift
-        if %w[show s].include?(opt)
+        case opt
+        when 'show', 's'
           embed t('cfg.starboard.emoji.show-opt', cfg.options['starboard-emoji'])
-          break
-        end
-        if event.message.emoji.first
-          unless event.message.emoji.first.server.id == event.server.id
-            embed t('cfg.starboard.emoji.cross-server')
+        else
+          if event.message.emoji.first
+            unless event.message.emoji.first.server.id == event.server.id
+              embed t('cfg.starboard.emoji.cross-server')
+              break
+            end
+            cfg.options['starboard-emoji'] = event.message.emoji.first.name
+          elsif event.message.emoji?
+            cfg.options['starboard-emoji'] = opt
+          else
+            embed t('cfg.starboard.emoji.none-provided')
             break
           end
-          cfg.options['starboard-emoji'] = event.message.emoji.first.name
-        elsif event.message.emoji?
-          cfg.options['starboard-emoji'] = opt
-        else
-          embed t('cfg.starboard.emoji.none-provided')
-          break
+          cfg.save!
+          embed t('cfg.starboard.success', opt)
         end
-        cfg.save!
-        embed t('cfg.starboard.success', opt)
       when 'minimum-reacts', 'min', 'm'
         opt = args.shift
-        if %w[show s].include?(opt)
+        case opt
+        when 'show', 's'
           embed t('cfg.starboard.minimum-reacts.show-opt', cfg.options['starboard-minimum'])
-          break
+        else
+          unless opt.to_i.positive?
+            embed t('cfg.starboard.minimum-reacts.too-low')
+            break
+          end
+          cfg.options['starboard-minimum'] = opt.to_i
+          cfg.save!
+          embed t('cfg.starboard.success', opt)
         end
-        unless opt.to_i.positive?
-          embed t('cfg.starboard.minimum-reacts.too-low')
-          break
-        end
-        cfg.options['starboard-minimum'] = opt.to_i
-        cfg.save!
-        embed t('cfg.starboard.success', opt)
       when 'channel', 'c'
         opt = args.shift
-        if %w[show s].include?(opt)
+        case opt
+        when 'show', 's'
           embed t('cfg.starboard.channel.show-opt', format('<#%s>', cfg.options['starboard-channel']))
-          break
+        else
+          unless opt
+            embed t('cfg.starboard.channel.invalid-channel')
+            break
+          end
+          channel = event.bot.channel(opt)
+          cfg.options['starboard-channel'] = channel.id
+          cfg.save!
+          embed t('cfg.starboard.channel.success', channel.mention)
         end
-        unless opt
-          embed t('cfg.starboard.channel.invalid-channel')
-          break
-        end
-        channel = event.bot.channel(opt)
-        cfg.options['starboard-channel'] = channel.id
-        cfg.save!
-        embed t('cfg.starboard.channel.success', channel.mention)
       when 'delete-messages', 'delete', 'd'
-        opt = ActiveModel::Type::Boolean.new.cast(args.shift)
-        if %w[show s].include?(opt)
+        opt = args.shift
+        case opt
+        when 'show', 's'
           if cfg.options['starboard-delete']
             embed t('cfg.starboard.delete.enabled')
           else
             embed t('cfg.starboard.delete.disabled')
           end
-          break
+        else
+          bool = ActiveModel::Type::Boolean.new.cast(opt)
+          cfg.options['starboard-delete'] = bool
+          cfg.save!
+          embed t('cfg.starboard.success', bool)
         end
-        cfg.options['starboard-delete'] = opt
-        cfg.save!
-        embed t('cfg.starboard.success', opt)
       end
 
     when 'misc', 'm'
@@ -347,4 +352,3 @@ module Admin
   # rubocop: enable Metrics/BlockLength
 end
 # rubocop: enable Metrics/ModuleLength, Metrics/BlockNesting
-# vim: ts=2:sw=2:set expandtab

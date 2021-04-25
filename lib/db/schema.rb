@@ -82,6 +82,8 @@ module Database
         t.integer :server_id, null: false
         t.integer :message_id, null: false, unique: true
         t.integer :starboard_id, null: false, unique: true
+
+        t.timestamps
       end
 
       add_index :server_configs, :server_id, unique: true
