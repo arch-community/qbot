@@ -288,8 +288,8 @@ en:
 
     starboard:
       help:
-        emoji: 'set the starboard reaction'
-        minimum-reacts: 'set the amount of reactions required for starboard'
+        emoji: 'set the starboard reaction emoji'
+        minimum-reacts: 'set the number of reactions required to star a message'
         channel: 'set the starboard channel'
         delete-msgs: '(bool) will starboard messages be removed with the original?'
 
