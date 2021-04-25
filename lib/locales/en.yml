@@ -162,7 +162,7 @@ en:
       success: 'Quote successfully grabbed, with quote id %d'
       failure: 'No recent messages from %s...'
     quote:
-      failure: 'No such quote id from user: %s, %d...'
+      failure: 'No such quote id : %d...'
     list:
       empty: 'No quotes from %s...'
     rquote:
