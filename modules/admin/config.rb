@@ -269,34 +269,54 @@ module Admin
       when 'help', 'h', nil
         Config.help_msg event, 'cfg starboard', %i[emoji minimum-reacts channel delete-msgs]
       when 'emoji', 'e'
+        opt = args.shift
+        if opt.in? ["show", "s"]
+          embed t('cfg.starboard.emoji.show-opt', cfg.options['starboard-emoji'])
+          break
+        end
         unless event.message.emoji?
           embed t('cfg.starboard.emoji.none-provided')
           break
         end
-        opt = event.message.emoji.first.name
-        cfg.options['starboard-emoji'] = opt
+        if event.message.emoji.first
+          cfg.options['starboard-emoji'] = event.message.emoji.first.name
+        else
+          cfg.options['starboard-emoji'] = opt
+        end
         cfg.save!
         embed t('cfg.starboard.emoji.success', opt)
       when 'minimum-reacts', 'min', 'm'
-        opt = args.shift.first.to_i
-        unless opt > 0
+        opt = args.shift
+        if opt.in? ["show", "s"]
+          embed t('cfg.starboard.minimum-reacts.show-opt', cfg.options['starboard-minimum'])
+          break
+        end
+        unless opt.to_i > 0
           embed t('cfg.starboard.minimum-reacts.too-low')
           break
         end
-        cfg.options['starboard-minimum'] = opt
+        cfg.options['starboard-minimum'] = opt.to_i
         cfg.save!
         embed t('cfg.starboard.minimum-reacts.success', opt)
       when 'channel', 'c'
-        opt = event.bot.channel(args.shift)
+        opt = args.shift
+        if opt.in? ["show", "s"]
+          embed t('cfg.starboard.channel.show-opt', format('<#%s>', cfg.options['starboard-channel']))
+          break
+        end
         unless opt
           embed t('cfg.starboard.channel.invalid-channel')
           break
         end
-        cfg.options['starboard-channel'] = opt.id
+        cfg.options['starboard-channel'] = event.bot.channel(opt).id
         cfg.save!
         embed t('cfg.starboard.channel.success', opt.mention)
       when 'delete-messages', 'delete', 'd'
         opt = ActiveModel::Type::Boolean.new.cast(args.shift)
+        if opt.in? ["show", "s"]
+          embed t('cfg.starboard.delete.show-opt', cfg.options['starboard-delete'] ? "true" : "false")
+          break
+        end
         cfg.options['starboard-delete'] = opt
         cfg.save!
         embed t('cfg.starboard.delete.success', opt)
