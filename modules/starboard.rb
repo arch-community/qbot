@@ -32,7 +32,7 @@ QBot.bot.reaction_add do |event|
   def embed_fields(event)
     [{
       name: 'Message',
-      value: format('[#%s](%s)', event.channel.name, event.message.link)
+      value: format('[#%<name>s](%<link>s)', name: event.channel.name, link: event.message.link)
     }]
   end
 
