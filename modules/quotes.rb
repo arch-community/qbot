@@ -44,7 +44,10 @@ module Quotes
     min_args: 1,
     max_args: 1,
   } do |event, quote|
-    target_id = event.message.mentions[0].id
+    target = event.message.mentions[0]
+    if target
+      target_id = target.id
+    end
     if /^[\d]+$/.match(quote)
       quote_id = Integer(quote)
       result = Quote.find(quote_id)
