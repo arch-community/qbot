@@ -71,7 +71,7 @@ module Quotes
     help_available: false,
     usage: '.rquote @user',
     min_args: 1,
-    min_args: 1,
+    max_args: 1,
   } do |event, target|
     target_id = event.message.mentions[0].id
     random_quote = Quote.where(server_id: event.server.id,
