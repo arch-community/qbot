@@ -295,7 +295,7 @@ en:
       emoji:
         show-opt: 'The starboard emoji is `%s`.'
         none-provided: 'Please provide a valid emoji.'
-				cross-server: 'Please do not use cross-server emojis.'
+        cross-server: 'Please do not use cross-server emojis.'
 
       minimum-reacts:
         show-opt: 'The minimum number of reactions to appear on the starboard is `%s`.'
