@@ -43,13 +43,14 @@ QBot.bot.reaction_add do |event|
 	emoji_name = (scfg.options['starboard-emoji'] || QBot.config.global.starboard.emoji)
 	min = (scfg.options['starboard-minimum'] || QBot.config.global.starboard.minimum)
 	starboard = scfg.options['starboard-channel']
-	starboard_channel = event.bot.channel(starboard)
 	sb_entry = StarboardEntry.where(message_id: event.message.id).first
 	# Handle reactions
 	if (starboard) \
 			&& (event.emoji.name == emoji_name) \
 			&& !(sb_entry) \
 			&& (event.channel.id != starboard)
+		# Get channel from cache
+		starboard_channel = event.bot.channel(starboard)
 		# Count reactions
 		rcount = event.message.reacted_with(event.emoji, limit: min).length
 		if rcount >= min
