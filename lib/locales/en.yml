@@ -314,3 +314,7 @@ en:
     misc:
 
     nyi: 'Not yet implemented.'
+
+  nicknames:
+    missing-permissions: "I was unable to change `%s`'s nickname due to missing permissions."
+    moderated: "Your nickname has been moderated. Please do not add an exclamation point in front of your name to raise yourself to the top of the user list."
