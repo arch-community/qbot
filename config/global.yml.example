@@ -38,6 +38,7 @@ global:
     - queries
     - roles
     - snippets
+    - starboard
     - util
     - xkcd
 
@@ -49,4 +50,9 @@ global:
     - name: hello
       text: Hello, world!
 
-# vim: ft=yaml
+  # default starboard settings for all servers
+  starboard:
+    emoji: "⭐"
+    minimum_reacts: 5
+
+# vim: ft=yaml:ts=2:sw=2:set expandtab

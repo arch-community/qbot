@@ -41,7 +41,7 @@ QBot.bot.reaction_add do |event|
 
 	# Get variables from db
 	emoji_name = (scfg.options['starboard-emoji'] || QBot.config.global.starboard.emoji)
-	min = (scfg.options['starboard-minimum'] || QBot.config.global.starboard.minimum)
+	min = (scfg.options['starboard-minimum'] || QBot.config.global.starboard.minimum_reacts)
 	starboard = scfg.options['starboard-channel']
 	sb_entry = StarboardEntry.where(message_id: event.message.id).first
 	# Handle reactions
