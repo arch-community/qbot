@@ -13,10 +13,10 @@ module Quotes
     target_id = event.message.mentions[0].id
     quote = event.channel.history(20, event.message.id).find { |m| m.author.id == target_id and not m.from_bot? }
     if quote
-      Quote.create(server_id: event.server.id,
-                   user_id: quote.author.id,
-                   text: quote.content)
-      embed t('quotes.grab.success')
+      saved_quote = Quote.create(server_id: event.server.id,
+                                 user_id: quote.author.id,
+                                 text: quote.content)
+      embed t('quotes.grab.success', saved_quote.id)
     else
       embed t('quotes.grab.failure', target)
     end
