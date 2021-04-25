@@ -51,8 +51,8 @@ QBot.bot.reaction_add do |event|
       && (event.channel.id != starboard)
     # Get channel from cache
     starboard_channel = event.bot.channel(starboard)
-    # Count reactions
-    rcount = event.message.reacted_with(event.emoji, limit: min).length
+    # Count reactions and reject the author of the message from the count
+    rcount = event.message.reacted_with(event.emoji, limit: min + 1).reject{ |user| user.id == event.message.author.id }.length
     if rcount >= min
       # Send starboard embed
       ## Create embed
