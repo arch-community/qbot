@@ -8,10 +8,10 @@ module Quotes
     help_available: true,
     usage: '.grab @user',
     min_args: 1,
-    max_args: 1,
+    max_args: 1
   } do |event, target|
     target_id = event.message.mentions[0].id
-    quote = event.channel.history(20, event.message.id).find { |m| m.author.id == target_id and not m.from_bot? }
+    quote = event.channel.history(20, event.message.id).find { |m| m.author.id == target_id and !m.from_bot? }
     if quote
       saved_quote = Quote.create(server_id: event.server.id,
                                  user_id: quote.author.id,
@@ -26,11 +26,11 @@ module Quotes
     help_available: true,
     usage: '.listquotes @user',
     min_args: 1,
-    max_args: 1,
+    max_args: 1
   } do |event, target|
     target_id = event.message.mentions[0].id
     quotes = Quote.where(server_id: event.server.id,
-                        user_id: target_id)
+                         user_id: target_id)
     if !quotes || quotes.empty?
       embed t('quotes.list.empty', target)
     else
@@ -42,13 +42,11 @@ module Quotes
     help_available: true,
     usage: '.quote <quote id | @user>',
     min_args: 1,
-    max_args: 1,
+    max_args: 1
   } do |event, quote|
     target = event.message.mentions[0]
-    if target
-      target_id = target.id
-    end
-    if /^[\d]+$/.match(quote)
+    target_id = target.id if target
+    if /^\d+$/.match(quote)
       quote_id = Integer(quote)
       result = Quote.find(quote_id)
       if !result
@@ -71,7 +69,7 @@ module Quotes
     help_available: false,
     usage: '.rquote @user',
     min_args: 1,
-    max_args: 1,
+    max_args: 1
   } do |event, target|
     target_id = event.message.mentions[0].id
     random_quote = Quote.where(server_id: event.server.id,
