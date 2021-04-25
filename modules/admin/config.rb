@@ -297,7 +297,6 @@ module Admin
         cfg.options['starboard-delete'] = opt
         embed t('cfg.starboard.delete.success', opt)
       end
-    end
 
     when 'misc', 'm'
       subcmd = args.shift
