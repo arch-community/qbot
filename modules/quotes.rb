@@ -49,11 +49,11 @@ module Quotes
     target_id = target.id if target
     if /^\d+$/.match(quote)
       quote_id = Integer(quote)
-      result = Quote.find(quote_id)
-      if !result
-        embed t('quotes.quote.failure', target, quote_id)
+      quote_exists = Quote.exists?(quote_id)
+      if !quote_exists
+        embed t('quotes.quote.failure', quote_id)
       else
-        embed result.text
+        embed Quote.find(quote_id).text
       end
     elsif target_id
       results = Quote.where(server_id: event.server.id,
