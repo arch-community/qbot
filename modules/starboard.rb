@@ -31,6 +31,18 @@ def embed_fields(event)
   }]
 end
 
+## Send starboard embed
+def send_embed(event, channel)
+  # Send starboard embed
+  embed(target: channel) do |m|
+    m.author = embed_author(event.message.author)
+    m.description = event.message.content
+    # m.fields = embed_fields(event)
+    m.image = embed_image(event.message)
+    m.timestamp = event.message.creation_time
+  end
+end
+
 # Get variables
 def fetch_values(config, event)
   [
@@ -50,7 +62,10 @@ QBot.bot.reaction_add do |event|
   min = (scfg.options['starboard-minimum'] || QBot.config.global.starboard.minimum_reacts)
 
   # Handle reactions
-  if starboard && !sb_entry && (event.emoji.name == emoji_name) && (event.channel.id != starboard)
+  if starboard \
+      && !sb_entry \
+      && (event.emoji.name == emoji_name) \
+      && (event.channel.id != starboard)
     # Get channel from cache
     starboard_channel = event.bot.channel(starboard)
     # Count reactions and reject the author of the message from the count
@@ -59,20 +74,11 @@ QBot.bot.reaction_add do |event|
     end.length
 
     if rcount >= min
-      # Send starboard embed
-      ## Create embed
-      embed_msg = embed(target: starboard_channel) do |m|
-        m.author = embed_author(event.message.author)
-        m.description = event.message.content
-        # m.fields = embed_fields(event)
-        m.image = embed_image(event.message)
-        m.footer = { text: event.message.id }
-        m.timestamp = event.message.creation_time
-      end
-      ## Send embed
-      starboard_msg = embed_msg
+      starboard_msg = send_embed(event, starboard_channel)
       # Add entry to database
-      StarboardEntry.create(message_id: event.message.id, starboard_id: starboard_msg.id, server_id: event.server.id)
+      StarboardEntry.create(message_id: event.message.id,
+                            starboard_id: starboard_msg.id,
+                            server_id: event.server.id)
     end
   end
 end
