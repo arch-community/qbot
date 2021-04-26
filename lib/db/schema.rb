@@ -66,8 +66,10 @@ module Database
 
       create_table :quotes do |t|
         t.integer :server_id, null: false
+        t.integer :message_id, null: false
         t.integer :user_id, null: false
         t.text :text, null: false
+        t.timestamps
       end
 
       create_table :blacklist_entries do |t|

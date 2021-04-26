@@ -39,6 +39,7 @@ global:
     - roles
     - snippets
     - starboard
+    - quotes
     - util
     - xkcd
 
