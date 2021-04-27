@@ -34,7 +34,7 @@ module QBot
       # Restart the bot
       elsif s.start_with? 'rs', 'restart'
         @bot.stop
-        exec 'ruby', $PROGRAM_NAME
+        exec Gem.ruby, $PROGRAM_NAME
 
       # Spin up an IRB session in the context of the bot
       elsif s.start_with? 'irb'

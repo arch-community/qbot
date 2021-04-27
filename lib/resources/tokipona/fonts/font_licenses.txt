@@ -1,0 +1,49 @@
+Font Licenses:
+
+ filename: linjapimeja19.ttf
+font name: linja pimeja
+  version: 19
+  creator: jan Inkepa (Stephen Lavelle)
+  license: CC0 (public domain)
+
+ filename: linja-pona-4.2.otf
+font name: linja pona 4.2
+  version: 4.2
+  creator: jan Same, David A Roberts
+  license: SIL OFL v1.1
+
+ filename: linja-sike-beta-2-for-u.otf
+font name: linja sike
+  version: beta 2
+  creator: jan Same, David A Roberts, jan Lipamanka
+  license: SIL OFL v1.1
+
+ filename: linjasuwi.otf
+font name: linja suwi
+  version: 1.221
+  creator: jan Ana (Anna Kudriavtsev)
+  license: SIL OFL v1.1
+
+ filename: PuLukin.otf
+font name: PuLukin
+  version: 1.0
+  creator: Green Guy (ZacStan)
+  license: unknown
+
+ filename: sitelen-pona-pona.otf
+font name: sitelen-pona
+  version: 0.1
+  creator: Jack Humbert
+  license: SIL OFL v1.1
+
+ filename: Sitelen Sans 3.otf
+font name: Sitelen Sans
+  version: 1.00
+  creator: Echo Heo (bluemon_)
+  license: unknown
+
+ filename: sitelen_telo_1.01.otf
+font name: sitelen telo
+  version: 1.01
+  creator: Wilhelm Su (efofecks)
+  license: SIL OFL v1.1

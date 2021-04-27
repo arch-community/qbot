@@ -11,18 +11,17 @@ module Admin
     min_args: 0
   } do |event, *args|
     command = args.shift
+    uc = UserConfig[event.user.id]
 
     case command
     when 'help', nil
-      Config.help_msg event, 'uc', %i[help language]
+      Config.help_msg 'uc', %i[help language]
 
     when 'language', 'lang', 'l'
-      uc = UserConfig[event.user.id]
-
       subcmd = args.shift
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'uc language', %i[list set reset]
+        Config.help_msg 'uc language', %i[list set reset]
 
       when 'list', 'l'
         embed do |m|
@@ -48,6 +47,37 @@ module Admin
         uc.save!
 
         embed t('uc.language.reset.success', lang)
+      end
+
+    when 'sitelenpona', 'sp'
+      spcmd = args.shift
+      case spcmd
+      when 'help', nil
+        Config.help_msg \
+          'uc sitelenpona',
+          %i[fgcolor bgcolor font-face font-size name name-glyphs]
+      when 'fgcolor', 'fg', 'bgcolor', 'bg'
+        colortype = spcmd.start_with?('fg') ? :fgcolor : :bgcolor
+        default = (colortype == :fgcolor) ? 'black' : 'white'
+        current = uc['sitelenpona'][colortype.to_s] || default
+
+        subcmd = args.shift
+        case subcmd
+        when 'help', nil
+          Config.help_msg "uc sitelenpona #{colortype}", %i[show set reset]
+        when 'show'
+          embed t("uc.sitelenpona.color.show", colortype, current)
+        when 'set'
+          confirm = uc['sitelenpona'][colortype.to_s] = args.shift
+          embed t('uc.sitelenpona.color.set', colortype, confirm)
+        when 'reset'
+          confirm = uc['sitelenpona'][colortype.to_s] = default
+          embed t('uc.sitelenpona.color.set', colortype, confirm)
+        end
+      when 'font-size', 'size', 'fs', 's'
+      when 'font-face', 'font', 'ff', 'f'
+      when 'name', 'n'
+      when 'name-glyphs', 'ng'
       end
 
     else

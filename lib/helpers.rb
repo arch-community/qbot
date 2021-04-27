@@ -4,6 +4,8 @@ def formatted_name(user) = "#{user.name}##{user.discriminator}"
 
 def find_prefix(message) = ServerConfig[message.server.id].server_prefix
 
+def prefixed(text) = "#{QBot.bot.current_prefix}#{text}"
+
 def cmd_prefix(message)
   pfx = find_prefix(message)
 
