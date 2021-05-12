@@ -1,0 +1,332 @@
+de:
+  no_perms: 'Dir fehlen die benötigten Rechte um diese Aktion auszuführen.'
+
+  descriptions:
+    help: 'Zeigt eine Liste der verfügbaren Befehle oder gibt Hilfestellung zu bestimmten Befehlen'
+
+    config: 'Ermöglicht es verschiedene Einstellungen des Bots zu ändern'
+    userconfig: 'Benutzereinstellungen die Serverübergreifend wirken'
+
+    listsnippets: 'Zeigt verfügbare Snippets an'
+    snippet: 'Zeigt einen Snippets an'
+
+    grab: 'Speichert die letzte Nachricht des Benutzers als Zitat'
+    listquotes: 'Zeigt die Zitate eines Benutzers an'
+    quote: 'Zeigt entweder das neueste oder ein benutzerdefiniertes Zietat einer Benutzers an'
+    rquote: 'Zeigt das Zitat einen zufälligen Benutzers an'
+
+    color: 'Legt deine Farbe fest'
+    closestcolor: 'Gibt die am ähnlichsten Farbe anhand eines hexcodes zurück'
+    listcolors: 'Zählt alle verfügbaren Farben auf'
+    createcolorroles: 'Erstellt eine Rolle mit verschiedenen Farben'
+    randcolors: 'Gibt jedem Benutzer eine zufällige Farbe'
+
+    query: 'Fügt eine Abfrage zur Liste der Abfragen hinzu'
+    openqueries: 'Zeigt alle offenen Abfragen an'
+    closequery: 'Schließt eine Abfrage mit einer ID'
+
+    join: 'Tritt dem Voicechannel bei'
+    play: 'Spielt Musik von einer URL'
+    yt: 'Durchsucht YouTube nach einem Video zum spielen'
+    pause: 'Pausiert die Wiedergabe'
+    resume: 'Setzt die Wiedergabe fort'
+    stop: 'Stoppt die Wiedergabe'
+    skip: 'Überpringt das aktuelle Lied'
+    volume: 'Setzt die Lautstärke des Bots'
+    seek: 'Springt zu einer Stelle im Lied'
+    np: 'Zeigt das Lied, welches gerade spielt'
+
+    eval: 'Führt code aus. Nur vom Botinhaber ausführbar.'
+    modules: 'Zeigt eine Liste aller geladenen Module'
+
+    echo: 'Wiederholt text'
+    botrepo: "Direkter Link zum Github Repositorium des Bots"
+    avatar: "Gibt den Link zum Avatar eines Benutzers zurück"
+
+    archwiki: 'Durchsucht die Arch Wiki'
+    packagesearch: 'Durchsucht die Arch Repositorien nach einem Paket'
+    package: 'Zeigt Informationen über ein Paket'
+
+    blacklist: 'Zeigt die Blacklist für den aktuellen Textchat an'
+
+    xkcd: 'Sucht nach einem XKCD comic anhand einer ID oder einem Namen'
+
+    poll: 'Startet eine Umfrage'
+
+    figlet: 'Verwandle Text in ASCII-Kunst um'
+
+    nimi: 'Durchsucht tokipona.org nach Definitionen eines toki pona Wortes'
+    tpo: 'Durchsucht tokipona.org nach Verwendungsangaben'
+    tpsources: 'Zeigt Attributinformation für toki pona an'
+
+  admin:
+    eval:
+      nope: 'Nö.'
+    modules:
+      title: 'Module geladen'
+      global: 'global'
+      local: 'lokal'
+
+  arch:
+    wiki:
+      no-results: 'Keine Ergebnisse'
+    ps:
+      no-results: 'Keine Ergebnisse'
+      title: 'Ergebnisse für **%s**'
+      version: 'Version'
+      last-update: 'Letzte Aktualierung'
+      link: 'Direkter Link'
+
+  blacklist:
+    bl:
+      title: Blacklist Eintrag
+    message: >-
+      Deine Nachricht löste einen Eintrag in der Blacklist `%s` aus.
+
+      Die originale Nachricht wurde unten angehängt:
+      ```
+      %s
+      ```
+    unblock: "%s, du hast den Bot geblockt. Das kann die Funktionalität des Bots beinträchtigen. Bitte entblocke ihn."
+
+  colors:
+    assign-role:
+      already-have: 'Du hast schon **%s**.'
+      success: 'Deine **%s** ist jetzt **%s**.'
+    color:
+      not-found: 'Farbe nicht gefunden.'
+      role-type-name: 'Farbe'
+    closest:
+      found: 'Die am nächste Farbe ist `%s`.'
+    list:
+      title: 'Alle Farben'
+    ccr:
+      deleting: 'Lösche Farbrolle `%s`.'
+      created: 'Erstelle Farbrolle `%s` mit der Farbe `%s`.'
+      success: '**%s** Rollen wurden erstellt.'
+    rc:
+      success: 'Farben für **%s** Benutzer vermischt.'
+
+  figlet:
+
+  help:
+    aliases: 'Aliase'
+    usage: 'Verwendung'
+    valid-params: 'Akzeptierte Parameter'
+    list-title: 'Befehle'
+    not-found: "Den Befehl `%s` gibt es nicht."
+
+  music:
+    join:
+      success: 'Erfolgreich **%s** beigetreten!'
+      not-in-voice: 'Du ist nicht in einem Voicechannel!'
+    play:
+      downloading: 'Lade herunter...'
+      success: '**%s** erfolgreich zur Warteschlange hinzugefügt.'
+    yt:
+      results-title: 'Ergebnisse für **%s**'
+      ping-with-number: 'Pinge den Bot mit einer Nummer um eines der Ergebnisse auszuwählen.'
+    np:
+      title: 'Jetzt läuft gerade'
+      nothing: 'nichts'
+
+  polls:
+    cross-server: 'Dieser Textchannel befindet sich auf einem anderen Server...'
+    too-many-opts: 'Deine Umfrage hat viel zu viele Optionen.'
+    title-too-long: 'Der Titel deiner Umfrage ist zu lang.'
+
+  queries:
+    query:
+      success: 'Die Abfrage **#%s** wurde erstellt.'
+    oq:
+      title: 'Offene Abfragen'
+      no-results: 'Keine Ergebnisse'
+      deleted-after-30d: 'Offene Abfragen werden nach 30 Tagen automatisch gelöscht.'
+      entry-name: '**#%s** von **%s** am **%s**'
+    cq:
+      not-found: 'Abfrage **#%s** nicht gefunden.'
+      success: 'Abfrage **#%s** gelöscht.'
+      no-perms: 'Du hast keine Bereichtigung die Abfrage **#%s** zu löschen.'
+
+  roles:
+
+  snippets:
+    list:
+      none-found: 'Keine Snippets verfügbar.'
+      title: 'Verfügbare Snippets'
+    snippet:
+      not-found: 'Snippet nicht gefunden.'
+
+  quotes:
+    grab:
+      success: 'Zitat mit ID **%d** erfolgreich gespeichert'
+      failure: 'Keine neuen Nachrichten von **%s**...'
+    quote:
+      failure: 'Es gibt kein Zitat mit der ID **%d**...'
+    list:
+      empty: 'Der Benutzer **%s** hat keine Zitate.'
+    rquote:
+      failure: 'Keine Zitate von %s...'
+
+  tokipona:
+    attrib:
+      title: 'Die Ursprünge von toki pona data'
+      text: >-
+        toki pona wurde von Sonja Lang erschaffen. Das pu Wörterbuch ist öffentlich zugänglich.
+        tokipona.org Daten wurden von Sonja Lang gesammelt und können in **%s** gefunden werden.
+        Andere Daten wurden von ilo Salana genommen, welche auch öffentlich zugänglich sind.
+
+      footer: 'für Anmerkungen und Danksagen, siehe .%s'
+
+    nimi:
+      not-found: 'Dieses Wort wurde nicht in pu gefunden.'
+      overflow: '(siehe .tpo)'
+
+    tpo:
+      not-found: 'Dieses Wort wurde nicht in den tokipona.org Daten gefunden.'
+
+  util:
+    invite:
+      title: "Einladung für **%s**"
+      desc: "[Clicke diesen Link um %s in deinen Server einzuladen.](%s)"
+
+  xkcd:
+
+  uc:
+    help:
+      help: 'Zeige diese Nachricht an'
+      language: 'Setze die Sprache mit der der Bot antwortet fest'
+
+    language:
+      help:
+        list: 'Zeige verfügbare Sprachen an'
+        set: 'Ändere die Sprache in der der Bot antwortet'
+        reset: 'Setze die Sprache züruck auf English'
+
+      list:
+        title: 'Verfügbare Srachen'
+
+      set:
+        not-found: 'Sprache `%s` nicht gefunden.'
+        success: 'Na gut dann spreche ich jetzt `%s`.'
+
+      reset:
+        success: 'Jetzt spreche ich wieder `%s`.'
+
+  cfg:
+    usage: 'Verwendung:'
+    subcmd: 'Unterbefehl'
+    options: 'Optionen'
+    avail_subcmd: 'Verfügbare Unterbefehle:'
+
+    help:
+      help: 'Zeige diese Nachricht an'
+      log-channel: 'Sende Bot Events an einen Textchannel'
+      modules: 'Aktiviere oder deaktiviere bestimmte Module'
+      prefix: 'Setze die Präfix für diesen Bot'
+      colors: 'Bestimme den Umgang mit Farbrollen'
+      snippet: 'Verwalte Snippets für diesen Server'
+      rolegroup: 'Verwalte Gruppen von selbst zuweisbaren Rollen'
+      reaction: 'Bestimme Aktionen auf Nachicht-Reaktionen'
+      blacklist: 'Verwalte Blacklist'
+      misc: 'Setze andere Parameter'
+
+    log-channel:
+      help:
+        set: 'Setzt den Textchannel anhand einer ID für Logs'
+        reset: 'Deaktiviere Logging'
+
+      set:
+        success: "Der Log channel lautet ab sofort <#%s>."
+      reset:
+        success: "Logging erfolgreich deaktiviert."
+
+    modules:
+
+    prefix:
+      help:
+        set: 'Setze den Botpräfix für diesen Server'
+        reset: 'Setze den Botpräfix für diesen Server zurück'
+
+      saved: 'Neuer Botpräfix `%s` gespeichert.'
+
+    colors:
+      help:
+        extra-color-role: 'Verwalte zusätzliche Farbrollen'
+        bare-colors: 'Erkenne Farbrollen anhand derer hexcodes'
+
+      extra-color-role:
+        help:
+          list: 'Zähle alle zusätzlichen Farbrollen auf'
+          add: 'Füge eine Rolle (anhand einer ID) zu der Liste von zusätzlichen Farbrollen hinzu'
+          remove: 'Entferne eine Farbrolle (anhand einer ID) von der Liste der zusätzlichen Farbrollen'
+
+        list:
+          no-roles: 'Es wurden noch keine zusätzlichen Farbrollen konfiguriert'
+        add:
+          not-found: 'Farbrolle nicht gefunden.'
+          non-unique: 'Diese Farbrolle gibt es schon.'
+          success: 'Farbrolle `%s` (`%s`) wurde zur Liste hinzugefügt.'
+        remove:
+          success: 'Farbrolle `%s` wurde von der Liste entfernt.'
+
+      bare-colors:
+        help:
+          enable: 'Aktiviere erkennung der Farbrolle anhand des hexcodes'
+          disable: 'Deaktiviere erkennung der Farbrolle anhand des hexcodes'
+          show: 'Zeige die aktuelle Einstellung'
+
+        toggled-on: 'Color roles named by their bare hex color will now be detected.'
+        toggled-off: 'Color roles named by their bare hex color will no longer be detected.'
+        show: 'Die aktuelle Einstellung ist `%s`.'
+
+    snippet:
+      help:
+        list: 'Zeige alle Schnipsel an'
+        add: 'Füge ein Schnipsel zur Liste hinzu'
+        remove: 'Entferne ein Schnipsel anhand des Namens'
+        set: 'Ändere den Inhalt eines Schnipsels'
+
+      add:
+        non-unique: 'Schipsel `%s` existiert bereits.'
+        success: 'Schnipsel `%s` wurde erstellt.'
+      edit:
+        not-found: 'Schnipsel `%s` nicht gefunden...'
+        success: 'Schnipsel `%s` erfolgreich bearbeitet.'
+      remove:
+        success: 'Schnipsel `%s` entfernt.'
+      prop:
+        help:
+          embed: '(bool) Wurde das Schnipsel als Embed oder als normale Nachricht versendet?'
+
+        success: 'Eingenschaft `%s` vom Schnipsel `%s` ist jetzt `%s`.'
+
+    rolegroup:
+
+    reaction:
+
+    blacklist:
+      "[channel]":
+        help:
+          add: 'Fügt einen Eintrag zur Blacklist dieses Textchannels hinzu'
+          remove: 'Entfernt einen Eintrag in der Blacklist anhand einer ID'
+          list: 'Zählt alle Einträge in der Blacklist mit deren IDs auf'
+          clear: 'Entfernt die Blacklist für diesen Textchannel'
+
+      add:
+        success: 'Eintrag mit ID `%s` erfolgreich hinzugefügt.'
+
+      remove:
+        not-found: 'Konnte `%s` Eintrag nicht finden.'
+        wrong-server: 'Konnte `%s` Eintrag auf diesem Server nicht finden.'
+        success: 'Eintrag mit ID `%s` entfernt.'
+
+      list:
+        title: 'Blacklist'
+
+      clear:
+        success: '%s blacklist Eintrag entfernt.'
+
+    misc:
+
+    nyi: 'Noch nicht implementiert.'
