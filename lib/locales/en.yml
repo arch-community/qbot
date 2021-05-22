@@ -255,7 +255,7 @@ en:
         show: 'Your current typeface is %s.'
         set: 'Your typeface is now %s.'
         list: 'Available typefaces'
-        instructions: 'Use %suc sp ff s <number> to choose a typeface.'
+        instructions: 'Use `%suc sp ff s <number>` to choose a typeface.'
         invalid: 'That typeface is invalid.'
 
       name:
