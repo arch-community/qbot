@@ -196,6 +196,7 @@ en:
     help:
       help: 'show this message'
       language: 'set the language the bot responds with'
+      sitelenpona: 'set up sitelen pona rendering options'
 
     language:
       help:
@@ -212,6 +213,66 @@ en:
 
       reset:
         success: 'Language successfully reset to `%s`.'
+
+    sitelenpona:
+      help:
+        fgcolor: 'configure the foreground color'
+        bgcolor: 'configure the background color'
+        fontface: 'configure the font'
+        fontsize: 'configure the font size'
+        name: 'set the name used for your webhook'
+        glyphs: 'set the glyphs used when someone mentions you'
+
+      fgcolor:
+        help:
+          show: 'display your current foreground color'
+          set: 'change your foreground color'
+          show: 'reset your foreground color'
+      bgcolor:
+        help:
+          show: 'display your current background color'
+          set: 'change your background color'
+          show: 'reset your background color to default'
+
+      color:
+        show: 'Your current %s is %s.'
+        set: 'Your %s is now %s.'
+
+      fontsize:
+        help:
+          show: 'display your current font size'
+          set: 'change your font size'
+          reset: 'reset your font size to default'
+        show: 'Your current font size is %s.'
+        set: 'Your font size is now %s.'
+
+      fontface:
+        help:
+          show: 'display your current typeface'
+          list: 'show all available typefaces'
+          set: 'change your typeface'
+          reset: 'reset your typeface to default'
+        show: 'Your current typeface is %s.'
+        set: 'Your typeface is now %s.'
+        list: 'Available typefaces'
+        instructions: 'Use %suc sp ff s <number> to choose a typeface.'
+        invalid: 'That typeface is invalid.'
+
+      name:
+        help:
+          show: 'display your current webhook name'
+          set: 'change your webhook name'
+          reset: 'reset your webhook name to default'
+        show: 'Your current webhook name is %s.'
+        set: 'Your webhook name is now %s.'
+
+      glyphs:
+        help:
+          show: 'display your current glyphs'
+          set: 'change your glyphs'
+          reset: 'reset your glyphs to default'
+        show: 'Your current glyphs are %s.'
+        set: 'Your glyphs are now %s.'
 
   cfg:
     usage: 'Usage:'

@@ -103,7 +103,7 @@ module Admin
 
         case subcmd
         when 'help', nil
-          Config.help_msg 'uc sitelenpona fontface', %i[show set reset]
+          Config.help_msg 'uc sitelenpona fontface', %i[show list set reset]
         when 'show', 'sh', 'v'
           embed t('uc.sitelenpona.fontface.show', current)
         when 'list', 'ls', 'l'
@@ -111,7 +111,13 @@ module Admin
                       .map.with_index { |info, idx| "[#{idx}] #{info[:typeface]}" }
                       .join("\n")
 
-          embed "```#{list}```"
+          embed do
+            _1.title = t('uc.sitelenpona.fontface.list')
+            _1.description = <<~END
+              #{t('uc.sitelenpona.fontface.instructions', find_prefix(event.message))}
+              ```#{list}```
+            END
+          end
         when 'set', 's'
           index = begin
                     Integer(args.shift)
