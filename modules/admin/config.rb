@@ -23,7 +23,7 @@ module Admin
 
     case command
     when 'help', nil
-      Config.help_msg event, 'cfg', %i[
+      Config.help_msg 'cfg', %i[
         help log-channel modules prefix colors
         snippet rolegroup reaction blacklist misc
       ]
@@ -33,7 +33,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg log-channel', %i[set reset]
+        Config.help_msg 'cfg log-channel', %i[set reset]
       when 'set'
         new_id = args.shift.to_i
 
@@ -54,25 +54,25 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg prefix', %i[set reset]
+        Config.help_msg 'cfg prefix', %i[set reset]
       when 'set'
-        Config.save_prefix event, cfg, args.join(' ')
+        Config.save_prefix cfg, args.join(' ')
       when 'reset'
-        Config.save_prefix event, cfg, QBot.config.global.prefix || '.'
+        Config.save_prefix cfg, QBot.config.global.prefix || '.'
       end
 
     when 'colors', 'c'
       subcmd = args.shift
       case subcmd
       when 'help', 'h', nil
-        Config.help_msg event, 'cfg colors', %i[extra-color-role bare-colors]
+        Config.help_msg 'cfg colors', %i[extra-color-role bare-colors]
       when 'extra-color-role', 'ecr'
         opt = args.shift
         role_id = args.shift.to_i
 
         case opt
         when 'help', nil
-          Config.help_msg event, 'cfg colors extra-color-role', %i[list add remove]
+          Config.help_msg 'cfg colors extra-color-role', %i[list add remove]
 
         when 'list'
           role_rows = ExtraColorRole.where(server_id: event.server.id)
@@ -117,7 +117,7 @@ module Admin
 
         case opt
         when 'help', nil
-          Config.help_msg event, 'cfg colors bare-colors', %i[enable disable show]
+          Config.help_msg 'cfg colors bare-colors', %i[enable disable show]
 
         when 'enable', 'on', 'true', 't'
           cfg.options['bare-colors'] = true
@@ -141,7 +141,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg snippet', %i[list add remove set]
+        Config.help_msg 'cfg snippet', %i[list add remove set]
 
       when 'list', 'l'
         QBot.bot.execute_command(:listsnippets, event, [])
@@ -185,7 +185,7 @@ module Admin
         name = args.shift
 
         if name == 'help'
-          Config.help_msg event, 'cfg snippet prop', %i[embed]
+          Config.help_msg 'cfg snippet prop', %i[embed]
           return
         end
 
@@ -221,7 +221,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg blacklist [channel]', %i[add remove list clear]
+        Config.help_msg 'cfg blacklist [channel]', %i[add remove list clear]
 
       when 'add', 'a'
         entry = BlacklistEntry.create(server_id: event.server.id,
@@ -268,7 +268,7 @@ module Admin
 
       case subcmd
       when 'help', nil
-        Config.help_msg event, 'cfg misc', %i[]
+        Config.help_msg 'cfg misc', %i[]
       end
 
     else

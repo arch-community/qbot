@@ -78,6 +78,9 @@ group :default do
   # image generation
   gem 'rails-html-sanitizer'
   gem 'rmagick'
+
+  # pluralkit
+  gem 'pluralkit-api', '>= 1.0.1'
 end
 
 group :default, :development do

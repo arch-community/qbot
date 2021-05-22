@@ -7,7 +7,7 @@ module Discordrb
   module Commands
     # Overrides for CommandBot
     class CommandBot
-      attr_accessor :embed_target
+      attr_accessor :embed_target, :current_prefix
 
       alias execute! execute_command
 
@@ -27,6 +27,9 @@ module Discordrb
 
         # Set the default embed target
         @embed_target = event
+
+        # Expose the current prefix
+        @current_prefix = find_prefix(event.message)
 
         execute!(name, event, arguments, chained, check_permissions)
       end

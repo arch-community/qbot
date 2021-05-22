@@ -4,6 +4,8 @@ def formatted_name(user) = "#{user.name}##{user.discriminator}"
 
 def find_prefix(message) = ServerConfig[message.server.id].server_prefix
 
+def prefixed(text) = "#{QBot.bot.current_prefix}#{text}"
+
 def cmd_prefix(message)
   pfx = find_prefix(message)
 
@@ -13,6 +15,8 @@ def cmd_prefix(message)
     message.text[pfx.length..]
   end
 end
+
+def strip_command(text, command) = text.sub(/^#{prefixed command} /, '').chomp
 
 def log_embed(event, chan_id, user, extra)
   embed(target: event.bot.channel(chan_id)) do |m|
