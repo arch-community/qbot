@@ -10,9 +10,7 @@ module Sitelenpona
       fg_color: cfg[:fgcolor],
       bg_color: cfg[:bgcolor],
       font: cfg[:fontface],
-      size: cfg[:fontsize],
-      name: cfg[:name],
-      glyphs: cfg[:glyphs]
+      size: cfg[:fontsize]
     }.compact { |_, v| v }
   end
 
