@@ -38,4 +38,11 @@ module SPGen
     out_img.to_blob { self.format = 'png' }
   end
   # rubocop: enable Metrics/ParameterLists
+
+  @font_metadata = nil
+  def self.font_metadata
+    @font_metadata ||= YAML.load_file(
+      'lib/resources/fonts/tokipona/metadata.yml'
+    ).deep_symbolize_keys[:fonts]
+  end
 end

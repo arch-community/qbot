@@ -16,6 +16,8 @@ def cmd_prefix(message)
   end
 end
 
+def strip_command(text, command) = text.sub(/^#{prefixed command} /, '').chomp
+
 def log_embed(event, chan_id, user, extra)
   embed(target: event.bot.channel(chan_id)) do |m|
     m.author = { name: formatted_name(user), icon_url: user.avatar_url }
