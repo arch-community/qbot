@@ -91,13 +91,13 @@ de:
 
   colors:
     assign-role:
-      already-have: 'Du hast schon **%s**.'
+      already-have: 'Du hast schon die %s.'
       success: 'Deine **%s** ist jetzt **%s**.'
     color:
       not-found: 'Farbe nicht gefunden.'
       role-type-name: 'Farbe'
     closest:
-      found: 'Die am nächste Farbe ist `%s`.'
+      found: 'Die nächstliegende Farbe ist `%s`.'
     list:
       title: 'Alle Farben'
     ccr:
