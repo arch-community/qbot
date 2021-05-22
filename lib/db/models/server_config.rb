@@ -21,7 +21,7 @@ class ServerConfig < ActiveRecord::Base
   end
 
   def server_prefix
-    pfx = prefix.dup
+    pfx = prefix.to_s
 
     if prefix.nil?
       self.prefix = QBot.config.global.prefix || '.'
