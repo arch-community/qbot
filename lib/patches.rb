@@ -87,5 +87,10 @@ end
 ##
 # StringIO derivative that presents a fake path to discordrb
 class ImageStringIO < StringIO
-  def path = 'image.png'
+  attr_accessor :path
+
+  def initialize(string = '', mode = nil, path: 'image.png')
+    @path = path
+    super(string, mode)
+  end
 end
