@@ -292,6 +292,7 @@ en:
       reaction: 'configure reaction actions'
       blacklist: 'manage blacklist entries'
       misc: 'setup miscellaneous options'
+      starboard: 'configure the starboard'
 
     log-channel:
       help:
@@ -363,6 +364,32 @@ en:
 
         success: 'Property `%s` of snippet `%s` is now `%s`.'
 
+    starboard:
+      help:
+        emoji: 'set the starboard reaction emoji'
+        minimum-reacts: 'set the number of reactions required to star a message'
+        channel: 'set the starboard channel'
+        delete-msgs: '(bool) will starboard messages be removed with the original?'
+
+      emoji:
+        show-opt: 'The starboard emoji is `%s`.'
+        none-provided: 'Please provide a valid emoji.'
+        cross-server: 'Please do not use cross-server emojis.'
+
+      minimum-reacts:
+        show-opt: 'The minimum number of reactions to appear on the starboard is `%s`.'
+        too-low: 'Please provide a number greater than 0.'
+
+      delete:
+        enabled: 'Starboard messages will be removed when the original is deleted.'
+        disabled: 'Starboard messages will not be removed when the original is deleted.'
+
+      channel:
+        show-opt: 'The starboard channel is %s.'
+        success: 'The starboard channel is now %s.'
+
+      success: 'The indicated value is now set to `%s`.'
+
     rolegroup:
 
     reaction:
@@ -392,3 +419,5 @@ en:
     misc:
 
     nyi: 'Not yet implemented.'
+
+# vim: ft=yaml:ts=2:sw=2:set expandtab

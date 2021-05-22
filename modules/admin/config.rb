@@ -26,6 +26,7 @@ module Admin
       Config.help_msg 'cfg', %i[
         help log-channel modules prefix colors
         snippet rolegroup reaction blacklist misc
+        starboard
       ]
 
     when 'log-channel', 'lc'
@@ -260,6 +261,78 @@ module Admin
 
         embed t('cfg.blacklist.clear.success', count)
 
+      end
+
+    when 'starboard', 'sb'
+      subcmd = args.shift
+      case subcmd
+      when 'help', 'h', nil
+        Config.help_msg event, 'cfg starboard', %i[emoji minimum-reacts channel delete-msgs]
+      when 'emoji', 'e'
+        opt = args.shift
+        case opt
+        when 'show', 's'
+          embed t('cfg.starboard.emoji.show-opt', cfg.options['starboard-emoji'])
+        else
+          if event.message.emoji.first
+            unless event.message.emoji.first.server.id == event.server.id
+              embed t('cfg.starboard.emoji.cross-server')
+              break
+            end
+            cfg.options['starboard-emoji'] = event.message.emoji.first.name
+          elsif event.message.emoji?
+            cfg.options['starboard-emoji'] = opt
+          else
+            embed t('cfg.starboard.emoji.none-provided')
+            break
+          end
+          cfg.save!
+          embed t('cfg.starboard.success', opt)
+        end
+      when 'minimum-reacts', 'min', 'm'
+        opt = args.shift
+        case opt
+        when 'show', 's'
+          embed t('cfg.starboard.minimum-reacts.show-opt', cfg.options['starboard-minimum'])
+        else
+          unless opt.to_i.positive?
+            embed t('cfg.starboard.minimum-reacts.too-low')
+            break
+          end
+          cfg.options['starboard-minimum'] = opt.to_i
+          cfg.save!
+          embed t('cfg.starboard.success', opt)
+        end
+      when 'channel', 'c'
+        opt = args.shift
+        case opt
+        when 'show', 's'
+          embed t('cfg.starboard.channel.show-opt', format('<#%s>', cfg.options['starboard-channel']))
+        else
+          unless opt
+            embed t('cfg.starboard.channel.invalid-channel')
+            break
+          end
+          channel = event.bot.channel(opt)
+          cfg.options['starboard-channel'] = channel.id
+          cfg.save!
+          embed t('cfg.starboard.channel.success', channel.mention)
+        end
+      when 'delete-messages', 'delete', 'd'
+        opt = args.shift
+        case opt
+        when 'show', 's'
+          if cfg.options['starboard-delete']
+            embed t('cfg.starboard.delete.enabled')
+          else
+            embed t('cfg.starboard.delete.disabled')
+          end
+        else
+          bool = ActiveModel::Type::Boolean.new.cast(opt)
+          cfg.options['starboard-delete'] = bool
+          cfg.save!
+          embed t('cfg.starboard.success', bool)
+        end
       end
 
     when 'misc', 'm'
