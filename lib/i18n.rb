@@ -8,11 +8,9 @@ I18n.default_locale = :en
 I18n.fallbacks = [:en]
 
 def t(tid, *fields)
-  begin
-    I18n.translate!(tid) % fields
-  rescue I18n::MissingTranslationData
-    "#{I18n.translate(tid)} #{fields.inspect}"
-  end
+  I18n.translate!(tid) % fields
+rescue I18n::MissingTranslationData
+  "#{I18n.translate(tid)} #{fields.inspect}"
 end
 
 def embed(text = nil, target: nil)
