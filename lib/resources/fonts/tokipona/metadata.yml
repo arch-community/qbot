@@ -5,6 +5,7 @@ fonts:
     creator: jan Inkepa (Stephen Lavelle)
     license: CC0 (public domain)
     source: https://web.archive.org/web/20200908080325/https://github.com/increpare/linja_pimeja/releases
+    glyph_style: :brackets
   
   - filename: linja-pona-4.2.otf
     typeface: linja pona 4.2
@@ -12,6 +13,7 @@ fonts:
     creator: jan Same, David A Roberts
     license: SIL OFL v1.1
     source: https://github.com/davidar/linja-pona
+    glyph_style: :cartouche
   
   - filename: linja-sike-beta-2-for-u.otf
     typeface: linja sike
@@ -19,6 +21,7 @@ fonts:
     creator: jan Same, David A Roberts, jan Lipamanka
     license: SIL OFL v1.1
     source: https://wyub.github.io/tokipona/linjasike
+    glyph_style: :cartouche
   
   - filename: linjasuwi.otf
     typeface: linja suwi
@@ -26,6 +29,7 @@ fonts:
     creator: jan Ana (Anna Kudriavtsev)
     license: SIL OFL v1.1
     source: https://github.com/anna328p/linjasuwi
+    glyph_style: :brackets
   
   - filename: PuLukin.otf
     typeface: PuLukin
@@ -33,6 +37,7 @@ fonts:
     creator: Green Guy (ZacStan)
     license: requires attribution (link to github)
     source: https://github.com/ZacStan/OKepekenELinjaPiPuLukin
+    glyph_style: :brackets
   
   - filename: sitelen-pona-pona.otf
     typeface: sitelen-pona
@@ -40,6 +45,7 @@ fonts:
     creator: Jack Humbert
     license: SIL OFL v1.1
     source: https://github.com/jackhumbert/sitelen-pona-pona
+    glyph_style: :brackets
   
   - filename: Sitelen Sans 3.otf
     typeface: Sitelen Sans
@@ -47,6 +53,7 @@ fonts:
     creator: Echo Heo (bluemon_)
     license: public domain
     source: https://drive.google.com/file/d/1Kq34udEr2UBd7MpoSEn3G5c-C69ltaKG/view
+    glyph_style: :none
   
   - filename: sitelen_telo_1.01.otf
     typeface: sitelen telo
@@ -54,3 +61,4 @@ fonts:
     creator: Wilhelm Su (efofecks)
     license: SIL OFL v1.1
     source: https://drive.google.com/drive/folders/1KDVbtq8_GaC2DqOUrb10IXlVgp7DJIJi
+    glyph_style: :brackets
