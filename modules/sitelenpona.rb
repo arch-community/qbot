@@ -61,27 +61,52 @@ module Sitelenpona
     text
   end
 
-  command :sp, {
-    help_available: true,
-    usage: '.sp <text>',
-    min_args: 1
-  } do |event, _|
+  def self.safe_text(event)
     msg = event.message
     text = replace_all(
       strip_command(msg.text, event.command.name),
       msg.mentions,
       glyph_style(msg.author)
     )
-    p text
 
-    sanitized = Rails::Html::FullSanitizer.new.sanitize(text)
+    Rails::Html::FullSanitizer.new.sanitize(text)
+  end
+
+  command :sp, {
+    help_available: true,
+    usage: '.sp <text>',
+    min_args: 1
+  } do |event, _|
+    text = safe_text(event)
 
     filename = "#{event.author.id}.png"
     file = ImageStringIO.new(
-      SPGen.draw_text(sanitized, **get_opts(event.author)),
+      SPGen.draw_text(text, **get_opts(event.author)),
       path: filename
     )
 
     event.send_file(file)
+  end
+
+  command :sppreview, {
+    help_available: true,
+    usage: '.sppreview <text>',
+    min_args: 1
+  } do |event, _|
+    text = safe_text(event)
+    opts = get_opts(event.author)
+
+    SPGen.font_metadata.each do |font|
+      opts[:font] = font[:typeface]
+      filename = "#{event.author.id}.png"
+      file = ImageStringIO.new(
+        SPGen.draw_text(text, **opts),
+        path: filename
+      )
+
+      event.send_file(file)
+    end
+
+    nil
   end
 end
