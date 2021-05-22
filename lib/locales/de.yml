@@ -204,7 +204,7 @@ de:
         reset: 'Setze die Sprache züruck auf English'
 
       list:
-        title: 'Verfügbare Srachen'
+        title: 'Verfügbare Sprachen'
 
       set:
         not-found: 'Sprache `%s` nicht gefunden.'
