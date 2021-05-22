@@ -53,7 +53,7 @@ module ColorLib
     x, y, z = xyz.map { _1 * 100 }
     xn, yn, zn = D65
 
-    l = 116 * scale_f(y / yn) - 16
+    l = 116 *  scale_f(y / yn) - 16
     a = 500 * (scale_f(x / xn) - scale_f(y / yn))
     b = 200 * (scale_f(y / yn) - scale_f(z / zn))
 
@@ -67,7 +67,7 @@ module ColorLib
     p = (l + 16) / 116.0
 
     x = xn * (p + a / 500.0)**3
-    y = yn * p**3
+    y = yn *  p**3
     z = zn * (p - b / 200.0)**3
 
     [x, y, z].map { _1 / 100.0 }
