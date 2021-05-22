@@ -90,7 +90,7 @@ module Arch
     ordered_results = sort_results(res, query)
 
     # Embed the search results
-    embed do
+    embed do |m|
       m.title = t('arch.ps.title', query)
       m.fields = ordered_results.first(5).map do |r|
         ver = r['pkgver']
