@@ -228,12 +228,12 @@ en:
         help:
           show: 'display your current foreground color'
           set: 'change your foreground color'
-          show: 'reset your foreground color'
+          reset: 'reset your foreground color to default'
       bgcolor:
         help:
           show: 'display your current background color'
           set: 'change your background color'
-          show: 'reset your background color to default'
+          reset: 'reset your background color to default'
 
       color:
         show: 'Your current %s is %s.'
