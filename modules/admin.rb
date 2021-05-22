@@ -28,6 +28,8 @@ module Admin
     usage: '.modules',
     min_args: 0, max_args: 0
   } do |e|
+    scfg = ServerConfig[e.server.id]
+
     embed do |m|
       m.title = t('admin.modules.title')
       m.fields = [
@@ -36,10 +38,14 @@ module Admin
           value: QBot.config.global.modules.join(', ')
         }
       ]
-      if QBot.config.servers[e.server.id]&.modules
+      if scfg.modules
         m.fields << {
           name: t('admin.modules.local'),
-          value: Config[e.server.id].modules
+          value: if scfg.all_modules?
+                   scfg.modules.join(', ')
+                 else
+                   t('admin.modules.all_on')
+                 end
         }
       end
     end

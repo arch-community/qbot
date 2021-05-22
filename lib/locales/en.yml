@@ -66,6 +66,7 @@ en:
       title: 'Loaded modules'
       global: 'Global'
       local: 'Local'
+      all_on: 'All enabled'
 
   arch:
     wiki:

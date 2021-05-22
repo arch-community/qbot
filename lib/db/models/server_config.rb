@@ -31,8 +31,16 @@ class ServerConfig < ActiveRecord::Base
     pfx
   end
 
+  def all_modules?
+    modules_conf['disabled'].empty?
+  end
+
   def modules
     global = QBot.config.global.modules
     global - modules_conf['disabled']
+  end
+
+  def disabled_modules
+    modules_conf['disabled']
   end
 end
