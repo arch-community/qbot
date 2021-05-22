@@ -1,6 +1,6 @@
 { stdenv, lib, symlinkJoin, makeWrapper
 , pkg-config, git
-, ruby_3_0, bundler, bundix, defaultGemConfig, bundlerEnv
+, ruby_3_0, ruby_2_7, bundler, bundix, defaultGemConfig, bundlerEnv
 , libsodium, libopus, ffmpeg, youtube-dl
 , imagemagick7, pango
 , sqlite, zlib, shared-mime-info, libxml2, libiconv
@@ -9,7 +9,7 @@
 let
   ruby' = ruby_3_0;
 
-  bundler' = bundler.override { ruby = ruby'; };
+  bundler' = bundler.override { ruby = ruby_2_7; };
 
   bundix' = bundix.override { bundler = bundler'; };
 
@@ -59,7 +59,8 @@ in stdenv.mkDerivation rec {
   buildInputs = [
     env bundix' git
     sqlite libxml2 zlib.dev zlib libiconv
-    libopus libsodium ffmpeg youtube-dl
+    libopus libsodium
+    ffmpeg youtube-dl
     imagemagick7'
   ];
 

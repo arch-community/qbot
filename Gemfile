@@ -12,7 +12,7 @@ group :default do
   gem 'discordrb-webhooks',
       github: 'anna328p/discordrb',
       branch: 'main',
-      ref: '9ccbda50c00f47d4c3a672c990001c6a49d2982e'
+      ref: '4de9fa6b1853ca3fb7ba321a86712b39b9716c87'
   gem 'rbnacl'
 
   gem 'i18n',

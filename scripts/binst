@@ -1,5 +1,7 @@
 BA="--ruby=ruby_3_0"
 
+rm -rf vendor
+rm -rf .bundle
 bundix $BA -l
 bundix $BA -m
 direnv reload
