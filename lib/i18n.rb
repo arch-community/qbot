@@ -3,11 +3,17 @@
 I18n::Backend::Simple.include I18n::Backend::Fallbacks
 
 I18n.load_path << Dir["#{File.expand_path('lib/locales')}/*.yml"]
-I18n.config.available_locales = %i[en tp en_kawaii]
+I18n.config.available_locales = %i[en tp en_kawaii de]
 I18n.default_locale = :en
 I18n.fallbacks = [:en]
 
-def t(tid, *fields) = I18n.t(tid) % fields
+def t(tid, *fields)
+  begin
+    I18n.translate!(tid) % fields
+  rescue I18n::MissingTranslationData
+    "#{I18n.translate(tid)} #{fields.inspect}"
+  end
+end
 
 def embed(text = nil, target: nil)
   target ||= QBot.bot.embed_target
