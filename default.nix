@@ -65,7 +65,7 @@ in stdenv.mkDerivation rec {
   ];
 
   LD_LIBRARY_PATH = lib.makeLibraryPath [ libsodium libopus ];
-  FONTCONFIG_FILE = "${src}/lib/resources/tokipona/fc-config.xml";
+  FONTCONFIG_FILE = "${src}/lib/resources/fc-config.xml";
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}

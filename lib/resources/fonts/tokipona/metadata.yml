@@ -1,0 +1,56 @@
+fonts:
+  - filename: linjapimeja19.ttf
+    typeface: linja pimeja
+    version: 19
+    creator: jan Inkepa (Stephen Lavelle)
+    license: CC0 (public domain)
+    source: https://web.archive.org/web/20200908080325/https://github.com/increpare/linja_pimeja/releases
+  
+  - filename: linja-pona-4.2.otf
+    typeface: linja pona 4.2
+    version: 4.2
+    creator: jan Same, David A Roberts
+    license: SIL OFL v1.1
+    source: https://github.com/davidar/linja-pona
+  
+  - filename: linja-sike-beta-2-for-u.otf
+    typeface: linja sike
+    version: beta 2
+    creator: jan Same, David A Roberts, jan Lipamanka
+    license: SIL OFL v1.1
+    source: https://wyub.github.io/tokipona/linjasike
+  
+  - filename: linjasuwi.otf
+    typeface: linja suwi
+    version: 1.221
+    creator: jan Ana (Anna Kudriavtsev)
+    license: SIL OFL v1.1
+    source: https://github.com/anna328p/linjasuwi
+  
+  - filename: PuLukin.otf
+    typeface: PuLukin
+    version: 1.0
+    creator: Green Guy (ZacStan)
+    license: requires attribution (link to github)
+    source: https://github.com/ZacStan/OKepekenELinjaPiPuLukin
+  
+  - filename: sitelen-pona-pona.otf
+    typeface: sitelen-pona
+    version: 0.1
+    creator: Jack Humbert
+    license: SIL OFL v1.1
+    source: https://github.com/jackhumbert/sitelen-pona-pona
+  
+  - filename: Sitelen Sans 3.otf
+    typeface: Sitelen Sans
+    version: 1.00
+    creator: Echo Heo (bluemon_)
+    license: public domain
+    source: https://drive.google.com/file/d/1Kq34udEr2UBd7MpoSEn3G5c-C69ltaKG/view
+  
+  - filename: sitelen_telo_1.01.otf
+    typeface: sitelen telo
+    version: 1.01
+    creator: Wilhelm Su (efofecks)
+    license: SIL OFL v1.1
+    source: https://drive.google.com/drive/folders/1KDVbtq8_GaC2DqOUrb10IXlVgp7DJIJi
