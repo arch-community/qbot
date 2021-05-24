@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: 359326e8743c6eaa8add263de9edbb6c945ff95d
+  revision: 53fc85f71d895bf681f0b35f6eb4d34826481a8d
   branch: main
   specs:
     discordrb (3.4.2)
@@ -64,7 +64,7 @@ GEM
       http-cookie (~> 1.0.0)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.15.0)
+    ffi (1.15.1)
     gems (1.2.0)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
