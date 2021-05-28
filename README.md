@@ -9,6 +9,8 @@
 
 ---
 
+<a href="https://fosshost.org"><img src="lib/resources/fosshost.org_Host_Dark.png" height="100px" alt="Hosted on Fosshost"/></a>
+
 qbot is the bot used by the [unofficial Arch Linux community][1] on Discord.
 Originally its only function was to manage support channels, but it has evolved
 to do much more.
