@@ -130,8 +130,8 @@
     platforms = [];
     source = {
       fetchSubmodules = false;
-      rev = "359326e8743c6eaa8add263de9edbb6c945ff95d";
-      sha256 = "1bgrydlv1lki372kbbhlcmhn49b858kq3flgbl4x909mg9cz43l9";
+      rev = "79fe7eeba79780164bbc4155cba32e778efc8f99";
+      sha256 = "1kplsvzscld22kphjhmzw1chq7z9hqx0nxrpzgry78dlhyvxmfi4";
       type = "git";
       url = "https://github.com/shardlab/discordrb.git";
     };
@@ -220,10 +220,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0nq1fb3vbfylccwba64zblxy96qznxbys5900wd7gm9bpplmf432";
+      sha256 = "15nn2v70rql15vb0pm9cg0f3xsaslwjkv6xgz0k5jh48idmfw9fi";
       type = "gem";
     };
-    version = "1.15.0";
+    version = "1.15.1";
   };
   gems = {
     groups = ["default"];
@@ -517,10 +517,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0xg1x4708a4pn2wk8qs2d8kfzzdyv9kjjachg2f1phsx62ap2rx2";
+      sha256 = "1ad0mli9rc0f17zw4ibp24dbj1y39zkykijsjmnzl4gwpg5s0j6k";
       type = "gem";
     };
-    version = "2.5.1";
+    version = "2.5.3";
   };
   minitest = {
     groups = ["default"];
@@ -588,10 +588,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1i80ny61maqzqr1fq5wgpkijmh5j8abisrmhn16kv7mzmxqg5w0m";
+      sha256 = "1vrn31385ix5k9b0yalnlzv360isv6dincbcvi8psllnwz4sjxj9";
       type = "gem";
     };
-    version = "1.11.5";
+    version = "1.11.7";
   };
   open_uri_redirections = {
     groups = ["default"];
@@ -818,10 +818,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1xhay8qn3p5f3g6x8i6zh372zk5w2wjrv9dksysxal1r5brkly1w";
+      sha256 = "0ijpwsxw05b31c2djs6jj68j1nchnc61h7wfnd524jpkhw8lsg12";
       type = "gem";
     };
-    version = "1.15.0";
+    version = "1.16.0";
   };
   rubocop-ast = {
     dependencies = ["parser"];
@@ -829,10 +829,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0hx4im1a2qpiwipvsl3fma358ixjp4h0mhj56ichq15xrq709qlf";
+      sha256 = "1hnrfy928mwpa0ippqs4s8xwghwwp5h853naphgqxcd53l33chlv";
       type = "gem";
     };
-    version = "1.5.0";
+    version = "1.7.0";
   };
   rubocop-checkstyle_formatter = {
     dependencies = ["rubocop"];
