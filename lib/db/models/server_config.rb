@@ -24,7 +24,7 @@ class ServerConfig < ActiveRecord::Base
     pfx = prefix.to_s
 
     if prefix.nil?
-      self.prefix = QBot.config.global.prefix || '.'
+      self.prefix = QBot.config.default_prefix || '.'
       save!
     end
 
@@ -36,7 +36,7 @@ class ServerConfig < ActiveRecord::Base
   end
 
   def modules
-    global = QBot.config.global.modules
+    global = QBot.config.modules
     global - modules_conf['disabled']
   end
 

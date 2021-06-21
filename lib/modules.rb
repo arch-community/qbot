@@ -21,7 +21,7 @@ module Modules
   end
 
   def self.load_all
-    QBot.config.global.modules.each do
+    QBot.config.modules.each do
        load_module _1
     end
   end

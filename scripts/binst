@@ -4,7 +4,7 @@ rm -rf vendor
 rm -rf .bundle
 bundix $BA -l
 bundix $BA -m
-direnv reload
 bundle install
+direnv reload
 
 # vim: ft=bash

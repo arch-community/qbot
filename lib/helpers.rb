@@ -67,3 +67,9 @@ end
 
 def to_emoji(num) =
   [num.to_s.ord, 65_039, 8_419].map { _1.chr(Encoding::UTF_8) }.join
+
+def num?(str)
+  Integer(str, 10) && true
+rescue ArgumentError, TypeError
+  false
+end

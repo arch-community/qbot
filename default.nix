@@ -57,7 +57,7 @@ in stdenv.mkDerivation rec {
     ./.;
 
   buildInputs = [
-    env bundix' git
+    env bundix' git pkg-config
     sqlite libxml2 zlib.dev zlib libiconv
     libopus libsodium
     ffmpeg youtube-dl
@@ -66,6 +66,7 @@ in stdenv.mkDerivation rec {
 
   LD_LIBRARY_PATH = lib.makeLibraryPath [ libsodium libopus ];
   FONTCONFIG_FILE = "${src}/lib/resources/fc-config.xml";
+  FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
 
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}

@@ -7,6 +7,9 @@ require 'yaml'
 require 'digest'
 require 'uri'
 require 'open-uri'
+require 'zlib'
+require 'rubygems/package'
+require 'fileutils'
 
 def require_libs(libs) = libs.each { require_relative "lib/#{_1}" }
 
@@ -23,6 +26,7 @@ require_libs %w[
   tpdict
   sitelenpona
   tio
+  pkgsearch
   breaking_wrap
   modules
   cli

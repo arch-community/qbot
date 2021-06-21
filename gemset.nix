@@ -562,16 +562,6 @@
     };
     version = "2.1.1";
   };
-  narray = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1drn8bfp0gyk21lg4sy2hqrnr3f5zsb153h56j00wmx154ci1gvk";
-      type = "gem";
-    };
-    version = "0.6.1.2";
-  };
   netrc = {
     groups = ["default"];
     platforms = [];
@@ -655,6 +645,19 @@
     };
     version = "3.0.1.1";
   };
+  picky = {
+    dependencies = ["activesupport" "multi_json" "rack_fast_escape"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      fetchSubmodules = false;
+      rev = "7c513f045db23a7d834a6735dea83acf04599659";
+      sha256 = "0994zwdiv7xrmhavah3nh0ph8s7gqqv1hq7xqdvswx3ixr5ifl6p";
+      type = "git";
+      url = "https://github.com/floere/picky.git";
+    };
+    version = "4.31.3";
+  };
   pluralkit-api = {
     dependencies = ["typhoeus"];
     groups = ["default"];
@@ -685,6 +688,27 @@
       type = "gem";
     };
     version = "1.5.2";
+  };
+  rack = {
+    groups = ["default" "development"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0i5vs0dph9i5jn8dfc6aqd6njcafmb20rwqngrf759c9cvmyff16";
+      type = "gem";
+    };
+    version = "2.2.3";
+  };
+  rack_fast_escape = {
+    dependencies = ["url_escape"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0nlsygn1s2pmpl328r3rm7rwl2m4va8wwmvn36khf6px1ri4gry6";
+      type = "gem";
+    };
+    version = "2009.06.24";
   };
   rails-html-sanitizer = {
     dependencies = ["loofah"];
@@ -818,10 +842,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0ijpwsxw05b31c2djs6jj68j1nchnc61h7wfnd524jpkhw8lsg12";
+      sha256 = "16kj6nmb6nf9vw6xv21c39s8giaav5w11gymy058k6r4wybyn3zx";
       type = "gem";
     };
-    version = "1.16.0";
+    version = "1.16.1";
   };
   rubocop-ast = {
     dependencies = ["parser"];
@@ -844,6 +868,16 @@
       type = "gem";
     };
     version = "0.4.0";
+  };
+  ruby-prof = {
+    groups = ["default" "development"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1r3xalp91l07m0cwllcxjzg6nkviiqnxkcbgg5qnzsdji6rgy65m";
+      type = "gem";
+    };
+    version = "1.4.3";
   };
   ruby-progressbar = {
     groups = ["default" "development"];
@@ -918,17 +952,6 @@
       type = "gem";
     };
     version = "0.6.0";
-  };
-  tf-idf-similarity = {
-    dependencies = ["unicode_utils"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1vghkjx91g86rd8l7r86d1khd1nlyhg6fa6qym5g8hhid7x3rpxq";
-      type = "gem";
-    };
-    version = "0.2.0";
   };
   thor = {
     groups = ["default"];
@@ -1034,15 +1057,15 @@
     };
     version = "2.0.0";
   };
-  unicode_utils = {
+  url_escape = {
     groups = ["default"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0h1a5yvrxzlf0lxxa1ya31jcizslf774arnsd89vgdhk4g7x08mr";
+      sha256 = "07mmmawpg8azikbq32y6wqbwwblfdbn5h4iz3zj59a50pdryiif8";
       type = "gem";
     };
-    version = "1.4.0";
+    version = "2009.06.24";
   };
   webrick = {
     groups = ["default"];

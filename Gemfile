@@ -42,9 +42,10 @@ group :default do
 
   # Arch
   gem 'mediawiki_api'
-  gem 'narray'
   gem 'rss'
-  gem 'tf-idf-similarity'
+
+  # Search
+  gem 'picky', github: 'floere/picky'
 
   # Music
   gem 'google-api-client',
@@ -87,5 +88,9 @@ group :default, :development do
   # linting
   gem 'rubocop', require: false
   gem 'rubocop-checkstyle_formatter', require: false
+
+  # profiling
+  gem 'rack'
+  gem 'ruby-prof'
 end
 # rubocop: enable Metrics/BlockLength
