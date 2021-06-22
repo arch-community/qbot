@@ -11,6 +11,7 @@ require 'open-uri'
 def require_libs(libs) = libs.each { require_relative "lib/#{_1}" }
 
 require_libs %w[
+  version
   globals
   options
   patches
@@ -29,5 +30,4 @@ require_libs %w[
   init
 ]
 
-QBot.version = '7.11.0'
 QBot.run!
