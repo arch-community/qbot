@@ -845,6 +845,17 @@
     };
     version = "0.4.0";
   };
+  ruby-graphviz = {
+    dependencies = ["rexml"];
+    groups = ["default" "development"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "010m283gk4qgzxkgrldlnrglh8d5fn6zvrzm56wf5abd7x7b8aqw";
+      type = "gem";
+    };
+    version = "1.2.5";
+  };
   ruby-progressbar = {
     groups = ["default" "development"];
     platforms = [];

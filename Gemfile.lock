@@ -193,6 +193,8 @@ GEM
       parser (>= 3.0.1.1)
     rubocop-checkstyle_formatter (0.4.0)
       rubocop (>= 0.35.1)
+    ruby-graphviz (1.2.5)
+      rexml
     ruby-progressbar (1.11.0)
     ruby_figlet (0.6.1)
     scribe (0.2.4)
@@ -262,6 +264,7 @@ DEPENDENCIES
   rss
   rubocop
   rubocop-checkstyle_formatter
+  ruby-graphviz
   ruby_figlet
   soundcloud
   sqlite3

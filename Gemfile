@@ -46,21 +46,6 @@ group :default do
   gem 'rss'
   gem 'tf-idf-similarity'
 
-  # Music
-  gem 'google-api-client',
-      require: [
-        'google/apis',
-        'google/apis/youtube_v3',
-        'googleauth',
-        'googleauth/stores/file_token_store'
-      ]
-
-  gem 'soundcloud'
-
-  gem 'youtube-dl.rb',
-      github: 'AllanKlaus/youtube-dl.rb',
-      branch: 'update-youtube-dl-2020-09-20'
-
   # figlet
   gem 'ruby_figlet'
 
@@ -87,5 +72,9 @@ group :default, :development do
   # linting
   gem 'rubocop', require: false
   gem 'rubocop-checkstyle_formatter', require: false
+
+  # visualization
+  gem 'bundle-viz'
+  gem 'ruby-graphviz'
 end
 # rubocop: enable Metrics/BlockLength

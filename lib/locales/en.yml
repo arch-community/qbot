@@ -25,17 +25,6 @@ en:
     openqueries: 'Lists open queries'
     closequery: 'Closes a query by ID'
 
-    join: 'Joins the voice channel'
-    play: 'Plays music from a URL'
-    yt: 'Searches YouTube for a video to play'
-    pause: 'Pauses the audio'
-    resume: 'Resumed paused audio'
-    stop: 'Stops playback'
-    skip: 'Skips the current track'
-    volume: 'Sets the bot volume for this server'
-    seek: 'Skips forward a few seconds'
-    np: 'Shows the currently playing track'
-
     eval: 'Evaluates some code. Owner-only.'
     modules: 'Shows a list of currently loaded modules'
 
@@ -116,20 +105,6 @@ en:
     valid-params: 'Accepted parameters'
     list-title: 'List of commands'
     not-found: "The command `%s` does not exist."
-
-  music:
-    join:
-      success: 'Successfully joined the channel %s!'
-      not-in-voice: 'You are not in a voice channel!'
-    play:
-      downloading: 'Downloading...'
-      success: 'Added **%s** to the queue.'
-    yt:
-      results-title: 'Search results for %s'
-      ping-with-number: 'To choose a result, ping the bot with its number.'
-    np:
-      title: 'Now playing'
-      nothing: 'Nothing'
 
   polls:
     cross-server: 'That channel is on a different server.'

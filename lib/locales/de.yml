@@ -25,17 +25,6 @@ de:
     openqueries: 'Zeigt alle offenen Abfragen an'
     closequery: 'Schließt eine Abfrage mit einer ID'
 
-    join: 'Tritt dem Voicechannel bei'
-    play: 'Spielt Musik von einer URL'
-    yt: 'Durchsucht YouTube nach einem Video zum spielen'
-    pause: 'Pausiert die Wiedergabe'
-    resume: 'Setzt die Wiedergabe fort'
-    stop: 'Stoppt die Wiedergabe'
-    skip: 'Überpringt das aktuelle Lied'
-    volume: 'Setzt die Lautstärke des Bots'
-    seek: 'Springt zu einer Stelle im Lied'
-    np: 'Zeigt das Lied, welches gerade spielt'
-
     eval: 'Führt code aus. Nur vom Botinhaber ausführbar.'
     modules: 'Zeigt eine Liste aller geladenen Module'
 
@@ -115,20 +104,6 @@ de:
     valid-params: 'Akzeptierte Parameter'
     list-title: 'Befehle'
     not-found: "Den Befehl `%s` gibt es nicht."
-
-  music:
-    join:
-      success: 'Erfolgreich **%s** beigetreten!'
-      not-in-voice: 'Du ist nicht in einem Voicechannel!'
-    play:
-      downloading: 'Lade herunter...'
-      success: '**%s** erfolgreich zur Warteschlange hinzugefügt.'
-    yt:
-      results-title: 'Ergebnisse für **%s**'
-      ping-with-number: 'Pinge den Bot mit einer Nummer um eines der Ergebnisse auszuwählen.'
-    np:
-      title: 'Jetzt läuft gerade'
-      nothing: 'nichts'
 
   polls:
     cross-server: 'Dieser Textchannel befindet sich auf einem anderen Server...'

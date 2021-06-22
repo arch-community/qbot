@@ -39,7 +39,6 @@ modules:
   - colors
   - figlet
   - help
-  - music
   - queries
   - roles
   - snippets

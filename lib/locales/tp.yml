@@ -20,17 +20,6 @@ tp:
     openqueries: 'lukin e wile sona ale lon lipu'
     closequery: 'weka e wile sona tan lipu'
 
-    join: 'tawa e ilo tawa tomo pi toki uta'
-    play: 'pana e kalama musi linluwi tawa tomo pi toki uta'
-    yt: 'pana e kalama musi tan lipu Jutu tawa tomo pi toki uta'
-    pause: 'pake e kalama'
-    resume: 'awen sin e kalama'
-    stop: 'weka e kalama ale tan ilo'
-    skip: 'weka e kalama ni tan ilo'
-    volume: 'ante e wawa kalama'
-    seek: 'ante e tenpo musi lon kalama musi'
-    np: 'pana e sona pi kalama musi ni'
-
     eval: 'pali sama toki ilo ni'
     modules: 'pana e kulupu ale pi nimi wawa'
 
@@ -111,20 +100,6 @@ tp:
     valid-params: 'nasin ken'
     list-title: 'nimi pali ale'
     not-found: 'nimi pali `%s` li lon ala.'
-
-  music:
-    join:
-      success: 'ilo li lon sin tomo pi toki uta %s.'
-      not-in-voice: 'sina lon ala tomo pi toki uta.'
-    play:
-      downloading: 'ilo li kama jo e kalama...'
-      success: 'kalama sin **%s** li ken kama kalama.'
-    yt:
-      results-title: 'kalama sama %s'
-      ping-with-number: 'sina wile kute e kalama la, o toki e nimi ilo en nanpa ona.'
-    np:
-      title: 'kalama lon tenpo ni:'
-      nothing: 'kalama ala'
 
   polls:
     cross-server: 'tomo toki ni li lon kulupu ante.'

@@ -22,17 +22,6 @@ en_kawaii:
     openqueries: "See the questions asked by my other friends! (⌣́_⌣̀) I can't help but maybe you can!"
     closequery: "Pwease answer the question before you close it (◕﹏◕)"
 
-    join: "Have me join the voice channel you're in so we can all listen to music together! (^◡^)"
-    play: "Have me put on some music from a URL! Remember to donate waves (~^◡^)~"
-    yt: "I can search YouTube for a video to play for you guys"
-    pause: "Tell me to pause the song for now"
-    resume: "Tell me to resume the song again! \\\\(^◡^)/"
-    stop: "Turn off the speakers (◕⌓◕)"
-    skip: "Tell me to skip the current song (◕﹏◕)"
-    volume: "Tell me what volume to set the speakers to. Please don't set it to 1,000% (◕﹏◕)"
-    seek: "Tell me to skip forward a few seconds of the song"
-    np: "Here's what I'm playing for you guys right now!"
-
     eval: "Only my owner can do this (ﾉ>ڡ<)"
     modules: "Shows a list of what modules I have loaded right now!"
 
@@ -111,20 +100,6 @@ en_kawaii:
     valid-params: "Options I like (^◡^)"
     list-title: "Here's everything I can do!"
     not-found: "Sorry, I don't have `%s` (*\\_ \\_)人"
-
-  music:
-    join:
-      success: "I joined the voice channel %s!"
-      not-in-voice: "I can't join your voice channel if you aren't in one dummy!"
-    play:
-      downloading: "I'm downloading the song so we can all listen to it together!"
-      success: "Added **%s** to the song queue for later!"
-    yt:
-      results-title: "Here's what I found for %s! (^◡^)"
-      ping-with-number: "To choose one of these options, ping me with the option number!"
-    np:
-      title: "We're all listening to"
-      nothing: "Nothing (◕⌓◕)"
 
   polls:
     cross-server: "Sorry, I can't let you send it there because it's on a different server (*\\_ \\_)人"
