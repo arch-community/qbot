@@ -164,7 +164,7 @@ GEM
     rbnacl (7.1.1)
       ffi
     regexp_parser (2.1.1)
-    reline (0.2.5)
+    reline (0.2.6)
       io-console (~> 0.5)
     representable (3.1.1)
       declarative (< 0.1.0)
