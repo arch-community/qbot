@@ -58,7 +58,7 @@ module Admin
       when 'set'
         Config.save_prefix cfg, args.join(' ')
       when 'reset'
-        Config.save_prefix cfg, QBot.config.global.prefix || '.'
+        Config.save_prefix cfg, QBot.config.default_prefix || '.'
       end
 
     when 'colors', 'c'

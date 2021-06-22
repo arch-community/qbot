@@ -818,10 +818,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0ijpwsxw05b31c2djs6jj68j1nchnc61h7wfnd524jpkhw8lsg12";
+      sha256 = "16kj6nmb6nf9vw6xv21c39s8giaav5w11gymy058k6r4wybyn3zx";
       type = "gem";
     };
-    version = "1.16.0";
+    version = "1.16.1";
   };
   rubocop-ast = {
     dependencies = ["parser"];

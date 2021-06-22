@@ -119,6 +119,6 @@ module Arch
   end
 end
 
-if QBot.config.wiki_username && QBot.config.wiki_password
-  Arch.wiki_login(QBot.config.wiki_username, QBot.config.wiki_password)
+if QBot.config.arch.wiki.username && QBot.config.arch.wiki.password
+  Arch.wiki_login(QBot.config.arch.wiki.username, QBot.config.arch.wiki.password)
 end

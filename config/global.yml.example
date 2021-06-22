@@ -5,9 +5,16 @@ client_id: 1234
 # user ID of the owner, for .eval
 owner: 165998239273844736
 
-# credentials for the Arch wiki
-wiki_username: username
-wiki_password: password
+arch:
+  wiki:
+    username: ilovecats
+    password: meowmeow
+  mirror: https://mirrors.edge.kernel.org/archlinux/
+  repos:
+    - core
+    - extra
+    - community
+    - multilib
 
 database:
   # by default, sqlite3
@@ -23,31 +30,23 @@ database:
 # URL of the bot's git repo, used for .botrepo
 my_repo: https://github.com/anna328p/qbot
 
-# global configuration
-global:
-  # which modules to load into the bot
-  # and enable on all servers?
-  modules:
-    - admin
-    - arch
-    - blacklist
-    - colors
-    - figlet
-    - help
-    - music
-    - queries
-    - roles
-    - snippets
-    - quotes
-    - util
-    - xkcd
+# which modules to load into the bot
+# and enable on all servers?
+modules:
+  - admin
+  - arch
+  - blacklist
+  - colors
+  - figlet
+  - help
+  - music
+  - queries
+  - roles
+  - snippets
+  - quotes
+  - util
+  - xkcd
 
-  # default prefix
-  prefix: '.'
-
-  # global snippets, available on all servers
-  snippets:
-    - name: hello
-      text: Hello, world!
+default_prefix: '.'
 
 # vim: ft=yaml
