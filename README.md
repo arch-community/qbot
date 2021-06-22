@@ -22,8 +22,6 @@ Modules:
 - `colors` generates, manages, and assigns color roles.
 - `figlet` converts text to ASCII art.
 - `help` provides a help command that displays information about commands.
-- `music` is a fully functional music bot that uses youtube-dl to play audio
-  by URL. (Currently broken)
 - `queries` helps manage support channels using a database of support questions.
 - `snippets` lets users invoke configurable text snippets.
 - `quotes` lets users grab quotes from users and reference them.
