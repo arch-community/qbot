@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-class Query < ActiveRecord::Base; end
+class Query < BotRecord; end
