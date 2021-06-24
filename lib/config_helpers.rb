@@ -2,8 +2,6 @@
 
 # Config helpers
 module Config
-  def self.[](server_id) = ServerConfig[server_id]
-
   def self.help_msg(command, avail)
     cmd = prefixed command
     subcmds = subcommands(command, avail)

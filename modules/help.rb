@@ -15,7 +15,7 @@ module Help
       name = command.name
     end
 
-    if !command || !can_run(command.name, event)
+    if !command || !can_run?(command.name, event)
       embed t('help.not-found', name)
       return
     end
@@ -64,7 +64,7 @@ module Help
         !event.bot.send(:required_roles?, event.user, c.attributes[:required_roles]) ||
         !event.bot.send(:allowed_roles?, event.user, c.attributes[:allowed_roles]) ||
         !event.bot.send(:required_permissions?, event.user, c.attributes[:required_permissions], event.channel) ||
-        !can_run(c.name, event)
+        !can_run?(c.name, event)
     end
   end
   # rubocop: enable Metrics/AbcSize
