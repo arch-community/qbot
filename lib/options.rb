@@ -3,7 +3,7 @@
 require 'optparse'
 
 # CLI options for the bot
-module QBot
+module QBotOptions
   # This class holds the definitions and values of the options
   class Options
     attr_accessor :config_path, :state_dir, :no_console
@@ -56,13 +56,13 @@ module QBot
 
     def version_option(parser)
       parser.on_tail('-v', '--version', 'Show version') do
-        puts "QBot #{@version}"
+        puts "QBot #{QBOT_VERSION}"
         exit
       end
     end
   end
 
-  def self.parse_options(args)
+  def parse_options(args)
     @options = Options.new
     @args = OptionParser.new do |parser|
       @options.define_options(parser)

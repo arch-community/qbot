@@ -1,51 +1,53 @@
 # frozen_string_literal: true
 
-# rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-# rubocop: disable Metrics/PerceivedComplexity, Metrics/MethodLength
-
+##
 # QBot's command line interface
-module QBot
-  def self.run_cli
+module CLIRegistry
+  def cli_command(name, aliases: [], &block)
+    @cli_commands ||= {}
+    @cli_commands[name] = block
+    aliases.each { @cli_commands[_1] = block }
+  end
+
+  def run_cli
     while (buf = Reline.readline('% ', true))
-      cmd = buf.chomp.split
-      s = cmd.shift
+      cmd, *args = buf.chomp.split
 
-      next if !s || s == ''
+      found = cli_commands.select { _1.start_with? cmd }
 
-      # Stop the bot
-      if s.start_with? 'quit', 'stop'
-        @bot.stop
-        exit
-
-      # Reload the config from the default location
-      elsif s.start_with? 'rc', 'reload-config'
-        load_config
-
-      # Load or reload a module
-      elsif s.start_with? 'lm', 'load-module'
-        name = cmd.shift
-
-        begin
-          Modules.load_module name
-        rescue LoadError
-          puts "Module not found: #{name}"
-        end
-
-      # Restart the bot
-      elsif s.start_with? 'rs', 'restart'
-        @bot.stop
-        exec Gem.ruby, $PROGRAM_NAME
-
-      # Spin up an IRB session in the context of the bot
-      elsif s.start_with? 'irb'
-        binding.irb # rubocop: disable Lint/Debugger
-
-      else
+      if found.size > 1
+        puts 'Command ambiguous.'
+      elsif found.empty?
         puts 'Command not found'
-
+      else
+        instance_eval(block, *args)
       end
     end
   end
+
+  # Stop the bot
+  cli_command :stop, aliases: [:quit] do
+    stop
+    exit
+  end
+
+  # Reload the global bot config
+  cli_command 'reload-config', aliases: [:rc] do
+    load_config
+  end
+
+  cli_command 'load-module', aliases: [:lm] do |name|
+    load_module name
+  rescue LoadError
+    puts "Module not found: #{name}"
+  end
+
+  cli_command 'restart', aliases: [:rs] do
+    stop
+    exec Gem.ruby, $PROGRAM_NAME
+  end
+
+  cli_command :irb do
+    binding.irb # rubocop: disable Lint/Debugger
+  end
 end
-# rubocop: enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/MethodLength

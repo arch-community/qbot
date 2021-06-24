@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/colorlib'
+require_relative '../lib/colors'
 
 # Color role assignment
 module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
@@ -52,7 +52,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
       a = size * Math.cos(this_angle)
       b = size * Math.sin(this_angle)
 
-      ColorLib.lab_to_hex [l, a, b]
+      Colors.lab_to_hex [l, a, b]
     end
   end
   # rubocop: enable Naming/MethodParameterName
@@ -97,10 +97,10 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
   } do |event, color|
     colors, = Colors.get_colors(event)
 
-    labs = colors.sort_by(&:idx).map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6, '0') }
-    compare = ColorLib.hex_to_lab(color)
+    labs = colors.sort_by(&:idx).map { Colors.hex_to_lab _1.role.color.hex.rjust(6, '0') }
+    compare = Colors.hex_to_lab(color)
 
-    de = labs.map { ColorLib.cie76(compare, _1) }
+    de = labs.map { Colors.cie76(compare, _1) }
     min = de.each.with_index.min_by { |val, _idx| val }
 
     color = colors.find { _1.idx == min[1] }

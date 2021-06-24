@@ -12,13 +12,15 @@ def require_libs(libs) = libs.each { require_relative "#{__dir__}/lib/#{_1}" }
 
 require_libs %w[
   version
-  globals
-  options
-  patches
-  hooks
+  options patches
+  hook_registry config_registry modules cli_registry
+  qbot
+
+  hooks cli_commands
+
   db
   i18n
-  configuration
+  config_helpers
   helpers
   xkcd
   tpdict
@@ -26,9 +28,7 @@ require_libs %w[
   xsampa
   tio
   breaking_wrap
-  modules
-  cli
-  init
 ]
 
-QBot.run!
+qbot = QBot.instance
+qbot.run
