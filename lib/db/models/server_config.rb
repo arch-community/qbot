@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Helpers for the server config
-class ServerConfig < ActiveRecord::Base
+class ServerConfig < BotRecord
   # Cache config objects
   def self.[](server_id)
     # rubocop: disable Style/ClassVars
@@ -36,7 +36,7 @@ class ServerConfig < ActiveRecord::Base
   end
 
   def modules
-    global = QBot.config.modules
+    global = QBot.instance.all_modules
     global - modules_conf['disabled']
   end
 

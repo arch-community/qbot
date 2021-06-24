@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # User configuration table
-class UserConfig < ActiveRecord::Base
+class UserConfig < BotRecord
   # Cache config objects
   def self.[](uid)
     # rubocop: disable Style/ClassVars
