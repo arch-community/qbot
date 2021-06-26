@@ -8,92 +8,123 @@ module ConfigRegistry
   end
 
   ##
-  # A configuration handler attribute.
-  # Can either be a block (executed at command call) or a value (stored).
-  class HandlerAttr
-    def initialize(value = nil, &block)
-      if block_given?
-        @blk = block
-      end
-      @val = value
-    end
+  # Represents an option in the option tree. If it's a group, it contains sub-options.
+  Option = Struct.new(*%i[name type aliases default attrs])
 
-    def [](event, *args, **kwargs)
-      return val if val
-      return blk[event, *args, **kwargs] if blk
+  # valid types: %i[string integer snowflake bool group selection collection command]
+
+  ##
+  # Context used to store build state for a selection option.
+  SelectionContext = Struct.new(*%i[name limit key options default on_save])
+
+  ##
+  # Context used to store build state for a collection option.
+  CollectionContext = Struct.new(*%i[model ids key value format props]) do
+    # make props initialize to an array by default
+    def initialize(*)
+      super
+      self.props ||= []
     end
   end
 
   ##
+  # Stores a property of a collection option.
+  CollectionProperty = Struct.new(*%i[name type aliases default])
+
+  ##
   # Holds configuration options.
-  class OptionSet
+  class ConfigBuilder
     EMPTY = Object.new
 
-    attr_accessor :handlers
+    attr_accessor :options
 
     def initialize
-      @context = nil
+      @scope = :server
+      @context = []
       @group_stack = []
-      @handlers = {}
-
-      @db_opt = nil
-      @db_type = nil
+      @options = []
     end
 
-    def method_missing(name, value = EMPTY, &block)
-      if value == EMPTY && !block
-        instance_variable_get("@#{name}")
-      elsif block
-        instance_variable_set("@#{name}", block)
-      elsif value != empty
-        instance_variable_set("@#{name}", value)
+    # rubocop: disable Style/TrivialAccessors
+    def scope(arg)
+      @scope = arg
+    end
+    # rubocop: enable Style/TrivialAccessors
+
+    ##
+    # Adds an option to the current option scope.
+    def add_opt(option)
+      if (head = @group_stack.last)
+        head.attrs << option
+      else
+        @options << option
       end
     end
 
-    def respond_to_missing?(_, *)
-      true
+    def group(name, aliases: [], &block)
+      group = Option.new(name, :group, aliases, nil, [])
+      @group_stack.push(group)
+      instance_eval(&block) if block_given?
+
+      add_opt @group_stack.pop
     end
 
-    def group(name, &block)
-      @group_stack.push(name)
-      instance_eval(&block)
-      @group_stack.pop
+    def selection(name, aliases: [], &block)
+      @context = SelectionContext.new
+      instance_eval(&block) if block_given?
+
+      add_opt Option.new(name, :selection, aliases, nil, @context)
+      @context = nil
     end
 
-    def cmd(name, &block)
-      @handlers[[*@group_stack, name]] = HandlerAttr.new(&block)
-    end
-
-    def db(name, type, aliases: [], &block)
-      @db_opt = @group_stack.join('.') + name.to_s
-      @db_type = type
-      instance_eval(&block)
-
-      case type
-        when :selection
-        else
+    %i[string integer snowflake bool].each do |type|
+      define_method type do |name, aliases: [], default: nil, **kwargs|
+        @options << Option.new(name, type, aliases, default, kwargs)
       end
+    end
+
+    def collection(name, aliases: [], &block)
+      @context = CollectionContext.new
+      instance_eval(&block) if block_given?
+
+      add_opt Option.new(name, :collection, aliases, nil, @context)
+      @context = nil
+    end
+
+    def model(name)
+      @context.model = name
+    end
+
+    def id(*ids)
+      @context.ids = ids
+    end
+
+    def key(sym = nil, &block)
+      @context.key = block_given? ? block : sym
     end
 
     def default(val = nil, &block)
+      @context.default = block_given? ? block : val
     end
 
-    def options
+    def on_save(&block)
+      @context.on_save = block
     end
 
-    def allow
+    def value(sym)
+      @context.value = sym
     end
 
-    def base(obj = nil, &block)
-      @context = HandlerAttr.new(obj || nil, &block)
+    def prop(name, type, aliases: [], default: nil)
+      @context.props << CollectionProperty.new(name, type, aliases, default)
     end
 
-    def prop(name, type, aliases: [], default: [])
-      if @context
-        cmd :set do |event, value|
-          @context.send("#{name}=", value)
-        end
-      end
+    def format(&block)
+      @context.format = block if block_given?
+    end
+
+    def cmd(name, aliases: [], &block)
+      add_opt Option.new(name, :command, aliases, nil, &block)
     end
   end
 
@@ -101,9 +132,9 @@ module ConfigRegistry
   # Contains the method to register configuration.
   module ClassMethods
     def register_config(&block)
-      opts = OptionSet.new
+      opts = ConfigBuilder.new
       opts.instance_eval(&block)
-      pp opts.handlers
+      pp opts.options
     end
   end
 end
