@@ -2,7 +2,13 @@
 
 def formatted_name(user) = "#{user.name}##{user.discriminator}"
 
-def find_prefix(message) = ServerConfig[message.server.id].server_prefix
+def find_prefix(message)
+  if message.channel.pm?
+    QBot.config.default_prefix || '.'
+  else
+    ServerConfig[message.server.id].server_prefix
+  end
+end
 
 def prefixed(text) = "#{QBot.bot.current_prefix}#{text}"
 
