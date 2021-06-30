@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 def can_run(name, event)
+  # enable all modules if in a direct message
+  return true if event.channel.pm?
+
   m = ServerConfig[event.server.id].modules
 
   m.filter_map { _1.capitalize.constantize&.commands&.keys }.any? { _1.include? name }
