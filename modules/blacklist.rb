@@ -23,7 +23,7 @@ module Blacklist
 end
 
 QBot.bot.message do |event|
-  break if event.channel.pm?
+  next if event.channel.pm?
 
   sc = ServerConfig[event.server.id]
   if (event.author.id == QBot.bot.profile.id) ||
