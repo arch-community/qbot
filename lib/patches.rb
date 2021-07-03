@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 def can_run(name, event)
-  # enable all modules if in a direct message
-  return true if event.channel.pm?
-
-  m = ServerConfig[event.server.id].modules
+  m = if event.channel.pm?
+        # enable all modules if in a direct message except for the ones that don't work
+        QBot.config.modules - %w[blacklist colors polls queries snippets]
+      else
+        ServerConfig[event.server.id].modules
+      end
 
   m.filter_map { _1.capitalize.constantize&.commands&.keys }.any? { _1.include? name }
 end
