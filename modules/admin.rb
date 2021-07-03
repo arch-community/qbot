@@ -28,7 +28,11 @@ module Admin
     usage: '.modules',
     min_args: 0, max_args: 0
   } do |e|
-    scfg = ServerConfig[e.server.id]
+    scfg = if e.channel.pm?
+             nil
+           else
+             ServerConfig[e.server.id]
+           end
 
     embed do |m|
       m.title = t('admin.modules.title')
@@ -38,13 +42,15 @@ module Admin
           value: QBot.config.modules.join(', ')
         }
       ]
-      if scfg.modules
+      unless scfg.nil?
         m.fields << {
           name: t('admin.modules.local'),
           value: if scfg.all_modules?
-                   scfg.modules.join(', ')
-                 else
                    t('admin.modules.all_on')
+                 elsif scfg.modules.empty?
+                   t('admin.modules.none')
+                 else
+                   scfg.modules.join(', ')
                  end
         }
       end
