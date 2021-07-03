@@ -40,7 +40,6 @@ modules:
   - figlet
   - help
   - queries
-  - roles
   - snippets
   - quotes
   - util

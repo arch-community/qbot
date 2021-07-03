@@ -119,8 +119,6 @@ en_kawaii:
       success: "I removed query #%s! I hope their answer was solved (^◡^)"
       no-perms: "Sorry! I can't let you delete query #%s. (*\\_ \\_)人"
 
-  roles:
-
   snippets:
     list:
       none-found: "Looks like I forgot to write anything down (ﾉ>ڡ<)"

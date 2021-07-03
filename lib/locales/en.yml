@@ -125,8 +125,6 @@ en:
       success: 'Deleted query #%s.'
       no-perms: 'You do not have permission to delete query #%s.'
 
-  roles:
-
   snippets:
     list:
       none-found: 'No available snippets.'
