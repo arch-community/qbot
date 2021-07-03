@@ -1,5 +1,6 @@
 en:
   no_perms: 'You do not have the required permissions to perform this action.'
+  no_dm: 'This command cannot be used in a direct message.'
 
   descriptions:
     help: 'Shows a list of all available commands or displays help for a specific command'

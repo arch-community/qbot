@@ -12,6 +12,11 @@ module Admin
     usage: '.cfg <args>',
     min_args: 0
   } do |event, *args|
+    if event.channel.pm?
+      embed t(:no_dm)
+      return
+    end
+
     unless event.author.permission?(:administrator)
       embed t(:no_perms)
       return
