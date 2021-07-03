@@ -36,12 +36,18 @@ modules:
   - admin
   - arch
   - blacklist
+  - bottom
   - colors
   - figlet
+  - fun
   - help
+  - polls
   - queries
-  - snippets
   - quotes
+  - sitelenpona
+  - snippets
+  - tio
+  - tokipona
   - util
   - xkcd
 
