@@ -28,7 +28,7 @@ database:
   # pass: password
 
 # URL of the bot's git repo, used for .botrepo
-my_repo: https://github.com/anna328p/qbot
+my_repo: https://github.com/arch-community/qbot
 
 # which modules to load into the bot
 # and enable on all servers?
