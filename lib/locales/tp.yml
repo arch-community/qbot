@@ -119,8 +119,6 @@ tp:
       success: 'wile sona pi nimi nanpa %s li weka tan lipu.'
       no-perms: 'sina ken ala weka e wile sona pi nimi nanpa %s tan lipu.'
 
-  roles:
-
   snippets:
     list:
       none-found: 'toki nimi li lon ala.'

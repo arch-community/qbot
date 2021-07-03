@@ -123,8 +123,6 @@ de:
       success: 'Abfrage **#%s** gelöscht.'
       no-perms: 'Du hast keine Bereichtigung die Abfrage **#%s** zu löschen.'
 
-  roles:
-
   snippets:
     list:
       none-found: 'Keine Snippets verfügbar.'
