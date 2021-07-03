@@ -367,3 +367,6 @@ en:
     misc:
 
     nyi: 'Not yet implemented.'
+
+  fun:
+    ping: 'I got pinged :o'
