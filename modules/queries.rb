@@ -12,6 +12,11 @@ module Queries
   } do |event, *args|
     text = args.join(' ').gsub('@', "\\@\u200D")
 
+    if text.length > 1024
+      embed t('queries.query.too-long')
+      next
+    end
+
     new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text: text)
 
     embed t('queries.query.success', new_query.id)
