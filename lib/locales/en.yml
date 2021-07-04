@@ -116,6 +116,7 @@ en:
   queries:
     query:
       success: 'Query #%s has been created.'
+      too-long: 'Your query is too long.'
     oq:
       title: 'Open queries'
       no-results: 'No results'
