@@ -19,3 +19,5 @@ yt-credentials.yml
 .direnv/**
 
 result
+
+.idea
