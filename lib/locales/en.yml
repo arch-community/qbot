@@ -276,6 +276,7 @@ en:
 
       set:
         success: "The log channel is now <#%s>."
+        other-server: "<#%s> is not in this server."
       reset:
         success: "The log channel has been disabled."
 
