@@ -9,8 +9,6 @@
 
 ---
 
-<a href="https://fosshost.org"><img src="lib/resources/fosshost.org_Host_Dark.png" height="100px" alt="Hosted on Fosshost"/></a>
-
 qbot is the bot used by the [unofficial Arch Linux community][1] on Discord.
 Originally its only function was to manage support channels, but it has evolved
 to do much more.
@@ -30,7 +28,9 @@ Modules:
 
 ## Invite qbot to your own server
 
-[Click this link](https://discord.com/oauth2/authorize?client_id=660591224482168842&permissions=339078224&scope=bot) to invite qbot to your own server.
+[Click this link](https://discord.com/oauth2/authorize?client_id=660591224482168842&permissions=339078224&scope=bot) to invite our hosted instance of qbot to your own server.
+
+<a href="https://fosshost.org"><img src="lib/resources/fosshost.org_Host_Dark.png" height="50px" alt="Hosted on Fosshost"/></a>
 
 ## Running your own instance of qbot
 
