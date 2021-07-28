@@ -8,7 +8,7 @@ QBot.register_config do # rubocop: disable Metrics/BlockLength
   scope :server
 
   snowflake :log_channel, aliases: [:lc]
-  string :prefix, aliases: %i[p pfx], max_length: 10
+  string :prefix, aliases: %i[pfx], max_length: 10
 
   group :colors do
     collection :extra_roles do
@@ -44,13 +44,20 @@ QBot.register_config do # rubocop: disable Metrics/BlockLength
 
     format { |_, entry| "`#{entry.id}`: `#{entry.regex}`" }
 
-    cmd :clear do
-      bl = BlacklistEntry.where(channel_id: channel_id)
+    cmd :clear do |event|
+      bl = BlacklistEntry.where(channel_id: event.channel.id)
       count = bl.count
       bl.delete_all
       count
     end
   end
+
+  cmd :echo do |_, *args|
+    args.join(' ')
+  end
+
+  string :test
+  bool :test2, default: true
 end
 
 QBot.register_config do
@@ -65,11 +72,11 @@ QBot.register_config do
   end
 
   group :sitelenpona, aliases: [:sp] do
-    string :fgcolor, aliases: [:fg], default: 'black'
-    string :bgcolor, aliases: [:bg], default: 'white'
-    integer :fontsize, aliases: %i[size fs s], default: 32
+    string :fgcolor, default: 'black'
+    string :bgcolor, default: 'white'
+    integer :fontsize, aliases: %i[size fs], default: 32
 
-    selection :fontface, aliases: %i[fontface font ff f] do
+    selection :fontface, aliases: %i[ff] do
       options { SPGen.font_metadata }
       key :index
       default 'linja suwi'
