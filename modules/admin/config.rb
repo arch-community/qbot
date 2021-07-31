@@ -41,8 +41,13 @@ module Admin
         Config.help_msg 'cfg log-channel', %i[set reset]
       when 'set'
         new_id = args.shift.to_i
-        new_log_channel = QBot.bot.channel(new_id)
-        next embed t('cfg.log-channel.set.other-server', new_id) if new_log_channel.server != event.server
+        begin
+          new_log_channel = QBot.bot.channel(new_id)
+          next embed t('cfg.log-channel.set.other-server', new_id) if new_log_channel.server != event.server
+        rescue Discordrb::Errors::UnknownChannel, Discordrb::Errors::NoPermission
+          # UnknownChannel accounts for invalid channel id's, NoPermission accounts for channels the bot can't access
+          next embed t('cfg.log-channel.set.invalid-id', new_id)
+        end
 
         cfg.log_channel_id = new_id
         cfg.save!

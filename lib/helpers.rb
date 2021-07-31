@@ -24,8 +24,8 @@ end
 
 def strip_command(text, command) = text.sub(/^#{prefixed command} /, '').chomp
 
-def log_embed(event, chan_id, user, extra)
-  embed(target: event.bot.channel(chan_id)) do |m|
+def log_embed(event, channel, user, extra)
+  embed(target: channel) do |m|
     m.author = { name: formatted_name(user), icon_url: user.avatar_url }
     m.title = 'Command execution'
     m.fields = [
@@ -49,7 +49,17 @@ def log(event, extra = nil)
   QBot.log.info("command execution by #{formatted_name(user)}: " \
                 "#{event.message}#{extra && "; #{extra}"}")
 
-  log_embed(event, chan_id, user, extra) if chan_id
+  if chan_id
+    begin
+      lc = QBot.bot.channel(chan_id)
+    rescue Discordrb::Errors::UnknownChannel
+      lc = nil
+      event.server.owner.pm(t('log-channel-gone'))
+    end
+  else
+    lc = nil
+  end
+  log_embed(event, lc, user, extra) if lc
 end
 
 # Listen for a user response
