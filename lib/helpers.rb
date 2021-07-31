@@ -40,11 +40,7 @@ end
 def log(event, extra = nil)
   user = event.author
 
-  chan_id = if event.channel.pm?
-              nil
-            else
-              ServerConfig[event.server.id].log_channel_id
-            end
+  chan_id = event.channel.pm? ? nil : ServerConfig[event.server.id].log_channel_id
 
   QBot.log.info("command execution by #{formatted_name(user)}: " \
                 "#{event.message}#{extra && "; #{extra}"}")
