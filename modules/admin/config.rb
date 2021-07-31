@@ -44,9 +44,12 @@ module Admin
         begin
           new_log_channel = QBot.bot.channel(new_id)
           next embed t('cfg.log-channel.set.other-server', new_id) if new_log_channel.server != event.server
-        rescue Discordrb::Errors::UnknownChannel, Discordrb::Errors::NoPermission
-          # UnknownChannel accounts for invalid channel id's, NoPermission accounts for channels the bot can't access
+        rescue Discordrb::Errors::UnknownChannel
+          # UnknownChannel accounts for invalid channel id's
           next embed t('cfg.log-channel.set.invalid-id', new_id)
+        rescue Discordrb::Errors::NoPermission
+          # NoPermission accounts for channels that are in servers the bot is not a member of
+          next embed t('cfg.log-channel.set.other-server', new_id)
         end
 
         cfg.log_channel_id = new_id
