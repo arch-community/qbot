@@ -1,6 +1,7 @@
 en:
   no_perms: 'You do not have the required permissions to perform this action.'
   no_dm: 'This command cannot be used in a direct message.'
+  log-channel-gone: 'The log channel no longer exists. It has been reset.'
 
   descriptions:
     help: 'Shows a list of all available commands or displays help for a specific command'
@@ -277,6 +278,7 @@ en:
       set:
         success: "The log channel is now <#%s>."
         other-server: "<#%s> is not in this server."
+        invalid-id: "%s is not a valid channel id."
       reset:
         success: "The log channel has been disabled."
 
