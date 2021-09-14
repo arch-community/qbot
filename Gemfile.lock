@@ -89,7 +89,7 @@ GEM
     opus-ruby (1.0.1)
       ffi
     paint (2.2.1)
-    parallel (1.20.1)
+    parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
     pluralkit-api (1.0.1)
@@ -113,7 +113,7 @@ GEM
     rmagick (4.2.2)
     rss (0.2.9)
       rexml
-    rubocop (1.20.0)
+    rubocop (1.21.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
