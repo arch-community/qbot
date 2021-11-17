@@ -32,10 +32,13 @@ module SPGen
     MARK
 
     textimg = draw_markup(markup, bg_color: bg_color, width: width - (border * 2))
-
     out_img = textimg.trim.border(border, border, bg_color)
+    textimg.destroy!
 
-    out_img.to_blob { self.format = 'png' }
+    res = out_img.to_blob { self.format = 'png' }
+    out_img.destroy!
+
+    res
   end
   # rubocop: enable Metrics/ParameterLists
 
