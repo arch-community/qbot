@@ -6,9 +6,6 @@ client_id: 1234
 owner: 165998239273844736
 
 arch:
-  wiki:
-    username: ilovecats
-    password: meowmeow
   mirror: https://mirrors.edge.kernel.org/archlinux/
   repos:
     - core

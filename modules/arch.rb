@@ -7,8 +7,6 @@ module Arch
   @wiki = MediawikiApi::Client.new 'https://wiki.archlinux.org/api.php'
   attr_accessor :wiki
 
-  def self.wiki_login(username, password) = @wiki.log_in(username, password)
-
   def self.wiki_embed(channel, title)
     embed(target: channel) do |m|
       m.title = "Arch Wiki: #{title}"
@@ -117,8 +115,4 @@ module Arch
   } do |_event, _pn|
     embed t('cfg.nyi')
   end
-end
-
-if QBot.config.arch.wiki.username && QBot.config.arch.wiki.password
-  Arch.wiki_login(QBot.config.arch.wiki.username, QBot.config.arch.wiki.password)
 end
