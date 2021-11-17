@@ -35,7 +35,7 @@ module Tio
     code, input = get_codespans(event.message.text)
 
     raw_res = TIO.run(lang, code, nil, input)[0]
-                 .encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "�")
+                 .encode('UTF-8', invalid: :replace, undef: :replace, replace: '�')
     res = raw_res.gsub('```', '\\```').gsub('@', "\\@\u200D")
     msg = embed "```\n#{res}\n```" do |m|
       m.footer = { text: "tio:#{event.user.id}" }

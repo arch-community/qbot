@@ -28,21 +28,16 @@ module Admin
     usage: '.modules',
     min_args: 0, max_args: 0
   } do |e|
-    scfg = if e.channel.pm?
-             nil
-           else
-             ServerConfig[e.server.id]
-           end
+    scfg = e.channel.pm? ? nil : ServerConfig[e.server.id]
 
     embed do |m|
       m.title = t('admin.modules.title')
-      m.fields = [
-        {
-          name: t('admin.modules.global'),
-          value: QBot.config.modules.join(', ')
-        }
-      ]
-      unless scfg.nil?
+      m.fields = [{
+        name: t('admin.modules.global'),
+        value: QBot.config.modules.join(', ')
+      }]
+
+      if scfg
         m.fields << {
           name: t('admin.modules.local'),
           value: if scfg.all_modules?

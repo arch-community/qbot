@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 # User config command module
+# rubocop: disable Metrics/ModuleLength
 module Admin
   extend Discordrb::Commands::CommandContainer
 
-  command :userconfig, { # rubocop: disable Metrics/BlockLength
+  # rubocop: disable Metrics/BlockNesting, Metrics/BlockLength
+  command :userconfig, {
     aliases: %i[ucfg uc],
     help_available: true,
     usage: '.set <args>',
@@ -113,17 +115,13 @@ module Admin
 
           embed do
             _1.title = t('uc.sitelenpona.fontface.list')
-            _1.description = <<~END
+            _1.description = <<~DESC
               #{t('uc.sitelenpona.fontface.instructions', find_prefix(event.message))}
               ```#{list}```
-            END
+            DESC
           end
         when 'set', 's'
-          index = begin
-                    Integer(args.shift)
-                  rescue
-                    false
-                  end
+          index = parse_int(args.shift)
 
           if index && (font = SPGen.font_metadata[index])
             confirm = uc.contents['sitelenpona']['fontface'] = font[:typeface]
@@ -181,4 +179,6 @@ module Admin
       embed t('cfg.nyi')
     end
   end
+  # rubocop: enable Metrics/BlockNesting, Metrics/BlockLength
 end
+# rubocop: enable Metrics/ModuleLength

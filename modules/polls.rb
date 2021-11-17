@@ -35,7 +35,7 @@ module Polls
     {
       icon_url: bot_user.avatar_url,
       text: "poll:#{n_opts} / " \
-      "#{formatted_name event.author}"
+      "#{event.author.distinct}"
     }
   end
 

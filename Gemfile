@@ -73,4 +73,3 @@ group :development do
   # visualization
   gem 'ruby-graphviz'
 end
-# rubocop: enable Metrics/BlockLength

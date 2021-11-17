@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-def formatted_name(user) = "#{user.name}##{user.discriminator}"
-
 def find_prefix(message)
   if message.channel.pm?
     QBot.config.default_prefix || '.'
@@ -26,7 +24,7 @@ def strip_command(text, command) = text.sub(/^#{prefixed command} /, '').chomp
 
 def log_embed(event, channel, user, extra)
   embed(target: channel) do |m|
-    m.author = { name: formatted_name(user), icon_url: user.avatar_url }
+    m.author = { name: user.distinct, icon_url: user.avatar_url }
     m.title = 'Command execution'
     m.fields = [
       { name: 'Command', value: event.message.to_s.truncate(1024), inline: true },
@@ -37,25 +35,23 @@ def log_embed(event, channel, user, extra)
   end
 end
 
+def console_log(event, extra = nil)
+  QBot.log.info("command execution by #{event.author.distinct}: " \
+                "#{event.message}#{extra && "; #{extra}"}")
+end
+
 def log(event, extra = nil)
-  user = event.author
+  console_log(event, extra)
 
   chan_id = event.channel.pm? ? nil : ServerConfig[event.server.id].log_channel_id
 
-  QBot.log.info("command execution by #{formatted_name(user)}: " \
-                "#{event.message}#{extra && "; #{extra}"}")
-
-  if chan_id
-    begin
-      lc = QBot.bot.channel(chan_id)
-    rescue Discordrb::Errors::UnknownChannel
-      lc = nil
-      event.server.owner.pm(t('log-channel-gone'))
-    end
-  else
-    lc = nil
+  begin
+    lc = chan_id && QBot.bot.channel(chan_id)
+  rescue Discordrb::Errors::UnknownChannel
+    event.server.owner.pm(t('log-channel-gone'))
   end
-  log_embed(event, lc, user, extra) if lc
+
+  log_embed(event, lc, event.author, extra) if lc
 end
 
 # Listen for a user response
@@ -83,3 +79,9 @@ end
 
 def to_emoji(num) =
   [num.to_s.ord, 65_039, 8_419].map { _1.chr(Encoding::UTF_8) }.join
+
+def parse_int(num)
+  Integer(num)
+rescue ArgumentError, TypeError
+  nil
+end
