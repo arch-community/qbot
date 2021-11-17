@@ -2,12 +2,14 @@
 
 # User configuration table
 class UserConfig < BotRecord
+  include Configurable
+
   # Cache config objects
   def self.[](uid)
     # rubocop: disable Style/ClassVars
     @@configs ||= {}
     @@configs[uid] ||= UserConfig.find_or_create_by(user_id: uid)
-    @@configs[uid].contents ||= {}
+    @@configs[uid].options ||= {}
     @@configs[uid]
   end
 

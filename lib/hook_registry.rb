@@ -29,13 +29,9 @@ module HookRegistry
     end
   end
 
-  # rubocop: disable Style/OptionalBooleanParameter
-  def execute_command(name, event, arguments, chained = false, check_permissions = true)
+  def check_hooks(name, event)
     self.class.hooks.each do |block|
       return unless instance_exec(event, name, &block) # rubocop: disable Lint/NonLocalExitFromIterator
     end
-
-    super
   end
-  # rubocop: enable Style/OptionalBooleanParameter
 end

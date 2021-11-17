@@ -1,29 +1,25 @@
 # frozen_string_literal: true
 
 ##
-# Modules can register configuration with the bot. It is exposed to users.
-module ConfigRegistry
+# This module allows a class to have a set of configuration options that can be dynamically registered.
+module Configurable
   def self.included(base)
     base.extend(ClassMethods)
     base.class_eval do
       class << self
-        attr_accessor :server_options, :user_options
+        attr_accessor :options
       end
 
-      @server_options ||= []
-      @user_options ||= []
+      @options ||= []
     end
   end
 
   ##
   # Represents an option in the option tree. If it's a group, it contains sub-options.
-  Option = Struct.new(*%i[name type aliases default attrs scope]) do
-    def get_config(event)
-      if scope == :user
-        UserConfig[event.user.id]
-      else
-        ServerConfig[event.server.id]
-      end
+  Option = Struct.new(*%i[name type aliases default attrs]) do
+    def option(event, opt_name)
+      cfg = get_config(event)
+      cfg.options[opt_name]
     end
 
     def get(event)
@@ -100,22 +96,14 @@ module ConfigRegistry
     attr_accessor :options
 
     def initialize
-      @scope = :server
       @context = []
       @group_stack = []
       @options = []
     end
 
-    def scope(arg = nil)
-      return @scope unless arg
-
-      @scope = arg
-    end
-
     ##
-    # Adds an option to the current option scope.
+    # Adds an option to the current set..
     def add_opt(option)
-      option.scope = @scope
       if (head = @group_stack.last)
         head.attrs << option
       else
@@ -211,17 +199,14 @@ module ConfigRegistry
   ##
   # Contains the method to register configuration.
   module ClassMethods
-    def register_config(&block)
+    @cfg_opts = []
+
+    def register_options(&block)
       opts = ConfigBuilder.new
       opts.instance_eval(&block)
       pp opts.options
 
-      case opts.scope
-      when :server
-        @server_options += opts.options
-      when :user
-        @user_options += opts.options
-      end
+      @cfg_opts += opts.options
     end
   end
 end

@@ -18,7 +18,7 @@ module Database
 
       create_table :user_configs do |t|
         t.integer :user_id, null: false
-        t.json :contents
+        t.json :options
 
         t.timestamps
       end

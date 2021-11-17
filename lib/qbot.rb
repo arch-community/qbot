@@ -7,21 +7,20 @@ class QBot < Discordrb::Commands::CommandBot
 
   include Singleton
 
-  include QBotPatches
+  prepend QBotPatches
   include QBotOptions
   include HookRegistry
-  include ConfigRegistry
   include CLIRegistry
   include QBotModules
 
   def self.bot
-    self.instance
+    instance
   end
 
   # rubocop: disable Metrics/MethodLength
   def initialize
     @options = parse_options(ARGV)
-    @config = init_config
+    @config  = init_config
 
     token     = @config.token     || raise('No token in configuration; set token')
     client_id = @config.client_id || raise('No client_id in configuration; set client_id')
@@ -42,9 +41,22 @@ class QBot < Discordrb::Commands::CommandBot
       ]
     )
   end
+  # rubocop: enable Metrics/MethodLength
+
+  # rubocop: disable Style/OptionalBooleanParameter
+  def execute_command(name, event, arguments, chained = false, check_permissions = true)
+    puts 'a'
+    check_hooks(name, event)
+    super
+  end
+  # rubocop: enable Style/OptionalBooleanParameter
 
   def self.log
     @log ||= init_log
+  end
+
+  def self.options
+    self.class.instance.options
   end
 
   def run
@@ -62,7 +74,6 @@ class QBot < Discordrb::Commands::CommandBot
     run_cli
     sync
   end
-  # rubocop: enable Metrics/MethodLength
 
   def dbname
     conf = config.database

@@ -17,7 +17,7 @@ module Sitelenpona
   def self.get_opts(author)
     uc = UserConfig[author.id]
 
-    if (c = uc.contents['sitelenpona']&.symbolize_keys)
+    if (c = uc.options['sitelenpona']&.symbolize_keys)
       format_opts(c)
     else
       {}
@@ -25,13 +25,13 @@ module Sitelenpona
   end
 
   def self.replacement_glyphs(user)
-    [UserConfig[user.id].contents['sitelenpona']['glyphs'].split, nil]
+    [UserConfig[user.id].options['sitelenpona']['glyphs'].split, nil]
   rescue StandardError
     [false, user.username.capitalize]
   end
 
   def self.glyph_style(author)
-    fn = UserConfig[author.id].contents['sitelenpona']['fontface']
+    fn = UserConfig[author.id].options['sitelenpona']['fontface']
     font = SPGen.font_metadata.find { _1[:typeface] == fn }
     font[:glyph_style]
   rescue StandardError

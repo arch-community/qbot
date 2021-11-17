@@ -13,7 +13,7 @@ def require_libs(libs) = libs.each { require_relative "#{__dir__}/lib/#{_1}" }
 require_libs %w[
   version
   options patches
-  hook_registry config_registry modules cli_registry
+  hook_registry configurable modules cli_registry
   qbot
 
   hooks cli_commands

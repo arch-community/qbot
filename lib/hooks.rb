@@ -7,6 +7,10 @@ def can_run?(name, event)
    .any? { _1.include? name }
 end
 
+QBot.hook do |event, name|
+  p name
+end
+
 # Check server modules
 QBot.hook do |event, name|
   can_run?(name, event)
@@ -15,7 +19,7 @@ end
 # Set the user's locale for response strings
 QBot.hook do |event|
   uc = UserConfig[event.user.id]
-  lang = uc.contents && uc.contents['lang']&.to_sym || I18n.default_locale
+  lang = uc.options && uc.options['lang']&.to_sym || I18n.default_locale
   I18n.locale = lang
 end
 

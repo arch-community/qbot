@@ -2,6 +2,8 @@
 
 # Helpers for the server config
 class ServerConfig < BotRecord
+  include Configurable
+
   # Cache config objects
   def self.[](server_id)
     # rubocop: disable Style/ClassVars
@@ -24,7 +26,7 @@ class ServerConfig < BotRecord
     pfx = prefix.to_s
 
     if prefix.nil?
-      self.prefix = QBot.config.default_prefix || '.'
+      self.prefix = QBot.instance.config.default_prefix || '.'
       save!
     end
 

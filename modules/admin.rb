@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'admin/config'
-require_relative 'admin/user_config'
 
 # Administration commands
 module Admin

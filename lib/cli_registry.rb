@@ -7,31 +7,39 @@ module CLIRegistry
     base.extend(ClassMethods)
     base.class_eval do
       class << self
-        attr_reader :cli_commands
+        attr_reader :cli_commands, :cli_aliases
       end
     end
   end
 
+  def find_cmds(name)
+    self.class.cli_commands
+        .merge(self.class.cli_aliases.values.flatten(1).to_h)
+        .select { _1.start_with? name }
+  end
+
   def run_cli
-    while (buf = Reline.readline('% ', true))
-      cmd, *args = buf.chomp.split
+    while (buf = Reline.readline('[qbot]% ', true))
+      name, *args = buf.strip.split
+      next unless name
 
-      found = self.class.cli_commands.select { _1.start_with? cmd }
+      matches = find_cmds(name)
+      puts('Command not found.') || next if matches.empty?
+      puts('Command ambiguous.') || next if matches.size > 1
 
-      puts 'Command ambiguous.' && return if found.size > 1
-      puts 'Command not found' && return if found.empty?
-
-      proc = found.values.first
-
+      proc = matches.values.first
       instance_exec(*args, &proc)
     end
   end
 
+  # Class methods
   module ClassMethods
     def cli_command(name, aliases: [], &block)
       @cli_commands ||= {}
+      @cli_aliases ||= {}
+
       @cli_commands[name] = block
-      aliases.each { @cli_commands[_1] = block }
+      @cli_aliases[name] = aliases.map { [_1, block] }
     end
   end
 end

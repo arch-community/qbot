@@ -18,7 +18,7 @@ module Bottom
   command :regress, {
     aliases: %i[rg debottom db ub],
     help_available: true,
-    usage: '.db <text>',
+    usage: '.regress <text>',
     min_args: 1
   } do |_, *args|
     input = args.join(' ')

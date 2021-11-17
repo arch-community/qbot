@@ -37,8 +37,8 @@ end
 ##
 # Patches to the CommandBot class that make certain things work better
 module QBotPatches
-  def blockify(chunk, ric)
-    if ric
+  def blockify(chunk, is_codeblock)
+    if is_codeblock
       chunk.prepend '```' unless chunk&.start_with? '```'
       chunk << '```'      unless chunk&.end_with? '```'
     end

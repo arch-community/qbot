@@ -4,9 +4,7 @@ module ConfigSample
   extend Discordrb::Commands::CommandContainer
 end
 
-QBot.register_config do # rubocop: disable Metrics/BlockLength
-  scope :server
-
+ServerConfig.register_options do # rubocop: disable Metrics/BlockLength
   snowflake :log_channel, aliases: [:lc]
   string :prefix, aliases: %i[pfx], max_length: 10
 
@@ -60,9 +58,7 @@ QBot.register_config do # rubocop: disable Metrics/BlockLength
   bool :test2, default: true
 end
 
-QBot.register_config do
-  scope :user
-
+UserConfig.register_options do
   selection :language do
     options { I18n.available_locales }
     key(&:to_s)
