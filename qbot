@@ -8,7 +8,7 @@ require 'digest'
 require 'uri'
 require 'open-uri'
 
-def require_libs(libs) = libs.each { require_relative "lib/#{_1}" }
+def require_libs(libs) = libs.each { require_relative "#{__dir__}/lib/#{_1}" }
 
 require_libs %w[
   version

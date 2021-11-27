@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-load './lib/db/schema.rb'
+require_relative 'db/schema.rb'
 
 ActiveRecord::Base.logger = QBot.log
 
