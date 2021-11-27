@@ -7,7 +7,7 @@ module Configurable
     base.extend(ClassMethods)
     base.class_eval do
       class << self
-        attr_accessor :options
+        attr_accessor :cfg_opts
       end
 
       @options ||= []

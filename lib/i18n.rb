@@ -22,7 +22,6 @@ end
 
 def embed(text = nil, target: nil)
   target ||= QBot.instance.embed_target
-  pp target
   reply_target = target.is_a?(Discordrb::Events::MessageEvent) ? target.message : nil
 
   target.send_embed('', nil, nil, false, false, reply_target) do |m|

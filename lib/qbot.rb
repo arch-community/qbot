@@ -13,9 +13,7 @@ class QBot < Discordrb::Commands::CommandBot
   include CLIRegistry
   include QBotModules
 
-  def self.bot
-    instance
-  end
+  def self.bot = instance
 
   # rubocop: disable Metrics/MethodLength
   def initialize
@@ -43,20 +41,20 @@ class QBot < Discordrb::Commands::CommandBot
   end
   # rubocop: enable Metrics/MethodLength
 
-  # rubocop: disable Style/OptionalBooleanParameter
-  def execute_command(name, event, arguments, chained = false, check_permissions = true)
-    puts 'a'
+  # minimize log spam
+  def inspect = '[QBot]'
+
+  def execute_command(name, event, *rest)
     check_hooks(name, event)
     super
   end
-  # rubocop: enable Style/OptionalBooleanParameter
 
   def self.log
     @log ||= init_log
   end
 
   def self.options
-    self.class.instance.options
+    instance.options
   end
 
   def run

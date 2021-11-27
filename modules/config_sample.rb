@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+p 'asdfkljhlkjhalkjsdflk'
 module ConfigSample
   extend Discordrb::Commands::CommandContainer
 end

@@ -7,10 +7,6 @@ def can_run?(name, event)
    .any? { _1.include? name }
 end
 
-QBot.hook do |event, name|
-  p name
-end
-
 # Check server modules
 QBot.hook do |event, name|
   can_run?(name, event)
@@ -23,13 +19,13 @@ QBot.hook do |event|
   I18n.locale = lang
 end
 
-# Log the event
-QBot.hook do |event|
-  log(event)
-end
-
 # Set various context variables for commands to use
 QBot.hook do |event|
   @embed_target = event
   @current_prefix = find_prefix(event.message)
+end
+
+# Log the event
+QBot.hook do |event|
+  log(event)
 end
