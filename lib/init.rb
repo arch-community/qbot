@@ -3,7 +3,7 @@
 # Initialization code for the bot
 module QBot
   def self.print_logo(version)
-    logo = File.read File.join(__dir__, './lib/resources/logo.txt')
+    logo = File.read File.join(__dir__, 'resources/logo.txt')
     puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright, :gray]}\n\n"
   end
 
@@ -84,7 +84,7 @@ module QBot
       exit 130
     end
 
-    run_cli
+    run_cli unless QBot.options.no_console
 
     @bot.sync
   end

@@ -23,7 +23,7 @@ in {
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.qbot}/bin/qbot -c ${configFile} --state-dir \${STATE_DIRECTORY}";
+        ExecStart = "${pkgs.qbot}/bin/qbot -c ${configFile} --state-dir \${STATE_DIRECTORY} --no-console";
         StateDirectory = "qbot";
         DynamicUser = true;
       };
