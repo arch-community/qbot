@@ -7,19 +7,27 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
+    {
+      overlay = final: prev: let
+        pkgs = nixpkgs.legacyPackages.${prev.system};
+      in rec {
+        qbot = pkgs.callPackage ./. { };
+      };
+    } //
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          overlays = [ self.overlay ];
+          inherit system;
+        };
       in rec {
-        packages.qbot = pkgs.callPackage ./. {};
+        packages.qbot = pkgs.qbot;
         defaultPackage = packages.qbot;
 
-        apps.qbot = flake-utils.lib.mkApp { drv = packages.qbot; };
+        apps.qbot = flake-utils.lib.mkApp { drv = pkgs.qbot; name = "qbot"; };
         defaultApp = apps.qbot;
 
-        legacyPackages.qbot = packages.qbot;
-        overlay = self: super: { qbot = packages.qbot; };
-        overlays = [ overlay ];
+        legacyPackages.qbot = pkgs.qbot;
 
         nixosModule = { config }: { imports = [ ./module.nix ]; };
       }
