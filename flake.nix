@@ -7,12 +7,15 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    {
+    rec {
       overlay = final: prev: let
         pkgs = nixpkgs.legacyPackages.${prev.system};
       in rec {
         qbot = pkgs.callPackage ./. { };
       };
+
+      nixosModule = { config }: { imports = [ ./module.nix ]; };
+      nixosModules = [ nixosModule ];
     } //
     flake-utils.lib.eachDefaultSystem (system:
       let
@@ -28,8 +31,6 @@
         defaultApp = apps.qbot;
 
         legacyPackages.qbot = pkgs.qbot;
-
-        nixosModule = { config }: { imports = [ ./module.nix ]; };
       }
     );
 }
