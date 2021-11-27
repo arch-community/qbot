@@ -7,7 +7,7 @@ vendor/**
 tags
 **/tags
 
-db/database.sqlite3
+var/**
 
 config/global.yml
 config/yt-client-secret.json

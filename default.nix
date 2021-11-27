@@ -76,7 +76,6 @@ in stdenv.mkDerivation rec {
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 export FONTCONFIG_FILE=${FONTCONFIG_FILE}
-cd $out/share/qbot
 exec ${env}/bin/bundle exec ${env.wrappedRuby}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF
 

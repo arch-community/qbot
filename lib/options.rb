@@ -6,10 +6,11 @@ require 'optparse'
 module QBot
   # This class holds the definitions and values of the options
   class Options
-    attr_accessor :config_path
+    attr_accessor :config_path, :state_dir
 
     def initialize
       @config_path = 'config/global.yml'
+      @state_dir = 'var'
     end
 
     def define_options(parser)
@@ -18,6 +19,7 @@ module QBot
       parser.separator 'Options:'
 
       config_option(parser)
+      state_dir_option(parser)
       help_option(parser)
       version_option(parser)
     end
@@ -26,6 +28,13 @@ module QBot
       parser.on('-c', '--config <file>', String,
                 "Specify location of the config file (default #{@config_path})") do |path|
         @config_path = path
+      end
+    end
+
+    def state_dir_option(parser)
+      parser.on('-s', '--state-dir <directory>', String,
+                'Set the directory where state, such as databases, will be stored') do |dir|
+        @state_dir = dir
       end
     end
 
@@ -50,6 +59,10 @@ module QBot
       @options.define_options(parser)
       parser.parse!(args)
     end
+    @options
+  end
+
+  def self.options
     @options
   end
 end

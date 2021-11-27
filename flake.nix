@@ -19,6 +19,8 @@
 
         legacyPackages.qbot = packages.qbot;
         overlays = self: super: { qbot = packages.qbot; };
+
+        nixosModule = { config }: { imports = [ ./module.nix ]; };
       }
     );
 }
