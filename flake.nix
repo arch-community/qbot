@@ -18,7 +18,8 @@
         defaultApp = apps.qbot;
 
         legacyPackages.qbot = packages.qbot;
-        overlays = self: super: { qbot = packages.qbot; };
+        overlay = self: super: { qbot = packages.qbot; };
+        overlays = [ overlay ];
 
         nixosModule = { config }: { imports = [ ./module.nix ]; };
       }
