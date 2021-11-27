@@ -14,7 +14,7 @@
         qbot = pkgs.callPackage ./. { };
       };
 
-      nixosModule = { config }: { imports = [ ./module.nix ]; };
+      nixosModule = { ... }: { imports = [ ./module.nix ]; };
       nixosModules = [ nixosModule ];
     } //
     flake-utils.lib.eachDefaultSystem (system:
