@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/colorlib'
+require_relative '../lib/colorlib'
 
 # Color role assignment
 module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
