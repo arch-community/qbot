@@ -10,7 +10,7 @@ module Modules
 
   def self.load_module(name)
     QBot.log.info "Loading module: #{name}"
-    load "./modules/#{name}.rb"
+    load File.join(__dir__, '..', 'modules', "#{name}.rb")
 
     # not sure how else this is possible?
     # rubocop: disable Security/Eval
