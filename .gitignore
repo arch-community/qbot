@@ -1,23 +1,24 @@
-.bundle
-vendor
-vendor/**
+/.bundle
+/vendor
+/vendor/**
 
 .env
 
 tags
 **/tags
 
-var/**
+/db/database.sqlite3
+/var/
 
-config/global.yml
-config/yt-client-secret.json
-config/yt-credentials.yml
-yt-client-secret.json
-yt-credentials.yml
+/config/global.yml
+/config/yt-client-secret.json
+/config/yt-credentials.yml
+/yt-client-secret.json
+/yt-credentials.yml
 
-.direnv
-.direnv/**
+/.direnv
+/.direnv/**
 
-result
+/result
 
 .idea
