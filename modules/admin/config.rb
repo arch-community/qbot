@@ -5,7 +5,7 @@ module Admin
   extend Discordrb::Commands::CommandContainer
 
   def self.help_cmd(stack)
-    opts = QBot.server_options
+    opts = ServerConfig.option_schema
     stack.each { |name| opts = opts.find { _1.name == name }.attrs }
     opts.map { "#{_1.name} (#{_1.type})" }
         .join("\n")
@@ -98,7 +98,7 @@ module Admin
       return
     end
 
-    opts = QBot.server_options
+    opts = ServerConfig.option_schema
     stack = []
 
     loop do

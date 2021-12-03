@@ -3,14 +3,16 @@
 ##
 # This module allows a class to have a set of configuration options that can be dynamically registered.
 module Configurable
-  def self.included(base)
-    base.extend(ClassMethods)
-    base.class_eval do
-      class << self
-        attr_accessor :cfg_opts
-      end
+  class << self
+    def included(base)
+      base.extend(ClassMethods)
+      base.class_eval do
+        class << self
+          attr_accessor :option_schema
+        end
 
-      @options ||= []
+        @options ||= []
+      end
     end
   end
 
@@ -199,14 +201,14 @@ module Configurable
   ##
   # Contains the method to register configuration.
   module ClassMethods
-    @cfg_opts = []
-
     def register_options(&block)
+      @option_schema ||= []
+
       opts = ConfigBuilder.new
       opts.instance_eval(&block)
       pp opts.options
 
-      @cfg_opts += opts.options
+      @option_schema += opts.options
     end
   end
 end

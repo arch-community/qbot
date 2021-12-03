@@ -33,7 +33,7 @@ module Admin
       m.title = t('admin.modules.title')
       m.fields = [{
         name: t('admin.modules.global'),
-        value: QBot.config.modules.join(', ')
+        value: e.bot.config.modules.join(', ')
       }]
 
       if scfg

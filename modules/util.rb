@@ -17,8 +17,8 @@ module Util
     usage: '.mygit',
     min_args: 0,
     max_args: 0
-  } do |_event|
-    QBot.config.my_repo
+  } do |event|
+    event.bot.config.my_repo
   end
 
   def self.full_avatar(user)

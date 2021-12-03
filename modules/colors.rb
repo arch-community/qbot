@@ -63,7 +63,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     usage: '.c <color>',
     min_args: 1
   } do |event, *args|
-    colors, = Colors.get_colors(event)
+    colors, = self.get_colors(event)
 
     req = args.join(' ')
 
@@ -95,12 +95,12 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 1,
     max_args: 1
   } do |event, color|
-    colors, = Colors.get_colors(event)
+    colors, = self.get_colors(event)
 
-    labs = colors.sort_by(&:idx).map { Colors.hex_to_lab _1.role.color.hex.rjust(6, '0') }
-    compare = Colors.hex_to_lab(color)
+    labs = colors.sort_by(&:idx).map { ColorLib.hex_to_lab _1.role.color.hex.rjust(6, '0') }
+    compare = ColorLib.hex_to_lab(color)
 
-    de = labs.map { Colors.cie76(compare, _1) }
+    de = labs.map { ColorLib.cie76(compare, _1) }
     min = de.each.with_index.min_by { |val, _idx| val }
 
     color = colors.find { _1.idx == min[1] }
@@ -118,7 +118,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     min_args: 0,
     max_args: 0
   } do |event, *_args|
-    colors, = Colors.get_colors(event)
+    colors, = self.get_colors(event)
 
     # Formatted list of the colors
     list = colors.sort_by(&:idx).map do |c|
@@ -182,7 +182,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     end
 
     users = event.server.members
-    colors, default, = Colors.get_colors(event)
+    colors, default, = self.get_colors(event)
 
     counter = 0
     users.filter { (_1.roles & colors.map(&:role)).empty? }.each do |u|

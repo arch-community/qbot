@@ -60,17 +60,15 @@ module Queries
         q = Query.where(server_id: event.server.id).find(id)
       rescue ActiveRecord::RecordNotFound
         embed t('queries.cq.not-found', id)
-        return
+        next
       end
 
       if !q
         embed t('queries.cq.not-found', id)
-        return
       elsif event.author.id == q.user_id \
             || event.author.permission?(:manage_messages, event.channel)
         q.destroy!
         embed t('queries.cq.success', id)
-        return
       else
         embed t('queries.cq.no-perms', id)
       end
