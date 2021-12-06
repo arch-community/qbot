@@ -4,7 +4,7 @@ with lib;
 let
   format = pkgs.formats.json { };
   cfg = config.services.qbot;
-  configFile = format.generate "config.json" cfg.config;
+  configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.config);
 in {
   options.services.qbot = {
     enable = mkEnableOption "qbot service";
