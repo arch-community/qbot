@@ -6,4 +6,4 @@ module QBot
   end
 end
 
-QBot.version = '7.14.0'
+QBot.version = '7.14.1'
