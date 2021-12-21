@@ -1,0 +1,376 @@
+pt:
+  no_perms: 'Não tens as permissões necessárias para realizar esta ação.'
+  no_dm: 'Este comando não pode ser usado em uma mensagem direta.'
+  log-channel-gone: 'O canal de registro não existe mais. Foi reiniciado.'
+
+  descriptions:
+    help: 'Mostra uma lista de todos os comandos disponíveis ou mostra ajuda para um comando específico'
+
+    config: 'Define várias opções de configuração para o bot'
+    userconfig: 'Configurar as configurações do usuário que se aplicam entre servidores'
+
+    listsnippets: 'Listas de snippets disponíveis'
+    snippet: 'Coloca um snippet'
+
+    grab: 'Armazena a última mensagem do usuário como uma citação'
+    listquotes: 'Listas de citações de um usuário'
+    quote: 'Recupera ou a citação mais recente ou especificada do usuário'
+    rquote: 'Recupera uma citação aleatória do usuário'
+
+    color: 'Define seu cargo de cor'
+    closestcolor: 'Dá-lhe a cor mais próxima, por código hexadecimal'
+    listcolors: 'Listas de cores disponíveis no servidor'
+    createcolorroles: 'Cria cargos de cor'
+    randcolors: 'Randomiza as cores para todos os usuários'
+
+    query: 'Acrescenta uma query à lista de queries'
+    openqueries: 'Listas de queries abertas'
+    closequery: 'Fecha uma query por ID'
+
+    eval: 'Avalia algum código. Somente para o proprietário.'
+    modules: 'Mostra uma lista dos módulos atualmente carregados'
+
+    echo: 'Ecoa uma string'
+    botrepo: "Coloca a URL do repositório Git do bot"
+    avatar: "Coloca a URL do avatar de um usuário"
+
+    archwiki: 'Pesquisa no Arch Wiki'
+    packagesearch: 'Procura um pacote nos repositórios do Arch'
+    package: 'Mostra informações para um determinado pacote'
+
+    blacklist: 'Lista as entradas da blacklist de um canal'
+
+    xkcd: 'Obtém uma XKCD comic por ID ou nome'
+
+    poll: 'Coloca uma enquete em um canal'
+
+    figlet: 'Converte algum texto em arte ASCII'
+
+    nimi: 'Consulta de definições para uma palavra toki pona'
+    tpo: 'Consulta de dados de utilização de uma palavra toki pona de tokipona.org'
+    tpsources: 'Apresenta informações sobre a atribuição de dados toki pona'
+
+  admin:
+    eval:
+      nope: 'não'
+    modules:
+      title: 'Módulos carregados'
+      global: 'Global'
+      local: 'Local'
+      all_on: 'Tudo habilitado'
+      none: 'Nenhum módulo ativado'
+
+  arch:
+    wiki:
+      no-results: 'Nenhum resultado encontrado'
+    ps:
+      no-results: 'Nenhum resultado encontrado'
+      title: 'Resultados da pesquisa por %s'
+      version: 'versão'
+      last-update: 'última atualização'
+      link: 'link web'
+
+  blacklist:
+    bl:
+      title: Entradas na Blacklist
+    message: >-
+      Sua mensagem continha texto bloqueado pela entrada na blacklist `%s`.
+
+      Para sua conveniência, a mensagem original é incluída abaixo.
+      ```
+      %s
+      ```
+    unblock: "%s, bloqueou o bot. Isto pode quebrar a funcionalidade. Por favor desbloqueie o bot."
+
+  colors:
+    assign-role:
+      already-have: 'Você já tem essa %s.'
+      success: 'Seu %s é agora **%s**.'
+    color:
+      not-found: 'Cor não encontrada.'
+      role-type-name: 'color'
+    closest:
+      found: 'Cor mais próxima encontrada: `%s`.'
+    list:
+      title: 'Todas as cores'
+    ccr:
+      deleting: 'Eliminação do cargo de cor existente `%s`..'
+      created: 'cargo criado `%s` com a cor `%s`.'
+      success: 'Criado %s cargos.'
+    rc:
+      success: 'Cores aleatórias para %s usuários.'
+
+  figlet:
+
+  help:
+    aliases: 'Pseudônimos'
+    usage: 'Utilização'
+    valid-params: 'Parâmetros aceitos'
+    list-title: 'Lista de comandos'
+    not-found: "O comando `%s`não existe."
+
+  polls:
+    cross-server: 'Esse canal está em um servidor diferente.'
+    too-many-opts: 'Sua enquete tem muitas opções.'
+    title-too-long: 'O título da sua enquete é muito longo.'
+
+  queries:
+    query:
+      success: 'A query #%s foi criada.'
+      too-long: 'A sua query é muito longa.'
+    oq:
+      title: 'Queries Abertas'
+      no-results: 'Nenhum resultado'
+      deleted-after-30d: 'As queries são eliminadas após 30 dias.'
+      entry-name: '#%s por %s em %s'
+    cq:
+      not-found: 'Query #%s não encontrada.'
+      success: 'Query Eliminada #%s.'
+      no-perms: 'Você não tem permissão para excluir a query #%s.'
+
+  snippets:
+    list:
+      none-found: 'Não há snippets disponíveis.'
+      title: 'Snippets disponíveis'
+    snippet:
+      not-found: 'Snippet não encontrado.'
+
+  quotes:
+    grab:
+      success: 'Citação agarrada com sucesso, com id de citação %d'
+      failure: 'Nenhuma mensagem recente de %s...'
+    quote:
+      failure: 'Nenhuma citação desse tipo : %d...'
+    list:
+      empty: 'Sem citações de %s...'
+    rquote:
+      failure: 'Sem citações de %s...'
+
+  tokipona:
+    attrib:
+      title: 'Fontes de dados toki pona'
+      text: >-
+        toki pona foi criado por Sonja Lang. o pu dicionário é de domínio público.
+        Os dados tokipona.org foram coletados por Sonja Lang e podem ser encontrados em %s.
+        outros dados foram retirados de ilo Salana, que é de domínio público.
+
+      footer: 'para atribuição, veja %s.'
+
+    nimi:
+      not-found: 'Esta palavra não foi encontrada no pu.'
+      overflow: '(veja .tpo)'
+
+    tpo:
+      not-found: 'Esta palavra não foi encontrada nos dados do tokipona.org.'
+
+  util:
+    invite:
+      title: "Convite %s"
+      desc: "[Clique neste link para convidar %s para o seu servidor.](%s)"
+
+  xkcd:
+
+  uc:
+    help:
+      help: 'mostra esta mensagem'
+      language: 'definir a língua com a qual o bot responde'
+      sitelenpona: 'criar opções de renderização do sitelen pona'
+
+    language:
+      help:
+        list: 'mostrar os idiomas disponíveis'
+        set: 'mude seu idioma de usuário'
+        reset: 'defina seu idioma de usuário para o padrão (inglês)'
+
+      list:
+        title: 'Idiomas disponíveis'
+
+      set:
+        not-found: 'Idioma `%s` não encontrado.'
+        success: 'Seu idioma agora é `%s`.'
+
+      reset:
+        success: 'Idioma reajustado com sucesso para `%s`.'
+
+    sitelenpona:
+      help:
+        fgcolor: 'configurar a cor em primeiro plano'
+        bgcolor: 'configurar a cor de fundo'
+        fontface: 'configurar a fonte'
+        fontsize: 'configurar o tamanho da fonte'
+        name: 'defina o nome usado para seu webhook'
+        glyphs: 'Definir os glyphs usados quando alguém o menciona'
+
+      fgcolor:
+        help:
+          show: 'exibir sua cor atual em primeiro plano'
+          set: 'mudar sua cor em primeiro plano'
+          reset: 'reajuste sua cor de primeiro plano como padrão'
+      bgcolor:
+        help:
+          show: 'exibir sua cor de fundo atual'
+          set: 'mudar a sua cor de fundo'
+          reset: 'reajuste sua cor de fundo como padrão'
+
+      color:
+        show: 'O seu %s atual é %s.'
+        set: 'O seu %s é agora %s.'
+
+      fontsize:
+        help:
+          show: 'mostra seu tamanho de fonte atual'
+          set: 'mude seu tamanho de fonte'
+          reset: 'repor seu tamanho de fonte como padrão'
+        show: 'Seu tamanho de fonte atual é %s.'
+        set: 'Seu tamanho de fonte é agora %s.'
+
+      fontface:
+        help:
+          show: 'mostra seu tipo de rosto atual'
+          list: 'mostrar todas as typefaces disponíveis'
+          set: 'mude seu typeface'
+          reset: 'repor seu typeface como padrão'
+        show: 'O seu typeface atual é %s.'
+        set: 'O seu type face agora é %s.'
+        list: 'Typefaces disponíveis'
+        instructions: 'Use `%suc sp ff s <number>` para escolher um typeface.'
+        invalid: 'Esse typeface é inválido.'
+
+      name:
+        help:
+          show: 'mosta o nome atual do seu webhook'
+          set: 'muda o nome do seu webhook'
+          reset: 'reajusta o nome do seu webhook para o padrão'
+        show: 'Seu nome atual do webhook é %s.'
+        set: 'Seu nome do webhook agora é %s.'
+
+      glyphs:
+        help:
+          show: 'exibir seus glyphs atuais '
+          set: 'muda seu glyphs'
+          reset: 'reajusta seu glyphs para o padrão'
+        show: 'Os Seus glyphs atuais são %s.'
+        set: 'Os seus glyphs estão agora %s.'
+
+  cfg:
+    usage: 'Utilização:'
+    subcmd: 'subcomando'
+    options: 'opções'
+    avail_subcmd: 'Subcomandos disponíveis:'
+
+    help:
+      help: 'mostra esta mensagem'
+      log-channel: 'registar eventos de bot para um canal específico'
+      modules: 'ativar ou desativar módulos'
+      prefix: 'definir o prefixo de comando para este servidor'
+      colors: 'alterar o tratamento dos cargos de cor'
+      snippet: 'modificar snippets para este servidor'
+      rolegroup: 'gerir grupos de cargos auto-atribuíveis'
+      reaction: 'configurar ações de reação'
+      blacklist: 'gerir as entradas da blacklist'
+      misc: 'opções diversas de configuração'
+
+    log-channel:
+      help:
+        set: 'definir o ID do canal de registo para este servidor'
+        reset: 'desativar comandos de registo para um canal'
+
+      set:
+        success: "O canal de registo é agora <#%s>."
+        other-server: "<#%s> não se encontra neste servidor."
+        invalid-id: "%s não é uma ID de canal válida."
+      reset:
+        success: "O canal de registo foi desativado."
+
+    modules:
+
+    prefix:
+      help:
+        set: 'definir o prefixo para este servidor'
+        reset: 'repor o prefixo para o padrão'
+
+      saved: 'Novo prefixo `%s` salvado.'
+
+    colors:
+      help:
+        extra-color-role: 'configurar cargos de cor extra'
+        bare-colors: 'detectar cargos de cor nomeados pelas suas cores hexadecimais'
+
+      extra-color-role:
+        help:
+          list: 'imprimir a lista de papéis de cor extra'
+          add: 'adicionar um cargo (por ID) à lista de cargos extra'
+          remove: 'remover um cargo (por ID) da lista de cargos extra'
+
+        list:
+          no-roles: 'Ainda não foram configurados cargos de cor extra.'
+        add:
+          not-found: 'cargo não encontrado.'
+          non-unique: 'Esse cargo já está na lista.'
+          success: 'Cargo `%s` (`%s`) adicionado para a lista de cargos de cor extra.'
+        remove:
+          success: 'Cargo `%s` retirado da lista de papéis de cor extra, se estava presente.'
+
+      bare-colors:
+        help:
+          enable: 'permitir a deteção de cargos de cor hexadecimais'
+          disable: 'desativar a detecção de cargos de cor hexadecimais'
+          show: 'mostar o estado atual desta opção'
+
+        toggled-on: 'Os cargos de cor nomeados pela sua cor hexadecimal serão agora detetados.'
+        toggled-off: 'Os cargos de cor nomeados pela sua cor hexadecimal já não serão detetados.'
+        show: 'O estado atual desta opção é `%s`.'
+
+    snippet:
+      help:
+        list: 'mostrar todos os snippet'
+        add: 'adicionar um snippet à lista'
+        remove: 'remover um snippet pelo nome'
+        set: 'alterar o texto de um snippet'
+
+      add:
+        non-unique: 'Snippet `%s` já existe.'
+        success: 'Snippet criado `%s`.'
+      edit:
+        not-found: 'Snippet `%s` não encontrado.'
+        success: 'Snippet `%s` editado com sucesso.'
+      remove:
+        success: 'Snippet removido `%s`, se estava presente.'
+      prop:
+        help:
+          embed: '(bool) é um snippet enviado como uma embed ou uma mensagem normal?'
+
+        success: 'Propriedade `%s` do snippet `%s` é agora `%s`.'
+
+    rolegroup:
+
+    reaction:
+
+    blacklist:
+      "[channel]":
+        help:
+          add: 'adicionar uma entrada na blacklist deste canal'
+          remove: 'remover uma entrada da blacklist pelo seu ID'
+          list: 'mostra todas as entradas da blacklist e os seus IDs'
+          clear: 'remover todas as entradas da blacklist para este canal'
+
+      add:
+        success: 'A entrada foi acrescentada com sucesso com ID `%s`.'
+
+      remove:
+        not-found: 'Não encontro a entrada `%s`.'
+        wrong-server: 'Não encontro a entrada `%s` neste servidor.'
+        success: 'Removida a entrada com o ID `%s`.'
+
+      list:
+        title: 'Entradas da blacklist'
+
+      clear:
+        success: '%s entradas da blacklist foram removidas.'
+
+    misc:
+
+    nyi: 'ainda não implementado.'
+
+  fun:
+    ping: 'Fui pingado :o'
