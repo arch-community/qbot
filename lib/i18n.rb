@@ -3,7 +3,7 @@
 I18n::Backend::Simple.include I18n::Backend::Fallbacks
 
 I18n.load_path << Dir["#{File.join(__dir__, 'locales')}/*.yml"]
-I18n.config.available_locales = %i[en tp en_kawaii de]
+I18n.config.available_locales = %i[en tp en_kawaii de pt]
 I18n.default_locale = :en
 I18n.fallbacks = [:en]
 
