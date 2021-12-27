@@ -101,7 +101,7 @@ GEM
     rbnacl (7.1.1)
       ffi
     regexp_parser (2.2.0)
-    reline (0.2.7)
+    reline (0.3.0)
       io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
