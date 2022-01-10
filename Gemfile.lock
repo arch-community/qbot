@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: 79b717099cf7ad2746be757e3a6a4bb32886ee4b
+  revision: a1083b0b944700f582356fec3babd3fe6804c2ca
   branch: main
   specs:
     discordrb (3.4.2)
@@ -73,9 +73,9 @@ GEM
       faraday (~> 0.9, >= 0.9.0)
       faraday-cookie_jar (~> 0.0, >= 0.0.6)
       faraday_middleware (~> 0.10, >= 0.10.0)
-    mime-types (3.3.1)
+    mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0901)
+    mime-types-data (3.2022.0105)
     mini_portile2 (2.6.1)
     minitest (5.15.0)
     multipart-post (2.1.1)
@@ -148,7 +148,7 @@ GEM
     unicode-display_width (2.1.0)
     unicode_utils (1.4.0)
     websocket (1.2.9)
-    websocket-client-simple (0.3.0)
+    websocket-client-simple (0.5.1)
       event_emitter
       websocket
     word_wrap (1.0.0)
