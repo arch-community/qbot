@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: a1083b0b944700f582356fec3babd3fe6804c2ca
+  revision: 3f0a06eae325b4d7b24c25f71468b02b6cb47c93
   branch: main
   specs:
     discordrb (3.4.2)
@@ -49,7 +49,7 @@ GEM
       http-cookie (~> 1.0.0)
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.15.4)
+    ffi (1.15.5)
     hashugar (1.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.4)
