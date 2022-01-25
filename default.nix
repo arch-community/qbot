@@ -1,13 +1,13 @@
 { stdenv, lib, symlinkJoin, makeWrapper
 , pkg-config, git
-, ruby_3_0, ruby_2_7, bundler, bundix, defaultGemConfig, bundlerEnv
+, ruby_3_1, ruby_2_7, bundler, bundix, defaultGemConfig, bundlerEnv
 , libsodium, libopus, ffmpeg, youtube-dl
 , imagemagick7, pango
 , sqlite, zlib, shared-mime-info, libxml2, libiconv
 , figlet }:
 
 let
-  ruby' = ruby_3_0;
+  ruby' = ruby_3_1;
 
   bundler' = bundler.override { ruby = ruby_2_7; };
 
@@ -34,9 +34,7 @@ let
     bundler = bundler';
 
     gemConfig = defaultGemConfig // {
-      nokogiri = attrs: {
-        buildInputs = [ pkg-config zlib.dev ];
-      };
+      nokogiri = attrs: {};
       mimemagic = attrs: {
         FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
       };
@@ -57,7 +55,7 @@ in stdenv.mkDerivation rec {
     ./.;
 
   buildInputs = [
-    env bundix' git
+    env bundix' git pkg-config
     sqlite libxml2 zlib.dev zlib libiconv
     libopus libsodium
     ffmpeg youtube-dl

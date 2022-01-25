@@ -2,15 +2,15 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.0'
+ruby '~> 3.1'
 
 # Base
 gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 # dirty hack to fix bundix problems
 gem 'discordrb-webhooks',
     github: 'anna328p/discordrb',
-    branch: 'main',
-    ref: '4de9fa6b1853ca3fb7ba321a86712b39b9716c87'
+    branch: 'main'
+
 gem 'rbnacl'
 
 gem 'i18n',
@@ -27,7 +27,6 @@ gem 'word_wrap',
     require: ['word_wrap', 'word_wrap/core_ext']
 
 # CLI
-gem 'irb'
 gem 'paint'
 gem 'reline'
 
@@ -73,3 +72,6 @@ group :development do
   # visualization
   gem 'ruby-graphviz'
 end
+
+# dependency bug
+gem 'mini_portile2', '~> 2.7.0'
