@@ -73,5 +73,5 @@ group :development do
   gem 'ruby-graphviz'
 end
 
-# dependency bug
-gem 'mini_portile2', '~> 2.7.0'
+# Colors
+gem 'matrix'
