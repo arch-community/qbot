@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
     ./.;
 
   buildInputs = [
-    env bundix' git pkg-config
+    env.wrappedRuby env bundix' git pkg-config
     sqlite libxml2 zlib.dev zlib libiconv
     libopus libsodium
     ffmpeg youtube-dl
