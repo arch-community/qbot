@@ -28,23 +28,32 @@ Modules:
 
 ## Invite qbot to your own server
 
-[Click this link](https://discord.com/oauth2/authorize?client_id=660591224482168842&permissions=339078224&scope=bot) to invite our hosted instance of qbot to your own server.
+[Click this link][invite] to invite our hosted instance of qbot to your own server.
 
 <a href="https://fosshost.org"><img src="lib/resources/fosshost.org_Host_Dark.png" height="50px" alt="Hosted on Fosshost"/></a>
 
 ## Running your own instance of qbot
 
-### Set up the environment
+### Preferred method
+
+This repository is a [Nix flake].
+
+On NixOS, you can run your own instance of the bot by importing
+`github:arch-community/qbot`, adding the `nixosModule` output and the overlay
+to your configuration, and configuring the option `services.qbot` as defined
+in `module.nix`.
+
+### Setting up your own environment
 
 #### With Nix
 
 Clone this Git repository and enter its directory.
 
-Run `nix-build ./shell.nix`. The resulting executable is at `result/bin/qbot`.
+Run `nix-build ./default.nix`. The resulting executable is at `result/bin/qbot`.
 
 #### Otherwise
 
-Install Ruby, at least version 3.0 (higher versions untested). Install bundler.
+Install Ruby, at least version 3.1 (higher versions untested). Install bundler.
 
 Clone this Git repository. Enter the directory. Run `bundle install` to set up
 the environment.
@@ -71,11 +80,15 @@ Bot CLI:
 - `rc` or `reload-config` reloads the config.
 - `lm` or `load-module` loads or reloads a module.
 - `irb` opens a REPL in the context of the bot.
-  - The `CommandBot` object is called `QBot.bot`.
 - `quit` or `stop` stops the bot.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md].
 
-[1]: https://discord.gg/3m6dbPR
+
+
+[1]: https://discord.gg/3m6dbPR (Invite to the Arch Linux Community Discord server)
+[Nix flake]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html (Flake documentation)
+[CONTRIBUTING.md]: CONTRIBUTING.md (Contributing to the project)
+[invite]: https://discord.com/oauth2/authorize?client_id=660591224482168842&permissions=339078224&scope=bot (Invite the bot to your server)
