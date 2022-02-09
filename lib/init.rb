@@ -7,7 +7,7 @@ module QBot
     puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright, :gray]}\n\n"
   end
 
-  def self.init_config = (YAML.load_file @options.config_path || {}).to_hashugar
+  def self.init_config = (YAML.unsafe_load_file @options.config_path || {}).to_hashugar
 
   def self.load_config
     @config = init_config

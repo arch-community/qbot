@@ -45,7 +45,7 @@ class TPDict
 
   def load_pu
     YAML
-      .load_file(File.join(__dir__, 'resources/tokipona/pu.yml'))
+      .unsafe_load_file(File.join(__dir__, 'resources/tokipona/pu.yml'))
       .transform_values(&:symbolize_keys)
   end
 
