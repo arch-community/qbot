@@ -113,7 +113,7 @@ module Admin
           end
 
           begin
-            ExtraColorRole.create(server_id: event.server.id, role_id: role_id)
+            ExtraColorRole.create(server_id: event.server.id, role_id:)
           rescue ActiveRecord::RecordNotUnique
             embed t('cfg.colors.extra-color-role.add.non-unique')
             return
@@ -122,7 +122,7 @@ module Admin
           embed t('cfg.colors.extra-color-role.add.success', role.name, role.id)
 
         when 'remove', 'del', 'rm'
-          ExtraColorRole.where(role_id: role_id).delete_all
+          ExtraColorRole.where(role_id:).delete_all
 
           embed t('cfg.colors.extra-color-role.remove.success', role_id)
         end
@@ -165,14 +165,14 @@ module Admin
         name = args.shift
         text = args.join(' ').gsub('\n', "\n")
 
-        if Snippet.find_by(server_id: event.server.id, name: name)
+        if Snippet.find_by(server_id: event.server.id, name:)
           embed t('cfg.snippet.add.non-unique', name)
           return
         end
 
         Snippet.create(server_id: event.server.id,
-                       name: name,
-                       text: text,
+                       name:,
+                       text:,
                        embed: true)
 
         embed t('cfg.snippet.add.success', name)
@@ -181,7 +181,7 @@ module Admin
         name = args.shift
         text = args.join(' ').gsub('\n', "\n")
 
-        if (snippet = Snippet.find_by(server_id: event.server.id, name: name))
+        if (snippet = Snippet.find_by(server_id: event.server.id, name:))
           snippet.text = text
           snippet.save!
 
@@ -193,7 +193,7 @@ module Admin
 
       when 'remove', 'rm', 'delete', 'd'
         name = args.shift
-        Snippet.where(server_id: event.server.id, name: name).delete_all
+        Snippet.where(server_id: event.server.id, name:).delete_all
         embed t('cfg.snippet.remove.success', name)
 
       when 'prop', 'p'
@@ -204,7 +204,7 @@ module Admin
           return
         end
 
-        snippet = Snippet.find_by(server_id: event.server.id, name: name)
+        snippet = Snippet.find_by(server_id: event.server.id, name:)
         unless snippet
           embed t('cfg.snippet.edit.not-found', name)
           return
@@ -261,7 +261,7 @@ module Admin
         end
 
       when 'list', 'l'
-        bl = BlacklistEntry.where(channel_id: channel_id)
+        bl = BlacklistEntry.where(channel_id:)
 
         embed do |m|
           m.title = t('cfg.blacklist.list.title')
@@ -269,7 +269,7 @@ module Admin
         end
 
       when 'clear'
-        bl = BlacklistEntry.where(channel_id: channel_id)
+        bl = BlacklistEntry.where(channel_id:)
         count = bl.size
         bl.delete_all
 

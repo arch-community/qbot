@@ -42,7 +42,7 @@ module QBot
 
     def console_option(parser)
       parser.on('-n', '--no-console',
-                'Do not start the qbot console') do |nc|
+                'Do not start the qbot console') do |_nc|
         @no_console = true
       end
     end

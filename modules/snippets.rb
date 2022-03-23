@@ -30,7 +30,7 @@ module Snippets
     min_args: 1,
     max_args: 1
   } do |event, name|
-    snippet = Snippet.find_by(server_id: event.server.id, name: name)
+    snippet = Snippet.find_by(server_id: event.server.id, name:)
 
     if snippet
       if snippet.embed

@@ -13,7 +13,7 @@ module Blacklist
   } do |event, ch|
     channel_id = ch ? ch.to_i : event.channel.id
 
-    bl = BlacklistEntry.where(channel_id: channel_id)
+    bl = BlacklistEntry.where(channel_id:)
 
     embed do |m|
       m.title = t('blacklist.bl.title')

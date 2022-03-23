@@ -31,7 +31,7 @@ module SPGen
       <span face="#{font}" size="#{size * 4000 / 3}" foreground="#{fg_color}">#{text}</span>
     MARK
 
-    textimg = draw_markup(markup, bg_color: bg_color, width: width - (border * 2))
+    textimg = draw_markup(markup, bg_color:, width: width - (border * 2))
     out_img = textimg.trim.border(border, border, bg_color)
     textimg.destroy!
 

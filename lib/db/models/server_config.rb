@@ -6,7 +6,7 @@ class ServerConfig < ActiveRecord::Base
   def self.[](server_id)
     # rubocop: disable Style/ClassVars
     @@configs ||= {}
-    @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id: server_id)
+    @@configs[server_id] ||= ServerConfig.find_or_create_by(server_id:)
     @@configs[server_id].options ||= {}
     @@configs[server_id]
   end

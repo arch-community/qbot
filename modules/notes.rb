@@ -2,6 +2,7 @@
 
 ##
 # Notes (like Nadeko's quotes)
+# rubocop: disable Metrics/ModuleLength
 module Notes
   extend Discordrb::Commands::CommandContainer
 
@@ -16,12 +17,12 @@ module Notes
     text = rest.join(' ')
 
     note = Note.create(
-        server_id: event.server.id,
-        user_id: event.author.id,
-        username: event.author.distinct,
-        name: name.downcase,
-        text: text
-      )
+      server_id: event.server.id,
+      user_id: event.author.id,
+      username: event.author.distinct,
+      name: name.downcase,
+      text:
+    )
 
     if note.valid?
       embed t('notes.add.success', note.name, note.id)
@@ -39,9 +40,9 @@ module Notes
     arg_types: [String]
   } do |event, name|
     notes = Note.where(
-        server_id: event.server.id,
-        name: name.downcase
-      )
+      server_id: event.server.id,
+      name: name.downcase
+    )
 
     if notes.empty?
       embed t('notes.get.failure', name)
@@ -72,13 +73,13 @@ module Notes
     end
 
     notes = Note
-      .where(server_id: event.server.id)
-      .limit(page_size)
-      .offset((page - 1) * page_size)
+            .where(server_id: event.server.id)
+            .limit(page_size)
+            .offset((page - 1) * page_size)
 
     list = notes
-      .map { t('notes.list.row', _1.id, _1.name, _1.username) }
-      .join("\n")
+           .map { t('notes.list.row', _1.id, _1.name, _1.username) }
+           .join("\n")
 
     embed list do |m|
       m.title = t('notes.list.title', page, max_page)
@@ -94,7 +95,7 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, id|
-    note = Note.find_by(id: id, server_id: event.server.id)
+    note = Note.find_by(id:, server_id: event.server.id)
 
     unless note
       embed t('notes.id.failure', id)
@@ -102,7 +103,7 @@ module Notes
     end
 
     embed note.text do |m|
-        m.title = t('notes.id.title', note.name, note.id, note.username)
+      m.title = t('notes.id.title', note.name, note.id, note.username)
     end
   end
 
@@ -116,18 +117,20 @@ module Notes
     arg_types: [Integer]
   } do |event, id|
     note = Note.find(id)
-    
+
     unless note
       embed t('notes.del.not-found', id)
       return
     end
 
-    unless (note.user_id == event.user.id || event.user.permission?(:manage_messages))
+    unless note.user_id == event.user.id ||
+           event.user.permission?(:manage_messages)
       embed t('notes.del.no-perms', id)
       return
     end
 
-    name, id = note.name, note.id
+    name = note.name
+    id = note.id
     note.destroy
     embed t('notes.del.success', name, id)
   end
@@ -136,9 +139,10 @@ module Notes
     help_available: false,
     usage: '.exportnotes',
     min_args: 0,
-    max_args: 0,
+    max_args: 0
   } do |event|
-    unless event.author.permission?(:administrator) || event.author.id == QBot.config.owner
+    unless event.author.permission?(:administrator) ||
+           event.author.id == QBot.config.owner
       embed t(:no_perms)
       return
     end
@@ -148,3 +152,4 @@ module Notes
     event.send_file(StringIO.new(notes.to_json), filename: 'notes.json')
   end
 end
+# rubocop: enable Metrics/ModuleLength

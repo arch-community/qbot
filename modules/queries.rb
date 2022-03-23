@@ -17,7 +17,7 @@ module Queries
       next
     end
 
-    new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text: text)
+    new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text:)
 
     embed t('queries.query.success', new_query.id)
   end

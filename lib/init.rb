@@ -36,8 +36,8 @@ module QBot
     client_id = @config.client_id || raise('No client_id in configuration; set client_id')
 
     Discordrb::Commands::CommandBot.new(
-      token: token,
-      client_id: client_id,
+      token:,
+      client_id:,
       name: 'QueryBot',
       prefix: method(:cmd_prefix),
       fancy_log: true,
