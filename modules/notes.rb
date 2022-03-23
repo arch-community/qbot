@@ -13,8 +13,8 @@ module Notes
     usage: '.addnote <name> <text>',
     min_args: 2,
     arg_types: [String, String]
-  } do |event, name, *rest|
-    text = event.content.sub(/^#{prefixed ''}(addnote|an|\.)\s\w+\s/,'').lstrip
+  } do |event, name, *_|
+    text = event.content.sub(/^#{prefixed ''}(addnote|an|\.)\s\w+/, '').lstrip
 
     note = Note.create(
       server_id: event.server.id,
