@@ -14,7 +14,7 @@ module Notes
     min_args: 2,
     arg_types: [String, String]
   } do |event, name, *rest|
-    text = rest.join(' ')
+    text = event.content.sub(/^#{prefixed ''}(addnote|an|\.)\s\w+\s/,'').lstrip
 
     note = Note.create(
       server_id: event.server.id,
@@ -38,7 +38,9 @@ module Notes
     usage: '.note <name>',
     min_args: 1,
     arg_types: [String]
-  } do |event, name|
+  } do |event, name, *rest|
+    name = [name, *rest].join(' ')
+
     notes = Note.where(
       server_id: event.server.id,
       name: name.downcase
