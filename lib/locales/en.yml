@@ -3,6 +3,12 @@ en:
   no_dm: 'This command cannot be used in a direct message.'
   log-channel-gone: 'The log channel no longer exists. It has been reset.'
 
+  locales:
+    en: 'English'
+    en_kawaii: 'English (cute)'
+    tok: 'Toki Pona'
+    de: 'German'
+
   descriptions:
     help: 'Shows a list of all available commands or displays help for a specific command'
 
@@ -33,6 +39,7 @@ en:
     echo: 'Echoes a string'
     botrepo: "Posts the URL of the bot's Git repo"
     avatar: "Posts the URL of a user's avatar"
+    invite: 'Sends a link to invite the bot to your server'
 
     archwiki: 'Searches the Arch wiki'
     packagesearch: 'Searches for a package in the Arch repositories'
@@ -49,6 +56,12 @@ en:
     nimi: 'Queries definitions for a toki pona word'
     tpo: 'Queries usage data for a toki pona word from tokipona.org'
     tpsources: 'Displays attribution information for toki pona data'
+
+    addnote: 'Adds a note by name'
+    note: 'Finds a note by name'
+    listnotes: 'Lists all notes for this server'
+    noteid: 'Finds a note by ID'
+    delnote: 'Deletes a note'
 
   admin:
     eval:
@@ -145,6 +158,24 @@ en:
       empty: 'No quotes from %s...'
     rquote:
       failure: 'No quotes from %s...'
+
+  notes:
+    add:
+      success: 'Note **`%s`** (`#%s`) added successfully.'
+      failure: "⚠️  **Note could not be saved due to these errors:**\n%s."
+    get:
+      failure: 'Note **`%s`** was not found.'
+    list:
+      invalid-page: 'Page **%s** not found (there are **%s** pages).'
+      title: 'All notes, page %s/%s:'
+      row: '`#%s` **`%s`** by **%s**'
+    id:
+      title: 'Note **`%s`** (`#%s`) by %s'
+      failure: 'Note with id `#%s` not found.'
+    del:
+      not-found: 'Note `#%s` not found.'
+      no-perms: 'You do not have permission to delete note `#%s`.'
+      success: 'Note **`%s`** (`#%s`) deleted successfully.'
 
   tokipona:
     attrib:

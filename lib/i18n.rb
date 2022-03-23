@@ -3,7 +3,7 @@
 I18n::Backend::Simple.include I18n::Backend::Fallbacks
 
 I18n.load_path << Dir["#{File.join(__dir__, 'locales')}/*.yml"]
-I18n.config.available_locales = %i[en tp en_kawaii de]
+I18n.config.available_locales = %i[en tok en_kawaii de]
 I18n.default_locale = :en
 I18n.fallbacks = [:en]
 
@@ -11,6 +11,13 @@ def t(tid, *fields)
   I18n.translate!(tid) % fields
 rescue I18n::MissingTranslationData
   "#{I18n.translate(tid)} #{fields.inspect}"
+end
+
+def locale_list
+  I18n
+    .available_locales
+    .map { |lang| "`#{lang}`: #{t("locales.#{lang}")}" }
+    .join("\n")
 end
 
 def embed(text = nil, target: nil)

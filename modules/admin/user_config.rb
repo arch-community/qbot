@@ -28,7 +28,7 @@ module Admin
       when 'list', 'l'
         embed do |m|
           m.title = t 'uc.language.list.title'
-          m.description = I18n.available_locales.map(&:to_s).join(', ')
+          m.description = locale_list
         end
 
       when 'set', 's'

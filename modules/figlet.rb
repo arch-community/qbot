@@ -8,7 +8,6 @@ module Figlet
 
   command :figlet, {
     help_available: true,
-    description: 'Renders some text as ASCII art',
     usage: '.figlet <text>',
     min_args: 1
   } do |_event, *text|
