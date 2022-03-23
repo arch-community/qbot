@@ -56,4 +56,19 @@ module Util
       m.thumbnail = { url: u.avatar_url }
     end
   end
+
+  command :slowmode, {
+    help_available: true,
+    usage: '.slowmode [time]',
+    min_args: 0,
+    max_args: 1,
+    arg_types: [Integer],
+    required_permissions: %i[manage_channels]
+  } do |event, time|
+    if time
+      event.channel.slowmode_rate = time
+    else
+      event.respond event.channel.slowmode_rate
+    end
+  end
 end
