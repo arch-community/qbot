@@ -67,15 +67,15 @@ module Notes
     page ||= 1
     page_size = 20
 
-    max_page = (Note.count / page_size.to_f).ceil
+    server_notes = Note.where(server_id: event.server.id)
+    max_page = (server_notes.count / page_size.to_f).ceil
 
     unless (1..max_page).include? page
       embed t('notes.list.invalid-page', page, max_page)
       return
     end
 
-    notes = Note
-            .where(server_id: event.server.id)
+    notes = server_notes
             .limit(page_size)
             .offset((page - 1) * page_size)
 
