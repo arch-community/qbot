@@ -150,14 +150,14 @@ en:
 
   quotes:
     grab:
-      success: 'Quote successfully grabbed, with quote id %d'
-      failure: 'No recent messages from %s...'
+      success: 'Quote successfully grabbed with id `%d`.'
+      failure: 'No recent messages from %s.'
     quote:
-      failure: 'No such quote id : %d...'
+      failure: 'No quote with id `%d` found.'
     list:
-      empty: 'No quotes from %s...'
+      empty: 'No quotes from %s.'
     rquote:
-      failure: 'No quotes from %s...'
+      failure: 'No quotes from %s.'
 
   notes:
     add:

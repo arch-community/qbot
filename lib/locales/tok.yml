@@ -1,5 +1,13 @@
 tok:
   no_perms: 'sina ken ala pali e ni tan ni: ken sina li lili.'
+  no_dm: 'sina ken ala pali e ni lon toki pi ilo taso.'
+  log-channel-gone: 'tomo pi pali ilo li lon ala. ilo li weka sona e ona.'
+
+  locales:
+    en: 'toki Inli'
+    en_kawaii: 'toki Inli suwi'
+    tok: 'toki pona'
+    de: 'toki Tosi'
 
   descriptions:
     help: 'lukin e nimi pali ale. lukin e sona pi nimi pali wan'
@@ -9,6 +17,11 @@ tok:
 
     listsnippets: 'pana e lipu pi toki nimi ale'
     snippet: 'toki e toki nimi'
+
+    grab: 'pana e toki jan tawa poki'
+    listquotes: 'pana e toki ale lon poki toki jan'
+    quote: 'pana e toki sin tan poki toki jan'
+    rquote: 'pana e toki tan poki toki jan'
 
     color: 'kama jo e poki kule'
     closestcolor: 'nanpa kule la, kama jo e poki kule sama ona'
@@ -44,6 +57,12 @@ tok:
     tpo: 'nimi la, pana e kon tan wile pi jan mute'
     tpsources: 'pana e lon pi lipu pi wile jan'
 
+    addnote: 'pana e sitelen tawa lipu'
+    note: 'pana e sitelen tan lipu'
+    listnotes: 'pana e nimi pi sitelen ale lon lipu'
+    noteid: 'nimi nanpa la pana e sitelen'
+    delnote: 'nimi nanpa la weka e sitelen tan lipu'
+
   admin:
     eval:
       nope: 'o ala'
@@ -51,6 +70,8 @@ tok:
       title: 'kulupu ale pi nimi pali'
       global: 'kulupu lon tomo ale'
       local: 'kulupu taso lon tomo ni'
+      all_on: 'kulupu ale li lon ma ni'
+      none: 'kulupu ala li lon ma ni'
 
   arch:
     wiki:
@@ -109,6 +130,7 @@ tok:
   queries:
     query:
       success: 'wile sona sina li lon lipu. nimi nanpa ona li #%s.'
+      too-long: 'wile sona sina li ike tan ni: mute toki li mute ike.'
     oq:
       title: 'lipu pi wile sona'
       no-results: 'jan ala li wile sona'
@@ -125,6 +147,35 @@ tok:
       title: 'toki nimi ale'
     snippet:
       not-found: 'toki nimi ni li lon ala.'
+  
+  quotes:
+    grab:
+      success: 'toki li lon sin poki. nimi nanpa ona li `%s`.'
+      failure: 'jan ni li toki ala lon tenpo pini lili.'
+    quote:
+      failure: 'toki ala li jo e nimi nanpa `%s`.'
+    list:
+      empty: 'jan ni la, toki li lon ala poki.'
+    rquote:
+      failure: 'jan ni la, toki li lon ala poki.'
+
+  notes:
+    add:
+      success: 'sitelen **`%s`** li lon sin lipu. nimi nanpa ona li `#%s`.'
+      failure: "⚠️  **sitelen sina li ken ala kama lon lipu tan ni:**\n%s."
+    get:
+      failure: 'sitelen **`%s`** li lon ala.'
+    list:
+      invalid-page: 'lipu lili **%s** li lon ala lipu. (lipu lili **%s** li lon.)'
+      title: 'sitelen lon lipu lili %s/%s:'
+      row: '`#%s` **`%s`** tan **%s**'
+    id:
+      title: 'sitelen **`%s`** (`#%s`) tan %s'
+      failure: 'sitelen pi nimi nanpa `#%s` li lon ala.'
+    del:
+      not-found: 'sitelen pi nimi nanpa `#%s` li lon ala.'
+      no-perms: 'sina ken ala weka e sitelen `#%s` tan ni: ken sina li lili.'
+      success: 'sitelen **`%s`** (`#%s`) li kama lon ala.'
 
   tokipona:
     attrib:
@@ -154,6 +205,7 @@ tok:
     help:
       help: 'o pana e lipu sona pi nimi pali ni'
       language: 'o ante e nasin toki ilo'
+      sitelenpona: 'o ante e nasin pi sitelen pona'
 
     language:
       help:
@@ -288,3 +340,6 @@ tok:
     misc:
 
     nyi: 'ilo li ken ala pali e ni lon tenpo ni.'
+
+  fun:
+    ping: 'jan li o e mi :o'
