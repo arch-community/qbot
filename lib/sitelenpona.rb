@@ -45,7 +45,8 @@ module SPGen
   @font_metadata = nil
   def self.font_metadata
     @font_metadata ||= YAML.unsafe_load_file(
-      File.join(__dir__, 'resources/fonts/tokipona/metadata.yml')
-    ).deep_symbolize_keys[:fonts]
+      File.join(__dir__, 'resources/fonts/tokipona/metadata.yml'),
+      symbolize_names: true
+    )[:fonts]
   end
 end

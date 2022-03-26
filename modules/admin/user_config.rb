@@ -110,14 +110,20 @@ module Admin
           embed t('uc.sitelenpona.fontface.show', current)
         when 'list', 'ls', 'l'
           list = SPGen.font_metadata
-                      .map.with_index { |info, idx| "[#{idx}] #{info[:typeface]}" }
-                      .join("\n")
+              .map.with_index { |info, idx|
+                lineno = idx.to_s.rjust(2)
+                name = info[:nickname] || info[:typeface]
+                layout = { ucsur: 'UCSUR', ligatures: 'ligatures' }[info[:layout]]
+
+                "`[#{lineno}]` **#{name}** (#{layout})"
+              }
 
           embed do
             _1.title = t('uc.sitelenpona.fontface.list')
             _1.description = <<~DESC
               #{t('uc.sitelenpona.fontface.instructions', find_prefix(event.message))}
-              ```#{list}```
+
+              #{list.join("\n")}
             DESC
           end
         when 'set', 's'
