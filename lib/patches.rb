@@ -32,11 +32,16 @@ end
 # rubocop: enable all
 
 module Discordrb
-  module Events::Respondable
-    def respond_wrapped(content, tts: false, embed: nil, attachments: nil,
-                        allowed_mentions: nil, message_reference: nil, components: nil)
-      send_message(content, tts, embed, attachments, allowed_mentions, message_reference, components)
+  module Events
+    # Wrap Respondable#send_message to allow using keyword arguments
+    # rubocop: disable Metrics/ParameterLists
+    module Respondable
+      def respond_wrapped(content, tts: false, embed: nil, attachments: nil,
+                          allowed_mentions: nil, message_reference: nil, components: nil)
+        send_message(content, tts, embed, attachments, allowed_mentions, message_reference, components)
+      end
     end
+    # rubocop: enable Metrics/ParameterLists
   end
 
   module Commands
