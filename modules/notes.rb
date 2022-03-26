@@ -52,7 +52,7 @@ module Notes
     end
 
     note = notes.sample
-    event.respond "**`##{note.id}`**  📣  #{note.text}"
+    event.respond_wrapped "**`##{note.id}`**  📣  #{note.text}", allowed_mentions: false
   end
 
   command :listnotes, {

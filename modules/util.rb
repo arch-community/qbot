@@ -8,8 +8,8 @@ module Util
     help_available: true,
     usage: '.echo <string>',
     min_args: 1
-  } do |_event, *args|
-    args.join(' ').gsub('@', "\\@\u200D")
+  } do |event, *args|
+    event.respond_wrapped args.join(' '), allowed_mentions: false
   end
 
   command :botrepo, {

@@ -32,6 +32,13 @@ end
 # rubocop: enable all
 
 module Discordrb
+  module Events::Respondable
+    def respond_wrapped(content, tts: false, embed: nil, attachments: nil,
+                        allowed_mentions: nil, message_reference: nil, components: nil)
+      send_message(content, tts, embed, attachments, allowed_mentions, message_reference, components)
+    end
+  end
+
   module Commands
     # Overwrite of the CommandBot to monkey patch command length
     class CommandBot
