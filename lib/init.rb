@@ -11,7 +11,7 @@ module QBot
 
   def self.load_config
     @config = init_config
-    self.log.info 'Loaded configuration'
+    log.info 'Loaded configuration'
   end
 
   def self.init_log
