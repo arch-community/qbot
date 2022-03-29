@@ -33,7 +33,6 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     bottom (0.1.0)
-    colorize (0.8.1)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     domain_name (0.5.20190701)
@@ -60,9 +59,6 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    log4r-color (1.2.2)
-      colorize
-      scribe
     loofah (2.15.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -95,7 +91,6 @@ GEM
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
     rainbow (3.1.1)
-    rake (13.0.6)
     rbnacl (7.1.1)
       ffi
     regexp_parser (2.2.1)
@@ -127,15 +122,9 @@ GEM
       rexml
     ruby-progressbar (1.11.0)
     ruby_figlet (0.6.1)
-    scribe (0.2.4)
-      rake
-      thrift_client (~> 0.6)
     sqlite3 (1.4.2)
     tf-idf-similarity (0.2.0)
       unicode_utils (~> 1.4)
-    thrift (0.11.0.0)
-    thrift_client (0.11.0)
-      thrift (~> 0.11.0)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
     tzinfo (2.0.4)
@@ -163,7 +152,6 @@ DEPENDENCIES
   i18n
   kramdown
   kramdown-parser-gfm
-  log4r-color
   matrix
   mediawiki_api
   narray

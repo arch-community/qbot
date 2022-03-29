@@ -52,16 +52,6 @@
     };
     version = "0.1.0";
   };
-  colorize = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "133rqj85n400qk6g3dhf2bmfws34mak1wqihvh3bgy9jhajw580b";
-      type = "gem";
-    };
-    version = "0.8.1";
-  };
   concurrent-ruby = {
     groups = ["default"];
     platforms = [];
@@ -256,17 +246,6 @@
       type = "gem";
     };
     version = "1.1.0";
-  };
-  log4r-color = {
-    dependencies = ["colorize" "scribe"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "10ps260lvcdm1p8py9r4g4aq38zyc86bmn5j8jk265vl6v8blp7i";
-      type = "gem";
-    };
-    version = "1.2.2";
   };
   loofah = {
     dependencies = ["crass" "nokogiri"];
@@ -476,16 +455,6 @@
     };
     version = "3.1.1";
   };
-  rake = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "15whn7p9nrkxangbs9hh75q585yfn66lv0v2mhj6q6dl6x8bzr2w";
-      type = "gem";
-    };
-    version = "13.0.6";
-  };
   rbnacl = {
     dependencies = ["ffi"];
     groups = ["default"];
@@ -624,17 +593,6 @@
     };
     version = "0.6.1";
   };
-  scribe = {
-    dependencies = ["rake" "thrift_client"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1mpxb1rcnlxr2vr92fbqb15l0lwpj90j602capan8ks07m3vak3z";
-      type = "gem";
-    };
-    version = "0.2.4";
-  };
   sqlite3 = {
     groups = ["default"];
     platforms = [];
@@ -655,27 +613,6 @@
       type = "gem";
     };
     version = "0.2.0";
-  };
-  thrift = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "02p107kwx7jnkh6fpdgvaji0xdg6xkaarngkqjml6s4zny4m8slv";
-      type = "gem";
-    };
-    version = "0.11.0.0";
-  };
-  thrift_client = {
-    dependencies = ["thrift"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "0k7kh926z4dm4r9ak1v7xj0jwrdj595i6apzfgg3fbk3nsr4whnq";
-      type = "gem";
-    };
-    version = "0.11.0";
   };
   typhoeus = {
     dependencies = ["ethon"];

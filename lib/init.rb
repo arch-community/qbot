@@ -11,23 +11,11 @@ module QBot
 
   def self.load_config
     @config = init_config
-    Log4r::Logger['bot'].info 'Loaded configuration'
+    self.log.info 'Loaded configuration'
   end
 
   def self.init_log
-    logger = Log4r::Logger.new 'bot'
-    # logger.outputters = Log4r::Outputter.stderr
-
-    Log4r::ColorOutputter.new 'color', {
-      colors: {
-        debug: :white,
-        info: :green,
-        warn: :yellow, error: :red, fatal: :red
-      }
-    }
-    logger.add 'color'
-
-    logger
+    Discordrb::Logger.new(true)
   end
 
   # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
@@ -79,7 +67,7 @@ module QBot
     @bot.run :async
 
     trap :INT do
-      Thread.new { QBot.log.fatal 'Ctrl-C caught, exiting gracefully...' }.join
+      Thread.new { QBot.log.info 'Ctrl-C caught, exiting gracefully...' }.join
       QBot.bot.stop
       exit 130
     end

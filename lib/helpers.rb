@@ -36,7 +36,7 @@ def log_embed(event, channel, user, extra)
 end
 
 def console_log(event, extra = nil)
-  QBot.log.info("command execution by #{event.author.distinct}: " \
+  QBot.log.info("command execution by #{event.author.distinct} on #{event.server.id}: " \
                 "#{event.message}#{extra && "; #{extra}"}")
 end
 

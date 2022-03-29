@@ -13,18 +13,13 @@ gem 'discordrb-webhooks',
 
 gem 'rbnacl'
 
-gem 'i18n',
-    require: [
-      'i18n',
-      'i18n/backend/fallbacks'
-    ]
+gem 'i18n', require: %w[i18n i18n/backend/fallbacks]
 
 # Config
 gem 'hashugar'
 
 # Help
-gem 'word_wrap',
-    require: ['word_wrap', 'word_wrap/core_ext']
+gem 'word_wrap', require: %w[word_wrap word_wrap/core_ext]
 
 # CLI
 gem 'paint'
@@ -33,9 +28,6 @@ gem 'reline'
 # DB
 gem 'activerecord', require: 'active_record'
 gem 'sqlite3'
-
-# Logging
-gem 'log4r-color'
 
 # Arch
 gem 'mediawiki_api'
@@ -53,7 +45,7 @@ gem 'open_uri_redirections'
 gem 'bottom'
 
 # tio
-gem 'kramdown', require: ['kramdown', 'kramdown/document']
+gem 'kramdown', require: %w[kramdown kramdown/document]
 gem 'kramdown-parser-gfm', require: 'kramdown/parser/gfm'
 gem 'nokogiri'
 

@@ -18,7 +18,6 @@ module Database
 
   def self.init_db
     conf = QBot.config.database
-    puts dbname
 
     ActiveRecord::Base.establish_connection(
       adapter: conf.type,
