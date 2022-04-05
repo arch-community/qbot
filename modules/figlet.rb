@@ -11,7 +11,7 @@ module Figlet
     usage: '.figlet <text>',
     min_args: 1
   } do |_event, *text|
-    input = QBot.breaking_word_wrap(text.join(' '), 16)
+    input = BreakingWordWrap.breaking_word_wrap(text.join(' '), line_width: 16)
     figlet = RubyFiglet::Figlet.new(input).to_s
 
     "```\n#{figlet}\n```"

@@ -105,7 +105,7 @@ class QBot < Discordrb::Commands::CommandBot
 
   def register_ctrlc_handler
     trap :INT do
-      Thread.new { self.class.log.fatal 'Ctrl-C caught, exiting gracefully...' }.join
+      self.class.log.info 'Ctrl-C caught, exiting gracefully...'
       stop
       exit 130
     end
@@ -122,21 +122,10 @@ class QBot < Discordrb::Commands::CommandBot
 
   def load_config
     @config = init_config
-    Log4r::Logger['bot'].info 'Loaded configuration'
+    self.class.log.info 'Loaded configuration'
   end
 
   def self.init_log
-    logger = Log4r::Logger.new 'bot'
-
-    Log4r::ColorOutputter.new 'color', {
-      colors: {
-        debug: :white,
-        info: :green,
-        warn: :yellow, error: :red, fatal: :red
-      }
-    }
-    logger.add 'color'
-
-    logger
+    Discordrb::Logger.new(true)
   end
 end
