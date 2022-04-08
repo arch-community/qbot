@@ -13,26 +13,24 @@ module Admin
   end
 
   def self.opt_help(event, option)
-    str = String.new
-    str << "Option: `#{option.name}` (#{option.type})\n"
+    out = String.new
+    out << "Option: `#{option.name}` (#{option.type})\n"
 
-    cur_val = nil
-    case option.type
-    when :string, :integer, :bool, :snowflake
-      cur_val = option.db_get(event)
-      cur_val = 'nil' if cur_val.nil?
-    when :selection
-      # stub
-    when :collection
-      # stub
+    cur_val = case option.type
+      when :string, :integer, :bool, :snowflake
+        ServerConfig[event.server.id].get(option.path) || 'unset'
+      when :selection
+        # stub
+      when :collection
+        # stub
     end
 
-    str << "Current value: `#{cur_val}`.\n\n"
-    str << "Append a #{option.type} to this command to set the option.\n"
-    str << "Append `reset` to set `#{option.name}` to its default value"
-    str << " (`#{option.default}`)" if option.default
-    str << '.'
-    embed str
+    out << "Current value: `#{cur_val}`.\n\n"
+    out << "Append a #{option.type} to this command to set the option.\n"
+    out << "Append `reset` to set `#{option.name}` to its default value"
+    out << " (`#{option.default}`)" if option.default
+    out << '.'
+    embed out
   end
 
   def self.handle_opt(event, opt, args)

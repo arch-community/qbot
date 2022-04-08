@@ -18,28 +18,7 @@ module Configurable
 
   ##
   # Represents an option in the option tree. If it's a group, it contains sub-options.
-  Option = Struct.new(*%i[name type aliases default attrs]) do
-    def option(event, opt_name)
-      cfg = get_config(event)
-      cfg.options[opt_name]
-    end
-
-    def get(event)
-      case type
-      when :string, :integer, :bool, :snowflake
-        get_config(event).options[name.to_s]
-      when :selection
-      when :collection
-      end
-    end
-
-    def db_set(event, value)
-      cfg = get_config(event)
-      p cfg.options
-      cfg.options[name] = value
-      cfg.save!
-    end
-  end
+  Option = Struct.new(*%i[name type aliases default attrs path])
 
   # valid types: %i[string integer snowflake bool group selection collection command]
 
@@ -68,6 +47,10 @@ module Configurable
     def initialize(*)
       super
       self.attrs ||= []
+    end
+
+    def name
+      return '[container]'
     end
   end
 
@@ -106,6 +89,8 @@ module Configurable
     ##
     # Adds an option to the current set..
     def add_opt(option)
+      option.path = (@group_stack + [option]).map(&:name).join('/')
+
       if (head = @group_stack.last)
         head.attrs << option
       else
@@ -156,7 +141,7 @@ module Configurable
     end
 
     # Collection support options
-
+    
     def model(name)
       @context.model = name
     end
@@ -196,6 +181,26 @@ module Configurable
     def cmd(name, aliases: [], &block)
       add_opt Option.new(name, :command, aliases, nil, block)
     end
+  end
+
+
+  # Get or set an option on a config instance
+  
+  def get(path)
+    options[path]
+  end
+
+  def set(path, new_value)
+    case option.type
+    when :string
+      options[path] = new_value
+    when :integer, :snowflake
+      options[path] = Integer(new_value)
+    when :bool
+      options[path] = new_value.downcase.start_with?('y', 't')
+    end
+
+    save!
   end
 
   ##
