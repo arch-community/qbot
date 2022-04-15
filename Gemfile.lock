@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: fc9874319798e6b317c58ccdc7bd91e62fafecf2
+  revision: 77080de8c11a0e102833c24a90afbb532557aff4
   branch: main
   specs:
     discordrb (3.4.2)
