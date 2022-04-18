@@ -1,32 +1,60 @@
 # frozen_string_literal: true
 
 # Config helpers
-module Config
-  def self.help_msg(command, avail)
-    cmd = prefixed command
-    subcmds = subcommands(command, avail)
-
-    embed <<~TEXT
-      ```
-      #{t 'cfg.usage'} #{cmd} <#{t 'cfg.subcmd'}> [#{t 'cfg.options'}]
-
-      #{t 'cfg.avail_subcmd'}
-      #{subcmds}
-      ```
-    TEXT
+module Admin
+  def self.to_path(stack)
+    stack.map(&:name).join('/')
   end
 
-  def self.subcommands(command, avail)
-    tid_pfx = command.split.join('.') # translation ID prefix
-    descriptions = avail.map { |name| t "#{tid_pfx}.help.#{name}" }
-
-    avail.zip(descriptions).map { |cmd, desc| "    #{cmd} - #{desc}" }.join("\n")
+  def self.parse_value(option, args)
+    case option.type
+    when :string
+      args.join(' ')
+    when :integer
+      parse_int(args.join(' '))
+    when :bool
+      parse_bool(args.first)
+    when :snowflake
+      parse_int(args.first)
+    end
   end
 
-  def self.save_prefix(cfg, new_prefix)
-    cfg.prefix = new_prefix
-    cfg.save!
+  def self.group_help(opts: nil, schema: ServerConfig.option_schema)
+    opts ||= schema
 
-    embed t('cfg.prefix.saved', new_prefix)
+    embed do |m|
+      m.title = 'Available options'
+      m.description =
+        opts.map { "**`#{_1.name}`** _(#{_1.type})_" }
+            .join("\n")
+    end
+  end
+
+  def self.simple_opt_help(event, option)
+    out = String.new
+    out << "Option: **`#{option.name}`** _(#{option.type})_\n"
+
+    cur_val = ServerConfig[event.server.id].get(option) || 'unset'
+
+    out << "Current value: `#{cur_val}`.\n\n"
+    out << "Append a #{option.type} to this command to set the option.\n"
+    out << "Append `reset` to set **`#{option.name}`** to its default value"
+    out << " (`#{option.default}`)" if option.default
+    out << '.'
+    embed out
+  end
+
+  def self.opt_confirm(option, val)
+    embed do |m|
+      m.title = 'Option changed'
+      m.description = "The value of **`#{option.path}`** is now `#{val}`."
+    end
+  end
+
+  def self.opt_invalid(option, val)
+    embed do |m|
+      m.title = 'Invalid value'
+      m.description = "The value `#{val}` is not valid for **`#{option.path}`**."
+    end
   end
 end

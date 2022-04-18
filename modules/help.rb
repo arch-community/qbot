@@ -8,7 +8,7 @@ module Help
 
   # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   # rubocop: disable Metrics/MethodLength, Metrics/PerceivedComplexity
-  def self.cmd_help(event, name, pfx)
+  def self.cmd_help(event, name)
     command = event.bot.commands[name.to_sym]
     if command.is_a?(Discordrb::Commands::CommandAlias)
       command = command.aliased_command
@@ -49,7 +49,7 @@ module Help
     desc = t "descriptions.#{command.name}"
 
     embed do |m|
-      m.title = "#{pfx}#{name}"
+      m.title = prefixed name
       m.description = desc if desc
       m.fields = fields unless fields.empty?
     end
@@ -69,33 +69,33 @@ module Help
   end
   # rubocop: enable Metrics/AbcSize
 
-  def self.embed_full(_event, avail, pfx)
+  def self.embed_full(_event, avail)
     embed do |m|
       m.title = t 'help.list-title'
       m.fields = avail.map {
         desc = t("descriptions.#{_1.name}") || ''
         {
-          name: "#{pfx}#{_1.name}",
+          name: prefixed(_1.name),
           value: desc
         }
       }
     end
   end
 
-  def self.embed_compact(_event, avail, pfx)
+  def self.embed_compact(_event, avail)
     embed do |m|
       m.title = t 'help.list-title'
-      m.description = avail.map { "`#{pfx}#{_1.name}`" }.join(', ')
+      m.description = avail.map { "`#{prefixed _1.name}`" }.join(', ')
     end
   end
 
-  def self.all_help(event, pfx)
+  def self.all_help(event)
     avail = available_commands(event)
     case avail.length
     when 0..25
-      embed_full(event, avail, pfx)
+      embed_full(event, avail)
     else
-      embed_compact(event, avail, pfx)
+      embed_compact(event, avail)
     end
   end
 
@@ -106,12 +106,10 @@ module Help
     min_args: 0,
     max_args: 1
   } do |event, command_name|
-    pfx = ServerConfig[event.server.id].prefix
-
     if command_name
-      Help.cmd_help(event, command_name, pfx)
+      Help.cmd_help(event, command_name)
     else
-      Help.all_help(event, pfx)
+      Help.all_help(event)
     end
   end
 end

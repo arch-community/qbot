@@ -4,11 +4,11 @@ def find_prefix(message)
   if message.channel.pm?
     QBot.config.default_prefix || '.'
   else
-    ServerConfig[message.server.id].server_prefix
+    ServerConfig[message.server.id].get(path: 'prefix')
   end
 end
 
-def prefixed(text) = "#{QBot.bot.current_prefix}#{text}"
+def prefixed(text) = "#{QBot.instance.current_prefix}#{text}"
 
 def cmd_prefix(message)
   pfx = find_prefix(message)
@@ -36,14 +36,18 @@ def log_embed(event, channel, user, extra)
 end
 
 def console_log(event, extra = nil)
-  QBot.log.info("command execution by #{event.author.distinct} on #{event.server.id}: " \
-                "#{event.message}#{extra && "; #{extra}"}")
+  out = "command execution by #{event.author.distinct} (#{event.author.id})"
+  out << " on #{event.server.id}" if event.server
+  out << ": #{event.message}"
+  out << "; #{extra}" if extra
+
+  QBot.log.info out
 end
 
 def log(event, extra = nil)
   console_log(event, extra)
 
-  chan_id = event.channel.pm? ? nil : ServerConfig[event.server.id].log_channel_id
+  chan_id = event.channel.pm? ? nil : ServerConfig[event.server.id].get(path: 'log_channel')
 
   begin
     lc = chan_id && QBot.bot.channel(chan_id)
@@ -85,3 +89,5 @@ def parse_int(num)
 rescue ArgumentError, TypeError
   nil
 end
+
+def parse_bool(val) = val.to_s.downcase.start_with?('y', 't', '1', 'on')

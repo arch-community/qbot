@@ -24,7 +24,7 @@ module Configurable
 
   ##
   # Context used to store build state for a selection option.
-  SelectionContext = Struct.new(*%i[name limit key options default on_save extra_cmds])
+  SelectionContext = Struct.new(*%i[name limit key values default on_save extra_cmds])
 
   ##
   # Context used to store build state for a collection option.
@@ -116,7 +116,7 @@ module Configurable
       instance_eval(&block) if block_given?
 
       @context.extra_cmds = @group_stack.pop
-      add_opt Option.new(name, :selection, aliases, nil, @context)
+      add_opt Option.new(name, :selection, aliases, nil, @context.dup)
       @context = nil
     end
 
@@ -136,7 +136,7 @@ module Configurable
       instance_eval(&block) if block_given?
 
       @context.extra_cmds = @group_stack.pop
-      add_opt Option.new(name, :collection, aliases, nil, @context)
+      add_opt Option.new(name, :collection, aliases, nil, @context.dup)
       @context = nil
     end
 
@@ -151,11 +151,17 @@ module Configurable
     end
 
     def key(val = nil, &block)
+      p @context
       @context.key = ValueBlock.new(val, &block)
     end
 
     def default(val = nil, &block)
+      p @context
       @context.default = ValueBlock.new(val, &block)
+    end
+
+    def values(val = nil, &block)
+      @context.values = ValueBlock.new(val, &block)
     end
 
     def on_save(&block)
@@ -186,19 +192,18 @@ module Configurable
 
   # Get or set an option on a config instance
   
-  def get(path)
-    options[path]
+  def get(option = nil, path: nil)
+    if option
+      options[option.path]
+    elsif path
+      options[path]
+    else
+      raise ArgumentError
+    end
   end
 
-  def set(path, new_value)
-    case option.type
-    when :string
-      options[path] = new_value
-    when :integer, :snowflake
-      options[path] = Integer(new_value)
-    when :bool
-      options[path] = new_value.downcase.start_with?('y', 't')
-    end
+  def set(option, new_value)
+    options[option.path] = new_value
 
     save!
   end
@@ -211,9 +216,13 @@ module Configurable
 
       opts = ConfigBuilder.new
       opts.instance_eval(&block)
-      pp opts.options
 
       @option_schema += opts.options
+    end
+
+    def find_opt(query, opts: option_schema)
+      names = opts.flat_map { [_1.name] + _1.aliases }.abbrev
+      opts.find { _1.name == names[query] || _1.aliases.include?(names[query]) }
     end
   end
 end

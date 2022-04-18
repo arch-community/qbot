@@ -1,12 +1,14 @@
 #!/usr/bin/env ruby
 # frozen-string-literal: true
 
-Bundler.require :default
-require 'json'
-require 'yaml'
+require 'abbrev'
 require 'digest'
-require 'uri'
+require 'json'
 require 'open-uri'
+require 'uri'
+require 'yaml'
+
+Bundler.require :default
 
 def require_libs(libs) = libs.each { require_relative "#{__dir__}/lib/#{_1}" }
 
@@ -21,13 +23,9 @@ require_libs %w[
   db
   i18n
   config_helpers
-  helpers
-  xkcd
-  tpdict
-  sitelenpona
-  xsampa
-  tio
-  breaking_wrap
+  helpers breaking_wrap
+  xsampa tpdict sitelenpona
+  tio xkcd
 ]
 
 qbot = QBot.instance

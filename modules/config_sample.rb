@@ -6,7 +6,18 @@ end
 
 ServerConfig.register_options do # rubocop: disable Metrics/BlockLength
   snowflake :log_channel, aliases: [:lc]
-  string :prefix, aliases: %i[pfx], max_length: 10
+
+  string :prefix,
+         aliases: %i[pfx], max_length: 10,
+         default: QBot.instance.config.default_prefix
+
+  selection :seltest do
+    values { %w[the quick brown fox jumps over the lazy dog] }
+    key { _1 }
+    default "the"
+
+    on_save { pp _1 }
+  end
 
   group :colors do
     collection :extra_roles do
@@ -23,16 +34,6 @@ ServerConfig.register_options do # rubocop: disable Metrics/BlockLength
     end
 
     bool :bare_colors, aliases: [:bc], default: false
-  end
-
-  collection :snippet do
-    model Snippet
-
-    id :server
-    key :name
-    value :text
-
-    prop :embed, :boolean, aliases: [:m], default: false
   end
 
   collection :blacklist do
@@ -67,14 +68,15 @@ UserConfig.register_options do
     on_save { |name| I18n.locale = name.to_sym }
   end
 
-  group :sitelenpona, aliases: [:sp] do
+  group :sitelenpona, aliases: %i[sp] do
     string :fgcolor, default: 'black'
     string :bgcolor, default: 'white'
     integer :fontsize, aliases: %i[size fs], default: 32
 
     selection :fontface, aliases: %i[ff] do
-      options { SPGen.font_metadata }
+      values { SPGen.font_metadata }
       key :index
+
       default 'linja suwi'
     end
 
