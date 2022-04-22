@@ -83,7 +83,7 @@ GEM
       ffi
     paint (2.2.1)
     parallel (1.22.1)
-    parser (3.1.1.0)
+    parser (3.1.2.0)
       ast (~> 2.4.1)
     pluralkit-api (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
@@ -93,7 +93,7 @@ GEM
     rainbow (3.1.1)
     rbnacl (7.1.1)
       ffi
-    regexp_parser (2.2.1)
+    regexp_parser (2.3.0)
     reline (0.3.1)
       io-console (~> 0.5)
     rest-client (2.1.0)
@@ -105,16 +105,16 @@ GEM
     rmagick (4.2.4)
     rss (0.2.9)
       rexml
-    rubocop (1.26.1)
+    rubocop (1.28.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.16.0, < 2.0)
+      rubocop-ast (>= 1.17.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.16.0)
+    rubocop-ast (1.17.0)
       parser (>= 3.1.1.0)
     rubocop-checkstyle_formatter (0.5.0)
       rubocop (>= 1.14.0)
