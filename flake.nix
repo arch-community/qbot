@@ -9,12 +9,15 @@
   outputs = { self, nixpkgs, flake-utils }:
     rec {
       overlay = final: prev: let
-        pkgs = nixpkgs.legacyPackages.${prev.system};
+        pkgs = import nixpkgs { 
+        	inherit (prev) system;
+        	config.allowUnfree = true;
+        };
       in rec {
         qbot = pkgs.callPackage ./. { };
       };
 
-      nixosModule = { ... }: { imports = [ ./module.nix ]; };
+      nixosModule = import ./module.nix;
       nixosModules = [ nixosModule ];
     } //
     flake-utils.lib.eachDefaultSystem (system:
@@ -22,15 +25,23 @@
         pkgs = import nixpkgs {
           overlays = [ self.overlay ];
           inherit system;
+          config.allowUnfree = true;
         };
+
+        pkg = pkgs.qbot;
+        app = flake-utils.lib.mkApp { drv = pkg; name = "qbot"; };
+        shell = import ./shell.nix { inherit pkgs; };
       in rec {
-        packages.qbot = pkgs.qbot;
-        defaultPackage = packages.qbot;
+        packages.qbot = pkg;
+        packages.default = pkg;
 
-        apps.qbot = flake-utils.lib.mkApp { drv = pkgs.qbot; name = "qbot"; };
-        defaultApp = apps.qbot;
+        legacyPackages.qbot = pkg;
 
-        legacyPackages.qbot = pkgs.qbot;
+        apps.qbot = app;
+        apps.default = app;
+
+        devShells.qbot = shell;
+        devShells.default = shell;
       }
     );
 }
