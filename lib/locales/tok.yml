@@ -236,58 +236,55 @@ tok:
         help:
           show: 'ilo li pana e kule sitelen sina'
           set: 'sina ken ante e kule sitelen sina'
-          reset: 'ilo li kepeken kule '
-#########################################################################################
-#########################################################################################
-#########################################################################################
+          reset: 'ilo li weka sona e wile sina pi kule sitelen'
       bgcolor:
         help:
-          show: 'display your current background color'
-          set: 'change your background color'
-          reset: 'reset your background color to default'
+          show: 'ilo li pana e kule sina pi ma sitelen'
+          set: 'sina ken ante e kule sina pi ma sitelen'
+          reset: 'ilo li weka sona e wile sina pi kule ma'
 
       color:
-        show: 'Your current %s is %s.'
-        set: 'Your %s is now %s.'
+        show: '%s sina li %s'
+        set: '%s sina li kama %s'
 
       fontsize:
         help:
-          show: 'display your current font size'
-          set: 'change your font size'
-          reset: 'reset your font size to default'
-        show: 'Your current font size is %s.'
-        set: 'Your font size is now %s.'
+          show: 'ilo li pana e suli sitelen sina'
+          set: 'sina ken ante e suli sitelen sina'
+          reset: 'ilo li weka e wile sina pi suli sitelen'
+        show: 'sina sitelen kepeken suli nanpa %s'
+        set: 'sina kama sitelen kepeken suli nanpa %s.'
 
       fontface:
         help:
-          show: 'display your current typeface'
-          list: 'show all available typefaces'
-          set: 'change your typeface'
-          reset: 'reset your typeface to default'
-        show: 'Your current typeface is %s.'
-        set: 'Your typeface is now %s.'
-        list: 'Available typefaces'
-        instructions: 'Use `%suc sp ff s <number>` to choose a typeface.'
-        invalid: 'That typeface is invalid.'
+          show: 'ilo li pana e nasin sitelen sina'
+          list: 'ilo li pana e nasin sitelen ale ken'
+          set: 'sina ken ante e nasin sitelen sina'
+          reset: 'ilo li weka sona e wile sina pi nasin sitelen'
+        show: 'sina sitelen kepeken nasin %s'
+        set: 'sina kama sitelen kepeken nasin %s'
+        list: 'nasin sitelen ken'
+        instructions: 'sina ken pana e wile sina pi nasin sitelen kepeken nimi ni: `%suc sp ff s <number>`'
+        invalid: 'nasin sitelen ni li lon ala'
 
       name:
         help:
-          show: 'display your current webhook name'
-          set: 'change your webhook name'
-          reset: 'reset your webhook name to default'
-        show: 'Your current webhook name is %s.'
-        set: 'Your webhook name is now %s.'
+          show: 'ilo li pana e nimi sina pi toki ilo'
+          set: 'sina ken ante e nimi sina pi toki ilo'
+          reset: 'ilo li weka sona e nimi sina'
+        show: 'ilo li kepeken nimi %s tawa sina'
+        set: 'ilo li kama kepeken nimi %s tawa sina'
 
       glyphs:
         help:
-          show: 'display your current glyphs'
-          set: 'change your glyphs'
-          reset: 'reset your glyphs to default'
-        show: 'Your current glyphs are %s.'
-        set: 'Your glyphs are now %s.'
+          show: 'ilo li pana e sitelen sina'
+          set: 'sina ken ante e sitelen sina'
+          reset: 'ilo li weka sona e sitelen sina'
+        show: 'sitelen sina li ni: %s'
+        set: 'sitelen sina li kama ni: %s'
 
   cfg:
-    usage: 'o kepeken sama ni:'
+    usage: 'nasin kepeken:'
     subcmd: 'nimi pali lili'
     options: 'nasin pali'
     avail_subcmd: 'sina ken kepeken nimi pali lili ni:'
@@ -310,69 +307,69 @@ tok:
         reset: 'sina ken weka e sona pi tomo ni: ilo li toki e pali ilo lon ona'
 
       set:
-        success: 'tomo sin pi pali ilo li <#%s>.'
+        success: 'tomo sin pi pali ilo li <#%s>'
       reset:
-        success: 'tomo pi pali ilo li weka.'
+        success: 'tomo pi pali ilo li weka'
 
     modules:
 
     prefix:
       help:
-        set: 'ante e sitelen open pi nimi pali'
-        reset: 'ante e sitelen open tawa "."'
+        set: 'sina ken ante e sitelen open pi nimi pali'
+        reset: 'sina ken ante e sitelen open tawa "."'
 
-      saved: 'sitelen open sin pi nimi pali li `%s`.'
+      saved: 'sitelen open sin pi nimi pali li `%s`'
 
     colors:
       help:
-        extra-color-role: 'ante e poki kule namako'
-        bare-colors: 'ante e ken kepeken poki pi nimi kule taso'
+        extra-color-role: 'sina ken ante e poki kule namako'
+        bare-colors: 'ilo li alasa e poki kule ni: ona li kepeken nimi kule taso'
 
       extra-color-role:
         help:
-          list: 'lukin e poki kule namako ale'
-          add: 'nimi nanpa la pana e poki kule sin tawa ilo'
-          remove: 'nimi nanpa la weka e poki kule namako tan ilo'
+          list: 'ilo li pana e poki kule namako ale'
+          add: 'nimi nanpa la sina ken pana e poki kule sin tawa ilo'
+          remove: 'nimi nanpa la sina ken weka e poki kule namako tan ilo'
 
         list:
-          no-roles: 'poki kule namako li lon ala.'
+          no-roles: 'poki kule namako li lon ala'
         add:
-          not-found: 'poki kule ni li lon ala.'
-          non-unique: 'tenpo ni la poki kule ni li lon. sina ken ala pana e ona.'
-          success: 'poki kule `%s` (`%s`) li lon sin.'
+          not-found: 'poki kule ni li lon ala'
+          non-unique: 'poki kule ni li lon. sina ken ala pana sin e ona'
+          success: 'poki kule `%s` (`%s`) li kama sin'
         remove:
-          success: 'ona li lon la, poki kule `%s` li weka.'
-
+          success: 'poki kule `%s` li weka'
+###
       bare-colors:
         help:
-          enable: 'ken e kepeken poki pi nimi kule taso'
-          disable: 'ken ala e kepeken pi poki ni'
-          show: 'pana e nasin awen ni'
+          enable: 'nimi ni la sina ken e poki pi nimi kule taso'
+          disable: 'nimi ni la sina weka e ken ni'
+          show: 'ilo li pana e sona pi ken ni'
 
-        toggled-on: 'ni la, ilo li ken kepeken poki kule pi nimi kule taso.'
-        toggled-off: 'ni la, ilo li ken ala kepeken poki kule pi nimi kule taso.'
-        show: 'nasin awen ni li `%s`.'
+        toggled-on: 'ni la ilo li ken kepeken poki kule pi nimi kule taso'
+        toggled-off: 'ni la ilo li ken ala kepeken poki kule pi nimi kule taso'
+        show: 'nasin li `%s`'
 
     snippet:
       help:
-        list: 'pana e lipu pi toki nimi ale'
-        add: 'pana e toki nimi tawa lipu'
-        remove: 'nimi la weka e toki nimi tan lipu'
-        set: 'ante e sitelen lon toki nimi'
+        list: 'ilo li pana e lipu pi toki nimi ale'
+        add: 'ilo li pana e toki nimi tawa lipu'
+        remove: 'nimi la ilo li weka e toki nimi tan lipu'
+        set: 'sina ken ante e sitelen lon toki nimi'
 
       add:
-        non-unique: 'tenpo pini la, toki nimi `%s` li lon. sina ken ala pana e ona.'
-        success: 'toki nimi `%s` li lon sin.'
+        non-unique: 'tenpo pini la toki nimi `%s` li lon. sina ken ala pana e ona'
+        success: 'toki nimi `%s` li kama sin'
       edit:
-        not-found: 'toki nimi `%s` li lon ala.'
-        success: 'toki nimi `%s` li ante.'
+        not-found: 'toki nimi `%s` li lon ala'
+        success: 'toki nimi `%s` li kama ante'
       remove:
-        success: 'ona li lon la, toki nimi `%s` li weka.'
+        success: 'toki nimi `%s` li weka'
       prop:
         help:
           embed: '(bool) toki nimi ni li lon ala lon insa poki?'
 
-        success: 'namako `%s` pi toki nimi `%s` li kama sama `%s`.'
+        success: 'namako `%s` pi toki nimi `%s` li kama `%s`'
 
     rolegroup:
 
@@ -381,28 +378,28 @@ tok:
     blacklist:
       "[channel]":
         help:
-          add: 'pana e nimi weka tawa lipu weka'
-          remove: 'weka e nimi weka tan lipu weka'
-          list: 'pana e lipu weka ale'
-          clear: 'weka e lipu weka ale'
+          add: 'sina ken pana e nimi weka tawa lipu weka'
+          remove: 'sina ken weka e nimi weka tan lipu weka'
+          list: 'ilo li pana e lipu weka ale'
+          clear: 'ilo li weka e lipu weka ale'
 
       add:
-        success: 'nimi weka sin li lon. nimi nanpa ona li `%s`.'
+        success: 'nimi weka sin li lon. ona li nanpa `%s`'
 
       remove:
-        not-found: 'nimi weka pi nimi nanpa `%s` li lon ala.'
-        wrong-server: 'nimi weka pi nimi nanpa `%s` li lon ala kulupu ni.'
-        success: 'nimi weka pi nimi nanpa `%s` li weka.'
+        not-found: 'nimi weka nanpa `%s` li lon ala'
+        wrong-server: 'nimi weka nanpa `%s` li lon ala kulupu ni'
+        success: 'nimi weka nanpa `%s` li weka'
 
       list:
         title: 'lipu weka pi toki ike'
 
       clear:
-        success: 'nimi weka %s li weka.'
+        success: 'nimi weka %s li weka'
 
     misc:
 
-    nyi: 'ilo li ken ala pali e ni lon tenpo ni.'
+    nyi: 'ilo li ken ala pali e ni lon tenpo ni'
 
   fun:
-    ping: 'jan li o e mi :o'
+    ping: 'jan li mu tawa mi a  :o'
