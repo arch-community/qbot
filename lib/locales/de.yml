@@ -1,60 +1,77 @@
 de:
-  no_perms: 'Dir fehlen die benötigten Rechte um diese Aktion auszuführen.'
+  no_perms: 'Dir fehlen die benötigten Berechtigungen, um diese Aktion auszuführen.'
+  no_dm: 'Dieser Befehl kann nicht in einer Direktnachricht benutzt werden.'
+  log-channel-gone: 'Der Log-Channel existiert nicht mehr. Er wurde zurückgesetzt.'
+
+  locales:
+    en: 'Englisch'
+    en_kawaii: 'Englisch (niedlich)'
+    tok: 'Toki Pona'
+    de: 'Deutsch'
 
   descriptions:
     help: 'Zeigt eine Liste der verfügbaren Befehle oder gibt Hilfestellung zu bestimmten Befehlen'
 
-    config: 'Ermöglicht es verschiedene Einstellungen des Bots zu ändern'
-    userconfig: 'Benutzereinstellungen die Serverübergreifend wirken'
+    config: 'Ermöglicht es, verschiedene Einstellungen des Bots zu ändern'
+    userconfig: 'Benutzereinstellungen, die serverübergreifend wirken'
 
     listsnippets: 'Zeigt verfügbare Snippets an'
-    snippet: 'Zeigt einen Snippets an'
+    snippet: 'Zeigt einen Snippet an'
 
     grab: 'Speichert die letzte Nachricht des Benutzers als Zitat'
     listquotes: 'Zeigt die Zitate eines Benutzers an'
-    quote: 'Zeigt entweder das neueste oder ein benutzerdefiniertes Zietat einer Benutzers an'
+    quote: 'Zeigt entweder das neueste oder ein benutzerdefiniertes Zitat eines Benutzers an'
     rquote: 'Zeigt das Zitat einen zufälligen Benutzers an'
 
     color: 'Legt deine Farbe fest'
-    closestcolor: 'Gibt die am ähnlichsten Farbe anhand eines hexcodes zurück'
+    closestcolor: 'Gibt dir die ähnlichste Farbe zu einem gegebenen Hexcode'
     listcolors: 'Zählt alle verfügbaren Farben auf'
-    createcolorroles: 'Erstellt eine Rolle mit verschiedenen Farben'
+    createcolorroles: 'Erstellt Rollen mit verschiedenen Farben'
     randcolors: 'Gibt jedem Benutzer eine zufällige Farbe'
 
     query: 'Fügt eine Abfrage zur Liste der Abfragen hinzu'
     openqueries: 'Zeigt alle offenen Abfragen an'
-    closequery: 'Schließt eine Abfrage mit einer ID'
+    closequery: 'Schließt eine Abfrage anhand einer ID'
 
-    eval: 'Führt code aus. Nur vom Botinhaber ausführbar.'
+    eval: 'Führt Code aus. Nur vom Botinhaber ausführbar.'
     modules: 'Zeigt eine Liste aller geladenen Module'
 
-    echo: 'Wiederholt text'
-    botrepo: "Direkter Link zum Github Repositorium des Bots"
+    echo: 'Wiederholt Text'
+    botrepo: "Direkter Link zum Github-Repositorium des Bots"
     avatar: "Gibt den Link zum Avatar eines Benutzers zurück"
+    invite: 'Sendet einen Link, um den Bot zu deinem Server einzuladen'
 
-    archwiki: 'Durchsucht die Arch Wiki'
-    packagesearch: 'Durchsucht die Arch Repositorien nach einem Paket'
-    package: 'Zeigt Informationen über ein Paket'
+    archwiki: 'Durchsucht das Arch-Wiki'
+    packagesearch: 'Durchsucht die Arch-Repositorien nach einem Paket'
+    package: 'Zeigt Informationen über ein gegebenes Paket'
 
-    blacklist: 'Zeigt die Blacklist für den aktuellen Textchat an'
+    blacklist: 'Zeigt die Blacklist für den aktuellen Channel an'
 
-    xkcd: 'Sucht nach einem XKCD comic anhand einer ID oder einem Namen'
+    xkcd: 'Sucht nach einem XKCD-Comic anhand einer ID oder eines Namens'
 
     poll: 'Startet eine Umfrage'
 
-    figlet: 'Verwandle Text in ASCII-Kunst um'
+    figlet: 'Wandle Text in ASCII-Kunst um'
 
-    nimi: 'Durchsucht tokipona.org nach Definitionen eines toki pona Wortes'
+    nimi: 'Durchsucht tokipona.org nach Definitionen eines Toki-Pona-Wortes'
     tpo: 'Durchsucht tokipona.org nach Verwendungsangaben'
-    tpsources: 'Zeigt Attributinformation für toki pona an'
+    tpsources: 'Zeigt Attributinformation für Toki Pona an'
+
+    addnote: 'Fügt eine Notiz anhand eines Namens hinzu'
+    note: 'Findet eine Notiz anhand eines Namens'
+    listnotes: 'Listet alle Notizen dieses Servers auf'
+    noteid: 'Findet eine Notiz anhand einer ID'
+    delnote: 'Löscht eine Notiz'
 
   admin:
     eval:
       nope: 'Nö.'
     modules:
-      title: 'Module geladen'
+      title: 'geladenen Module'
       global: 'global'
       local: 'lokal'
+      all_on: 'Alle aktiviert'
+      none: 'Keine Module aktiviert'
 
   arch:
     wiki:
@@ -68,7 +85,7 @@ de:
 
   blacklist:
     bl:
-      title: Blacklist Eintrag
+      title: Blacklist-Eintrag
     message: >-
       Deine Nachricht löste einen Eintrag in der Blacklist `%s` aus.
 
@@ -94,7 +111,7 @@ de:
       created: 'Erstelle Farbrolle `%s` mit der Farbe `%s`.'
       success: '**%s** Rollen wurden erstellt.'
     rc:
-      success: 'Farben für **%s** Benutzer vermischt.'
+      success: 'Farben für **%s** Benutzer zufällig verteilt.'
 
   figlet:
 
@@ -106,22 +123,23 @@ de:
     not-found: "Den Befehl `%s` gibt es nicht."
 
   polls:
-    cross-server: 'Dieser Textchannel befindet sich auf einem anderen Server...'
-    too-many-opts: 'Deine Umfrage hat viel zu viele Optionen.'
+    cross-server: 'Dieser Textchannel befindet sich auf einem anderen Server.'
+    too-many-opts: 'Deine Umfrage hat zu viele Optionen.'
     title-too-long: 'Der Titel deiner Umfrage ist zu lang.'
 
   queries:
     query:
       success: 'Die Abfrage **#%s** wurde erstellt.'
+      too-long: 'Deine Abfrage ist zu lang.'
     oq:
       title: 'Offene Abfragen'
       no-results: 'Keine Ergebnisse'
-      deleted-after-30d: 'Offene Abfragen werden nach 30 Tagen automatisch gelöscht.'
+      deleted-after-30d: 'Offene Abfragen werden nach 30 Tagen gelöscht.'
       entry-name: '**#%s** von **%s** am **%s**'
     cq:
       not-found: 'Abfrage **#%s** nicht gefunden.'
       success: 'Abfrage **#%s** gelöscht.'
-      no-perms: 'Du hast keine Bereichtigung die Abfrage **#%s** zu löschen.'
+      no-perms: 'Du hast keine Berechtigung die Abfrage **#%s** zu löschen.'
 
   snippets:
     list:
@@ -133,23 +151,41 @@ de:
   quotes:
     grab:
       success: 'Zitat mit ID **%d** erfolgreich gespeichert'
-      failure: 'Keine neuen Nachrichten von **%s**...'
+      failure: 'Keine neuen Nachrichten von **%s**.'
     quote:
-      failure: 'Es gibt kein Zitat mit der ID **%d**...'
+      failure: 'Es gibt kein Zitat mit der ID **%d**.'
     list:
-      empty: 'Der Benutzer **%s** hat keine Zitate.'
+      empty: 'Keine Zitate von %s.'
     rquote:
-      failure: 'Keine Zitate von %s...'
+      failure: 'Keine Zitate von %s.'
+
+  notes:
+    add:
+      success: 'Notiz **`%s`** (`#%s`) wurde hinzugefügt.'
+      failure: "⚠️  **Die Notiz konnte aufgrund dieser Fehler nicht hinzugefügt werden:**\n%s."
+    get:
+      failure: 'Notiz **`%s`** wurde nicht gefunden.'
+    list:
+      invalid-page: 'Seite **%s** wurde nicht gefunden (es gibt **%s** pages).'
+      title: 'Alle Notizen, Seite %s/%s:'
+      row: '`#%s` **`%s`** von **%s**'
+    id:
+      title: 'Notiz **`%s`** (`#%s`) von %s'
+      failure: 'Notiz mit ID `#%s` wurde nicht gefunden.'
+    del:
+      not-found: 'Notiz `#%s` wurde icht gefunden.'
+      no-perms: 'Du bist nicht berechtigt, Notiz `#%s` zu löschen.'
+      success: 'Notiz **`%s`** (`#%s`) wurde gelöscht.'
 
   tokipona:
     attrib:
-      title: 'Die Ursprünge von toki pona data'
+      title: 'Die Quellen der Toki-Pona-Daten'
       text: >-
-        toki pona wurde von Sonja Lang erschaffen. Das pu Wörterbuch ist öffentlich zugänglich.
-        tokipona.org Daten wurden von Sonja Lang gesammelt und können in **%s** gefunden werden.
-        Andere Daten wurden von ilo Salana genommen, welche auch öffentlich zugänglich sind.
+        Toki Pona wurde von Sonja Lang erschaffen. Das pu-Wörterbuch ist öffentlich zugänglich.
+        Daten auf tokipona.org wurden von Sonja Lang gesammelt und können in **%s** gefunden werden.
+        Andere Daten stammen von ilo Salana und sind auch öffentlich zugänglich.
 
-      footer: 'für Anmerkungen und Danksagen, siehe .%s'
+      footer: 'für Anmerkungen und Danksagungen, siehe .%s'
 
     nimi:
       not-found: 'Dieses Wort wurde nicht in pu gefunden.'
@@ -161,19 +197,20 @@ de:
   util:
     invite:
       title: "Einladung für **%s**"
-      desc: "[Clicke diesen Link um %s in deinen Server einzuladen.](%s)"
+      desc: "[Klicke diesen Link, um %s in deinen Server einzuladen.](%s)"
 
   xkcd:
 
   uc:
     help:
       help: 'Zeige diese Nachricht an'
-      language: 'Setze die Sprache mit der der Bot antwortet fest'
+      language: 'Lege die Sprache fest, mit der der Bot antwortet'
+      sitelenpona: 'Stelle Render-Optionen für sitelen pona ein'
 
     language:
       help:
         list: 'Zeige verfügbare Sprachen an'
-        set: 'Ändere die Sprache in der der Bot antwortet'
+        set: 'Ändere die Sprache, in der der Bot antwortet'
         reset: 'Setze die Sprache züruck auf English'
 
       list:
@@ -181,10 +218,70 @@ de:
 
       set:
         not-found: 'Sprache `%s` nicht gefunden.'
-        success: 'Na gut dann spreche ich jetzt `%s`.'
+        success: 'Ich spreche jetzt `%s`.'
 
       reset:
         success: 'Jetzt spreche ich wieder `%s`.'
+
+    sitelenpona:
+      help:
+        fgcolor: 'Stelle die Vordergrundfarbe ein'
+        bgcolor: 'Stelle die Hintergrundfarbe ein'
+        fontface: 'Stelle die Schriftart ein'
+        fontsize: 'Stelle die Schriftgröße ein'
+        name: 'Lege den Namen fest, der für deinen Webhook genutzt wird'
+        glyphs: 'Lege die Glyphen fest, die benutzt werden sollen, wenn dich jemand erwähnt'
+
+      fgcolor:
+        help:
+          show: 'Zeige deine aktuelle Vordergrundfarbe an'
+          set: 'Ändere deine Vordergrundfabre'
+          reset: 'Setze deine Vordergundfarbe zurück'
+      bgcolor:
+        help:
+          show: 'Zeige deine aktuelle Hintergrundfabre an'
+          set: 'Ändere deine Hintergrundfarbe'
+          reset: 'Setze deine Hintergrundfarbe zurück'
+
+      color:
+        show: 'Deine aktuelle %s ist %s.'
+        set: 'Deine %s ist jetzt %s.'
+
+      fontsize:
+        help:
+          show: 'Zeige deine aktuelle Schriftgröße an'
+          set: 'Ändere deine Schriftgröße'
+          reset: 'Setze deine Schriftgröße zurück'
+        show: 'Deine aktuelle Schriftgröße ist %s.'
+        set: 'Deine Schriftgröße ist momentan %s.'
+
+      fontface:
+        help:
+          show: 'Zeige deine aktuelle Schriftart an'
+          list: 'Zeige alle verfügbaren Schriftarten'
+          set: 'Ändere deine Schriftart'
+          reset: 'Setze deine Schriftart zurück'
+        show: 'Deine aktuelle Schriftart ist %s.'
+        set: 'Deine Schriftart ist jetzt %s.'
+        list: 'Verfügbare Schriftarten'
+        instructions: 'Nutze `%suc sp ff s <number>`, um eine Schriftart auszuwählen.'
+        invalid: 'Diese Schriftart ist ungültig.'
+
+      name:
+        help:
+          show: 'Zeige deinen aktuellen Webhook-Namen an'
+          set: 'Ändere deinen Webhook-Namen'
+          reset: 'Setze deine Webhook-Namen zurück'
+        show: 'Dein aktueller Webhook-Name ist %s.'
+        set: 'Dein Webhook-Name ist jetzt %s.'
+
+      glyphs:
+        help:
+          show: 'Zeige deine aktuellen Glyphen an'
+          set: 'Ändere deine Glyphen'
+          reset: 'Setze deine Glyphen zurück'
+        show: 'Deine aktuellen Glyphen sind %s.'
+        set: 'Deine Glyphen sind jetzt %s.'
 
   cfg:
     usage: 'Verwendung:'
@@ -194,23 +291,25 @@ de:
 
     help:
       help: 'Zeige diese Nachricht an'
-      log-channel: 'Sende Bot Events an einen Textchannel'
+      log-channel: 'Sende Bot Events an einen bestimmten Textchannel'
       modules: 'Aktiviere oder deaktiviere bestimmte Module'
-      prefix: 'Setze die Präfix für diesen Bot'
-      colors: 'Bestimme den Umgang mit Farbrollen'
+      prefix: 'Setze den Botpräfix für diesen Server'
+      colors: 'Ändere den Umgang mit Farbrollen'
       snippet: 'Verwalte Snippets für diesen Server'
       rolegroup: 'Verwalte Gruppen von selbst zuweisbaren Rollen'
-      reaction: 'Bestimme Aktionen auf Nachicht-Reaktionen'
-      blacklist: 'Verwalte Blacklist'
+      reaction: 'Bestimme Aktionen auf Nachricht-Reaktionen'
+      blacklist: 'Verwalte Blacklist-Einträge'
       misc: 'Setze andere Parameter'
 
     log-channel:
       help:
-        set: 'Setzt den Textchannel anhand einer ID für Logs'
+        set: 'Setze den Log-Channel anhand einer ID'
         reset: 'Deaktiviere Logging'
 
       set:
-        success: "Der Log channel lautet ab sofort <#%s>."
+        success: "Der Log-Channel ist jetzt <#%s>."
+        other-server: "<#%s> ist nicht in diesem Server."
+        invalid-id: "%s ist keine gültige Channel-ID."
       reset:
         success: "Logging erfolgreich deaktiviert."
 
@@ -226,11 +325,11 @@ de:
     colors:
       help:
         extra-color-role: 'Verwalte zusätzliche Farbrollen'
-        bare-colors: 'Erkenne Farbrollen anhand derer hexcodes'
+        bare-colors: 'Erkenne Farbrollen die mit ihren Hexcodes benannt sind'
 
       extra-color-role:
         help:
-          list: 'Zähle alle zusätzlichen Farbrollen auf'
+          list: 'Liste alle zusätzlichen Farbrollen auf'
           add: 'Füge eine Rolle (anhand einer ID) zu der Liste von zusätzlichen Farbrollen hinzu'
           remove: 'Entferne eine Farbrolle (anhand einer ID) von der Liste der zusätzlichen Farbrollen'
 
@@ -239,40 +338,40 @@ de:
         add:
           not-found: 'Farbrolle nicht gefunden.'
           non-unique: 'Diese Farbrolle gibt es schon.'
-          success: 'Farbrolle `%s` (`%s`) wurde zur Liste hinzugefügt.'
+          success: 'Farbrolle `%s` (`%s`) wurde zur Liste der zusätzlichen Farbrollen hinzugefügt.'
         remove:
-          success: 'Farbrolle `%s` wurde von der Liste entfernt.'
+          success: 'Farbrolle `%s` wurde von der Liste der zusätzlichen Farbrollen entfernt.'
 
       bare-colors:
         help:
-          enable: 'Aktiviere erkennung der Farbrolle anhand des hexcodes'
-          disable: 'Deaktiviere erkennung der Farbrolle anhand des hexcodes'
-          show: 'Zeige die aktuelle Einstellung'
+          enable: 'Aktiviere Erkennung der Farbrolle anhand von Hexcodes'
+          disable: 'Deaktiviere Erkennung der Farbrolle anhand von Hexcodes'
+          show: 'Zeige die aktuelle Einstellung dieser Option'
 
-        toggled-on: 'Color roles named by their bare hex color will now be detected.'
-        toggled-off: 'Color roles named by their bare hex color will no longer be detected.'
+        toggled-on: 'Farbrollen, die anhand ihrer Hexcodes benannt sind, werden jetzt gelöscht.'
+        toggled-off: 'Farbrollen, die anhand ihrer Hexcodes benannt sind, werden nicht länger erkannt.'
         show: 'Die aktuelle Einstellung ist `%s`.'
 
     snippet:
       help:
-        list: 'Zeige alle Schnipsel an'
-        add: 'Füge ein Schnipsel zur Liste hinzu'
-        remove: 'Entferne ein Schnipsel anhand des Namens'
-        set: 'Ändere den Inhalt eines Schnipsels'
+        list: 'Zeige alle Snippets an'
+        add: 'Füge einen Snippet zur Liste hinzu'
+        remove: 'Entferne einen Snippet anhand des Namens'
+        set: 'Ändere den Text eines Snippets'
 
       add:
-        non-unique: 'Schipsel `%s` existiert bereits.'
-        success: 'Schnipsel `%s` wurde erstellt.'
+        non-unique: 'Snippet `%s` existiert bereits.'
+        success: 'Snippet `%s` wurde erstellt.'
       edit:
-        not-found: 'Schnipsel `%s` nicht gefunden...'
-        success: 'Schnipsel `%s` erfolgreich bearbeitet.'
+        not-found: 'Snippet `%s` nicht gefunden.'
+        success: 'Snippet `%s` erfolgreich bearbeitet.'
       remove:
-        success: 'Schnipsel `%s` entfernt.'
+        success: 'Snippet `%s` entfernt.'
       prop:
         help:
-          embed: '(bool) Wurde das Schnipsel als Embed oder als normale Nachricht versendet?'
+          embed: '(bool) Wurde der Snippet als Embed oder als normale Nachricht versendet?'
 
-        success: 'Eingenschaft `%s` vom Schnipsel `%s` ist jetzt `%s`.'
+        success: 'Eingenschaft `%s` vom Snippet `%s` ist jetzt `%s`.'
 
     rolegroup:
 
@@ -290,15 +389,15 @@ de:
         success: 'Eintrag mit ID `%s` erfolgreich hinzugefügt.'
 
       remove:
-        not-found: 'Konnte `%s` Eintrag nicht finden.'
-        wrong-server: 'Konnte `%s` Eintrag auf diesem Server nicht finden.'
+        not-found: 'Konnte Eintrag `%s` nicht finden.'
+        wrong-server: 'Konnte Eintrag `%s` auf diesem Server nicht finden.'
         success: 'Eintrag mit ID `%s` entfernt.'
 
       list:
         title: 'Blacklist'
 
       clear:
-        success: '%s blacklist Eintrag entfernt.'
+        success: '%s Blacklist-Eintrag entfernt.'
 
     misc:
 
