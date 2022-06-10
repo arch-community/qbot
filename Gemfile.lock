@@ -59,7 +59,7 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    loofah (2.16.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     matrix (0.4.2)
@@ -88,7 +88,7 @@ GEM
     pluralkit-api (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
     racc (1.6.0)
-    rails-html-sanitizer (1.4.2)
+    rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     rainbow (3.1.1)
     rbnacl (7.1.1)
