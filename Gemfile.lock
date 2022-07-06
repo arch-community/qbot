@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: e384e4a68e93981b3394844614e27972f22ba706
+  revision: 7c7865d7462a348e6a4171008322fda24634e437
   branch: main
   specs:
     discordrb (3.4.2)
@@ -50,7 +50,7 @@ GEM
     ffi (1.15.5)
     hashugar (1.0.1)
     http-accept (1.7.0)
-    http-cookie (1.0.4)
+    http-cookie (1.0.5)
       domain_name (~> 0.5)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
@@ -131,7 +131,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.1)
+    unf_ext (0.0.8.2)
     unicode-display_width (2.1.0)
     unicode_utils (1.4.0)
     websocket (1.2.9)
