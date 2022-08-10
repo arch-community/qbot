@@ -2,6 +2,14 @@
 # This is not meant to be used seriously
 en_kawaii:
   no_perms: "Sorry! You can't do that. (⌣́_⌣̀)"
+  no_dm: "Baka! You can't just DM me something like that (⁄ ⁄•⁄-⁄•⁄ ⁄)"
+  log-channel-gone: 'You... you deleted my diary (◕﹏◕)'
+
+  locales:
+    en: 'Engwish'
+    en_kawaii: 'Me ( ^ω^ )'
+    tok: 'Tonypolka'
+    de: 'Gewman'
 
   descriptions:
     help: "Wow! I can do that? I completely forgot (ﾉ>ڡ<)"
@@ -9,8 +17,14 @@ en_kawaii:
     config: "Don't... please... I like how I am now! ৲( ˃੭̴˂)৴"
     userconfig: "You... you don't like how I am? (◕﹏◕)"
 
-    listsnippets: "Let me dig through my notes for a second (>.<)"
-    snippet: "You really want to see what I wrote? (\\*^人^\\*)"
+    grab: 'No context is the best context ( •̀ᴗ•́ )و ̑̑'
+    listquotes: "Let me dig through my notes for a second (>.<)"
+    quote: "You really want to see what I wrote? (\\*^人^\\*)"
+    rquote: >-
+      "There are no accidents."
+      -Master Oogway
+      
+      ... Wait no! That's the wrong quote (*ﾉωﾉ)
 
     color: "I love colors! \\\\(^◡^)/"
     closestcolor: "Hex codes too hard for me (⌣́_⌣̀) but I'll try my best for you!"
@@ -30,26 +44,49 @@ en_kawaii:
     avatar: "Do I look good in this picture?"
     invite: "Get an invite link to add me to your server~!"
 
+    slowmode: "You wouldn't... would you? (◕﹏◕)"
+
     archwiki: "Help vampires are the worst (╯Ò_Ó)╯"
     packagesearch: "Ow! A package fell on my head (ﾉ>ڡ<)"
     package: "More information about the package! I know I'll get my revenge someday (^◡^)"
 
-    blacklist: "Lists blacklist entries for a channel"
+    blacklist: "The forbidden words (°ー°〃)"
 
     xkcd: "XKCD comics are so funny (^◡^)"
 
     poll: "Sets up a poll in a channel. Democracy \\\\(^◡^)/"
 
     figlet: >-
-            Someone told me what this does is "make speach big", I don't know what that means but it sounds fun!
+      Someone told me what this does is "make speach big", I don't know what that means but it sounds fun!
+
+    nimi: >-
+      I've never heard of this "tonka poni" thing before (๑•﹏•)⋆* ⁑⋆*
+    tpo: 'This is just the last one but less useful (=____=)'
+    tpsources: 'I know who made pony tolka!'
+    
+    sp: "Converts what you say into funny letters I can't understand (˃̵ ֊ ˂̵ )"
+    sppreview: "You get to see what you typed in lots of funny fonts"
+    
+    ipa: "Converts what you say into funny letters I can't understand (˃̵ ֊ ˂̵ )"
+
+    addnote: 'Here... you can borrow my sticky notes. I bought plenty ( ˶ˆᗜˆ˵ )'
+    note: "Did you lose a sticky note? I'll help you look for it  (╭ರ_•́)"
+    listnotes: 'I can sort your notes for you ✧( ु•⌄• )◞◟( •⌄• ू )✧'
+    noteid: 'You have a funny way of sorting things （〃・・〃）'
+    delnote: 'Remember to recycle your notes after! d(>_･ )'
+
+    bottom: '_( ┐「ε: )_'
+
 
   admin:
     eval:
       nope: "Nope (*\\_ \\_)人"
     modules:
-      title: "Loaded modules"
+      title: "All the things I can do (┐^◡^)┐"
       global: "Everywhere (⌐^◡^)⌐"
       local: "Here ¬(^◡^¬)"
+      all_on: 'I can do everything ৻(  •̀ ᗜ •́  ৻)'
+      none: "I can't do anything (╥﹏╥)"
 
   arch:
     wiki:
@@ -57,9 +94,9 @@ en_kawaii:
     ps:
       no-results: "I looked everywhere but couldn't find it (*\\_ \\_)人"
       title: "Here's what I found for `%s` \\\\(^◡^)/"
-      version: "version"
-      last-update: "last updated"
-      link: "link"
+      version: "funny number"
+      last-update: "not ignored"
+      link: "click me"
 
   blacklist:
     bl:
@@ -80,7 +117,7 @@ en_kawaii:
       success: "Now your %s is **%s**, hooray \\\\(^◡^)/"
     color:
       not-found: "Sorry, I couldn't find it (*\\_ \\_)人"
-      role-type-name: "color"
+      role-type-name: "your favourite color"
     closest:
       found: "The closest color I could find was `%s`, I hope you like it (^◡^)"
     list:
@@ -95,8 +132,8 @@ en_kawaii:
   figlet:
 
   help:
-    aliases: "Aliases"
-    usage: "Usage"
+    aliases: "(┐^◡^)┐ I know lots of words!"
+    usage: "Options I like (^◡^)"
     valid-params: "Options I like (^◡^)"
     list-title: "Here's everything I can do!"
     not-found: "Sorry, I don't have `%s` (*\\_ \\_)人"
@@ -109,6 +146,7 @@ en_kawaii:
   queries:
     query:
       success: "Your query is #%s! Hooray \\\\(^◡^)/"
+      too-long: "That's... way too long (⁄ ⁄•⁄-⁄•⁄ ⁄)"
     oq:
       title: "All the questions!"
       no-results: "Sorry, I looked everywhere but couldn't find it (*\\_ \\_)人"
@@ -137,6 +175,40 @@ en_kawaii:
     rquote:
       failure: "I couldn't find anything for %s. (*\\_ \\_)人"
 
+  notes:
+    add:
+      success: 'I saved **`%s`** as number `%s` ＿〆(。。)'
+      failure: "I couldn't write that one down.\n%s."
+    get:
+      failure: "I couldn't find **`%s`**. I think you lost it (・3・)"
+    list:
+      invalid-page: "There aren't **%s** pages. I only have **%s** pages and I'm gonna run out soon (  ' ﹋   '  ; )"
+      title: "You've looked at %s/%s of my notes"
+      row: '`#%s` **`%s`** by **%s**'
+    id:
+      title: 'Note **`%s`** (`#%s`) by %s'
+      failure: "I couldn't find **`#%s`**. I think you lost it (・3・)"
+    del:
+      not-found: "I couldn't find **`#%s`**. Saves you some work I guess ,(≧▽≦)"
+      no-perms: "You can't delete that one (*\\_ \\_)人"
+      success: "I recycled **`%s`** (`#%s`). Don't ask for it back (눈‸눈)"
+
+  tokipona:
+    attrib:
+      title: "I found this on the internet. Hope it's right (°ー°〃)"
+      text: >-
+        "toki pona was created by Sonja Lang. the pu dictionary is in the public domain.
+        tokipona.org data was gathered by Sonja Lang and can be found at %s.
+        other data was taken from ilo Salana, which is in the public domain."
+      footer: 'Someone told me you should look at `.%s`'
+
+    nimi:
+      not-found: "You can't just make up words! I don't know what this means (ó﹏ò｡)"
+      overflow: '(go look at `.tpo`)'
+
+    tpo:
+      not-found: "You can't just make up words! I don't know what this means (ó﹏ò｡)"
+
   xkcd:
 
   util:
@@ -148,6 +220,7 @@ en_kawaii:
     help:
       help: "You already know what this does, dummy! (๑˃́ꇴ˂̀)"
       language: "Choose what language I talk to you in! I'm still the best language though (｡•̀◡-)✧"
+      sitelenpona: 'This is where you can set up the polka dots'
 
     language:
       help:
@@ -164,6 +237,68 @@ en_kawaii:
 
       reset:
         success: "Bye (╥︣﹏╥᷅). I'll start talking to you in `%s`."
+
+    sitelenpona:
+      help:
+        fgcolor: 'Whatever you choose is gonna be great! ♡(˶˃ᆺ˂˶)'
+        bgcolor: 'Use a color that goes well with the word color d(˚U˚)b'
+        fontface: 'Make the letters funnier (ᗒᗜᗕ)'
+        fontsize: 'Big letter big good ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚'
+        name: 'Change your name? (｡·  v  ·｡) ?'
+        glyphs: 'Do... do you like being pinged as much as I do? (⁄ ⁄•⁄-⁄•⁄ ⁄)'
+
+      fgcolor:
+        help:
+          show: 'I bet I can guess your favourite color ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚'
+          set: 'If I got it wrong you can tell me (っ◕‿◕)っ'
+          reset: "If you don't want me to know anymore (ㅠ﹏ㅠ)"
+      bgcolor:
+        help:
+          show: "This is the color that's always in the background (◕﹏◕)"
+          set: 'Show it some love by changing it! ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚'
+          reset: "It's always the third wheel (ㅠ﹏ㅠ)"
+
+      color:
+        show: 'Right now your %s is %s.'
+        set: "I changed your %s to %s and I'm sure it looks better now (｡•̀◡-)✧"
+
+      fontsize:
+        help:
+          show: 'How big are your letters? (•̪ o •̪)'
+          set: 'You can make them even bigger! ৻(  •̀ ᗜ •́  ৻)'
+          reset: 'Or you can make them normal again (¬_¬)'
+        show: "Right now you're %s big \\(>o<)/"
+        set: "Right now you're %s big \\(>o<)/"
+
+      fontface:
+        help:
+          show: 'What kind of letters are these? (๑•﹏•)⋆* ⁑⋆*'
+          list: "There's more of them??? (o_O) !"
+          set: "Let's just stick with one (*~*)"
+          reset: 'Or you can make them normal again ヾ(｡･ω･)ｼ'
+        show: 'You chose %s.'
+        set: 'You chose %s!'
+        list: "That's all of them... right? (×~× )"
+        instructions: 'Cast the ancient magic spell `%suc sp ff s <number>` to make the letters look different.'
+        invalid: "(๑•̀ㅁ•́๑)✧ You can't just make up fonts! I've never heard of this one."
+
+      name:
+        help:
+          show: 'This is your name (๑˃́ꇴ˂̀)'
+          set: 'You can always change it'
+          reset: 'Or put it back ( 〃● ₃● ) ~'
+        show: '৻(  •̀ ᗜ •́  ৻) I bet I can guess your name! Is it... ||%s||? '
+        set: "Your new name is %s! I'd use it but I never use names (ﾉ>ڡ<)"
+
+      glyphs:
+        help:
+          show: "There's more of these?! \\(˚☐˚”)/"
+          set: 'Looks like you can change these too ｢(ﾟﾍﾟ)'
+          reset: 'And change them back to what they were before'
+        show: >-
+          The "glyphs" you're using now are called... "%s" I guess ┐(´～｀;)┌
+        set: >-
+          The "glyphs" you're now using are called... "%s" I guess ┐(´～｀;)┌
 
   cfg:
     usage: "Usage:"
@@ -190,6 +325,8 @@ en_kawaii:
 
       set:
         success: "I'll tell you when people use me in <#%s>! (^◡^)"
+        other-server: "(๑•̀ㅁ•́๑)✧ I'm not falling for that! <#%s> is in a different server"
+        invalid-id: "%s isn't even real 눈_눈"
       reset:
         success: "No more logging from me (◕﹏◕)"
 
@@ -205,7 +342,7 @@ en_kawaii:
     colors:
       help:
         extra-color-role: "Add even more colors for people!"
-        bare-colors: "Add roles named after hex colors to the color list!"
+        bare-colors: "Are these even colors? I'll stick to words."
 
       extra-color-role:
         help:
@@ -282,3 +419,6 @@ en_kawaii:
     misc:
 
     nyi: "I'll have this ready for you soon! (^◡^)"
+
+  fun:
+    ping: 'Why~ why did you ping me? (⁄ ⁄•⁄-⁄•⁄ ⁄)'
