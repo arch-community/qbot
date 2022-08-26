@@ -124,12 +124,12 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     list = colors.sort_by(&:idx).map do |c|
       idx = c.idx.to_s.rjust(2)
       r = c.role
-      "#{idx}: ##{r.color.hex.rjust(6, '0')} #{r.name}"
+      "`#{idx}:` `##{r.color.hex.rjust(6, '0')}` <@&#{r.id}>"
     end
 
     embed do |m|
       m.title = t 'colors.list.title'
-      m.description = "```#{list.join "\n"}```"
+      m.description = list.join "\n"
     end
   end
 
