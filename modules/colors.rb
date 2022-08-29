@@ -124,7 +124,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     list = colors.sort_by(&:idx).map do |c|
       idx = c.idx.to_s.rjust(2)
       r = c.role
-      "`#{idx}:` `##{r.color.hex.rjust(6, '0')}` <@&#{r.id}>"
+      "`#{idx}:` `##{r.color.hex.rjust(6, '0')}` #{r.mention}"
     end
 
     embed do |m|
