@@ -61,6 +61,9 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-checkstyle_formatter', require: false
 
+  # lsp
+  gem 'solargraph', require: false
+
   # visualization
   gem 'ruby-graphviz'
 end

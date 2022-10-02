@@ -1,26 +1,27 @@
 { stdenv, lib, symlinkJoin, makeWrapper
+, fetchFromGitHub
 , pkg-config, git
 , ruby_3_1, ruby_2_7, bundler, bundix, defaultGemConfig, bundlerEnv
 , libsodium, libopus, ffmpeg, youtube-dl
-, imagemagick7, pango
+, imagemagick
 , sqlite, zlib, shared-mime-info, libxml2, libiconv
 , figlet }:
 
 let
-  ruby' = ruby_3_1;
+  ruby = ruby_3_1;
 
-  bundler' = bundler.override { ruby = ruby_2_7; };
-
-  bundix' = bundix.override { bundler = bundler'; };
-
-  bundlerEnv' = bundlerEnv.override {
-    ruby = ruby';
-    bundler = bundler';
-  };
-
-  imagemagick7' = imagemagick7.overrideAttrs (oa: with oa; {
-    buildInputs = oa.buildInputs ++ [ pango ];
+  # release bundix does not run on ruby >2.7
+  # pin to the commit that fixes it
+  bundix' = bundix.overrideAttrs (_: {
+  	src = fetchFromGitHub {
+  		owner = "nix-community";
+  		repo = "bundix";
+  		rev = "3d7820efdd77281234182a9b813c2895ef49ae1f";
+		sha256 = "sha256-iMp6Yj7TSWDqge3Lw855/igOWdTIuFH1LGeIN/cpq7U=";
+  	};
   });
+
+  bundlerEnv' = bundlerEnv.override { inherit ruby; };
 
   env = bundlerEnv' {
     name = "qbot-bundler-env";
@@ -30,16 +31,11 @@ let
     gemset   = ./gemset.nix;
     gemdir   = ./.;
 
-    ruby = ruby';
-    bundler = bundler';
+    inherit ruby;
 
     gemConfig = defaultGemConfig // {
-      nokogiri = attrs: {};
-      mimemagic = attrs: {
+      mimemagic = _: {
         FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
-      };
-      rmagick = attrs: {
-        buildInputs = [ pkg-config imagemagick7' ];
       };
     };
   };
@@ -51,6 +47,8 @@ in stdenv.mkDerivation rec {
       type != "directory" ||
       baseNameOf path != "vendor" &&
       baseNameOf path != ".git" &&
+      baseNameOf path != ".direnv" &&
+      baseNameOf path != "var" &&
       baseNameOf path != ".bundle")
     ./.;
 
@@ -59,7 +57,7 @@ in stdenv.mkDerivation rec {
     sqlite libxml2 zlib.dev zlib libiconv
     libopus libsodium
     ffmpeg youtube-dl
-    imagemagick7'
+    imagemagick
   ];
 
   LD_LIBRARY_PATH = lib.makeLibraryPath [ libsodium libopus ];
@@ -68,15 +66,15 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/{bin,share/qbot}
     cp -r * $out/share/qbot
-    bin=$out/bin/qbot
+    exe=$out/bin/qbot
 
-    cat >$bin <<EOF
+    cat >$exe <<EOF
 #!/bin/sh -e
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 export FONTCONFIG_FILE=${FONTCONFIG_FILE}
 exec ${env}/bin/bundle exec ${env.wrappedRuby}/bin/ruby $out/share/qbot/qbot "\$@"
 EOF
 
-    chmod +x $bin
+    chmod +x $exe
   '';
 }
