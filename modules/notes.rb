@@ -118,7 +118,7 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, id|
-    note = Note.find(id)
+    note = Note.find_by(id:, server_id: event.server.id)
 
     unless note
       embed t('notes.del.not-found', id)
