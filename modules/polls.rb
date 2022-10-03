@@ -78,7 +78,7 @@ module Polls
     elsif title.length > 256
       embed t('polls.title-too-long')
     elsif !poll_allowed?(event, channel)
-      embed t(:no_perms)
+      embed t('no_perms')
     else
       send_poll(event, channel, title, opts)
     end

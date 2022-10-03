@@ -66,6 +66,11 @@ group :development do
 
   # visualization
   gem 'ruby-graphviz'
+  gem 'tty-progressbar'
+
+  # analysis
+  gem 'parser'
+  gem 'unparser'
 end
 
 # Colors

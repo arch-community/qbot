@@ -141,7 +141,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     max_args: 3
   } do |event, *args|
     unless event.author.permission?(:administrator)
-      embed t(:no_perms)
+      embed t('no_perms')
       return
     end
 
@@ -177,7 +177,7 @@ module Colors # rubocop: disable Metrics/ModuleLength, Style/CommentedKeyword
     max_args: 0
   } do |event|
     unless event.author.permission?(:administrator)
-      embed t(:no_perms)
+      embed t('no_perms')
       return
     end
 

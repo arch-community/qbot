@@ -1,0 +1,8 @@
+AllCops:
+  NewCops: enable
+
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+
+Style/CommandLiteral:
+  EnforcedStyle: mixed

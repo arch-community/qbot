@@ -145,7 +145,7 @@ module Notes
   } do |event|
     unless event.author.permission?(:administrator) ||
            event.author.id == QBot.config.owner
-      embed t(:no_perms)
+      embed t('no_perms')
       return
     end
 

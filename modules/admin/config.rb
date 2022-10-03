@@ -13,12 +13,12 @@ module Admin
     min_args: 0
   } do |event, *args|
     if event.channel.pm?
-      embed t(:no_dm)
+      embed t('no_dm')
       return
     end
 
     unless event.author.permission?(:administrator) || event.author.id == QBot.config.owner
-      embed t(:no_perms)
+      embed t('no_perms')
       return
     end
 
