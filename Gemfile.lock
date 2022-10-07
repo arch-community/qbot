@@ -110,7 +110,7 @@ GEM
     reverse_markdown (2.1.1)
       nokogiri
     rexml (3.2.5)
-    rmagick (4.3.0)
+    rmagick (5.0.0)
     rss (0.2.9)
       rexml
     rubocop (1.36.0)
