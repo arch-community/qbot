@@ -43,6 +43,7 @@ en_kawaii:
     botrepo: "Look inside my source code, please tell me if there are any bugs, I hate bugs (◕﹏◕)"
     avatar: "Do I look good in this picture?"
     invite: "Get an invite link to add me to your server~!"
+    voicekick: "I'll move a user to another voice channel for you~!"
 
     slowmode: "You wouldn't... would you? (◕﹏◕)"
 
@@ -215,6 +216,9 @@ en_kawaii:
     invite:
       title: "Invite %s to your server! (^◡^)"
       desc: "[Click this link to invite %s to your server](%s) so we can be together even more (^◡^)"
+    voicekick:
+      failure: "I couldn't find an AFK channel, and you didn't give one (ó﹏ò｡)"
+      success: "I scooted them to the new channel! (^◡^)"
 
   uc:
     help:

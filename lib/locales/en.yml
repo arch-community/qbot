@@ -40,6 +40,7 @@ en:
     botrepo: "Posts the URL of the bot's Git repo"
     avatar: "Posts the URL of a user's avatar"
     invite: 'Sends a link to invite the bot to your server'
+    voicekick: 'Move a user to the AFK channel or given channel'
 
     archwiki: 'Searches the Arch wiki'
     packagesearch: 'Searches for a package in the Arch repositories'
@@ -198,6 +199,9 @@ en:
     invite:
       title: "Invite %s"
       desc: "[Click this link to invite %s to your server.](%s)"
+    voicekick:
+      failure: "No AFK channel in server and no channel given"
+      success: "Moved user to channel"
 
   xkcd:
 

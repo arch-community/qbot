@@ -40,6 +40,7 @@ tok:
     botrepo: 'ilo li pana e lupa tawa tomo pali ilo'
     avatar: 'ilo li pana e lupa pi sitelen sinpin jan'
     invite: 'sina ken pana e ilo tawa kulupu ante'
+    voicekick: 'sina tawa e jan tawa tomo kalama ante'
 
     archwiki: 'sina ken alasa e lipu sona lon tomo sona pi nasin ilo Asu'
     packagesearch: 'sina ken alasa e poki pali lon nasin ilo Asu'
@@ -198,6 +199,9 @@ tok:
     invite:
       title: 'o kama e %s'
       desc: '[linja ni la sina ken kama e %s tawa kulupu sina.](%s)'
+    voicekick:
+      failure: 'tomo awen li lon ala. sina pana ala e tomo.' 
+      success: "ona li lon tomo"
 
   xkcd:
 
