@@ -76,7 +76,8 @@ module Util
     help_available: true,
     usage: '.voicekick [user] [channel]',
     min_args: 1,
-    max_args: 2
+    max_args: 2,
+    required_permissions: %i[move_members]
   } do |event, user, channel|
     target_channel = channel || event.server.afk_channel
     unless target_channel
