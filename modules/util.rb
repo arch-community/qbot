@@ -76,9 +76,13 @@ module Util
     help_available: true,
     usage: '.voicekick [user] [channel]',
     min_args: 1,
-    max_args: 2,
-    required_permissions: %i[move_members]
+    max_args: 2
   } do |event, user, channel|
+    unless event.author.permission?(:move_members, event.channel)
+      event.respond t('no_perms')
+      return
+    end
+
     target_channel = channel || event.server.afk_channel
     unless target_channel
       event.respond t('util.voicekick.failure')
