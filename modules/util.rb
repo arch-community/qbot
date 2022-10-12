@@ -71,4 +71,21 @@ module Util
       event.respond event.channel.slowmode_rate
     end
   end
+
+  command :voicekick, {
+    help_available: true,
+    usage: '.voicekick [user] [channel]',
+    min_args: 1,
+    max_args: 2
+  } do |event, user, channel|
+    target_channel = channel || event.server.afk_channel
+    unless target_channel
+      event.respond t('util.voicekick.failure')
+      return
+    end
+
+    target_user = cmd_target(event, user)
+    event.server.move(target_user, target_channel)
+    event.respond t('util.voicekick.success')
+  end
 end
