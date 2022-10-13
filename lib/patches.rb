@@ -111,3 +111,18 @@ class ImageStringIO < StringIO
     super(string, mode)
   end
 end
+
+# reimplementing discordrb's ignore_bot with a whitelist
+module CommandEventIntercept
+  def call(event, arguments, _chained = false, _check_permissions = true)
+    return if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
+
+    super(event, arguments, _chained, _check_permissions)
+  end
+end
+
+module Discordrb::Commands
+  class Command
+    prepend CommandEventIntercept
+  end
+end

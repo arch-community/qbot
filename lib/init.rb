@@ -29,7 +29,7 @@ module QBot
       name: 'QueryBot',
       prefix: method(:cmd_prefix),
       fancy_log: true,
-      ignore_bots: true,
+      ignore_bots: false,
       no_permission_message: 'You are not allowed to do that',
       help_command: false,
       intents: Discordrb::INTENTS.keys - %i[

@@ -50,4 +50,7 @@ modules:
 
 default_prefix: '.'
 
+bot_id_allowlist:
+  - 204255221017214977
+
 # vim: ft=yaml
