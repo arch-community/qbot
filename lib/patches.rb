@@ -114,15 +114,19 @@ end
 
 # reimplementing discordrb's ignore_bot with a whitelist
 module CommandEventIntercept
-  def call(event, arguments, _chained = false, _check_permissions = true)
+  # rubocop: disable Style/OptionalBooleanParameter
+  def call(event, arguments, chained = false, check_permissions = true)
+    # rubocop:enable Style/OptionalBooleanParameter
     return if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
 
-    super(event, arguments, _chained, _check_permissions)
+    super(event, arguments, chained, check_permissions)
   end
 end
 
-module Discordrb::Commands
-  class Command
-    prepend CommandEventIntercept
+module Discordrb
+  module Commands
+    class Command
+      prepend CommandEventIntercept
+    end
   end
 end
