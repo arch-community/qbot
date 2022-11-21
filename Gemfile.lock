@@ -146,7 +146,7 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sqlite3 (1.5.2)
+    sqlite3 (1.5.4)
       mini_portile2 (~> 2.8.0)
     strings-ansi (0.2.0)
     tf-idf-similarity (0.2.0)
