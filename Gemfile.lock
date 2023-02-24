@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: dc27fe18463da3ccfd0f0266030aa7ad51b2c2b9
+  revision: 4c7cc4bed8bd3136d567ae9af900a473d8b98aef
   branch: main
   specs:
     discordrb (3.4.2)
@@ -75,7 +75,7 @@ GEM
       faraday_middleware (~> 0.10, >= 0.10.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2022.0105)
+    mime-types-data (3.2023.0218.1)
     mini_portile2 (2.8.0)
     minitest (5.16.3)
     multipart-post (2.2.3)
