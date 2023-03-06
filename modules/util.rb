@@ -67,8 +67,9 @@ module Util
   } do |event, time|
     if time
       event.channel.slowmode_rate = time
+      embed t('util.slowmode.set_rate', time)
     else
-      event.respond event.channel.slowmode_rate
+      embed t('util.slowmode.get_rate', event.channel.slowmode_rate)
     end
   end
 

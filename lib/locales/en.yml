@@ -199,9 +199,14 @@ en:
     invite:
       title: "Invite %s"
       desc: "[Click this link to invite %s to your server.](%s)"
+
     voicekick:
       failure: "No AFK channel in server and no channel given"
       success: "Moved user to channel"
+
+    slowmode:
+      get_rate: "Slowmode is currently set to `%s` seconds."
+      set_rate: "Slowmode has been set to `%s` seconds."
 
   xkcd:
 
