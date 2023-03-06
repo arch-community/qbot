@@ -63,7 +63,7 @@ module Util
     min_args: 0,
     max_args: 1,
     arg_types: [Integer],
-    required_permissions: %i[manage_channels]
+    required_permissions: %i[manage_messages]
   } do |event, time|
     if time
       event.channel.slowmode_rate = time
