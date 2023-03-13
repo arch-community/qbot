@@ -1,13 +1,18 @@
 { lib, pkgs, config, ... }:
 
-with lib;
-let
+with lib; let
   format = pkgs.formats.json { };
+
   cfg = config.services.qbot;
+
   configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.config);
+
 in {
   options.services.qbot = {
     enable = mkEnableOption "qbot service";
+
+    package = mkPackageOption pkgs "qbot" { };
+
     config = mkOption {
       default = {};
       description = "Configuration for qbot";
@@ -23,7 +28,7 @@ in {
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.qbot}/bin/qbot -c ${configFile} --state-dir \${STATE_DIRECTORY} --no-console";
+        ExecStart = "${getExe cfg.package} -c ${configFile} --state-dir \${STATE_DIRECTORY} --no-console";
         StateDirectory = "qbot";
         DynamicUser = true;
       };

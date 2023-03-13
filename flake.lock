@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "bundix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656012119,
+        "narHash": "sha256-0CMDJR3xfewNuDthm3fEh6UPeRH9PURYxJ0PI1WPv4U=",
+        "owner": "nix-community",
+        "repo": "bundix",
+        "rev": "3d7820efdd77281234182a9b813c2895ef49ae1f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "bundix",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1676283394,
@@ -15,13 +31,33 @@
         "type": "github"
       }
     },
+    "gitignore": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1660459072,
+        "narHash": "sha256-8DFJjXG8zqoONA1vXtgeKXy68KdJL5UaXR8NtVMUbx8=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "a20de23b925fd8264fd7fad6454652e142fd7f73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1676979200,
-        "narHash": "sha256-pVdb+F3umMCdYG+/7HSOEVtaLvzSh89y28IYgILHWDE=",
+        "lastModified": 1678695076,
+        "narHash": "sha256-sjR2kwEjpjxxig2QSy44a1wHIkgKTi6egaopekA/dOs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0663b90f545ac4117489977fbc3a58b199e5d087",
+        "rev": "f1ff114ef608315f9d9d7deb7f5bb8151ce4afea",
         "type": "github"
       },
       "original": {
@@ -33,7 +69,9 @@
     },
     "root": {
       "inputs": {
+        "bundix": "bundix",
         "flake-utils": "flake-utils",
+        "gitignore": "gitignore",
         "nixpkgs": "nixpkgs"
       }
     }

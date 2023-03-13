@@ -2,22 +2,20 @@
 vendor
 vendor/**
 
+.direnv
+.direnv/**
+result
+
 .env
 
-tags
-**/tags
+config/global.yml
+**/yt-client-secret.json
+**/yt-credentials.yml
 
 var/**
 
-config/global.yml
-config/yt-client-secret.json
-config/yt-credentials.yml
-yt-client-secret.json
-yt-credentials.yml
-
-.direnv
-.direnv/**
-
-result
-
 .idea
+
+**/tags
+
+.git

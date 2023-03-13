@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 ruby '~> 3.1'
 
+gem 'bundler'
+
 # Base
 gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 # dirty hack to fix bundix problems

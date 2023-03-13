@@ -1,6 +1,7 @@
-{ pkgs ? import <nixpkgs> { config.allowUnfree = true; } }:
+{ pkgs ? import <nixpkgs> { config.allowUnfree = true; }
+, pkg ? pkgs.callPackage ./. { } }:
 
-(pkgs.callPackage ./. { }).overrideAttrs (oa: {
+pkg.overrideAttrs (oa: {
 	buildInputs = oa.buildInputs ++ (with pkgs; [
 		git
 		graphviz
@@ -8,4 +9,7 @@
 	]);
 
 	BUNDLE_FORCE_RUBY_PLATFORM = "1";
+
+	LD_LIBRARY_PATH = oa.passthru.libPath;
+	FONTCONFIG_FILE = oa.passthru.fontconfigFile;
 })

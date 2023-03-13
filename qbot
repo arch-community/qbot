@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 # frozen-string-literal: true
 
+require 'bundler'
 Bundler.require :default
+
 require 'json'
 require 'yaml'
 require 'digest'
