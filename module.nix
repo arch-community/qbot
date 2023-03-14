@@ -1,3 +1,5 @@
+{ nixConfig, ... }:
+
 { lib, pkgs, config, ... }:
 
 with lib; let
@@ -33,5 +35,10 @@ in {
         DynamicUser = true;
       };
     };
+
+	nix.settings = {
+		substituters = [ nixConfig.extra-substituters ];
+		trusted-public-keys = [ nixConfig.extra-trusted-public-keys ];
+	};
   };
 }

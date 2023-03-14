@@ -1,4 +1,4 @@
-{
+rec {
 	description = "qbot flake";
 
 	inputs = {
@@ -10,6 +10,11 @@
 
 		bundix.url = github:nix-community/bundix;
 		bundix.flake = false;
+	};
+
+	nixConfig = {
+		extra-substituters = "https://qbot.cachix.org";
+		extra-trusted-public-keys = "qbot.cachix.org-1:xkDcKYI5RucucGnOvREbPYj3+Ld1iVco0UFNQj1JVc8=";
 	};
 
 	outputs = { self
@@ -35,7 +40,7 @@
 		overlay = final: prev: { qbot = qbotPackage final; };
 
 		nixosModules = rec {
-			qbot = import ./module.nix;
+			qbot = import ./module.nix { inherit nixConfig; };
 			default = qbot;
 		};
 
