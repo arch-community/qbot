@@ -36,8 +36,12 @@ rec {
 				inherit flakes ruby bundler bundix;
 			};
 
-	in {
 		overlay = final: prev: { qbot = qbotPackage final; };
+	in {
+		overlays = rec {
+			qbot = overlay;
+			default = qbot;
+		};
 
 		nixosModules = rec {
 			qbot = import ./module.nix { inherit nixConfig; };
