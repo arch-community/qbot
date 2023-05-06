@@ -23,7 +23,7 @@ rec {
 			, ... }@flakes:
 	let
 		qbotPackage = pkgs: let
-			ruby = pkgs.ruby_3_1;
+			ruby = pkgs.ruby_3_2;
 			bundler = pkgs.bundler.override { inherit ruby; };
 
 			# release bundix does not run on ruby >2.7
@@ -63,8 +63,9 @@ rec {
 				runtimeInputs = with pkg.passthru; [ bundler bundix ];
 
 				text = ''
-					rm Gemfile.lock
-					bundle lock
+					rm -f Gemfile.lock
+					bundle lock --add-platform ruby --remove-platform x86_64-linux \
+						|| bundle lock --add-platform ruby
 					bundix
 				'';
 			};

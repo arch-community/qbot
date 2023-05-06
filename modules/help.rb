@@ -1,101 +1,105 @@
 # frozen_string_literal: true
 
-# Modified from discordrb source. This file is available under the MIT license.
-
 # Help command
 module Help
   extend Discordrb::Commands::CommandContainer
 
-  # rubocop: disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop: disable Metrics/MethodLength, Metrics/PerceivedComplexity
-  def self.cmd_help(event, name, pfx)
-    command = event.bot.commands[name.to_sym]
-    if command.is_a?(Discordrb::Commands::CommandAlias)
-      command = command.aliased_command
-      name = command.name
-    end
+  def self.find_command(query)
+    command = QBot.bot.commands[query.to_sym]
 
-    if !command || !can_run(command.name, event)
-      embed t('help.not-found', name)
-      return
-    end
+    is_alias = command.is_a?(Discordrb::Commands::CommandAlias)
+    return command.aliased_command if is_alias
 
-    fields = []
+    command
+  end
 
-    aliases = event.bot.command_aliases(name.to_sym)
-    unless aliases.empty?
-      fields << {
-        name: t('help.aliases'),
-        value: aliases.map { |a| "`#{a.name}`" }.join(', '),
-        inline: true
-      }
-    end
+  def self.usage_fields(cmd)
+    usage = cmd.attributes[:usage]
+    return [] unless usage
 
-    if (usage = command.attributes[:usage])
-      fields << {
-        name: t('help.usage'),
-        value: "`#{usage}`",
-        inline: true
-      }
-    end
+    value = "`#{usage}`"
 
-    if (parameters = command.attributes[:parameters])
-      fields << {
-        name: t('help.valid-params'),
-        value: "```\n#{parameters.join "\n"}\n```"
-      }
-    end
+    [{ name: t('help.usage'), value: }]
+  end
 
-    desc = t "descriptions.#{command.name}"
+  def self.aliases_fields(cmd)
+    aliases = QBot.bot.command_aliases(cmd.name)
+    return [] if aliases.empty?
+
+    value = aliases.map { "`#{prefixed(_1.name)}`" }.join("\n")
+
+    [{ name: t('help.aliases'), value:, inline: true }]
+  end
+
+  def self.param_fields(cmd)
+    params = cmd.attributes[:parameters]
+    return [] unless params
+
+    value = parameters.map { "`#{_1}`" }.join(', ')
+
+    [{ name: t('help.valid-params'), value:, inline: true }]
+  end
+
+  def self.show_cmd_help(query)
+    cmd = find_command(query)
+
+    return embed t('help.not-found', query) unless cmd
 
     embed do |m|
-      m.title = "#{pfx}#{name}"
-      m.description = desc if desc
-      m.fields = fields unless fields.empty?
+      m.title = prefixed(cmd.name)
+      m.description = t("descriptions.#{cmd.name}")
+
+      m.fields = usage_fields(cmd) + aliases_fields(cmd) + param_fields(cmd)
     end
   end
-  # rubocop: enable Metrics/CyclomaticComplexity
-  # rubocop: enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
-  def self.available_commands(event)
-    event.bot.commands.values.reject do |c|
-      c.is_a?(Discordrb::Commands::CommandAlias) ||
-        !c.attributes[:help_available] ||
-        !event.bot.send(:required_roles?, event.user, c.attributes[:required_roles]) ||
-        !event.bot.send(:allowed_roles?, event.user, c.attributes[:allowed_roles]) ||
-        !event.bot.send(:required_permissions?, event.user, c.attributes[:required_permissions], event.channel) ||
-        !can_run(c.name, event)
-    end
+  def self.visible?(cmd)
+    return false if cmd.is_a?(Discordrb::Commands::CommandAlias)
+
+    cmd.attributes[:help_available]
   end
-  # rubocop: enable Metrics/AbcSize
 
-  def self.embed_full(_event, avail, pfx)
+  def self.available_commands
+    all_cmds = QBot.bot.commands.values
+
+    all_cmds.filter { visible?(_1) }
+  end
+
+  def self.command_field(cmd)
+    {
+      name: prefixed(cmd.name),
+      value: t("descriptions.#{cmd.name}")
+    }
+  end
+
+  def self.embed_full
     embed do |m|
-      m.title = t 'help.list-title'
-      m.fields = avail.map {
-        desc = t("descriptions.#{_1.name}") || ''
-        {
-          name: "#{pfx}#{_1.name}",
-          value: desc
-        }
-      }
+      m.title = t('help.list-title')
+      m.fields = available_commands.map { command_field(_1) }
     end
   end
 
-  def self.embed_compact(_event, avail, pfx)
+  def self.embed_compact
     embed do |m|
-      m.title = t 'help.list-title'
-      m.description = avail.map { "`#{pfx}#{_1.name}`" }.join(', ')
+      m.title = t('help.list-title')
+
+      m.description = \
+        available_commands
+        .map { |cmd| prefixed(cmd.name) }
+        .then { |names| <<~DESC }
+          ```
+          #{names.join("\n")}
+          ```
+        DESC
     end
   end
 
-  def self.all_help(event, pfx)
-    avail = available_commands(event)
-    case avail.length
+  def self.show_all_help
+    case available_commands.length
     when 0..25
-      embed_full(event, avail, pfx)
+      embed_full
     else
-      embed_compact(event, avail, pfx)
+      embed_compact
     end
   end
 
@@ -105,13 +109,11 @@ module Help
     usage: '.help [command]',
     min_args: 0,
     max_args: 1
-  } do |event, command_name|
-    pfx = ServerConfig[event.server.id].prefix
-
-    if command_name
-      Help.cmd_help(event, command_name, pfx)
+  } do |_, name|
+    if name
+      show_cmd_help(name)
     else
-      Help.all_help(event, pfx)
+      show_all_help
     end
   end
 end

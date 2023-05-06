@@ -57,7 +57,7 @@ end
 raise "Usage: #{$PROGRAM_NAME} <base> <cmp>" unless ARGV.size == 2
 
 def load_locale(name, root = prj_root)
-  path_base = File.join(root, 'lib', 'locales', '%s.yml')
+  path_base = File.join(root, 'share', 'locales', '%s.yml')
   YAML.unsafe_load_file format(path_base, name)
 rescue Errno::ENOENT => e
   puts Paint["Locale not found: #{name}", :bright]
@@ -73,7 +73,7 @@ def find_all_ruby(root = prj_root)
     .glob(File.join(root, '**/*.rb'))
     .reject { |path|
       File.fnmatch(
-        '{.,**}/{vendor,.bundle,lib/resources,scripts}/**',
+        '{.,**}/{vendor,.bundle,share,scripts}/**',
         path,
         File::FNM_EXTGLOB
       )
@@ -129,13 +129,6 @@ key_matches = bar.iterate(find_all_ruby).map { |abs_path|
     # Find invocations of t()
     in [_, :t, key, *]
       list << KeyLoc.new(path:, line:, col:, key: val(key))
-
-    # Find config help descriptions
-    in [[:const, *, :Config], :help_msg, pfx, [_, *subcmds]]
-      subcmds.map { val _1 }.each do |sub|
-        key = "#{val(pfx).tr(' ', '.')}.help.#{sub}"
-        list << KeyLoc.new(path:, line:, col:, key:)
-      end
 
     # Find all bot commands
     in [_, :command, name, *]

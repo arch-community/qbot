@@ -1,0 +1,266 @@
+schema:
+  fonts: [filename, typeface, nickname,
+          version, creator, license, source,
+          layout, glyph_style,
+          notes]
+fonts:
+  - filename: Fairfax.ttf
+    typeface: Fairfax
+    version: 2022.02.01
+    creator: Kreative Software
+    license: SIL OFL
+    source: https://github.com/kreativekorp/open-relay/raw/master/Fairfax/Fairfax.ttf
+    layout: :ucsur
+    glyph_style: :none
+
+  - filename: FairfaxHD.ttf
+    typeface: Fairfax HD
+    version: 2022.02.14
+    creator: Kreative Software
+    license: SIL OFL
+    source: https://github.com/kreativekorp/open-relay/raw/master/FairfaxHD/FairfaxHD.ttf
+    layout: :ucsur
+    glyph_style: :none
+
+  - filename: supalape.otf
+    typeface: insa pi supa lape
+    version: 0.6.1-2-ga1e12fb
+    creator: jan Lentan (/dev/urandom)
+    license: public domain
+    source: https://gitlab.com/dev_urandom/insa-pi-supa-lape/-/jobs/2103910200/artifacts/download
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: supalape-bold.otf
+    typeface: insa pi supa lape Bold
+    version: 0.6.1-2-ga1e12fb
+    creator: jan Lentan (/dev/urandom)
+    license: public domain
+    source: https://gitlab.com/dev_urandom/insa-pi-supa-lape/-/jobs/2103910200/artifacts/download
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: supalape-light.otf
+    typeface: insa pi supa lape Light
+    version: 0.6.1-2-ga1e12fb
+    creator: jan Lentan (/dev/urandom)
+    license: public domain
+    source: https://gitlab.com/dev_urandom/insa-pi-supa-lape/-/jobs/2103910200/artifacts/download
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: linja-luka-1.0.otf
+    typeface: linja luka
+    version: 1.0
+    creator: jan Pensamin & jan Melon
+    license: SIL OFL v1.1
+    source: https://github.com/janMelon/linja-luka/raw/main/font-files/linja-luka-1.0.otf
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: linja-nanpa-2.4.otf
+    typeface: linja-nanpa
+    nickname: linja nanpa
+    version: 2.4
+    creator: jan Itan (ETBCOR)
+    license: MIT
+    source: https://github.com/ETBCOR/linja-nanpa/raw/main/versions/linja-nanpa-2.3.otf
+    layout: :ucsur
+    glyph_style: :none
+
+  - filename: TokiPonaBubble.otf
+    typeface: Toki Pona Bubble
+    version: 1.010
+    creator: Jordan W. Martin
+    license: For personal use only
+    source: https://jordanwmartin.gumroad.com/l/flpem
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: TokiPonaBubble-Color.otf
+    typeface: Toki Pona Bubble Color
+    version: 1.009
+    creator: Jordan W. Martin
+    license: For personal use only
+    source: https://jordanwmartin.gumroad.com/l/flpem
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: sitelenKotopon.otf
+    typeface: sitelen Kotopon
+    version: 0.1
+    creator: kala Asi (AcipenserSturio)
+    license: SIL OFL v1.1
+    source: https://github.com/AcipenserSturio/sitelen-Kotopon/raw/master/sitelenKotopon.otf
+    layout: :ucsur
+    glyph_style: :none
+
+  - filename: SitelenLatin_1.3.6.ttf
+    typeface: Sitelen Latin
+    nickname: sitelen Latin
+    version: 1.3.6
+    creator: jan Pitaki
+    license: CC BY 4.0
+    source: https://github.com/tokipona-today/sitelen-sitelen/raw/main/SitelenLatin_1.3.6.ttf
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: sitelen-telo-Momo-1.04.ttf
+    typeface: sitelen telo Momo
+    version: 1.04
+    creator: jan Momo (Machitoons) & jan Melon
+    license: SIL OFL v1.1
+    source: https://github.com/janMelon/sitelen-telo-Momo/raw/main/font-files/sitelen-telo-Momo-1.04.ttf
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: linjapitomolipu.0.7.ttf
+    typeface: linja pi tomo lipu
+    version: 0.7
+    creator: jan Talu (Pascal Guimier)
+    license: SIL OFL v1.1
+    source: https://github.com/pguimier/linjapitomolipu/raw/master/linjapitomolipu.0.7.ttf
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: linjawawa1.21.ttf
+    typeface: linja wawa
+    version: 1.21
+    creator: jan Melon & /u/ElemenopiTheSequel
+    license: SIL OFL v1.1
+    source: https://github.com/janMelon/linjawawa/raw/main/font-files/linjawawa1.21.ttf
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: linjapimejapona0.9.otf
+    typeface: linja pimeja pona
+    version: 0.9
+    creator: jan Ke Tami (Ret Samys), Jack Humbert, jan Inkepa (Stephen Lavelle)
+    license: SIL OFL v1.1
+    source: http://antetokipona.infinityfreeapp.com/font/linjapimejapona0.9.otf
+    layout: :ligatures
+    glyph_style: :none
+
+  - filename: linja-sike-5.otf
+    typeface: linja sike
+    version: 5.0
+    creator: jan Same, David A Roberts, jan Lipamanka
+    license: SIL OFL v1.1
+    source: https://wyub.github.io/tokipona/linjasike
+    layout: :ligatures
+    glyph_style: :cartouche
+
+  - filename: PuLukin.otf
+    typeface: PuLukin
+    nickname: linja pi pu lukin
+    version: 1.1
+    creator: Green Guy (ZacStan)
+    license: requires attribution (link to github)
+    source: https://github.com/janSa-tp/linja-pi-pu-lukin
+    layout: :ligatures
+    glyph_style: :brackets
+  
+  - filename: linja-pona-4.9.otf
+    typeface: linja pona
+    version: 4.9
+    creator: jan Same, David A Roberts
+    license: SIL OFL v1.1
+    source: https://github.com/davidar/linja-pona
+    layout: :ligatures
+    glyph_style: :cartouche
+  
+  - filename: linjasuwi.otf
+    typeface: linja suwi
+    version: 1.301
+    creator: jan Ana (Anna Kudriavtsev)
+    license: SIL OFL v1.1
+    source: https://github.com/anna328p/linjasuwi
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: sitelen-pona-kiwen-nanpa-tu.ttf
+    typeface: sitelen pona kiwen nanpa tu
+    nickname: sitelen pona kiwen
+    version: 1.0
+    creator: jan Sewaka (jan Weko)
+    license: CC BY-SA 3.0
+    source: https://cdn.discordapp.com/attachments/907173530192461864/918454687294963802/sitelen-pona-kiwen-nanpa-tu.ttf
+    layout: :ucsur
+    glyph_style: :none
+
+  - filename: Sitelen Sans 3.otf
+    typeface: Sitelen Sans
+    nickname: sitelen Sans
+    version: 1.00
+    creator: Echo Heo (bluemon_)
+    license: all rights reserved
+    source: https://drive.google.com/file/d/1Kq34udEr2UBd7MpoSEn3G5c-C69ltaKG/view
+    layout: :ligatures
+    glyph_style: :none
+
+  - filename: sitelen_telo_1.01.otf
+    typeface: sitelen telo
+    version: 1.01
+    creator: Wilhelm Su (efofecks)
+    license: SIL OFL v1.1
+    source: https://drive.google.com/drive/folders/1KDVbtq8_GaC2DqOUrb10IXlVgp7DJIJi
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: sitelen-pona-pona.otf
+    typeface: sitelen-pona
+    nickname: sitelen pona pona
+    version: 0.2
+    creator: Jack Humbert
+    license: SIL OFL v1.1
+    source: https://github.com/jackhumbert/sitelen-pona-pona
+    layout: :ligatures
+    glyph_style: :brackets
+  
+  - filename: linjapimeja19.ttf
+    typeface: linja pimeja
+    version: 1.9
+    creator: jan Inkepa (Stephen Lavelle)
+    license: CC0 (public domain)
+    source: https://web.archive.org/web/20200908080325/https://github.com/increpare/linja_pimeja/releases
+    layout: :ligatures
+    glyph_style: :brackets
+
+  - filename: sitelen_luka_tu_tu.ttf
+    typeface: sitelen luka tu tu
+    version: 1
+    creator: jan Inkepa (Stephen Lavelle)
+    license: CC0 (public domain)
+    source: https://github.com/pguimier/pali-sitelen/raw/master/plugins/sitelenlukatutu/sitelen_luka_tu_tu.ttf
+    layout: :ligatures
+    glyph_style: :none
+
+  - filename: linja-ante.ttf
+    typeface: linja ante
+    version: 2
+    creator: jan Melon, jan Inkepa (Stephen Lavelle)
+    license: CC0 (public domain)
+    source: https://nilakayas.neocities.org/karya/linja-ante.ttf
+    layout: :ligatures
+    glyph_style: :none
+
+  - filename: TokiPonaSetaSans-Regular2.otf
+    typeface: Toki Pona Seta Sans
+    nickname: seta sans
+    version: 0.02
+    creator: Eschar (Nathan McCoy)
+    license: unknown
+    source: https://jcdietrich.github.io/TokiPonaSetaSans-Regular2.otf
+    layout: :ligatures
+    glyph_style: :none
+    notes: very incomplete
+
+  - filename: sitelensuwiko20.ttf
+    typeface: sitelensuwiko20
+    nickname: sitelen suwi ko
+    version: 1.0
+    creator: jan Emelesowelikapesi
+    license: unknown
+    source: https://cdn.discordapp.com/attachments/340307145373253642/834314599759085588/sitelensuwiko20.ttf
+    layout: :ligatures
+    glyph_style: :none

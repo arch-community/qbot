@@ -1,36 +1,6 @@
 #!/usr/bin/env ruby
-# frozen-string-literal: true
+# frozen_string_literal: true
 
-require 'bundler'
-Bundler.require :default
-
-require 'json'
-require 'yaml'
-require 'digest'
-require 'uri'
-require 'open-uri'
-
-def require_libs(libs) = libs.each { require_relative "#{__dir__}/lib/#{_1}" }
-
-require_libs %w[
-  version
-  globals
-  options
-  patches
-  hooks
-  db
-  i18n
-  configuration
-  helpers
-  xkcd
-  tpdict
-  sitelenpona
-  xsampa
-  tio
-  breaking_wrap
-  modules
-  cli
-  init
-]
+require_relative 'lib/qbot'
 
 QBot.run!

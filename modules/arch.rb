@@ -1,70 +1,48 @@
 # frozen_string_literal: true
 
+# every day at 3 AM:
+QBot.scheduler.cron '0 3 * * *' do
+  UpdateArchReposJob.perform_later
+end
+
 # Arch Linux wiki and package searching commands.
 module Arch
   extend Discordrb::Commands::CommandContainer
 
-  @wiki = MediawikiApi::Client.new 'https://wiki.archlinux.org/api.php'
-  attr_accessor :wiki
-
-  def self.wiki_embed(channel, title)
-    embed(target: channel) do |m|
-      m.title = "Arch Wiki: #{title}"
-      m.description = "https://wiki.archlinux.org/index.php/#{title.split.join('_')}"
-    end
-  end
-
-  def self.search_pkg(query) =
-    JSON.parse(URI.open("https://www.archlinux.org/packages/search/json/?q=#{query}").read)
-
-  def self.mkcorpus(res)
-    res.map do |r|
-      keywords = [r['repo'], r['pkgname'], r['pkgname'].split('-') * 10].flatten.join(' ')
-      TfIdfSimilarity::Document.new("#{keywords} #{r['pkgdesc']}")
-    end
-  end
-
-  def self.sort_results(results, query)
-    corpus = mkcorpus(results)
-    corpus << TfIdfSimilarity::Document.new(query)
-
-    model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
-
-    matrix = model.similarity_matrix
-
-    results.map.with_index.sort_by do |_r, idx|
-      matrix[model.document_index(corpus[idx]), model.document_index(corpus.last)]
-    end.map(&:first)
-  end
-
   command :archwiki, {
-    aliases: %i[aw arch-chan-uwu], # joke
+    aliases: %i[aw arch-chan-uwu], # :3
     help_available: true,
     usage: '.aw <query>',
     min_args: 1
-  } do |event, *qs|
-    query = qs.join(' ')
+  } do |event, *_|
+    query = after_nth_word(1, event.text)
+    page = ArchWiki.find_page(query)
 
-    # Check if the page exists
-    q = (@wiki.query titles: query).data
+    next embed t('arch.wiki.no-results') unless page
 
-    if !q['pages']['-1']
-      # If it exists:
-      _, pg = q['pages'].first
-      # Embed a link to it
-      Arch.wiki_embed(event.channel, pg['title'])
-    else
-      # Search the wiki for the query
-      sq = (@wiki.query list: 'search', srsearch: query).data
+    embed do |m|
+      m.title = page.title
+      m.description = page.url
+    end
+  end
 
-      if sq['searchinfo']['totalhits'] < 1
-        # If not found, notify
-        embed t('arch.wiki.no-results')
-      else
-        # Embed a link to the first search result
-        firstres = sq['search'][0]
-        wiki_embed event.channel, firstres['title']
-      end
+  def self.package_field(pkg)
+    pkg => {repo:, name:, version:, desc:}
+    date = pkg.builddate.strftime('%Y-%m-%d')
+
+    {
+      name: "#{repo}/#{name}",
+      value: <<~VAL
+        #{desc}
+        #{t('arch.ps.result-footer', version, date, pkg.web_url)}
+      VAL
+    }
+  end
+
+  def self.package_search_embed(query, pkgs)
+    embed do |m|
+      m.title = t('arch.ps.title', query)
+      m.fields = pkgs.first(5).map { package_field(_1) }
     end
   end
 
@@ -74,45 +52,52 @@ module Arch
     description: 'Searches the Arch repositories for a package',
     usage: '.ps <query>',
     min_args: 1
-  } do |_event, *qs|
-    query = qs.join(' ')
-    response = Arch.search_pkg(query)
+  } do |event, *_|
+    query = after_nth_word(1, event.text)
 
-    # Error if no results found
-    res = response['results']
-    if res.empty?
-      embed t('arch.ps.no-results')
-      return
-    end
+    results = ArchRepos::Index.instance.pkg_query(query)
+    next embed t('arch.ps.no-results') if results.empty?
 
-    ordered_results = sort_results(res, query)
-
-    # Embed the search results
-    embed do |m|
-      m.title = t('arch.ps.title', query)
-      m.fields = ordered_results.first(5).map do |r|
-        ver = r['pkgver']
-        time = Time.parse(r['last_update']).strftime('%Y-%m-%d')
-        url = "https://www.archlinux.org/packages/#{r['repo']}/#{r['arch']}/#{r['pkgname']}"
-
-        {
-          name: "#{r['repo']}/#{r['pkgname']}",
-          value: <<~VAL
-            #{r['pkgdesc']}
-            #{t 'arch.ps.version'} **#{ver}** | #{t 'arch.ps.last-update'} **#{time}** | [#{t 'arch.ps.link'}](#{url})
-          VAL
-        }
-      end
-    end
+    package_search_embed(query, results)
   end
 
+  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
+  def self.package_embed(pkg)
+    csize = pkg.csize.to_fs(:human_size)
+    isize = pkg.isize.to_fs(:human_size)
+    license = pkg.license.join(', ')
+
+    embed do |m|
+      m.color = 0x0088cc
+
+      m.title = "#{pkg.repo}/#{pkg.name}"
+      m.url = pkg.web_url
+      m.description = pkg.desc
+
+      m.fields = [
+        { name: t('arch.package.url'), value: pkg.url },
+        { name: t('arch.package.license'), value: license, inline: true },
+        { name: t('arch.package.csize'), value: csize, inline: true },
+        { name: t('arch.package.isize'), value: isize, inline: true },
+        { name: t('arch.package.packager'), value: pkg.packager }
+      ]
+
+      m.footer = { text: t('arch.package.version', pkg.version) }
+      m.timestamp = pkg.builddate
+    end
+  end
+  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
+
   command :package, {
-    aliases: [:package],
+    aliases: [:p],
     help_available: true,
     usage: '.p <pkgname>',
     min_args: 1,
     max_args: 1
-  } do |_event, _pn|
-    embed t('cfg.nyi')
+  } do |_, name|
+    pkg = ArchRepos::DBCache.instance.package(name)
+    next embed t('arch.package.not-found') unless pkg
+
+    package_embed(pkg)
   end
 end

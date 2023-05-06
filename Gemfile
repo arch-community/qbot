@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.1'
+ruby '~> 3.2'
 
 gem 'bundler'
 
@@ -29,13 +29,21 @@ gem 'reline'
 
 # DB
 gem 'activerecord', require: 'active_record'
+gem 'rails-pattern_matching'
 gem 'sqlite3'
+
+# Jobs
+gem 'activejob', require: 'active_job'
+gem 'delayed_job_active_record'
+gem 'rufus-scheduler'
 
 # Arch
 gem 'mediawiki_api'
 gem 'narray'
 gem 'rss'
-gem 'tf-idf-similarity'
+gem 'tantiny',
+    github: 'anna328p/tantiny',
+    branch: 'main'
 
 # figlet
 gem 'ruby_figlet'

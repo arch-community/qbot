@@ -18,11 +18,16 @@ module Tokipona
     help_available: true,
     usage: '.nimi <word>',
     min_args: 1
-  } do |_, *args|
+  } do |event, *_|
     dict = TPDict.instance
-    query = args.join(' ')
+    query = after_nth_word(1, event.text)
 
-    tpo_res = dict.query_tp_inli(query, limit: 8, overflow_text: t('tokipona.nimi.overflow', :tpo))
+    tpo_res =
+      dict.query_tp_inli(
+        query,
+        limit: 8,
+        overflow_text: t('tokipona.nimi.overflow', :tpo)
+      )
 
     embed do |m|
       m.title = query
@@ -36,9 +41,9 @@ module Tokipona
     help_available: true,
     usage: '.tpo <word>',
     min_args: 1
-  } do |_, *args|
+  } do |event, *_|
     dict = TPDict.instance
-    query = args.join(' ')
+    query = after_nth_word(1, event.text)
 
     res = dict.query_tp_inli(query)
 

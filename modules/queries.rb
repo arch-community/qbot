@@ -9,17 +9,22 @@ module Queries
     help_available: true,
     usage: '.q <question>',
     min_args: 1
-  } do |event, *args|
-    text = args.join(' ').gsub('@', "\\@\u200D")
+  } do |event, _|
+    text = after_nth_word(1, event.text).gsub('@', "\\@\u200D")
 
-    if text.length > 1024
-      embed t('queries.query.too-long')
-      next
-    end
+    query = Query.for(event.server).create!(user_id: event.user.id, text:)
 
-    new_query = Query.create(server_id: event.server.id, user_id: event.author.id, text:)
+    embed t('queries.query.success', query.id)
+  rescue ActiveRecord::RecordInvalid
+    embed t('queries.query.failure', query.errors.full_messages.join(', '))
+  end
 
-    embed t('queries.query.success', new_query.id)
+  def self.query_field(query)
+    query => { id:, created_at:, text: }
+
+    name = t('queries.oq.entry-name', id, query.user.distinct, created_at)
+
+    { name:, value: text }
   end
 
   command :openqueries, {
@@ -29,22 +34,17 @@ module Queries
     min_args: 0,
     max_args: 0
   } do |event, *_args|
-    Query.where('created_at <= :timeout', { timeout: Time.now - 30.days }).map(&:destroy!)
+    Query.destroy_by(created_at: ..(Time.now - 30.days))
 
-    queries = Query.where(server_id: event.server.id).map do |q|
-      {
-        name: t('queries.oq.entry-name',
-                q.id, event.bot.user(q.user_id).distinct, q.created_at),
-        value: q.text
-      }
-    end
+    fields = Query.for(event.server).map { query_field(_1) }
 
-    queries = [{ name: '#0', value: t('queries.oq.no-results') }] if queries.empty?
+    empty_field = { name: '#0', value: t('queries.oq.no-results') }
+    fields << empty_field if fields.empty?
 
     embed do |m|
       m.title = t('queries.oq.title')
       m.description = t('queries.oq.deleted-after-30d')
-      m.fields = queries || nil
+      m.fields = fields
     end
   end
 
@@ -54,26 +54,26 @@ module Queries
     usage: '.cq <id>',
     min_args: 1
   } do |event, *args|
-    args.each do
-      id = _1.to_i
+    queries = args.map { |arg|
+      id = parse_int(arg)
+
       begin
-        q = Query.where(server_id: event.server.id).find(id)
+        Query.for(event.server).find(id)
       rescue ActiveRecord::RecordNotFound
         embed t('queries.cq.not-found', id)
-        return
+        nil
       end
+    }
 
-      if !q
-        embed t('queries.cq.not-found', id)
-        return
-      elsif event.author.id == q.user_id \
-            || event.author.permission?(:manage_messages, event.channel)
-        q.destroy!
-        embed t('queries.cq.success', id)
-        return
-      else
-        embed t('queries.cq.no-perms', id)
-      end
+    queries.compact.each do |q|
+      can_close = \
+        event.user.id == q.user_id \
+        || event.user.permission?(:manage_messages, event.channel)
+
+      next embed t('queries.cq.no-perms', q.id) unless can_close
+
+      q.destroy!
+      embed t('queries.cq.success', q.id)
     end
 
     nil

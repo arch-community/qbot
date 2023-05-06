@@ -4,12 +4,12 @@
 module Xkcd
   extend Discordrb::Commands::CommandContainer
 
-  def self.xkcd_embed(comic_info)
+  def self.xkcd_embed(info)
     embed do |m|
-      m.title = "xkcd: #{comic_info[:safe_title]}"
-      m.url = XKCD.comic_url(comic_info)
-      m.image = { url: comic_info[:img] }
-      m.footer = { text: comic_info[:alt] }
+      m.title = "xkcd: #{info[:safe_title]}"
+      m.url = XKCD.comic_url(info)
+      m.image = { url: info[:img] }
+      m.footer = { text: info[:alt] }
     end
   end
 
@@ -18,14 +18,14 @@ module Xkcd
     usage: '.xkcd',
     min_args: 0
   } do |_, *args|
-    if args[0].downcase.start_with? 'l'
+    case args
+    in [/^[lL]/, *]
       xkcd_embed(XKCD.latest_info)
-    elsif args[0]&.to_i
-      num = args.shift.to_i
+    in [arg, *]
+      num = parse_int(arg)
+      next embed t('nyi') unless num
+
       xkcd_embed(XKCD.get_info(num))
-    elsif args[0]
-      # Searching not implemented yet
-      embed t('nyi')
     else
       xkcd_embed(XKCD.random_info)
     end

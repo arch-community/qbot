@@ -16,21 +16,17 @@ to do much more.
 Modules:
 - `admin` lets server owners administer and configure the bot.
 - `arch` contains commands for searching the Arch wiki, repositories, and AUR.
-- `blacklist` can automatically delete messages matching configurable regexes.
 - `colors` generates, manages, and assigns color roles.
 - `figlet` converts text to ASCII art.
 - `help` provides a help command that displays information about commands.
 - `queries` helps manage support channels using a database of support questions.
 - `snippets` lets users invoke configurable text snippets.
-- `quotes` lets users grab quotes from users and reference them.
 - `util` provides simple utility commands.
 - `xkcd` allows searching and posting XKCD comics.
 
 ## Invite qbot to your own server
 
 [Click this link][invite] to invite our hosted instance of qbot to your own server.
-
-<a href="https://fosshost.org"><img src="lib/resources/fosshost.org_Host_Dark.png" height="50px" alt="Hosted on Fosshost"/></a>
 
 ## Running your own instance of qbot
 

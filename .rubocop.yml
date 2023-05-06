@@ -1,8 +1,15 @@
 AllCops:
   NewCops: enable
+  ActiveSupportExtensionsEnabled: true
 
 Style/BlockDelimiters:
   EnforcedStyle: semantic
 
 Style/CommandLiteral:
   EnforcedStyle: mixed
+
+Style/AccessModifierDeclarations:
+  EnforcedStyle: inline
+
+Style/ParallelAssignment:
+  Enabled: false

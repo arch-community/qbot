@@ -8,8 +8,11 @@ module Languages
     help_available: true,
     usage: '.ipa <text>',
     min_args: 1
-  } do |_, *args|
-    text = args.join(' ').gsub('\\@', '@')
+  } do |event, *_|
+    text = after_nth_word(1, event.text)
+
+    # fix mention escapes
+    text.gsub!('\\@', '@')
 
     embed XSConverter.convert(text)
   end

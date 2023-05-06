@@ -8,8 +8,10 @@ module Util
     help_available: true,
     usage: '.echo <string>',
     min_args: 1
-  } do |event, *args|
-    event.respond_wrapped args.join(' '), allowed_mentions: false
+  } do |event, *_|
+    text = after_nth_word(1, event.text)
+
+    event.respond_wrapped(text, allowed_mentions: false)
   end
 
   command :botrepo, {
@@ -17,7 +19,7 @@ module Util
     usage: '.mygit',
     min_args: 0,
     max_args: 0
-  } do |_event|
+  } do
     QBot.config.my_repo
   end
 
@@ -37,7 +39,7 @@ module Util
   } do |event, user|
     target_user = cmd_target(event, user)
 
-    event.respond Util.full_avatar(target_user)
+    event.respond(full_avatar(target_user))
   end
 
   command :invite, {
@@ -46,14 +48,18 @@ module Util
     min_args: 0,
     max_args: 0
   } do |event|
-    b = event.bot
-    u = b.bot_user
+    me = event.bot.bot_user
 
     embed do |m|
-      m.title = t('util.invite.title', u.username)
-      m.description = t('util.invite.desc',
-                        u.username, b.invite_url(permission_bits: '339078224'))
-      m.thumbnail = { url: u.avatar_url }
+      m.title = t('util.invite.title', me.username)
+
+      m.description = t(
+        'util.invite.desc',
+        me.username,
+        event.bot.invite_url(permission_bits: '339078224')
+      )
+
+      m.thumbnail = { url: me.avatar_url }
     end
   end
 
@@ -79,16 +85,11 @@ module Util
     min_args: 1,
     max_args: 2
   } do |event, user, channel|
-    unless event.author.permission?(:move_members, event.channel)
-      event.respond t('no_perms')
-      return
-    end
+    can_kick = event.author.permission?(:move_members, event.channel)
+    next event.respond t('no_perms') unless can_kick
 
     target_channel = channel || event.server.afk_channel
-    unless target_channel
-      event.respond t('util.voicekick.failure')
-      return
-    end
+    next embed.respond t('util.voicekick.failure') unless target_channel
 
     target_user = cmd_target(event, user)
     event.server.move(target_user, target_channel)

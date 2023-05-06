@@ -10,8 +10,8 @@ module Bottom
     help_available: true,
     usage: '.b <text>',
     min_args: 1
-  } do |_, *args|
-    text = args.join(' ').gsub('@', "\\@\u200D")
+  } do |event, *_|
+    text = after_nth_word(1, event.text)
     embed Bottom.encode text
   end
 
@@ -20,9 +20,10 @@ module Bottom
     help_available: true,
     usage: '.db <text>',
     min_args: 1
-  } do |_, *args|
-    input = args.join(' ')
+  } do |event, *_|
+    input = after_nth_word(1, event.text)
     text = Bottom.decode(input).gsub('@', "\\@\u200D")
+
     embed text
   end
 end

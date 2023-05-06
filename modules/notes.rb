@@ -6,29 +6,44 @@
 module Notes
   extend Discordrb::Commands::CommandContainer
 
+  def self.parse_args_addnote(text)
+    # matches inputs:
+    #     name text
+    #     "name with spaces" text
+    #     'name with spaces' text
+    re = /^(?<quote>['"]?)(?<name>(?:(?!\k<quote>).)+?)\k<quote>\s(?<text>.+)$/
+
+    case re.match(text)
+    in { name:, text: }
+      { name: name.strip.downcase, text: text.strip }
+    else
+      nil
+    end
+  end
+
   command :addnote, {
     aliases: %i[an .],
-
     help_available: true,
     usage: '.addnote <name> <text>',
-    min_args: 2,
-    arg_types: [String, String]
-  } do |event, name, *_|
-    text = event.content.sub(/^#{prefixed ''}(addnote|an|\.)\s\w+/, '').lstrip
+    min_args: 2
+  } do |event, *_|
+    rest = after_nth_word(1, event.text)
+    args = parse_args_addnote(rest)
 
-    note = Note.create(
-      server_id: event.server.id,
-      user_id: event.author.id,
-      username: event.author.distinct,
-      name: name.downcase,
+    next embed t('notes.add.invalid-args') unless args
+
+    args => { name:, text: }
+
+    note = Note.for(event.server).create!(
+      user_id: event.user.id,
+      username: event.user.distinct,
+      name:,
       text:
     )
 
-    if note.valid?
-      embed t('notes.add.success', note.name, note.id)
-    else
-      embed t('notes.add.failure', note.errors.full_messages.join(', '))
-    end
+    embed t('notes.add.success', note.name, note.id)
+  rescue ActiveRecord::RecordInvalid
+    embed t('notes.add.failure', note.errors.full_messages.join(', '))
   end
 
   command :note, {
@@ -38,21 +53,22 @@ module Notes
     usage: '.note <name>',
     min_args: 1,
     arg_types: [String]
-  } do |event, name, *rest|
-    name = [name, *rest].join(' ')
+  } do |event, *_|
+    query = after_nth_word(1, event.text)
+    note = Note.for(event.server).find_random!(query)
 
-    notes = Note.where(
-      server_id: event.server.id,
-      name: name.downcase
+    event.respond_wrapped(
+      "**`##{note.id}`**  📣  #{note.text}",
+      allowed_mentions: false
     )
+  rescue ActiveRecord::RecordNotFound
+    next
+  end
 
-    if notes.empty?
-      embed t('notes.get.failure', name)
-      return
-    end
-
-    note = notes.sample
-    event.respond_wrapped "**`##{note.id}`**  📣  #{note.text}", allowed_mentions: false
+  def self.format_notes_page(notes)
+    notes
+      .map { |n| t('notes.list.row', n.id, n.name, n.username) }
+      .join("\n")
   end
 
   command :listnotes, {
@@ -65,27 +81,17 @@ module Notes
     arg_types: [Integer]
   } do |event, page|
     page ||= 1
-    page_size = 20
 
-    server_notes = Note.where(server_id: event.server.id)
-    max_page = (server_notes.count / page_size.to_f).ceil
+    server_notes = Note.for(event.server)
+    entries = server_notes.page!(page - 1)
 
-    unless (1..max_page).include? page
-      embed t('notes.list.invalid-page', page, max_page)
-      return
+    embed do |m|
+      m.title = t('notes.list.title', page, server_notes.page_count)
+      m.description = format_notes_page(entries)
     end
 
-    notes = server_notes
-            .limit(page_size)
-            .offset((page - 1) * page_size)
-
-    list = notes
-           .map { t('notes.list.row', _1.id, _1.name, _1.username) }
-           .join("\n")
-
-    embed list do |m|
-      m.title = t('notes.list.title', page, max_page)
-    end
+  rescue ActiveRecord::RangeError
+    embed t('notes.list.invalid-page', page, server_notes.page_count)
   end
 
   command :noteid, {
@@ -97,16 +103,14 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, id|
-    note = Note.find_by(id:, server_id: event.server.id)
+    note = Note.for(event.server).find_by!(id:)
 
-    unless note
-      embed t('notes.id.failure', id)
-      return
-    end
-
-    embed note.text do |m|
+    embed do |m|
       m.title = t('notes.id.title', note.name, note.id, note.username)
+      m.description = note.text
     end
+  rescue ActiveRecord::RecordNotFound
+    embed t('notes.id.failure', id)
   end
 
   command :delnote, {
@@ -118,23 +122,17 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, id|
-    note = Note.find_by(id:, server_id: event.server.id)
+    note = Note.for(event.server).find_by!(id:)
 
-    unless note
-      embed t('notes.del.not-found', id)
-      return
-    end
+    next embed t('notes.del.no-perms', id) \
+      unless note.user_id == event.user.id ||
+             event.user.permission?(:manage_messages)
 
-    unless note.user_id == event.user.id ||
-           event.user.permission?(:manage_messages)
-      embed t('notes.del.no-perms', id)
-      return
-    end
+    note.destroy!
+    embed t('notes.del.success', note.name, note.id)
 
-    name = note.name
-    id = note.id
-    note.destroy
-    embed t('notes.del.success', name, id)
+  rescue ActiveRecord::RecordNotFound
+    embed t('notes.del.not-found', id)
   end
 
   command :exportnotes, {
@@ -143,15 +141,14 @@ module Notes
     min_args: 0,
     max_args: 0
   } do |event|
-    unless event.author.permission?(:administrator) ||
-           event.author.id == QBot.config.owner
-      embed t('no_perms')
-      return
-    end
+    next embed t('no_perms') \
+      unless event.author.permission?(:administrator) ||
+             event.author.id == QBot.config.owner
 
-    notes = Note.where(server_id: event.server.id)
-
-    event.send_file(StringIO.new(notes.to_json), filename: 'notes.json')
+    event.send_file(
+      StringIO.new(Note.for(event.server).to_json),
+      filename: 'notes.json'
+    )
   end
 end
 # rubocop: enable Metrics/ModuleLength

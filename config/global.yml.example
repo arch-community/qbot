@@ -32,7 +32,6 @@ my_repo: https://github.com/arch-community/qbot
 modules:
   - admin
   - arch
-  - blacklist
   - bottom
   - colors
   - figlet

@@ -1,0 +1,314 @@
+en:
+  no_perms: 'You do not have the required permissions to perform this action.'
+  no_dm: 'This command cannot be used in a direct message.'
+  log-channel-gone: 'The log channel no longer exists. It has been reset.'
+
+  locales:
+    en: 'English'
+    en_kawaii: 'English (cute)'
+    tok: 'Toki Pona'
+    de: 'German'
+
+  descriptions:
+    help: 'Shows a list of all available commands or displays help for a specific command'
+
+    config: 'Sets various configuration options for the bot'
+    userconfig: 'Configure user settings that apply across servers'
+
+    listsnippets: 'Lists available snippets'
+    snippet: 'Posts a snippet'
+
+    color: 'Sets your user color role'
+    closestcolor: 'Gives you the closest color, by hex code'
+    listcolors: 'Lists colors available on the server'
+    createcolorroles: 'Creates color roles'
+    randcolors: 'Randomizes colors for all users'
+
+    query: 'Adds a query to the list of queries'
+    openqueries: 'Lists open queries'
+    closequery: 'Closes a query by ID'
+
+    eval: 'Evaluates some code. Owner-only.'
+
+    echo: 'Echoes a string'
+    botrepo: "Posts the URL of the bot's Git repo"
+    avatar: "Posts the URL of a user's avatar"
+    invite: 'Sends a link to invite the bot to your server'
+    voicekick: 'Move a user to the AFK channel or given channel'
+
+    archwiki: 'Searches the Arch wiki'
+    packagesearch: 'Searches for a package in the Arch repositories'
+    package: 'Shows info for a given package'
+
+    xkcd: 'Gets an XKCD comic by ID or name'
+
+    poll: 'Sets up a poll in a channel'
+
+    figlet: 'Converts some text into ASCII art'
+
+    nimi: 'Queries definitions for a toki pona word'
+    tpo: 'Queries usage data for a toki pona word from tokipona.org'
+    tpsources: 'Displays attribution information for toki pona data'
+
+    addnote: 'Adds a note by name'
+    note: 'Finds a note by name'
+    listnotes: 'Lists all notes for this server'
+    noteid: 'Finds a note by ID'
+    delnote: 'Deletes a note'
+
+  admin:
+    eval:
+      nope: 'nope'
+
+  arch:
+    wiki:
+      no-results: 'No results found'
+
+    ps:
+      no-results: 'No results found'
+      title: 'Search results for `%s`'
+      result-footer: 'version **%s** | built **%s** | [web link](%s)'
+
+    package:
+      url: 'Upstream URL'
+      license: 'License'
+      csize: 'Size'
+      isize: 'Installed'
+      packager: 'Packager'
+      version: 'version %s'
+
+  colors:
+    assign-role:
+      already-have: 'ℹ️ You already have that color role.'
+      success: '✅ Your color is now **%s**.'
+
+    color:
+      not-found: '✅ Color not found.'
+
+    closest:
+      invalid-hex: '⚠️ You did not specify a valid hex color code.'
+      found: '🎨 Closest color found: `%s`.'
+
+    list:
+      title: '🌈 All colors'
+
+    extra-roles:
+      bad-role: '⚠️ The role specified was invalid.'
+
+      list:
+        title: '🎨 Extra color roles'
+        empty: '🗒️ There are no extra color roles on this server.'
+
+      add:
+        success: '✅ Successfully added %s to the list of extra color roles.'
+        duplicate: 'ℹ️ %s was already on the list of extra color roles.'
+
+      del:
+        success: '✅ Removed %s from the list of extra color roles.'
+        not-found: '⚠️ %s is not on the list of extra color roles.'
+
+    ccr:
+      deleting: '🗑️ Deleting %d existing color roles'
+      deleted: '`(%d/%d)` Deleted existing color role `%s`.'
+
+      creating: '🎨 Creating %d new color roles'
+      created: '`(%d/%d)` Created role %s with color `%s`.'
+      success: '✅ Created %s roles.'
+
+    rc:
+      begin: '🔄 Randomizing colors for %s users.'
+      progress: 'Progress: %d of %d'
+      success: '✅ Randomized colors for %s users.'
+
+  figlet:
+    too-long: 'Your input is too long; sending it would require %d messages, but the limit is %d.'
+
+  help:
+    aliases: 'Aliases'
+    usage: 'Usage'
+    valid-params: 'Accepted parameters'
+    list-title: 'List of commands'
+    not-found: "The command `%s` does not exist."
+
+  polls:
+    cross-server: 'That channel is on a different server.'
+    too-many-opts: 'Your poll has too many options.'
+    title-too-long: 'The title of your poll is too long.'
+
+  queries:
+    query:
+      success: 'Query #%s has been created.'
+      failure: "⚠️  **Query could not be saved due to these errors:**\n%s."
+    oq:
+      title: 'Open queries'
+      no-results: 'No results'
+      deleted-after-30d: 'Queries are deleted after 30 days.'
+      entry-name: '#%s by %s at %s'
+    cq:
+      not-found: 'Query #%s not found.'
+      success: 'Deleted query #%s.'
+      no-perms: 'You do not have permission to delete query #%s.'
+
+  snippets:
+    list:
+      none-found: 'No available snippets.'
+      title: 'Available snippets'
+    snippet:
+      not-found: 'Snippet not found.'
+
+  notes:
+    add:
+      success: 'Note **`%s`** (`#%s`) added successfully.'
+      failure: "⚠️  **Note could not be saved due to these errors:**\n%s."
+    get:
+      failure: 'Note **`%s`** was not found.'
+    list:
+      invalid-page: 'Page **%s** not found (there are **%s** pages).'
+      title: 'All notes, page %s/%s:'
+      row: '`#%s` **`%s`** by **%s**'
+    id:
+      title: 'Note **`%s`** (`#%s`) by %s'
+      failure: 'Note with id `#%s` not found.'
+    del:
+      not-found: 'Note `#%s` not found.'
+      no-perms: 'You do not have permission to delete note `#%s`.'
+      success: 'Note **`%s`** (`#%s`) deleted successfully.'
+
+  tokipona:
+    attrib:
+      title: 'toki pona data sources'
+      text: >-
+        toki pona was created by Sonja Lang. the pu dictionary is in the public domain.
+        tokipona.org data was gathered by Sonja Lang and can be found at %s.
+        other data was taken from ilo Salana, which is in the public domain.
+
+      footer: 'for attribution, see .%s'
+
+    nimi:
+      not-found: 'This word was not found in pu.'
+      overflow: '(see .tpo)'
+
+    tpo:
+      not-found: 'This word was not found in the tokipona.org data.'
+
+  util:
+    invite:
+      title: "Invite %s"
+      desc: "[Click this link to invite %s to your server.](%s)"
+
+    voicekick:
+      failure: "No AFK channel in server and no channel given"
+      success: "Moved user to channel"
+
+    slowmode:
+      get_rate: "Slowmode is currently set to `%s` seconds."
+      set_rate: "Slowmode has been set to `%s` seconds."
+
+  types:
+    string:
+      name: 'string'
+      desc: 'string of text'
+      valid:
+        between: 'between %d and %d characters long'
+        at-least: 'at least %d characters long'
+    integer:
+      name: 'integer'
+      desc: 'integer'
+      valid:
+        between: 'between %d and %d'
+        at-least: 'at least %d'
+        at-most: 'at most %d'
+        any: 'any integer'
+    boolean:
+      name: 'boolean'
+      desc: 'Boolean value'
+      valid: 'true or false'
+    snowflake:
+      name: 'Discord ID'
+      desc: 'numerical ID of a Discord object'
+      valid:
+        channel: 'channel IDs'
+        user: 'user IDs'
+        role: 'role IDs'
+    enum:
+      name: 'selection'
+      desc: 'fixed set of choices'
+      invalid-key: 'this is not the name of any choice'
+      invalid-index: 'this is not the number of any choice'
+
+  cfg:
+    help:
+      schema:
+        title: 'Options in group `%s`'
+        title-root: 'Options'
+        footer: 'Append the name of an option to this command to view or edit it.'
+        option: '`%s` (%s)'
+        group: '`%s` (group of options)'
+
+      option:
+        title: 'Option: %s (`%s`)'
+        current: 'Current value'
+        default: 'Default value'
+        type: 'Type'
+        valid: 'Valid choices'
+        footer: "Append 'set' or 'clear' to this command to edit the option."
+
+    set:
+      success:
+        title: '✅ Successfully set `%s`'
+        clear-title: '❇️ Successfully cleared `%s`'
+        new-value: 'New value'
+
+      error:
+        title: '⚠️ Error setting `%s`'
+        explanation: 'Explanation'
+        input: 'Your input'
+
+    reset:
+
+    option:
+      unset: '_none_'
+
+      prefix:
+        name: 'Command prefix'
+        description: 'Required at the beginning of every command you give the bot. Long prefixes can be cumbersome.'
+
+      log_channel_id:
+        name: 'Log channel ID'
+        description: 'Channel where qbot will log every command it runs on this server. If the channel becomes invalid, the server owner will receive DMs.'
+
+      use_bare_colors:
+        name: 'Use bare colors'
+        description: 'Whether to consider roles whose name consists of a hex color code as color roles, allowing them to be randomly assigned on join or selected by users.'
+
+      auto_assign_colors:
+        name: 'Auto-assign colors'
+        description: |
+          Determines how the bot automatically assigns a random color to users when they join this server.
+          If set to `on_join`, a color is assigned as soon as they join.
+          If set to `on_screening_pass`, a color is assigned after they pass Member Screening.
+          If set to `never`, a color will not be assigned.
+
+      language:
+        name: 'Language'
+        description: 'The language used by the bot when replying to you.'
+
+      sitelenpona:
+        fg_color:
+          name: 'Foreground color'
+          description: 'The color of _sitelen pona_ text you render.'
+        bg_color:
+          name: 'Background color'
+          description: 'The background behind _sitelen pona_ text you render.'
+        fontsize:
+          name: 'Font size'
+          description: 'The font size of _sitelen pona_ text you render.'
+        fontface:
+          name: 'Font face'
+          description: 'The typeface used to render _sitelen pona_ text. Use the command `spinfo` to view usage and license info for each.'
+        glyphs:
+          name: 'Glyphs'
+          description: 'When others mention you in _sitelen pona_ text they render, it will become this string of glyphs. The way they are rendered depends on the font they select; uncommon words or ligatures will not work for everyone.'
+
+  fun:
+    ping: 'I got pinged :o'

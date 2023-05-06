@@ -1,0 +1,33 @@
+# frozen-string-literal: true
+
+require 'bundler'
+Bundler.require :default
+
+require 'json'
+require 'yaml'
+require 'digest'
+require 'uri'
+require 'open-uri'
+
+require_relative 'qbot/version'
+require_relative 'qbot/globals'
+require_relative 'qbot/options'
+require_relative 'qbot/patches'
+require_relative 'qbot/hooks'
+require_relative 'qbot/db'
+require_relative 'qbot/jobs'
+require_relative 'qbot/i18n'
+require_relative 'qbot/configuration'
+require_relative 'qbot/helpers'
+require_relative 'qbot/colorlib'
+require_relative 'qbot/xkcd'
+require_relative 'qbot/tpdict'
+require_relative 'qbot/sitelenpona'
+require_relative 'qbot/xsampa'
+require_relative 'qbot/tio'
+require_relative 'qbot/arch_repos'
+require_relative 'qbot/arch_wiki'
+require_relative 'qbot/breaking_wrap'
+require_relative 'qbot/modules'
+require_relative 'qbot/cli'
+require_relative 'qbot/init'

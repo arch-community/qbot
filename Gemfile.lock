@@ -1,14 +1,26 @@
 GIT
   remote: https://github.com/anna328p/discordrb.git
-  revision: 9f2ffd435b7c3de04a438d3dd51df6122416fc62
+  revision: f50490b2d99af269bb0979089b2a3af520254cb7
   branch: main
   specs:
     discordrb-webhooks (3.4.2)
       rest-client (>= 2.0.0)
 
 GIT
+  remote: https://github.com/anna328p/tantiny.git
+  revision: 0efa1bf191041fd1d2b392eb4e840f3998d102fa
+  branch: main
+  specs:
+    tantiny (0.3.3)
+      concurrent-ruby (~> 1.0)
+      rake (~> 13.0)
+      ruby-next (~> 0.14.0)
+      rutie (~> 0.0.4)
+      thermite (~> 0)
+
+GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: dba1022677ab8f095709ba7670473be3bd45ff39
+  revision: faace0fa54babd44643794a4899d6c9e07464ffa
   branch: main
   specs:
     discordrb (3.4.2)
@@ -21,6 +33,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    activejob (7.0.4.3)
+      activesupport (= 7.0.4.3)
+      globalid (>= 0.3.6)
     activemodel (7.0.4.3)
       activesupport (= 7.0.4.3)
     activerecord (7.0.4.3)
@@ -37,10 +52,17 @@ GEM
     bottom (0.1.0)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
+    delayed_job (4.1.11)
+      activesupport (>= 3.0, < 8.0)
+    delayed_job_active_record (4.1.7)
+      activerecord (>= 3.0, < 8.0)
+      delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     e2mmap (0.1.0)
+    et-orbi (1.2.7)
+      tzinfo
     ethon (0.16.0)
       ffi (>= 1.15.0)
     event_emitter (0.2.6)
@@ -52,11 +74,16 @@ GEM
     faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.15.5)
+    fugit (1.8.1)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
+    globalid (1.1.0)
+      activesupport (>= 5.0)
     hashugar (1.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
     jaro_winkler (1.5.4)
@@ -65,7 +92,7 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    loofah (2.19.1)
+    loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     matrix (0.4.2)
@@ -76,32 +103,39 @@ GEM
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2023.0218.1)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.2)
+    minitar (0.9)
     minitest (5.18.0)
     multipart-post (2.3.0)
     narray (0.6.1.2)
     netrc (0.11.0)
-    nokogiri (1.14.2)
+    nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     open_uri_redirections (0.2.1)
     opus-ruby (1.0.1)
       ffi
     paint (2.3.0)
-    parallel (1.22.1)
-    parser (3.2.1.1)
+    parallel (1.23.0)
+    parser (3.2.2.1)
       ast (~> 2.4.1)
     pkg-config (1.5.1)
     pluralkit-api (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
+    raabro (1.4.0)
     racc (1.6.2)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails-pattern_matching (0.2.0)
+      activemodel
+      activerecord
     rainbow (3.1.1)
+    rake (13.0.6)
     rbnacl (7.1.1)
       ffi
-    regexp_parser (2.7.0)
-    reline (0.3.2)
+    rbs (2.8.4)
+    regexp_parser (2.8.0)
+    reline (0.3.3)
       io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -115,46 +149,60 @@ GEM
       pkg-config (~> 1.4)
     rss (0.2.9)
       rexml
-    rubocop (1.48.1)
+    rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.26.0, < 2.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.27.0)
+    rubocop-ast (1.28.1)
       parser (>= 3.2.1.0)
     rubocop-checkstyle_formatter (0.6.0)
       rubocop (>= 1.14.0)
     ruby-graphviz (1.2.5)
       rexml
+    ruby-next (0.14.1)
+      ruby-next-core (= 0.14.1)
+      ruby-next-parser (>= 3.1.1.0)
+      unparser (~> 0.6.0)
+    ruby-next-core (0.14.1)
+    ruby-next-parser (3.1.1.3)
+      parser (>= 3.0.3.1)
     ruby-progressbar (1.13.0)
     ruby_figlet (0.6.1)
-    solargraph (0.48.0)
+    rufus-scheduler (3.8.2)
+      fugit (~> 1.1, >= 1.1.6)
+    rutie (0.0.4)
+    solargraph (0.49.0)
       backport (~> 1.2)
       benchmark
-      bundler (>= 1.17.2)
+      bundler (~> 2.0)
       diff-lcs (~> 1.4)
       e2mmap
       jaro_winkler (~> 1.5)
       kramdown (~> 2.3)
       kramdown-parser-gfm (~> 1.1)
       parser (~> 3.0)
-      reverse_markdown (>= 1.0.5, < 3)
-      rubocop (>= 0.52)
+      rbs (~> 2.0)
+      reverse_markdown (~> 2.0)
+      rubocop (~> 1.38)
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sqlite3 (1.6.1)
+    sqlite3 (1.6.2)
       mini_portile2 (~> 2.8.0)
     strings-ansi (0.2.0)
-    tf-idf-similarity (0.2.0)
-      unicode_utils (~> 1.4)
+    thermite (0.13.0)
+      minitar (~> 0.5)
+      rake (>= 10)
+      tomlrb (~> 1.2)
     thor (1.2.1)
     tilt (2.1.0)
+    tomlrb (1.3.0)
     tty-cursor (0.7.1)
     tty-progressbar (0.18.2)
       strings-ansi (~> 0.2)
@@ -170,26 +218,25 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
-    unicode_utils (1.4.0)
     unparser (0.6.7)
       diff-lcs (~> 1.3)
       parser (>= 3.2.0)
-    webrick (1.7.0)
     websocket (1.2.9)
     websocket-client-simple (0.6.1)
       event_emitter
       websocket
     word_wrap (1.0.0)
-    yard (0.9.28)
-      webrick (~> 1.7.0)
+    yard (0.9.34)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activejob
   activerecord
   bottom
   bundler
+  delayed_job_active_record
   discordrb!
   discordrb-webhooks!
   hashugar
@@ -205,6 +252,7 @@ DEPENDENCIES
   parser
   pluralkit-api (>= 1.0.1)
   rails-html-sanitizer
+  rails-pattern_matching
   rbnacl
   reline
   rmagick
@@ -213,15 +261,16 @@ DEPENDENCIES
   rubocop-checkstyle_formatter
   ruby-graphviz
   ruby_figlet
+  rufus-scheduler
   solargraph
   sqlite3
-  tf-idf-similarity
+  tantiny!
   tty-progressbar
   unparser
   word_wrap
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.6
+   2.4.10

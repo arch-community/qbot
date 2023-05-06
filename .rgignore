@@ -1,0 +1,4 @@
+/share/**/*.json
+/Gemfile.lock
+/flake.lock
+/gemset.nix
