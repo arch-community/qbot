@@ -37,6 +37,8 @@ modules:
   - figlet
   - fun
   - help
+  - languages
+  - notes
   - polls
   - queries
   - sitelenpona
