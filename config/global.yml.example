@@ -39,7 +39,6 @@ modules:
   - help
   - polls
   - queries
-  - quotes
   - sitelenpona
   - snippets
   - tio
