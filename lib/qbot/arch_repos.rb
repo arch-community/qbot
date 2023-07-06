@@ -28,6 +28,8 @@ module ArchRepos
       @index = self.class.mk_index(@path)
 
       super(@index)
+
+      populate_from_global_cache
     end
 
     def pkg_names_query(str)
