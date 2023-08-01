@@ -55,7 +55,7 @@ module Arch
   } do |event, *_|
     query = after_nth_word(1, event.text)
 
-    results = ArchRepos::Index.instance.pkg_query(query)
+    results = ArchReposIndex.instance.pkg_query(query)
     next embed t('arch.ps.no-results') if results.empty?
 
     package_search_embed(query, results)

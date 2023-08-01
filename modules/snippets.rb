@@ -70,32 +70,31 @@ module Snippets
   } do |e, *args|
     can_manage = e.author.permission?(:manage_emojis)
 
-    verbs = %w[list show set edit remove rm delete property]
+    manage_verbs = %w[set edit remove rm delete property]
+    verbs = %w[list show] + manage_verbs
+
     verb = match_by_abbrev(verbs, args.shift)
+
+    next embed t('no_perms') if manage_verbs.include?(verb) && !can_manage
 
     case verb
     when 'list', 'show'
       list_snippets(e.server)
 
     when 'set', 'edit'
-      next embed t('no_perms') unless can_manage
-
       name = args.shift
       value = after_nth_word(3, e.message.text)
+
       set_snippet(e.server, name, value)
 
     when 'remove', 'rm', 'delete'
-      next embed t('no_perms') unless can_manage
-
       name = args.shift
+
       destroy_snippet(e.server, name)
 
     when 'property'
-      next embed t('no_perms') unless can_manage
+      property, name, value = args.shift, args.shift, args.shift
 
-      property = args.shift
-      name = args.shift
-      value = args.shift
       set_snippet_property(e.server, property, name, value)
 
     else

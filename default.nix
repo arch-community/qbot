@@ -1,5 +1,5 @@
 { stdenv, lib, makeWrapper
-, fetchFromGitHub, flakes
+, fetchFromGitHub, gitignoreSource
 , ruby, bundler, bundix, bundlerEnv, defaultGemConfig
 , rustPlatform, fetchgit
 , libsodium, libopus, imagemagick }:
@@ -11,20 +11,18 @@ let
 		inherit ruby;
 
 		gemConfig = defaultGemConfig // {
-			tantiny = attrs: let
-				src = fetchgit {
-					inherit (attrs.source) url rev sha256 fetchSubmodules;
-				};
-
-			in {
+			tantiny = attrs: {
 				cargoDeps = rustPlatform.fetchCargoTarball {
-					inherit src;
+					src = fetchgit {
+						inherit (attrs.source)
+							url rev sha256 fetchSubmodules;
+					};
+
 					sha256 = "JlPkdrU2fq+0v/2QJnqtSEv3bqiJbdAvzK3NrrMdY8A=";
 				};
 
 				nativeBuildInputs = with rustPlatform; [
-					cargoSetupHook
-					rust.cargo rust.rustc
+					cargoSetupHook rust.cargo rust.rustc
 				];
 
 				postUnpack = ''
@@ -33,8 +31,6 @@ let
 			};
 		};
 	};
-
-	inherit (flakes.gitignore.lib) gitignoreSource;
 
 in stdenv.mkDerivation rec {
 	name = "qbot";
@@ -45,9 +41,14 @@ in stdenv.mkDerivation rec {
 	buildInputs = [ env.wrappedRuby imagemagick ];
 	propagatedBuildInputs = [ libopus libsodium ];
 
+	passthru = {
+		fontconfigFile = "${src}/share/fc-config.xml";
+		binPath = lib.makeBinPath buildInputs;
+		libPath = lib.makeLibraryPath propagatedBuildInputs;
+	};
+
 	installPhase = let
-		binPath = lib.makeBinPath [ env.wrappedRuby ];
-		inherit (passthru) libPath fontconfigFile;
+		inherit (passthru) binPath libPath fontconfigFile;
 	in ''
 		mkdir -p $out/{bin,share}
 		cp -r . $out/share/qbot
@@ -64,12 +65,5 @@ in stdenv.mkDerivation rec {
 		license = licenses.agpl3Plus;
 		maintainers = with maintainers; [ anna328p ];
 		mainProgram = "qbot";
-	};
-
-	passthru = {
-		inherit ruby bundler bundix env;
-
-		libPath = lib.makeLibraryPath propagatedBuildInputs;
-		fontconfigFile = "${src}/share/fc-config.xml";
 	};
 }

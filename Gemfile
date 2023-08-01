@@ -18,7 +18,7 @@ gem 'rbnacl'
 gem 'i18n', require: %w[i18n i18n/backend/fallbacks]
 
 # Config
-gem 'hashugar'
+gem 'jsi'
 
 # Help
 gem 'word_wrap', require: %w[word_wrap word_wrap/core_ext]

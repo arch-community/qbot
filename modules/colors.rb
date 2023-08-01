@@ -133,7 +133,7 @@ module Colors
   } do |event|
     next embed t('no_perms') unless event.author.permission?(:manage_roles)
 
-    randomize_color_roles(server) { event.send_embed('', _1) }
+    randomize_color_roles(event.server) { event.send_embed('', _1) }
   end
 
   ##

@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: faace0fa54babd44643794a4899d6c9e07464ffa
+  revision: 4551619ecdfacf438ad1dd18b55e1906effaf80a
   branch: main
   specs:
     discordrb (3.4.2)
@@ -33,19 +33,21 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activejob (7.0.4.3)
-      activesupport (= 7.0.4.3)
+    activejob (7.0.5)
+      activesupport (= 7.0.5)
       globalid (>= 0.3.6)
-    activemodel (7.0.4.3)
-      activesupport (= 7.0.4.3)
-    activerecord (7.0.4.3)
-      activemodel (= 7.0.4.3)
-      activesupport (= 7.0.4.3)
-    activesupport (7.0.4.3)
+    activemodel (7.0.5)
+      activesupport (= 7.0.5)
+    activerecord (7.0.5)
+      activemodel (= 7.0.5)
+      activesupport (= 7.0.5)
+    activesupport (7.0.5)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    addressable (2.8.4)
+      public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     backport (1.2.0)
     benchmark (0.2.1)
@@ -79,22 +81,23 @@ GEM
       raabro (~> 1.4)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    hashugar (1.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    i18n (1.13.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
-    jaro_winkler (1.5.4)
+    jaro_winkler (1.5.6)
+    jsi (0.7.0)
+      addressable (~> 2.3)
     json (2.6.3)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    loofah (2.20.0)
+    loofah (2.21.3)
       crass (~> 1.0.2)
-      nokogiri (>= 1.5.9)
+      nokogiri (>= 1.12.0)
     matrix (0.4.2)
     mediawiki_api (0.7.1)
       faraday (~> 0.9, >= 0.9.0)
@@ -109,23 +112,26 @@ GEM
     multipart-post (2.3.0)
     narray (0.6.1.2)
     netrc (0.11.0)
-    nokogiri (1.14.3)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.15.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     open_uri_redirections (0.2.1)
     opus-ruby (1.0.1)
       ffi
     paint (2.3.0)
     parallel (1.23.0)
-    parser (3.2.2.1)
+    parser (3.2.2.3)
       ast (~> 2.4.1)
+      racc
     pkg-config (1.5.1)
     pluralkit-api (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
+    public_suffix (5.0.1)
     raabro (1.4.0)
-    racc (1.6.2)
-    rails-html-sanitizer (1.5.0)
-      loofah (~> 2.19, >= 2.19.1)
+    racc (1.7.0)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     rails-pattern_matching (0.2.0)
       activemodel
       activerecord
@@ -134,8 +140,8 @@ GEM
     rbnacl (7.1.1)
       ffi
     rbs (2.8.4)
-    regexp_parser (2.8.0)
-    reline (0.3.3)
+    regexp_parser (2.8.1)
+    reline (0.3.5)
       io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -149,17 +155,17 @@ GEM
       pkg-config (~> 1.4)
     rss (0.2.9)
       rexml
-    rubocop (1.50.2)
+    rubocop (1.52.1)
       json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 3.2.0.0)
+      parser (>= 3.2.2.3)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.28.1)
+    rubocop-ast (1.29.0)
       parser (>= 3.2.1.0)
     rubocop-checkstyle_formatter (0.6.0)
       rubocop (>= 1.14.0)
@@ -174,7 +180,7 @@ GEM
       parser (>= 3.0.3.1)
     ruby-progressbar (1.13.0)
     ruby_figlet (0.6.1)
-    rufus-scheduler (3.8.2)
+    rufus-scheduler (3.9.1)
       fugit (~> 1.1, >= 1.1.6)
     rutie (0.0.4)
     solargraph (0.49.0)
@@ -193,15 +199,15 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sqlite3 (1.6.2)
+    sqlite3 (1.6.3)
       mini_portile2 (~> 2.8.0)
     strings-ansi (0.2.0)
     thermite (0.13.0)
       minitar (~> 0.5)
       rake (>= 10)
       tomlrb (~> 1.2)
-    thor (1.2.1)
-    tilt (2.1.0)
+    thor (1.2.2)
+    tilt (2.2.0)
     tomlrb (1.3.0)
     tty-cursor (0.7.1)
     tty-progressbar (0.18.2)
@@ -239,8 +245,8 @@ DEPENDENCIES
   delayed_job_active_record
   discordrb!
   discordrb-webhooks!
-  hashugar
   i18n
+  jsi
   kramdown
   kramdown-parser-gfm
   matrix
@@ -273,4 +279,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.10
+   2.4.12

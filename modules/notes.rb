@@ -1,17 +1,32 @@
 # frozen_string_literal: true
 
+# every day at 3:10 AM:
+QBot.scheduler.cron '10 3 * * *' do
+  UpdateArchReposJob.perform_later
+end
+
 ##
 # Notes (like Nadeko's quotes)
 # rubocop: disable Metrics/ModuleLength
 module Notes
   extend Discordrb::Commands::CommandContainer
 
+  # rubocop: disable Metrics/MethodLength
   def self.parse_args_addnote(text)
     # matches inputs:
     #     name text
     #     "name with spaces" text
     #     'name with spaces' text
-    re = /^(?<quote>['"]?)(?<name>(?:(?!\k<quote>).)+?)\k<quote>\s(?<text>.+)$/
+    re = /
+      \A
+        (?: "(?<name>[^"]+)"
+         |  '(?<name>[^']+)'
+         |   (?<name>[^'"\s]\S*)
+        )
+        \s+
+        (?<text>.*)
+      \z
+    /mx
 
     case re.match(text)
     in { name:, text: }
@@ -20,6 +35,7 @@ module Notes
       nil
     end
   end
+  # rubocop: enable Metrics/MethodLength
 
   command :addnote, {
     aliases: %i[an .],
@@ -42,8 +58,8 @@ module Notes
     )
 
     embed t('notes.add.success', note.name, note.id)
-  rescue ActiveRecord::RecordInvalid
-    embed t('notes.add.failure', note.errors.full_messages.join(', '))
+  rescue ActiveRecord::RecordInvalid => e
+    embed t('notes.add.failure', e.record.errors.full_messages.join(', '))
   end
 
   command :note, {
@@ -51,10 +67,11 @@ module Notes
 
     help_available: true,
     usage: '.note <name>',
-    min_args: 1,
-    arg_types: [String]
+    min_args: 0
   } do |event, *_|
     query = after_nth_word(1, event.text)
+    next unless query
+
     note = Note.for(event.server).find_random!(query)
 
     event.respond_wrapped(
@@ -89,7 +106,6 @@ module Notes
       m.title = t('notes.list.title', page, server_notes.page_count)
       m.description = format_notes_page(entries)
     end
-
   rescue ActiveRecord::RangeError
     embed t('notes.list.invalid-page', page, server_notes.page_count)
   end

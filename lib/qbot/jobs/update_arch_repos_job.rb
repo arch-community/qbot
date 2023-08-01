@@ -5,6 +5,6 @@
 class UpdateArchReposJob < ApplicationJob
   def perform
     ArchRepos::DBCache.instance.update_all
-    ArchRepos::Index.instance.populate_from_global_cache
+    ArchReposIndex.instance.populate_from_global_cache
   end
 end
