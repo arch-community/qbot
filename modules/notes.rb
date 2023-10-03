@@ -11,7 +11,18 @@ module Notes
     #     name text
     #     "name with spaces" text
     #     'name with spaces' text
-    re = /^(?<quote>['"]?)(?<name>.+?)\k<quote>\s(?<text>.+)$/
+    re = /
+      \A
+        (?<quote>['"]?+)
+        (?<name>
+            (?:(?!\k<quote>)[^\n])+?
+          | (?:(?=\k<quote>)\S)+?
+        )
+        \k<quote>
+        \s+
+        (?<text>.+)
+      \z
+    /mx
 
     case re.match(text)
     in { name:, text: }
