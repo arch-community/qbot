@@ -6,12 +6,24 @@
 module Notes
   extend Discordrb::Commands::CommandContainer
 
+  # rubocop: disable Metrics/MethodLength
   def self.parse_args_addnote(text)
     # matches inputs:
     #     name text
     #     "name with spaces" text
     #     'name with spaces' text
-    re = /^(?<quote>['"]?)(?<name>(?:(?!\k<quote>).)+?)\k<quote>\s(?<text>.+)$/
+    re = /
+      \A
+        (?<quote>['"]?+)
+        (?<name>
+            (?:(?!\k<quote>)[^\n])+?
+          | (?:(?=\k<quote>)\S)+?
+        )
+        \k<quote>
+        \s+
+        (?<text>.+)
+      \z
+    /mx
 
     case re.match(text)
     in { name:, text: }
@@ -20,6 +32,7 @@ module Notes
       nil
     end
   end
+  # rubocop: enable Metrics/MethodLength
 
   command :addnote, {
     aliases: %i[an .],
