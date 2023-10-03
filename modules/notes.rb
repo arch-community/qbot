@@ -6,6 +6,7 @@
 module Notes
   extend Discordrb::Commands::CommandContainer
 
+  # rubocop: disable Metrics/MethodLength
   def self.parse_args_addnote(text)
     # matches inputs:
     #     name text
@@ -31,6 +32,7 @@ module Notes
       nil
     end
   end
+  # rubocop: enable Metrics/MethodLength
 
   command :addnote, {
     aliases: %i[an .],
