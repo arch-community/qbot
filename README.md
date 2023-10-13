@@ -16,11 +16,19 @@ to do much more.
 Modules:
 - `admin` lets server owners administer and configure the bot.
 - `arch` contains commands for searching the Arch wiki, repositories, and AUR.
+- `bottom`💖✨✨✨✨🥺,,,👉👈.
 - `colors` generates, manages, and assigns color roles.
 - `figlet` converts text to ASCII art.
+- `fun`
 - `help` provides a help command that displays information about commands.
+- `languages` converts X-SAMPA text into IPA symbols.
+- `notes` allows users to save and recall notes.
+- `polls` lets users create polls.
 - `queries` helps manage support channels using a database of support questions.
+- `sitelenpona` renders text in sitelen pona fonts.
 - `snippets` lets users invoke configurable text snippets.
+- `tio` evaluates code using [Try It Online](https://tio.run/).
+- `tokipona` contains commands to query words from various Toki Pona dictionaries.
 - `util` provides simple utility commands.
 - `xkcd` allows searching and posting XKCD comics.
 
