@@ -1,11 +1,12 @@
-{ pkgs ? import <nixpkgs> { config.allowUnfree = true; }
-, pkg ? pkgs.callPackage ./. { } }:
+{ pkgs, pkg }:
 
 pkg.overrideAttrs (oa: {
-	buildInputs = oa.buildInputs ++ (with pkgs; [
+	nativeBuildInputs = oa.nativeBuildInputs ++ (with pkgs; [
 		git
 		graphviz
 		loc
+		(sqlite.override { interactive = true; })
+		yq-go
 	]);
 
 	BUNDLE_FORCE_RUBY_PLATFORM = "1";

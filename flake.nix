@@ -3,43 +3,53 @@ rec {
 
 	inputs = {
 		nixpkgs.url = github:nixos/nixpkgs/nixos-unstable-small;
-		flake-utils.url = github:numtide/flake-utils;
 
 		gitignore.url = github:hercules-ci/gitignore.nix;
 		gitignore.inputs.nixpkgs.follows = "nixpkgs";
-
-		bundix.url = github:nix-community/bundix;
-		bundix.flake = false;
 	};
 
 	nixConfig = {
 		extra-substituters = "https://qbot.cachix.org";
-		extra-trusted-public-keys = "qbot.cachix.org-1:xkDcKYI5RucucGnOvREbPYj3+Ld1iVco0UFNQj1JVc8=";
+		extra-trusted-public-keys =
+			"qbot.cachix.org-1:xkDcKYI5RucucGnOvREbPYj3+Ld1iVco0UFNQj1JVc8=";
 	};
 
 	outputs = { self
-			, nixpkgs
-			, flake-utils
-			, ... }@flakes:
+		, nixpkgs
+		, ... }@flakes:
 	let
-		qbotPackage = pkgs: let
+		# forEachSystem : (Str -> Set Any) -> Set (Set Any);
+		forEachSystem = let
+			inherit (nixpkgs.lib) genAttrs systems;
+		in 
+			genAttrs systems.flakeExposed;
+
+		qbotPkgArgs = pkgs: rec {
 			ruby = pkgs.ruby_3_2;
 			bundler = pkgs.bundler.override { inherit ruby; };
+			bundix = pkgs.bundix.override { inherit bundler; };
 
-			# release bundix does not run on ruby >2.7
-			# pin to master, which has support
-			bundix = (pkgs.bundix.overrideAttrs (_: {
-				src = flakes.bundix;
-			})).override { inherit bundler; };
-		in
-			pkgs.callPackage ./. {
-				inherit flakes ruby bundler bundix;
+			inherit (flakes.gitignore.lib) gitignoreSource;
+		};
+
+		commonEnv = system: rec {
+			pkgs = import nixpkgs {
+				inherit system;
+				config.allowUnfree = true;
 			};
 
-		overlay = final: prev: { qbot = qbotPackage final; };
+			qbot = pkgs.callPackage ./. (qbotPkgArgs pkgs);
+		};
+
+		# withCommon : (Dict Any -> Dict Any) -> Dict (Dict Any)
+		withCommon = fn: forEachSystem (system: fn (commonEnv system));
+
 	in {
 		overlays = rec {
-			qbot = overlay;
+			qbot = final: prev: {
+				qbot = final.callPackage ./. (qbotPkgArgs final);
+			};
+
 			default = qbot;
 		};
 
@@ -48,42 +58,49 @@ rec {
 			default = qbot;
 		};
 
-	} // flake-utils.lib.eachDefaultSystem (system:
-		let
-			pkgs = import nixpkgs {
-				inherit system;
-				config.allowUnfree = true;
-			};
+		packages = withCommon (env: {
+			inherit (env) qbot;
+			default = env.qbot;
+		});
 
-			pkg = qbotPackage pkgs;
-			shell = import ./shell.nix { inherit pkgs pkg; };
+		devShells = withCommon (env: let
+			shell = import ./shell.nix {
+				inherit (env) pkgs;
+				pkg = env.qbot;
+			}; 
+		in {
+			qbot = shell;
+			default = shell;
+		});
+
+		apps = withCommon (env: let
+			inherit (env) pkgs;
+
+			pkgArgs = qbotPkgArgs pkgs;
 
 			update-deps = pkgs.writeShellApplication {
 				name = "update-deps";
-				runtimeInputs = with pkg.passthru; [ bundler bundix ];
+
+				runtimeInputs = [ pkgArgs.bundler pkgArgs.bundix ];
 
 				text = ''
 					rm -f Gemfile.lock
-					bundle lock --add-platform ruby --remove-platform x86_64-linux \
-						|| bundle lock --add-platform ruby
+
+					bundle lock \
+						--add-platform ruby \
+						--remove-platform x86_64-linux \
+					|| bundle lock \
+						--add-platform ruby
+
 					bundix
 				'';
 			};
 
 		in {
-			packages = rec {
-				qbot = pkg;
-				default = qbot;
+			update-deps = {
+				type = "app";
+				program = nixpkgs.lib.getExe update-deps;
 			};
-
-			devShells = rec {
-				qbot = shell;
-				default = qbot;
-			};
-
-			apps = {
-				update-deps = flake-utils.lib.mkApp { drv = update-deps; };
-			};
-		}
-	);
+		});
+	};
 }
