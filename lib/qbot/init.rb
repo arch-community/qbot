@@ -39,26 +39,8 @@ module QBot
     @log.info "starting up qbot, version #{version}"
   end
 
-  def self.to_inheritable_options(hash)
-    hash
-      .transform_values { _1.is_a?(Hash) ? to_inheritable_options(_1) : _1 }
-      .then { ActiveSupport::InheritableOptions.new(_1) }
-  end
-
-  def self.load_config
-    yaml = YAML.load_file(
-      @options.config_path,
-      aliases: true,
-      symbolize_names: true
-    )
-
-    raise 'Invalid config path' unless yaml
-
-    to_inheritable_options(yaml)
-  end
-
   def self.init_config
-    @config = load_config
+    @config = GlobalConfig.read_from_file(@options.config_path)
     @log.info 'Loaded configuration'
   end
 

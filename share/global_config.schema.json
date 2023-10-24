@@ -1,0 +1,137 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://qbot.ap5.dev/global.schema.json",
+
+	"title": "qbot config",
+	"description": "configuration format for qbot",
+	"type": "object",
+
+	"required": [
+		"token", "client_id", "owner", "arch", "database",
+		"my_repo", "modules", "default_prefix", "ping_emote"
+	],
+	"properties": {
+		"token": {
+			"description": "Bot user's Discord OAuth secret",
+			"type": "string"
+		},
+
+		"client_id": {
+			"description": "Bot application's OAuth client ID",
+			"type": "integer",
+			"minimum": 0,
+			"default": 759205822008918026
+		},
+
+		"owner": {
+			"description": "Discord user ID given owner permissions",
+			"type": "integer",
+			"minimum": 0,
+			"default": 165998239273844736
+		},
+
+		"arch": {
+			"description": "Arch Linux related options",
+			"type": "object",
+
+			"required": [ "mirror", "repos" ],
+			"properties": {
+				"mirror": {
+					"description": "Mirror server hosting Arch Linux repos",
+					"type": "string",
+					"format": "uri",
+					"default": "https://mirrors.edge.kernel.org/archlinux/"
+				},
+
+				"repos": {
+					"description": "List of repositories to fetch",
+					"type": "array",
+
+					"uniqueItems": true,
+					"items": { "type": "string" },
+
+					"default": [ "core", "extra", "multilib" ]
+				}
+			}
+		},
+
+		"database": {
+			"description": "Database configuration",
+			"type": "object",
+
+			"required": [ "type", "db" ],
+			"properties": {
+				"type": {
+					"description": "Database driver to use",
+					"type": "string",
+					"enum": [ "sqlite3", "oracle_enhanced" ],
+					"default": "sqlite3"
+				},
+
+				"db": {
+					"description": "Database path or connection string",
+					"type": "string",
+					"default": "db/database.sqlite3"
+				},
+
+				"user": {
+					"description": "Database username",
+					"type": "string"
+				},
+
+				"pass": {
+					"description": "Database password",
+					"type": "string"
+				}
+			}
+		},
+
+		"my_repo": {
+			"description": "Web link to the source code repo of this bot",
+			"type": "string",
+			"format": "uri",
+			"default": "https://github.com/arch-community/qbot"
+		},
+
+		"modules": {
+			"description": "List of modules to load",
+			"type": "array",
+
+			"uniqueItems": true,
+			"items": {
+				"type": "string",
+				"enum": [
+					"admin",
+					"arch",
+					"bottom",
+					"colors",
+					"figlet",
+					"fun",
+					"help",
+					"languages",
+					"notes",
+					"polls",
+					"queries",
+					"sitelenpona",
+					"snippets",
+					"tio",
+					"tokipona",
+					"util",
+					"xkcd"
+				]
+			}
+		},
+
+		"default_prefix": {
+			"description": "Default command prefix",
+			"type": "string",
+			"default": "."
+		},
+
+		"ping_emote": {
+			"description": "Discord markup the bot sends in response to pings",
+			"type": "string",
+			"default": "<:qbotping:827301198616461373>"
+		}
+	}
+}
