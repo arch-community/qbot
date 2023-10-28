@@ -107,7 +107,7 @@ def after_nth_word(n_words, str)
   re = /
     \A            # Anchor to start of string
     (?:
-      [^\s]+\s+   # Match a word and the spaces after...
+      \S+\s+      # Match a word and the spaces after...
     ){#{n_words}} # ...n times
     \K            # Reset match
     .*            # Match everything that comes after

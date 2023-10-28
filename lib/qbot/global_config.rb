@@ -17,9 +17,35 @@ module QBot
 
     SchemaModule = mk_schema
 
+    def self.format_errors(errors)
+      errors.reduce(String.new) { |acc, e|
+        ptr = e.instance_ptr.pointer
+        ptr.insert(0, '/') unless ptr.start_with?('/')
+
+        acc << "(#{ptr})"
+        acc << " #{e.message}"
+
+        sp = e.schema[e.keyword]
+
+        if sp.respond_to?(:to_ary)
+          acc << ': ' << e.instance_ptr.evaluate(e.instance_document).inspect
+          acc << ' (' << sp.to_a.join(', ') << ')'
+        end
+
+        acc << "\n"
+      }
+    end
+
     def self.parse_from_hash(hash)
       instance = SchemaModule.new_jsi(hash.with_indifferent_access)
-      raise ArgumentError unless instance.jsi_valid?
+
+      val_res = instance.jsi_validate
+
+      unless val_res.valid?
+        msg = format_errors(val_res.validation_errors)
+        warn msg
+        raise ArgumentError, 'Could not parse configuration'
+      end
 
       instance
     end

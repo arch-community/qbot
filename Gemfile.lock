@@ -1,14 +1,14 @@
 GIT
   remote: https://github.com/anna328p/discordrb.git
-  revision: f50490b2d99af269bb0979089b2a3af520254cb7
+  revision: 57c1f5c665df12ad537f7e42cd6213af892fa1f4
   branch: main
   specs:
-    discordrb-webhooks (3.4.2)
+    discordrb-webhooks (3.5.0)
       rest-client (>= 2.0.0)
 
 GIT
   remote: https://github.com/anna328p/tantiny.git
-  revision: 0efa1bf191041fd1d2b392eb4e840f3998d102fa
+  revision: 57d538ba50b8ebad31b4eb446900208e100b2682
   branch: main
   specs:
     tantiny (0.3.3)
@@ -20,11 +20,11 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: 4551619ecdfacf438ad1dd18b55e1906effaf80a
+  revision: 57c1f5c665df12ad537f7e42cd6213af892fa1f4
   branch: main
   specs:
-    discordrb (3.4.2)
-      discordrb-webhooks (~> 3.4.2)
+    discordrb (3.5.0)
+      discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
       opus-ruby
       rest-client (>= 2.0.0)
@@ -33,54 +33,86 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activejob (7.0.5)
-      activesupport (= 7.0.5)
+    activejob (7.1.1)
+      activesupport (= 7.1.1)
       globalid (>= 0.3.6)
-    activemodel (7.0.5)
-      activesupport (= 7.0.5)
-    activerecord (7.0.5)
-      activemodel (= 7.0.5)
-      activesupport (= 7.0.5)
-    activesupport (7.0.5)
+    activemodel (7.1.1)
+      activesupport (= 7.1.1)
+    activerecord (7.1.1)
+      activemodel (= 7.1.1)
+      activesupport (= 7.1.1)
+      timeout (>= 0.4.0)
+    activesupport (7.1.1)
+      base64
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
+      mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.4)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     backport (1.2.0)
+    base64 (0.1.1)
     benchmark (0.2.1)
+    bigdecimal (3.1.4)
     bottom (0.1.0)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crass (1.0.6)
     delayed_job (4.1.11)
       activesupport (>= 3.0, < 8.0)
-    delayed_job_active_record (4.1.7)
+    delayed_job_active_record (4.1.8)
       activerecord (>= 3.0, < 8.0)
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    drb (2.1.1)
+      ruby2_keywords
     e2mmap (0.1.0)
     et-orbi (1.2.7)
       tzinfo
     ethon (0.16.0)
       ffi (>= 1.15.0)
     event_emitter (0.2.6)
-    faraday (0.17.6)
-      multipart-post (>= 1.2, < 3)
+    faraday (1.10.3)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
     faraday-cookie_jar (0.0.7)
       faraday (>= 0.8.0)
       http-cookie (~> 1.0.0)
-    faraday_middleware (0.14.0)
-      faraday (>= 0.7.4, < 1.0)
-    ffi (1.15.5)
-    fugit (1.8.1)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
+    ffi (1.16.3)
+    fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -95,24 +127,26 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    loofah (2.21.3)
+    language_server-protocol (3.17.0.3)
+    loofah (2.21.4)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     matrix (0.4.2)
-    mediawiki_api (0.7.1)
-      faraday (~> 0.9, >= 0.9.0)
-      faraday-cookie_jar (~> 0.0, >= 0.0.6)
-      faraday_middleware (~> 0.10, >= 0.10.0)
-    mime-types (3.4.1)
+    mediawiki_api (0.8.0)
+      faraday (~> 1)
+      faraday-cookie_jar
+      faraday_middleware
+    mime-types (3.5.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.0218.1)
-    mini_portile2 (2.8.2)
+    mime-types-data (3.2023.1003)
+    mini_portile2 (2.8.5)
     minitar (0.9)
-    minitest (5.18.0)
+    minitest (5.20.0)
     multipart-post (2.3.0)
+    mutex_m (0.1.2)
     narray (0.6.1.2)
     netrc (0.11.0)
-    nokogiri (1.15.2)
+    nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     open_uri_redirections (0.2.1)
@@ -120,15 +154,15 @@ GEM
       ffi
     paint (2.3.0)
     parallel (1.23.0)
-    parser (3.2.2.3)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    pkg-config (1.5.1)
+    pkg-config (1.5.5)
     pluralkit-api (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
-    public_suffix (5.0.1)
+    public_suffix (5.0.3)
     raabro (1.4.0)
-    racc (1.7.0)
+    racc (1.7.1)
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
@@ -136,12 +170,12 @@ GEM
       activemodel
       activerecord
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.1.0)
     rbnacl (7.1.1)
       ffi
     rbs (2.8.4)
-    regexp_parser (2.8.1)
-    reline (0.3.5)
+    regexp_parser (2.8.2)
+    reline (0.3.9)
       io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -150,22 +184,23 @@ GEM
       netrc (~> 0.8)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.2.5)
-    rmagick (5.2.0)
+    rexml (3.2.6)
+    rmagick (5.3.0)
       pkg-config (~> 1.4)
-    rss (0.2.9)
+    rss (0.3.0)
       rexml
-    rubocop (1.52.1)
+    rubocop (1.57.2)
       json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.3)
+      parser (>= 3.2.2.4)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.28.0, < 2.0)
+      rubocop-ast (>= 1.28.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.29.0)
+    rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     rubocop-checkstyle_formatter (0.6.0)
       rubocop (>= 1.14.0)
@@ -179,6 +214,7 @@ GEM
     ruby-next-parser (3.1.1.3)
       parser (>= 3.0.3.1)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     ruby_figlet (0.6.1)
     rufus-scheduler (3.9.1)
       fugit (~> 1.1, >= 1.1.6)
@@ -199,15 +235,16 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sqlite3 (1.6.3)
+    sqlite3 (1.6.7)
       mini_portile2 (~> 2.8.0)
     strings-ansi (0.2.0)
     thermite (0.13.0)
       minitar (~> 0.5)
       rake (>= 10)
       tomlrb (~> 1.2)
-    thor (1.2.2)
-    tilt (2.2.0)
+    thor (1.3.0)
+    tilt (2.3.0)
+    timeout (0.4.0)
     tomlrb (1.3.0)
     tty-cursor (0.7.1)
     tty-progressbar (0.18.2)
@@ -223,12 +260,12 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
-    unicode-display_width (2.4.2)
-    unparser (0.6.7)
+    unicode-display_width (2.5.0)
+    unparser (0.6.9)
       diff-lcs (~> 1.3)
-      parser (>= 3.2.0)
-    websocket (1.2.9)
-    websocket-client-simple (0.6.1)
+      parser (>= 3.2.2.4)
+    websocket (1.2.10)
+    websocket-client-simple (0.8.0)
       event_emitter
       websocket
     word_wrap (1.0.0)
@@ -259,6 +296,7 @@ DEPENDENCIES
   pluralkit-api (>= 1.0.1)
   rails-html-sanitizer
   rails-pattern_matching
+  rake
   rbnacl
   reline
   rmagick
@@ -274,6 +312,7 @@ DEPENDENCIES
   tty-progressbar
   unparser
   word_wrap
+  yard
 
 RUBY VERSION
    ruby 3.2.2p53

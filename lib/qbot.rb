@@ -1,6 +1,6 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
-require 'bundler'
+require 'bundler/setup'
 Bundler.require :default
 
 require 'json'
@@ -12,12 +12,14 @@ require 'open-uri'
 require_relative 'qbot/version'
 require_relative 'qbot/globals'
 require_relative 'qbot/options'
+require_relative 'qbot/global_config'
 require_relative 'qbot/patches'
 require_relative 'qbot/hooks'
+require_relative 'qbot/db_config'
 require_relative 'qbot/db'
 require_relative 'qbot/jobs'
+require_relative 'qbot/index_models'
 require_relative 'qbot/i18n'
-require_relative 'qbot/configuration'
 require_relative 'qbot/helpers'
 require_relative 'qbot/colorlib'
 require_relative 'qbot/xkcd'

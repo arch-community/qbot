@@ -8,7 +8,7 @@
 
 	"required": [
 		"token", "client_id", "owner", "arch", "database",
-		"my_repo", "modules", "default_prefix", "ping_emote"
+		"my_repo", "modules", "default_prefix"
 	],
 	"properties": {
 		"token": {
@@ -126,12 +126,6 @@
 			"description": "Default command prefix",
 			"type": "string",
 			"default": "."
-		},
-
-		"ping_emote": {
-			"description": "Discord markup the bot sends in response to pings",
-			"type": "string",
-			"default": "<:qbotping:827301198616461373>"
 		}
 	}
 }

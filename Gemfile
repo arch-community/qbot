@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 ruby '~> 3.2'
 
 gem 'bundler'
+gem 'rake'
 
 # Base
 gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
@@ -73,6 +74,7 @@ group :development do
 
   # lsp
   gem 'solargraph', require: false
+  gem 'yard'
 
   # visualization
   gem 'ruby-graphviz'

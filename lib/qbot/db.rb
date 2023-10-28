@@ -4,28 +4,20 @@ require_relative 'db/schema'
 
 ActiveRecord::Base.logger = QBot.log
 
-# Database interface
-module Database
-  def self.dbname
-    conf = QBot.config.database
+module QBot
+  # Database interface
+  module Database
+    def self.init_db
+      db_cfg = QBot.config.database
 
-    if QBot.options.state_dir && conf.type == 'sqlite3'
-      File.join(QBot.options.state_dir, conf.db)
-    else
-      conf.db
+      ActiveRecord::Base.establish_connection ar_config(db_cfg)
+
+      QBot.log.info 'Database connection initialized.'
     end
-  end
 
-  def self.init_db
-    conf = QBot.config.database
-
-    ActiveRecord::Base.establish_connection(
-      adapter: conf.type,
-      database: dbname,
-      username: conf.user,
-      password: conf.pass
-    )
-    QBot.log.info 'Database connection initialized.'
+    def self.load_seed
+      define_schema
+    end
   end
 end
 

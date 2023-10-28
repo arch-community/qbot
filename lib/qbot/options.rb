@@ -10,7 +10,7 @@ module QBot
 
     def initialize
       @config_path = 'config/global.yml'
-      @state_dir = 'var'
+      @state_dir = ENV.fetch('STATE_DIRECTORY', 'var')
       @no_console = false
     end
 

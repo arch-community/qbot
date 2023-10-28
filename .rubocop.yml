@@ -2,6 +2,18 @@ AllCops:
   NewCops: enable
   ActiveSupportExtensionsEnabled: true
 
+Layout/LineLength:
+  Max: 80
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/RedundantLineBreak:
+  Enabled: true
+
 Style/BlockDelimiters:
   EnforcedStyle: semantic
 
