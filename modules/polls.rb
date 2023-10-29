@@ -85,21 +85,21 @@ module Polls
 
     nil
   end
-end
 
-QBot.bot.reaction_add do |event|
-  footer_text = event.message.embeds.first&.footer&.text
-  if footer_text&.include?('type:poll') \
-      || footer_text&.include?('poll:') \
-      && event.user.id != event.bot.bot_user.id
-    matches = footer_text.match(/opts:(\d+)/) \
-      || footer_text.match(/poll:(\d+)/)
-    num = matches && matches[1]&.to_i
+  reaction_add do |event|
+    footer_text = event.message.embeds.first&.footer&.text
+    if footer_text&.include?('type:poll') \
+        || footer_text&.include?('poll:') \
+        && event.user.id != event.bot.bot_user.id
+      matches = footer_text.match(/opts:(\d+)/) \
+        || footer_text.match(/poll:(\d+)/)
+      num = matches && matches[1]&.to_i
 
-    last = num || 9
-    numbers = [*1..last].map { to_emoji _1 }
+      last = num || 9
+      numbers = [*1..last].map { to_emoji _1 }
 
-    numbers.include?(event.emoji.name) || \
-      event.message.delete_reaction(event.user, event.emoji)
+      numbers.include?(event.emoji.name) || \
+        event.message.delete_reaction(event.user, event.emoji)
+    end
   end
 end

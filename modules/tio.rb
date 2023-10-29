@@ -54,16 +54,16 @@ module Tio
 
     embed langs.keys.join(', ').truncate(2048)
   end
-end
 
-QBot.bot.reaction_add(emoji: '❌') do |event|
-  if (ftext = event.message.embeds.first&.footer&.text) \
-      && ftext.start_with?('tio:') \
-      && event.user.id != event.bot.bot_user.id
-    matches = ftext.match(/tio:(\d+)/)
+  reaction_add(emoji: '❌') do |event|
+    if (ftext = event.message.embeds.first&.footer&.text) \
+        && ftext.start_with?('tio:') \
+        && event.user.id != event.bot.bot_user.id
+      matches = ftext.match(/tio:(\d+)/)
 
-    id = matches && matches[1]&.to_i
+      id = matches && matches[1]&.to_i
 
-    event.message.delete if event.user.id == id
+      event.message.delete if event.user.id == id
+    end
   end
 end

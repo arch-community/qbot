@@ -72,7 +72,7 @@ module Help
     }
   end
 
-  def self.embed_full
+  def self.embed_with_fields
     embed do |m|
       m.title = t('help.list-title')
       m.fields = available_commands.map { command_field(_1) }
@@ -80,24 +80,26 @@ module Help
   end
 
   def self.embed_compact
+    names = available_commands.map(&:name)
+
+    short_desc = names.map { "`#{prefixed(_1)}`" }.join(', ')
+
+    long_desc =
+      names
+      .map { "`#{prefixed(_1)}` - #{t("descriptions.#{_1}")}" }
+      .join("\n")
+
     embed do |m|
       m.title = t('help.list-title')
 
-      m.description = \
-        available_commands
-        .map { |cmd| prefixed(cmd.name) }
-        .then { |names| <<~DESC }
-          ```
-          #{names.join("\n")}
-          ```
-        DESC
+      m.description = long_desc.size < 4096 ? long_desc : short_desc
     end
   end
 
   def self.show_all_help
     case available_commands.length
     when 0..25
-      embed_full
+      embed_with_fields
     else
       embed_compact
     end
