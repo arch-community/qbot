@@ -23,5 +23,8 @@ Style/CommandLiteral:
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 
+Style/DataInheritance:
+  Enabled: false
+
 Style/ParallelAssignment:
   Enabled: false

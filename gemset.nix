@@ -4,10 +4,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0043p7lc13al7clcp9h7gp1hi1n5zzhjiflm2z9jcjqg8bav091p";
+      sha256 = "0hj2qyx7rzpc7awhvqlm597x7qdxwi4kkml4aqnp5jylmsm4w6xd";
       type = "gem";
     };
-    version = "0.1.1";
+    version = "0.1.2";
   };
   activejob = {
     dependencies = ["activesupport" "globalid"];
@@ -526,10 +526,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "16a2fw7kxzyql92kg5aqyy00l44kj0pbarimvv53y7shfrx8344z";
+      sha256 = "1fmwbcapyhla84xhwj3gfws6rb4lw3928ybz6g3lr372dgxakzx5";
       type = "gem";
     };
-    version = "0.7.0";
+    version = "0.7.1";
   };
   jaro_winkler = {
     groups = ["default" "development"];
@@ -633,18 +633,6 @@
       type = "gem";
     };
     version = "2.22.0";
-  };
-  matrix = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1h2cgkpzkh3dd0flnnwfq6f3nl2b1zff9lvqz8xs853ssv5kq23i";
-      target = "ruby";
-      type = "gem";
-    };
-    targets = [];
-    version = "0.4.2";
   };
   mediawiki_api = {
     dependencies = ["faraday" "faraday-cookie_jar" "faraday_middleware"];
@@ -766,6 +754,16 @@
       type = "gem";
     };
     version = "1.15.5";
+  };
+  numo-narray = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1syw9bhkk0bnacadcpdbwvc66j1gi3qqgcvqv3zqh4myxr3npmzf";
+      type = "gem";
+    };
+    version = "0.9.2.1";
   };
   open_uri_redirections = {
     groups = ["default"];
@@ -1219,10 +1217,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1njx22cpjd6bmm717bp24cr0rkxkdn1n4wv3g19hwgrrc8ffar1p";
+      sha256 = "1phv6kh417vkanhssbjr960c0gfqvf8z7d3d9fd2yvd41q64bw4q";
       type = "gem";
     };
-    version = "0.3.0";
+    version = "0.3.1";
   };
   solargraph = {
     dependencies = ["backport" "benchmark" "diff-lcs" "e2mmap" "jaro_winkler" "kramdown" "kramdown-parser-gfm" "parser" "reverse_markdown" "rubocop" "thor" "tilt" "yard"];
@@ -1240,10 +1238,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "048g79r0j4lmjicp55yb88sysjfx5m0dpf74ags4sz9spvgsi0g6";
+      sha256 = "1lkkb5isdrdn5hjq5sygr20zlqrgf3yydf3n5s5dwq7r74glrbx0";
       type = "gem";
     };
-    version = "0.5.11155";
+    version = "0.5.11156";
   };
   sqlite3 = {
     dependencies = ["mini_portile2"];

@@ -1,0 +1,99 @@
+interface _Array
+	def to_ary : () -> Array[untyped]
+end
+
+class Matrix[T < Numeric]
+	def self.[] : [T < Numeric] (*Array[T]) -> Matrix[T]
+
+	def * : (instance) -> instance
+
+	def to_a : () -> Array[Array[T]]
+end
+
+module QBot
+	module ColorLib
+		RGB_XYZ_MATRIX : Matrix[Float]
+		XYZ_RGB_MATRIX : Matrix[Float]
+
+		class XYZTristimulus
+			attr_reader x : Float
+			attr_reader y : Float
+			attr_reader z : Float
+
+			def initialize : (Float x, Float y, Float z) -> void
+			               | (x: Float, y: Float, z: Float) -> void
+
+			def to_srgb_linear : () -> SRGBLinearColor
+			def to_srgb : () -> SRGBColor
+
+			private def scale_f : (Float val) -> Float
+			def to_cielab : (?illuminant: XYZTristimulus) -> CIELABColor
+
+			def to_ary : () -> Array[Float]
+			def to_a : () -> Array[Float]
+		end
+
+		D65 : XYZTristimulus
+		D50 : XYZTristimulus
+
+		class SRGBColor
+			attr_reader r : Float
+			attr_reader g : Float
+			attr_reader b : Float
+
+			def initialize : (Float r, Float g, Float b) -> void
+			               | (r: Float, g: Float, b: Float) -> void
+
+			def self.from_hex : (String hex) -> instance
+
+			def to_hex : () -> String
+
+			private def gamma_expand_one : (Float val) -> Float
+			def gamma_expand : () -> SRGBLinearColor
+
+			def to_xyz : () -> XYZTristimulus
+
+			def to_ary : () -> Array[Float]
+			def to_a : () -> Array[Float]
+		end
+
+		class SRGBLinearColor
+			attr_reader r : Float
+			attr_reader g : Float
+			attr_reader b : Float
+
+			def initialize : (Float r, Float g, Float b) -> void
+			               | (r: Float, g: Float, b: Float) -> void
+
+			def to_xyz : () -> XYZTristimulus
+
+			private def gamma_compress_one : (Float val) -> Float
+			def gamma_compress : () -> SRGBColor
+
+			def to_ary : () -> Array[Float]
+			def to_a : () -> Array[Float]
+		end
+
+		class CIELABColor
+			attr_reader l : Float
+			attr_reader a : Float
+			attr_reader b : Float
+
+			def initialize : (Float l, Float a, Float b) -> void
+			               | (l: Float, a: Float, b: Float) -> void
+
+			def self.from_hex : (String hex) -> CIELABColor
+			def to_hex : () -> String
+
+			def to_xyz : (?illuminant: XYZTristimulus) -> XYZTristimulus
+
+			def cie76 : (CIELABColor other) -> Float
+			def ciede2000 : (CIELABColor other) -> Float
+
+			def to_ary : () -> Array[Float]
+			def to_a : () -> Array[Float]
+		end
+	end
+end
+
+# vim: ft=rbs sw=2 ts=2

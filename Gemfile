@@ -90,4 +90,4 @@ group :development do
 end
 
 # Colors
-gem 'matrix'
+gem 'numo-narray'
