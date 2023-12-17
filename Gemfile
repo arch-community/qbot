@@ -42,9 +42,10 @@ gem 'rufus-scheduler'
 gem 'mediawiki_api'
 gem 'narray'
 gem 'rss'
-gem 'tantiny',
-    github: 'anna328p/tantiny',
-    branch: 'main'
+
+# TODO: rustc broken
+gem 'tantiny', github: 'anna328p/tantiny',
+  ref: '0efa1bf191041fd1d2b392eb4e840f3998d102fa' # branch: 'main'
 
 # figlet
 gem 'ruby_figlet'
@@ -73,8 +74,11 @@ group :development do
   gem 'rubocop-checkstyle_formatter', require: false
 
   # lsp
+  gem 'ruby-lsp', require: false
   gem 'solargraph', require: false
-  gem 'yard'
+  gem 'steep', require: false
+  gem 'typeprof', require: false
+  gem 'yard', require: false
 
   # visualization
   gem 'ruby-graphviz'

@@ -19,3 +19,5 @@ var/**
 **/tags
 
 .git
+
+/.gem_rbs_collection/**

@@ -2,9 +2,12 @@ rec {
 	description = "qbot flake";
 
 	inputs = {
-		nixpkgs.url = github:nixos/nixpkgs/nixos-unstable-small;
+		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-		gitignore.url = github:hercules-ci/gitignore.nix;
+		# TODO: remove once nixpkgs#272969 is merged
+		rust-overlay.url = "github:oxalica/rust-overlay";
+
+		gitignore.url = "github:hercules-ci/gitignore.nix";
 		gitignore.inputs.nixpkgs.follows = "nixpkgs";
 	};
 
@@ -16,7 +19,9 @@ rec {
 
 	outputs = { self
 		, nixpkgs
-		, ... }@flakes:
+		, rust-overlay
+		, gitignore
+		}@flakes:
 	let
 		# forEachSystem : (Str -> Set Any) -> Set (Set Any);
 		forEachSystem = let
@@ -29,7 +34,11 @@ rec {
 			bundler = pkgs.bundler.override { inherit ruby; };
 			bundix = pkgs.bundix.override { inherit bundler; };
 
-			inherit (flakes.gitignore.lib) gitignoreSource;
+			# TODO: remove once nixpkgs#272969 is merged
+			rustc = rust-overlay.packages.${pkgs.system}.rust;
+			cargo = rustc;
+
+			inherit (gitignore.lib) gitignoreSource;
 		};
 
 		commonEnv = system: rec {

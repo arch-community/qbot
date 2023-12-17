@@ -1,7 +1,7 @@
 { stdenv, lib, makeWrapper
 , fetchFromGitHub, gitignoreSource
 , ruby, bundler, bundix, bundlerEnv, defaultGemConfig
-, rustPlatform, fetchgit
+, rustPlatform, cargo, rustc, fetchgit
 , libsodium, libopus, imagemagick }:
 
 let
@@ -21,8 +21,8 @@ let
 					sha256 = "JlPkdrU2fq+0v/2QJnqtSEv3bqiJbdAvzK3NrrMdY8A=";
 				};
 
-				nativeBuildInputs = with rustPlatform; [
-					cargoSetupHook rust.cargo rust.rustc
+				nativeBuildInputs = [
+					rustPlatform.cargoSetupHook cargo rustc
 				];
 
 				postUnpack = ''

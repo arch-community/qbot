@@ -77,11 +77,11 @@ module Colors
     # Returns the color role with the closest color to the one given,
     # using the CIE76 distance metric in CIELAB color space
     def self.find_closest_on(server, target_hex)
-      target = ColorLib.hex_to_lab(target_hex.remove_prefix('#'))
+      target = ColorLib::CIELABColor.from_hex(target_hex)
 
       self.for(server).min_by { |cur|
-        compare = ColorLib.hex_to_lab(cur.hex_bare)
-        ColorLib.cie76(target, compare)
+        compare = ColorLib::CIELABColor.from_hex(cur.hex_bare)
+        target.cie76(compare)
       }
     end
 
@@ -110,7 +110,7 @@ module Colors
         a = radius * Math.cos(this_angle)
         b = radius * Math.sin(this_angle)
 
-        ColorLib.lab_to_hex [lightness, a, b]
+        ColorLib::CIELABColor(l: lightness, a:, b:).to_hex
       end
     end
 

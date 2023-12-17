@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/anna328p/tantiny.git
-  revision: 57d538ba50b8ebad31b4eb446900208e100b2682
-  branch: main
+  revision: 0efa1bf191041fd1d2b392eb4e840f3998d102fa
+  ref: 0efa1bf191041fd1d2b392eb4e840f3998d102fa
   specs:
     tantiny (0.3.3)
       concurrent-ruby (~> 1.0)
@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: 57c1f5c665df12ad537f7e42cd6213af892fa1f4
+  revision: 0f01116c3326e4784a0b581326307f5a2b57427a
   branch: main
   specs:
     discordrb (3.5.0)
@@ -33,16 +33,17 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activejob (7.1.1)
-      activesupport (= 7.1.1)
+    abbrev (0.1.1)
+    activejob (7.1.2)
+      activesupport (= 7.1.2)
       globalid (>= 0.3.6)
-    activemodel (7.1.1)
-      activesupport (= 7.1.1)
-    activerecord (7.1.1)
-      activemodel (= 7.1.1)
-      activesupport (= 7.1.1)
+    activemodel (7.1.2)
+      activesupport (= 7.1.2)
+    activerecord (7.1.2)
+      activemodel (= 7.1.2)
+      activesupport (= 7.1.2)
       timeout (>= 0.4.0)
-    activesupport (7.1.1)
+    activesupport (7.1.2)
       base64
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -52,26 +53,26 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.5)
+    addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     backport (1.2.0)
-    base64 (0.1.1)
-    benchmark (0.2.1)
-    bigdecimal (3.1.4)
+    base64 (0.2.0)
+    benchmark (0.3.0)
+    bigdecimal (3.1.5)
     bottom (0.1.0)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
+    csv (3.2.8)
     delayed_job (4.1.11)
       activesupport (>= 3.0, < 8.0)
     delayed_job_active_record (4.1.8)
       activerecord (>= 3.0, < 8.0)
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.0)
-    domain_name (0.5.20190701)
-      unf (>= 0.0.5, < 1.0.0)
-    drb (2.1.1)
+    domain_name (0.6.20231109)
+    drb (2.2.0)
       ruby2_keywords
     e2mmap (0.1.0)
     et-orbi (1.2.7)
@@ -108,6 +109,7 @@ GEM
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
     ffi (1.16.3)
+    fileutils (1.7.2)
     fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
@@ -118,51 +120,56 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    io-console (0.6.0)
+    io-console (0.7.0)
     jaro_winkler (1.5.6)
     jsi (0.7.0)
       addressable (~> 2.3)
-    json (2.6.3)
+    json (2.7.1)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     language_server-protocol (3.17.0.3)
-    loofah (2.21.4)
+    listen (3.8.0)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.6.0)
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     matrix (0.4.2)
-    mediawiki_api (0.8.0)
+    mediawiki_api (0.8.1)
       faraday (~> 1)
       faraday-cookie_jar
       faraday_middleware
     mime-types (3.5.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.1003)
+    mime-types-data (3.2023.1205)
     mini_portile2 (2.8.5)
     minitar (0.9)
     minitest (5.20.0)
     multipart-post (2.3.0)
-    mutex_m (0.1.2)
+    mutex_m (0.2.0)
     narray (0.6.1.2)
     netrc (0.11.0)
-    nokogiri (1.15.4)
+    nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     open_uri_redirections (0.2.1)
     opus-ruby (1.0.1)
       ffi
     paint (2.3.0)
-    parallel (1.23.0)
+    parallel (1.24.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
-    pkg-config (1.5.5)
+    pkg-config (1.5.6)
     pluralkit-api (1.0.1)
       typhoeus (~> 1.0, >= 1.0.1)
-    public_suffix (5.0.3)
+    prism (0.19.0)
+    public_suffix (5.0.4)
     raabro (1.4.0)
-    racc (1.7.1)
+    racc (1.7.3)
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
@@ -171,11 +178,15 @@ GEM
       activerecord
     rainbow (3.1.1)
     rake (13.1.0)
+    rb-fsevent (0.11.2)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
     rbnacl (7.1.1)
       ffi
-    rbs (2.8.4)
-    regexp_parser (2.8.2)
-    reline (0.3.9)
+    rbs (3.3.2)
+      abbrev
+    regexp_parser (2.8.3)
+    reline (0.4.1)
       io-console (~> 0.5)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -189,7 +200,7 @@ GEM
       pkg-config (~> 1.4)
     rss (0.3.0)
       rexml
-    rubocop (1.57.2)
+    rubocop (1.59.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -197,7 +208,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.28.1, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
@@ -206,12 +217,16 @@ GEM
       rubocop (>= 1.14.0)
     ruby-graphviz (1.2.5)
       rexml
+    ruby-lsp (0.13.2)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 0.19.0, < 0.20)
+      sorbet-runtime (>= 0.5.5685)
     ruby-next (0.14.1)
       ruby-next-core (= 0.14.1)
       ruby-next-parser (>= 3.1.1.0)
       unparser (~> 0.6.0)
     ruby-next-core (0.14.1)
-    ruby-next-parser (3.1.1.3)
+    ruby-next-parser (3.2.2.0)
       parser (>= 3.0.3.1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
@@ -219,32 +234,51 @@ GEM
     rufus-scheduler (3.9.1)
       fugit (~> 1.1, >= 1.1.6)
     rutie (0.0.4)
-    solargraph (0.49.0)
+    securerandom (0.3.0)
+    solargraph (0.48.0)
       backport (~> 1.2)
       benchmark
-      bundler (~> 2.0)
+      bundler (>= 1.17.2)
       diff-lcs (~> 1.4)
       e2mmap
       jaro_winkler (~> 1.5)
       kramdown (~> 2.3)
       kramdown-parser-gfm (~> 1.1)
       parser (~> 3.0)
-      rbs (~> 2.0)
-      reverse_markdown (~> 2.0)
-      rubocop (~> 1.38)
+      reverse_markdown (>= 1.0.5, < 3)
+      rubocop (>= 0.52)
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sqlite3 (1.6.7)
+    sorbet-runtime (0.5.11155)
+    sqlite3 (1.6.9)
       mini_portile2 (~> 2.8.0)
+    steep (1.6.0)
+      activesupport (>= 5.1)
+      concurrent-ruby (>= 1.1.10)
+      csv (>= 3.0.9)
+      fileutils (>= 1.1.0)
+      json (>= 2.1.0)
+      language_server-protocol (>= 3.15, < 4.0)
+      listen (~> 3.0)
+      logger (>= 1.3.0)
+      parser (>= 3.1)
+      rainbow (>= 2.2.2, < 4.0)
+      rbs (>= 3.1.0)
+      securerandom (>= 0.1)
+      strscan (>= 1.0.0)
+      terminal-table (>= 2, < 4)
     strings-ansi (0.2.0)
+    strscan (3.0.7)
+    terminal-table (3.0.2)
+      unicode-display_width (>= 1.1.1, < 3)
     thermite (0.13.0)
       minitar (~> 0.5)
       rake (>= 10)
       tomlrb (~> 1.2)
     thor (1.3.0)
     tilt (2.3.0)
-    timeout (0.4.0)
+    timeout (0.4.1)
     tomlrb (1.3.0)
     tty-cursor (0.7.1)
     tty-progressbar (0.18.2)
@@ -253,15 +287,14 @@ GEM
       tty-screen (~> 0.8)
       unicode-display_width (>= 1.6, < 3.0)
     tty-screen (0.8.1)
-    typhoeus (1.4.0)
+    typeprof (0.21.8)
+      rbs (>= 1.8.1)
+    typhoeus (1.4.1)
       ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.8.2)
     unicode-display_width (2.5.0)
-    unparser (0.6.9)
+    unparser (0.6.10)
       diff-lcs (~> 1.3)
       parser (>= 3.2.2.4)
     websocket (1.2.10)
@@ -304,12 +337,15 @@ DEPENDENCIES
   rubocop
   rubocop-checkstyle_formatter
   ruby-graphviz
+  ruby-lsp
   ruby_figlet
   rufus-scheduler
   solargraph
   sqlite3
+  steep
   tantiny!
   tty-progressbar
+  typeprof
   unparser
   word_wrap
   yard
@@ -318,4 +354,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.12
+   2.4.22
