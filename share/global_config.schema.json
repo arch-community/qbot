@@ -44,7 +44,7 @@
 				},
 
 				"repos": {
-					"description": "List of repositories to fetch",
+					"description": "List of repositories to index",
 					"type": "array",
 
 					"uniqueItems": true,
@@ -76,12 +76,12 @@
 
 				"user": {
 					"description": "Database username",
-					"type": "string"
+					"type": [ "string", "null" ]
 				},
 
 				"pass": {
 					"description": "Database password",
-					"type": "string"
+					"type": [ "string", "null" ]
 				}
 			}
 		},

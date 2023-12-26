@@ -30,6 +30,14 @@ in {
             client_id = mkOpt int "Discord application client ID" { };
             owner = mkOpt int "Discord user ID of the bot's owner" { };
 
+            arch = {
+                mirror = mkOpt' str "Mirror server hosting Arch Linux repos"
+                    "https://mirrors.edge.kernel.org/archlinux/" { };
+                
+                repos = mkOpt' (listOf str) "List of repositories to index"
+                    [ "core" "extra" "multilib" ] { };
+            };
+
             database = {
                 type = mkOpt' (enum [ "sqlite3" "oracle_enhanced" ])
                     "Type of database to connect to" "sqlite3" { };
