@@ -30,7 +30,7 @@ module Colors
       embed t('colors.assign-role.already-have')
     else
       member.modify_roles(new_role, all_roles, 'Change color')
-      embed t('colors.assign-role.success', role.name)
+      embed t('colors.assign-role.success', new_role.name)
     end
   end
 
