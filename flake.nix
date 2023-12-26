@@ -29,10 +29,8 @@ rec {
 		in 
 			genAttrs systems.flakeExposed;
 
-		qbotPkgArgs = pkgs: rec {
+		mkQBotArgs = pkgs: rec {
 			ruby = pkgs.ruby_3_2;
-			bundler = pkgs.bundler.override { inherit ruby; };
-			bundix = pkgs.bundix.override { inherit bundler; };
 
 			# TODO: remove once nixpkgs#272969 is merged
 			rustc = rust-overlay.packages.${pkgs.system}.rust;
@@ -47,7 +45,14 @@ rec {
 				config.allowUnfree = true;
 			};
 
-			qbot = pkgs.callPackage ./. (qbotPkgArgs pkgs);
+			qbotArgs = mkQBotArgs pkgs;
+
+			inherit (qbotArgs) ruby;
+
+			bundler = pkgs.bundler.override { inherit ruby; };
+			bundix = pkgs.bundix.override { inherit bundler; };
+
+			qbot = pkgs.callPackage ./. qbotArgs;
 		};
 
 		# withCommon : (Dict Any -> Dict Any) -> Dict (Dict Any)
@@ -56,14 +61,14 @@ rec {
 	in {
 		overlays = rec {
 			qbot = final: prev: {
-				qbot = final.callPackage ./. (qbotPkgArgs final);
+				qbot = final.callPackage ./. (mkQBotArgs final);
 			};
 
 			default = qbot;
 		};
 
 		nixosModules = rec {
-			qbot = import ./module.nix { inherit nixConfig; };
+			qbot = import nix/module.nix { inherit nixConfig; };
 			default = qbot;
 		};
 
@@ -83,14 +88,12 @@ rec {
 		});
 
 		apps = withCommon (env: let
-			inherit (env) pkgs;
-
-			pkgArgs = qbotPkgArgs pkgs;
+			inherit (env) pkgs bundler bundix;
 
 			update-deps = pkgs.writeShellApplication {
 				name = "update-deps";
 
-				runtimeInputs = [ pkgArgs.bundler pkgArgs.bundix ];
+				runtimeInputs = [ bundler bundix ];
 
 				text = ''
 					rm -f Gemfile.lock

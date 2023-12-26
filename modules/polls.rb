@@ -85,6 +85,10 @@ module Polls
 
     nil
   end
+end
+
+module PollsEvents
+  extend Discordrb::EventContainer
 
   reaction_add do |event|
     footer_text = event.message.embeds.first&.footer&.text
@@ -102,4 +106,8 @@ module Polls
         event.message.delete_reaction(event.user, event.emoji)
     end
   end
+end
+
+module Polls
+  include! PollsEvents
 end

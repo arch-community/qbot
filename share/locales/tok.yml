@@ -1,7 +1,7 @@
 tok:
-  no_perms: 'ken sina li lili la sina ken ala ni.'
-  no_dm: 'sina ken ala ni lon toki pi ilo taso.'
-  log-channel-gone: 'tomo pi pali ilo li lon ala. ilo li weka sona e ona.'
+  no_perms: 'sina ken ala ni.'
+  no_dm: 'sina ken ni lon kulupu taso.'
+  log-channel-gone: 'tomo pi pali pini ilo li lon ala. ilo li weka sona e ona.'
 
   locales:
     en: 'toki Inli'
@@ -10,51 +10,70 @@ tok:
     de: 'toki Tosi'
 
   descriptions:
-    help: 'ilo li ken pana e nimi pali ale li ken pana e sona pi nimi pali wan'
+    help: 'ni li pana e sona pi nimi pali'
 
-    config: 'sina ken ante e nasin pali ilo'
-    userconfig: 'sina ken ante e nasin ilo sina, ante ni li tawa kulupu ale'
+    config: 'ni li ken ante e nasin pali ilo tawa kulupu ni'
+    userconfig: 'ni li ken ante e nasin pali ilo tawa sina lon kulupu ale'
 
-    listsnippets: 'ilo li pana e lipu pi toki nimi ale'
-    snippet: 'ilo li pana e toki nimi'
+    listsnippets: 'ni li pana e lipu pi toki nimi ale'
+    getsnippet: 'nimi la, ni li pana e toki nimi'
+    snippets: 'ni li ken ante e lipu pi toki nimi'
 
-    color: 'ilo li pana e poki kule tawa sina'
-    closestcolor: 'nanpa kule la, ilo li pana e kule sama'
-    listcolors: 'sina ken lukin e poki kule ale'
-    createcolorroles: 'ilo li pali e poki mute pi kule mute'
-    randcolors: 'ilo li pana e poki kule tawa jan pi kule ala'
+    color: 'ni li pana e poki kule tawa sina'
+    closestcolor: 'nanpa kule la, ni li pana e poki pi kule sama tawa sina'
+    listcolors: 'ni li pana e lipu pi poki kule ale'
+    gencolors: 'ni li weka e poku kule ale li pali e poki sin pi kule mute'
+    randcolors: 'ni li pana e poki kule tawa jan pi kule ala'
 
-    query: 'sina ken pana e wile sona sina tawa lipu'
-    openqueries: 'ilo li toki e wile sona ale tan lipu'
-    closequery: 'nanpa la ilo li weka e wile sona tan lipu'
+    extracolorroles: 'ni li pana e lipu pi poki kule namako'
+    addextracolorrole: 'ni li pana e poki kule namako tawa lipu'
+    delextracolorrole: 'ni li weka e poki kule namako tan lipu'
 
-    eval: 'ilo li pali sama toki ilo ni. jan lawa taso li ken ni.'
+    query: 'ni li pana e toki pi wile sona tawa lipu'
+    openqueries: 'ni li pana e lipu pi wile sona ale'
+    closequery: 'nanpa pi wile sona la, ni li weka e ona tan lipu'
 
-    echo: 'ilo li pana sin e toki sama'
-    botrepo: 'ilo li pana e lupa tawa tomo pali ilo'
-    avatar: 'ilo li pana e lupa pi sitelen sinpin jan'
-    invite: 'sina ken pana e ilo tawa kulupu ante'
-    voicekick: 'sina tawa e jan tawa tomo kalama ante'
+    eval: 'ni li pali e toki ilo sina; sina ken ala kepeken ni'
 
-    archwiki: 'sina ken alasa e lipu sona lon tomo sona pi nasin ilo Asu'
-    packagesearch: 'sina ken alasa e poki pali lon nasin ilo Asu'
-    package: 'ilo li pana e lipu sona pi poki pali lon nasin ilo Asu'
+    echo: 'ni li pana sama e toki sina'
+    botrepo: 'ni li pana e lipu pi tomo pali ilo'
+    avatar: 'ni li pana e sitelen sinpin'
+    invite: 'ni li ken pana e ilo tawa kulupu ante'
+    voicekick: 'ni li tawa e jan tawa tomo kalama ante'
 
-    xkcd: 'nanpa la ilo li pana e sitelen pi lipu XKCD'
+    slowmode: 'ni li ante e tenpo awen toki'
 
-    poll: 'ilo li pana e wile sona sina tawa tomo'
+    archwiki: 'nimi lipu la, ni li alasa lon tomo sona pi ilo Arch Linux'
+    packagesearch: 'nimi pi poki pali pi ilo Arch Linux la, ni li alasa lon tomo poki'
+    package: 'nimi pi poki pali pi ilo Arch Linux la, ni li pana e sona poki'
 
-    figlet: 'ilo li ante e toki tawa nasin sitelen musi'
+    xkcd: 'ni li pana e sitelen pi lipu XKCD'
 
-    nimi: 'nimi pi toki pona la ilo li pana e ken toki'
-    tpo: 'nimi la, ilo li pana e ken toki tan sona pi jan mute'
-    tpsources: 'ilo li pana e lipu pi sona jan'
+    poll: 'ni li pana e lipu pi wile sona tawa tomo'
 
-    addnote: 'sina ken pana e sitelen tawa lipu'
-    note: 'nimi la ilo li pana e sitelen tan lipu'
-    listnotes: 'ilo li pana e nimi pi sitelen ale lon lipu'
-    noteid: 'nanpa la ilo li pana e sitelen'
-    delnote: 'nanpa la ilo li weka e sitelen tan lipu'
+    figlet: 'ilo li ante e toki tawa nasin pi sitelen suli'
+
+    nimi: 'nimi pi toki pona la ni li pana e kon'
+    tpo: 'nimi la, ni li pana e nasin toki tan sona pi jan mute'
+    tpsources: 'ni li pana e lipu pi tan sona ilo pi toki pona'
+
+    addnote: 'ni li pana e sitelen tawa lipu'
+    note: 'nimi la, ilo li pana e sitelen tan lipu'
+    listnotes: 'ni li pana e nimi pi sitelen ale lon lipu'
+    noteid: 'nanpa sitelen la, ni li pana e sitelen'
+    delnote: 'nanpa sitelen la, ni li weka e sitelen tan lipu'
+    exportnotes: 'ni li pana e lipu sitelen'
+
+    bottom: 'ni li ante e toki sitelen tawa nasin musi [Bottom](https://github.com/bottom-software-foundation/spec)'
+    regress: 'ni li ante e toki pi nasin musi [Bottom](https://github.com/bottom-software-foundation/spec) tawa sitelen'
+
+    ipa: 'ni li ante e nasin pi sitelen kalama tan [X-SAMPA](https://en.wikipedia.org/wiki/X-SAMPA) tawa [IPA](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet)'
+
+    sp: 'toki la, ni li pana e lipu pi ona lon sitelen pona'
+    sppreview: 'toki la, ni li pana e lipu pi ona lon sitelen pona lon nasin linja ale'
+
+    tio: 'ni li pali lon toki ilo lon ilo [Try It Online](https://tio.run)'
+    tiolangs: 'ni li pana e toki ilo ale lon ilo [Try It Online](https://tio.run)'
 
   admin:
     eval:
@@ -62,33 +81,69 @@ tok:
 
   arch:
     wiki:
-      no-results: 'lipu sama ni li lon ala'
+      no-results: 'lipu pi nimi ni li lon ala.'
+
     ps:
-      no-results: 'poki pali sama ni li lon ala'
-      title: 'poki pali sama %s'
-      version: 'nanpa'
-      last-update: 'tenpo ante li'
-      link: 'lipu sona'
+      no-results: 'poki pali sama ni li lon ala.'
+      title: 'ni li poki sama `%s`:'
+      result-footer: 'sin **%s** | suno kama **%s** | [lipu sona](%s)'
+
+    package:
+      not-found: 'poki pali ni li lon ala.'
+
+      url: 'tomo'
+      license: 'nasin ken'
+      csize: 'suli poki'
+      isize: 'suli insa'
+      packager: 'jan pi pali poki'
+      version: 'sin %s'
 
   colors:
     assign-role:
       already-have: 'sina awen lon poki %s.'
-      success: 'sin la poki %s sina li sama **%s**.'
+      success: 'sina kama lon poki **%s**.'
+
     color:
-      not-found: 'ilo li sona ala e kule ni.'
-      role-type-name: 'kule'
+      not-found: 'poki kule ni li lon ala.'
+
     closest:
-      found: 'kule pi sama mute li kule `%s`.'
+      invalid-hex: 'sina pana ala e nanpa kule pona'
+      found: 'kule pi sama mute li `%s`.'
+
     list:
       title: 'poki kule ale'
+
+    extra-roles:
+      bad-role: '⚠️ poki ni li lon ala.'
+
+      list:
+        title: '🎨 poki kule namako'
+        empty: '🗒️ poki kule namako li lon ala kulupu ni.'
+
+      add:
+        success: '✅ %s li kama lon lipu pi poki kule namako.'
+        duplicate: 'ℹ️ %s li awen lon lipu pi poki kule namako.'
+
+      del:
+        success: '✅ %s li kama weka tan lipu pi poki kule namako.'
+        not-found: '⚠️ %s li lon ala lipu pi poki kule namako.'
+
     ccr:
-      deleting: 'ilo li weka e poki kule `%s`.'
-      created: 'ilo li pali e poki `%s` pi kule `%s`.'
-      success: 'poki kule %s li kama sin.'
+      deleting: 'weka pi poki kule %d'
+      deleted: '`(%d/%d)` poki `%s` li kama weka.'
+
+      creating: 'pali pi poki kule %d'
+      created: '`(%d/%d)` poki %s pi kule `%s` li kama lon.'
+
+      success: 'poki kule sin %d li kama lon.'
+
     rc:
-      success: 'jan %s li kule sin.'
+      begin: 'pana kule tawa jan %d'
+      progress: 'jan %d/%d li kule sin.'
+      success: 'jan %d li kule sin.'
 
   figlet:
+    too-long: 'toki ni li suli ike ni: pana ona la, ilo li wile toki e sitelen %d. ilo li ken pana e sitelen %d taso.'
 
   help:
     aliases: 'nimi ante'
@@ -98,58 +153,82 @@ tok:
     not-found: 'nimi pali `%s` li lon ala.'
 
   polls:
-    cross-server: 'tomo toki ni li lon kulupu ante.'
-    too-many-opts: 'wile sona sina la toki ken pi mute suli ike li lon.'
-    title-too-long: 'nimi pi wile sona sina li suli ike a.'
+    cross-server: 'ilo li ken ala pana e wile sona ni tan ni: tomo toki ni li lon kulupu ante.'
+    too-many-opts: 'ilo li ken ala pana e wile sona ni tan mute suli anu ona.'
+    title-too-long: 'ilo li ken ala pana e wile sona ni tan suli ike pi nimi ona.'
 
   queries:
     query:
-      success: 'wile sona sina li lon lipu. nimi nanpa ona li #%s.'
-      too-long: 'wile sona sina li ike tan ni: mute toki li mute ike.'
+      success: 'wile sona sina li kama lon lipu. nimi nanpa ona li `#%d`.'
+      failure: "⚠️  **wile sona sina li ken ala lon lipu tan ni:**\n%s."
     oq:
       title: 'lipu pi wile sona'
-      no-results: 'jan ala li wile sona'
-      deleted-after-30d: 'selo pi mun suli li kama sama ona pi tenpo ni la, wile sona sina li weka tan lipu.'
-      entry-name: '#%s li tan jan %s lon tenpo %s'
+      no-results: 'wile sona ala li lon'
+      deleted-after-30d: 'ilo li weka e wile sona ni: tenpo open ona la, tenpo suno 30 li kama li pini.'
+      entry-name: '`#%s` li tan %s lon tenpo %s'
     cq:
-      not-found: 'wile sona nanpa %s li lon ala lipu.'
-      success: 'wile sona nanpa %s li kama weka tan lipu.'
-      no-perms: 'sina ken ala weka e wile sona nanpa %s tan lipu.'
+      not-found: 'wile sona `#%s` li lon ala lipu.'
+      success: 'wile sona `#%s` li kama weka.'
+      no-perms: 'sina ken ala weka e wile sona `#%s`.'
 
   snippets:
+    help: >-
+      sina ken pana e nimi pali ni tawa pini pi toki pali sina:
+        - `list`, `show`: ni li pana e nimi pi toki nimi ale
+        - `set`, `edit`: nimi en toki la, ni li ken pali sin li ken ante e toki nimi
+        - `remove`, `rm`, `delete`: nimi la, ni li weka e toki ona tan lipu
+        - `property`: ni li ante e nasin pi toki nimi
+
+    edit:
+      success: 'toki nimi `%s` li kama ante.'
+      not-found: 'toki pi nimi `%s` li lon ala.'
+
+    remove:
+      success: 'ona li lon la, toki pi nimi `%s` li weka.'
+
+    prop:
+      help: >-
+        toki nimi la, nasin ni li ken ante: `%s`.
+        o ante lon nasin ni: o pana e nimi nasin, e nimi toki, e nasin sin tawa toki pali sina.
+        sina ken pali sama ni: `.snippet property embed foo true`.
+
+      success: 'nasin `%s` pi toki pi nimi `%s` li kama `%s`.'
+
     list:
-      none-found: 'toki nimi li lon ala.'
+      none-found: 'toki nimi ala li lon.'
       title: 'toki nimi ale'
+
     snippet:
-      not-found: 'toki nimi ni li lon ala.'
+      not-found: 'toki pi nimi ni li lon ala.'
   
   notes:
     add:
-      success: 'sitelen **`%s`** li kama lon lipu. ona li nanpa `#%s`.'
-      failure: "⚠️  **sitelen sina li ken ala kama lon lipu tan ni:**\n%s."
+      invalid-args: 'ilo li sona ala e wile sina.'
+      success: 'sitelen **`%s`** li kama lon lipu, li nanpa `#%s`.'
+      failure: "⚠️  **sitelen sina li ken ala lon lipu tan ni:**\n%s."
     get:
       failure: 'sitelen **`%s`** li lon ala.'
     list:
-      invalid-page: 'lipu lili **%s** li lon ala lipu (lipu lili **%s** li lon).'
-      title: 'sitelen lon lipu lili %s/%s:'
+      invalid-page: 'lipu lili **%s** li lon ala. lipu lili **%s** taso li lon.'
+      title: 'sitelen ale (lipu lili %s/%s)'
       row: '`#%s` **`%s`** tan **%s**'
     id:
       title: 'sitelen **`%s`** (`#%s`) tan %s'
       failure: 'sitelen nanpa `#%s` li lon ala.'
     del:
       not-found: 'sitelen nanpa `#%s` li lon ala.'
-      no-perms: 'sina ken ala weka e sitelen `#%s` tan ken lili sina.'
-      success: 'sitelen **`%s`** (`#%s`) li kama lon ala.'
+      no-perms: 'sina ken ala weka e sitelen `#%s`.'
+      success: 'sitelen **`%s`** (`#%s`) li kama weka.'
 
   tokipona:
     attrib:
-      title: 'tan lipu pi sona nimi'
+      title: 'tan pi sona nimi'
       text: >-
-        toki pona li tan jan Sonja. jan ale li ken kepeken lipu nimi ona.
-        sona lon tokipona.org li tan jan Sonja. ona li lon %s.
+        toki pona li tan jan Sonja. lipu nimi pu ona li tawa ale.
+        sona lon tokipona.org li tan jan Sonja. ona li lon ni: %s.
         sona ante li tan ilo Salana. jan ale li ken kepeken ona.
 
-      footer: 'tan pi sona ni li lon .%s'
+      footer: 'tan sona li lon .%s'
 
     nimi:
       not-found: 'nimi ni li lon ala lipu pu.'
@@ -160,189 +239,125 @@ tok:
 
   util:
     invite:
-      title: 'o kama e %s'
-      desc: '[linja ni la sina ken kama e %s tawa kulupu sina.](%s)'
+      title: 'o kama kepeken %s'
+      desc: '[linja ni la sina ken kepeken ilo %s lon kulupu sina.](%s)'
+
     voicekick:
       failure: 'tomo awen li lon ala. sina pana ala e tomo.' 
       success: "ona li lon tomo"
 
-  xkcd:
+    slowmode:
+      get_rate: 'tenpo awen toki li `%d`.'
+      set_rate: 'tenpo awen toki li kama `%d`.'
 
-  uc:
-    help:
-      help: 'ilo li pana e lipu sona ni pi nimi pali'
-      language: 'sina ken ante e nasin toki ilo'
-      sitelenpona: 'sina ken ante e nasin pi sitelen pona'
-
-    language:
-      help:
-        list: 'ilo li pana e nasin toki ale'
-        set: 'ilo li toki tawa sina la sina ken ante e nasin toki ona'
-        reset: 'nasin toki ilo li kama toki Inli'
-
-      list:
-        title: 'nasin toki ale'
-
-      set:
-        not-found: 'ilo li ken ala toki kepeken nasin `%s`.'
-        success: 'ilo li toki tawa sina la ona li kepeken nasin toki `%s`.'
-
-      reset:
-        success: 'ilo li toki tawa sina la, ona li kepeken nasin toki `%s`.'
-        
-    sitelenpona:
-      help:
-        fgcolor: 'sina ken ante e kule sitelen'
-        bgcolor: 'sina ken ante e kule pi ma sitelen'
-        fontface: 'sina ken ante e nasin sitelen'
-        fontsize: 'sina ken ante e suli sitelen'
-        name: 'sina ken ante e nimi sina pi toki ilo'
-        glyphs: 'sina ken ante e sitelen ni: jan li kalama tawa sina kepeken nimi sina'
-
-      fgcolor:
-        help:
-          show: 'ilo li pana e kule sitelen sina'
-          set: 'sina ken ante e kule sitelen sina'
-          reset: 'ilo li weka sona e wile sina pi kule sitelen'
-      bgcolor:
-        help:
-          show: 'ilo li pana e kule sina pi ma sitelen'
-          set: 'sina ken ante e kule sina pi ma sitelen'
-          reset: 'ilo li weka sona e wile sina pi kule ma'
-
-      color:
-        show: '%s sina li %s.'
-        set: '%s sina li kama %s.'
-
-      fontsize:
-        help:
-          show: 'ilo li pana e suli sitelen sina'
-          set: 'sina ken ante e suli sitelen sina'
-          reset: 'ilo li weka e wile sina pi suli sitelen'
-        show: 'sina sitelen kepeken suli nanpa %s.'
-        set: 'sina kama sitelen kepeken suli nanpa %s.'
-
-      fontface:
-        help:
-          show: 'ilo li pana e nasin sitelen sina'
-          list: 'ilo li pana e nasin sitelen ale ken'
-          set: 'sina ken ante e nasin sitelen sina'
-          reset: 'ilo li weka sona e wile sina pi nasin sitelen'
-        show: 'sina sitelen kepeken nasin %s.'
-        set: 'sina kama sitelen kepeken nasin %s.'
-        list: 'nasin sitelen ken'
-        instructions: 'sina ken pana e wile sina pi nasin sitelen kepeken nimi ni: `%suc sp ff s <number>`.'
-        invalid: 'nasin sitelen ni li lon ala.'
-
-      name:
-        help:
-          show: 'ilo li pana e nimi sina pi toki ilo'
-          set: 'sina ken ante e nimi sina pi toki ilo'
-          reset: 'ilo li weka sona e nimi sina'
-        show: 'ilo li kepeken nimi %s tawa sina.'
-        set: 'ilo li kama kepeken nimi %s tawa sina.'
-
-      glyphs:
-        help:
-          show: 'ilo li pana e sitelen sina'
-          set: 'sina ken ante e sitelen sina'
-          reset: 'ilo li weka sona e sitelen sina'
-        show: 'sitelen sina li ni: %s.'
-        set: 'sitelen sina li kama ni: %s.'
+  types:
+    string:
+      name: 'sitelen'
+      desc: 'sitelen toki'
+      valid:
+        between: 'nanpa pi sitelen lili li mute tawa %d, li lili tawa %d'
+        at-least: 'nanpa pi sitelen lili li mute tawa %d'
+    integer:
+      name: 'nanpa'
+      desc: 'nanpa pi kipisi ala'
+      valid:
+        between: 'suli tawa %d; lili tawa %d'
+        at-least: 'suli tawa %d'
+        at-most: 'lili tawa %d'
+        any: 'nanpa ale'
+    boolean:
+      name: 'lon anu ala'
+      desc: 'lon anu ala'
+      valid: '`true` (lon) anu `false` (ala)'
+    snowflake:
+      name: 'nanpa pi ilo Siko'
+      desc: 'nimi nanpa pi ijo lon ilo Siko'
+      valid:
+        channel: 'nanpa tomo'
+        user: 'nanpa jan'
+        role: 'nanpa poki'
+        bare: 'nimi nanpa ale'
+    enum:
+      name: 'anu'
+      desc: 'ijo wan tan anu mute'
+      invalid-key: 'ni li nimi anu ala'
+      invalid-index: 'ni li nanpa anu ala'
 
   cfg:
-    usage: 'nasin kepeken:'
-    subcmd: 'nimi pali lili'
-    options: 'nasin pali'
-    avail_subcmd: 'sina ken kepeken nimi pali lili ni:'
-
     help:
-      help: 'ilo li pana e lipu ni'
-      log-channel: 'sina ken ante e tomo toki pi pali ilo'
-      prefix: 'sina ken ante e nimi open pi nimi pali'
-      colors: 'sina ken ante e nasin kule'
-      snippet: 'sina ken ante e toki nimi'
-      rolegroup: 'sina ken ante e kulupu poki'
-      reaction: 'sina ken ante e pali pi namako toki'
-      misc: 'sina ken ante e nasin ilo ante'
+      schema:
+        title: 'nasin pali lon poki `%s`'
+        title-root: 'nasin pali ale'
+        footer: 'sina ken lukin li ken ante e nasin pali sama ni: o pana e nimi ona tawa pini pi toki pali sina.'
+        option: '`%s` (%s)'
+        group: '`%s` (poki pi nasin pali)'
 
-    log-channel:
-      help:
-        set: 'sina ken pana e nanpa pi tomo ni: ilo li toki e pali ilo lon ona'
-        reset: 'sina ken weka e sona pi tomo ni: ilo li toki e pali ilo lon ona'
+      option:
+        title: 'nasin: %s (`%s`)'
+        current: 'insa lon'
+        default: 'insa open'
+        type: 'nasin insa'
+        valid: 'insa ken'
+        footer: "sina ken pana e nimi pali ni tawa pini pi toki pali sina:\n'set' li ante e insa pi nasin ni. 'clear' li weka e insa pi nasin ni."
 
-      set:
-        success: 'tomo sin pi pali ilo li <#%s>.'
-        other-server: "<#%s> li lon ala kulupu ni."
-        invalid-id: "%s li nanpa ala pi tomo toki."
-      reset:
-        success: 'tomo pi pali ilo li weka.'
+    set:
+      success:
+        title: '✅ insa pi nasin `%s` li kama ante'
+        clear-title: '❇️ insa pi nasin `%s` li kama weka'
+        new-value: 'insa sin'
 
-    prefix:
-      help:
-        set: 'sina ken ante e sitelen open pi nimi pali'
-        reset: 'sina ken ante e sitelen open tawa `.`'
+      error:
+        title: '⚠️ insa pi nasin `%s` li ante ala tan ike'
+        explanation: 'tan'
+        input: 'insa wile sina'
 
-      saved: 'sitelen open sin pi nimi pali li `%s`.'
+    reset:
 
-    colors:
-      help:
-        extra-color-role: 'sina ken ante e poki kule namako'
-        bare-colors: 'ilo li alasa e poki kule ni: ona li kepeken nimi kule taso'
+    option:
+      unset: '_ala_'
 
-      extra-color-role:
-        help:
-          list: 'ilo li pana e poki kule namako ale'
-          add: 'nimi nanpa la sina ken pana e poki kule sin tawa ilo'
-          remove: 'nimi nanpa la sina ken weka e poki kule namako tan ilo'
+      prefix:
+        name: 'sitelen open pi nimi pali'
+        description: 'nimi pali li nimi ni: ona li open lon sitelen ni. ona li wile lili; sitelen li suli ike la, pali li ken ike.'
 
-        list:
-          no-roles: 'poki kule namako li lon ala.'
-        add:
-          not-found: 'poki kule ni li lon ala.'
-          non-unique: 'poki kule ni li lon. sina ken ala pana sin e ona.'
-          success: 'poki kule `%s` (`%s`) li kama sin.'
-        remove:
-          success: 'poki kule `%s` li weka.'
-###
-      bare-colors:
-        help:
-          enable: 'nimi ni la sina ken e poki pi nimi kule taso'
-          disable: 'nimi ni la sina weka e ken ni'
-          show: 'ilo li pana e sona pi ken ni'
+      log_channel_id:
+        name: 'tomo pi pali pini ilo'
+        description: 'ilo li kute e nimi pali la, ona li toki e ona tawa tomo ni. tomo li kama lon ala la, ilo li mu tawa jan lawa kulupu.'
 
-        toggled-on: 'ni la ilo li ken kepeken poki kule pi nimi kule taso.'
-        toggled-off: 'ni la ilo li ken ala kepeken poki kule pi nimi kule taso.'
-        show: 'nasin li `%s`.'
+      use_bare_colors:
+        name: 'sona pi poki pi nanpa kule taso'
+        description: 'ni li _lon_ la, ilo li kama sona e poki ni: nimi ona li sama nanpa kule. ona li kama _poki kule_ tawa ilo; ilo li ken pana e ona tawa jan.'
 
-    snippet:
-      help:
-        list: 'ilo li pana e lipu pi toki nimi ale'
-        add: 'ilo li pana e toki nimi tawa lipu'
-        remove: 'nimi la ilo li weka e toki nimi tan lipu'
-        set: 'sina ken ante e sitelen lon toki nimi'
+      auto_assign_colors:
+        name: 'pana kule'
+        description: >-
+          jan li kama lon kulupu la, ilo li pana e poki kule tawa ona lon nasin ni.
+          nasin li `on_join` la, jan li kama lon kulupu la, ilo li pana.
+          nasin li `on_screening_pass` la, jan li pini pali lon nasin Member Screening la, ilo li pana.
+          nasin li `never` la, ilo li pana ala.
 
-      add:
-        non-unique: 'tenpo pini la toki nimi `%s` li lon. sina ken ala pana e ona.'
-        success: 'toki nimi `%s` li kama sin.'
-      edit:
-        not-found: 'toki nimi `%s` li lon ala.'
-        success: 'toki nimi `%s` li kama ante.'
-      remove:
-        success: 'toki nimi `%s` li weka.'
-      prop:
-        help:
-          embed: '(bool) toki nimi ni li lon ala lon insa poki?'
+      language:
+        name: 'nasin toki'
+        description: 'ilo li toki tawa sina la, ona li toki lon nasin ni.'
 
-        success: 'namako `%s` pi toki nimi `%s` li kama `%s`.'
-
-    rolegroup:
-
-    reaction:
-
-    misc:
-
-    nyi: 'ilo li ken ala pali e ni lon tenpo ni.'
+      sitelenpona:
+        fg_color:
+          name: 'kule sitelen'
+          description: 'sina pana e lipu pi sitelen pona la, ni li kule sitelen lon lipu.'
+        bg_color:
+          name: 'kule monsi'
+          description: 'sina pana e lipu pi sitelen pona la, ni li kule lipu monsi.'
+        fontsize:
+          name: 'suli sitelen'
+          description: 'sina pana e lipu pi sitelen pona la, ni li nanpa suli pi sitelen lon lipu.'
+        fontface:
+          name: 'nasin linja'
+          description: 'sina pana e lipu pi sitelen pona la, ilo li kepeken nasin linja ni.'
+        glyphs:
+          name: 'sitelen nimi'
+          description: 'ilo li pali e lipu pi sitelen pona la, sina toki e nimi sina lon ona la, ona li kama sitelen ni. lukin pi sitelen nimi li ken ante tan ni: ken pi nasin sitelen li ante; nimi li ken lukin pakala.'
 
   fun:
     ping: 'jan li mu tawa mi a  :o'
+
+  nyi: 'tenpo ni la, ilo li kama ala ken pali e ni.'

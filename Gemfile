@@ -10,9 +10,7 @@ gem 'rake'
 # Base
 gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 # dirty hack to fix bundix problems
-gem 'discordrb-webhooks',
-    github: 'anna328p/discordrb',
-    branch: 'main'
+gem 'discordrb-webhooks', github: 'anna328p/discordrb', branch: 'main'
 
 gem 'rbnacl'
 
@@ -90,4 +88,4 @@ group :development do
 end
 
 # Colors
-gem 'numo-narray'
+gem 'matrix'

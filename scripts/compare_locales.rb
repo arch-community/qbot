@@ -122,24 +122,25 @@ key_matches = bar.iterate(find_all_ruby).map { |abs_path|
     # Filter for method calls
     next unless node.type == :send
 
-    line = node.loc.line
-    col = node.loc.column
+    loc = KeyLoc.new(path:, line: node.loc.line, col: node.loc.column)
 
     case node.children
     # Find invocations of t()
     in [_, :t, key, *]
-      list << KeyLoc.new(path:, line:, col:, key: val(key))
+      loc.key = val(key)
 
     # Find all bot commands
     in [_, :command, name, *]
-      list << KeyLoc.new(path:, line:, col:, key: "descriptions.#{val name}")
+      loc.key = "descriptions.#{val(name)}"
 
     # Find list of locales
     in [[[:const, _, :I18n], :config], :available_locales=, [*, locales]]
-      list << KeyLoc.new(path:, line:, col:, key: "locales.#{val name}")
+      loc.key = "locales.#{val(name)}"
 
     else next
     end
+
+    list << loc
   }
 }.inject(:+)
 
@@ -147,8 +148,7 @@ key_matches = bar.iterate(find_all_ruby).map { |abs_path|
 
 puts Paint["Translations missing from #{base_name}:", :yellow, :bright]
 
-key_groups = \
-  key_matches
+key_groups = key_matches
   .reject { base_flat.keys.include? _1.key }
   .group_by(&:key)
 

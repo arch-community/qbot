@@ -295,6 +295,12 @@ module Colors
   rescue ActiveRecord::RecordNotFound
     embed t('colors.extra-roles.del.not-found', role.mention)
   end
+end
+# rubocop: enable Metrics/ModuleLength
+
+## Event container for the Colors module
+module ColorsEvents
+  extend Discordrb::EventContainer
 
   # Color roles on join
 
@@ -341,4 +347,7 @@ module Colors
     nil
   end
 end
-# rubocop: enable Metrics/ModuleLength
+
+module Colors
+  include! ColorsEvents
+end

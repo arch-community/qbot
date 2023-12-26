@@ -16,13 +16,18 @@ en:
     userconfig: 'Configure user settings that apply across servers'
 
     listsnippets: 'Lists available snippets'
-    snippet: 'Posts a snippet'
+    getsnippet: 'Finds a snippet by name, and posts its text'
+    snippets: 'Manages snippets'
 
     color: 'Sets your user color role'
     closestcolor: 'Gives you the closest color, by hex code'
     listcolors: 'Lists colors available on the server'
-    createcolorroles: 'Creates color roles'
+    gencolors: 'Creates a set of color roles'
     randcolors: 'Randomizes colors for all users'
+
+    extracolorroles: 'Lists extra color roles'
+    addextracolorrole: 'Adds an existing role as an extra color role'
+    delextracolorrole: 'Removes an extra color role'
 
     query: 'Adds a query to the list of queries'
     openqueries: 'Lists open queries'
@@ -36,6 +41,8 @@ en:
     invite: 'Sends a link to invite the bot to your server'
     voicekick: 'Move a user to the AFK channel or given channel'
 
+    slowmode: 'Sets the slowmode delay for the current channel'
+
     archwiki: 'Searches the Arch wiki'
     packagesearch: 'Searches for a package in the Arch repositories'
     package: 'Shows info for a given package'
@@ -44,7 +51,7 @@ en:
 
     poll: 'Sets up a poll in a channel'
 
-    figlet: 'Converts some text into ASCII art'
+    figlet: 'Converts text into ASCII art'
 
     nimi: 'Queries definitions for a toki pona word'
     tpo: 'Queries usage data for a toki pona word from tokipona.org'
@@ -55,6 +62,18 @@ en:
     listnotes: 'Lists all notes for this server'
     noteid: 'Finds a note by ID'
     delnote: 'Deletes a note'
+    exportnotes: "Uploads a JSON file containing all of this server's notes"
+
+    bottom: 'Converts text in Unicode to the [Bottom](https://github.com/bottom-software-foundation/spec) emoji encoding'
+    regress: 'Converts text in the [Bottom](https://github.com/bottom-software-foundation/spec) emoji encoding to Unicode'
+
+    ipa: 'Converts phonetic transcriptions from [X-SAMPA](https://en.wikipedia.org/wiki/X-SAMPA) to [IPA](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet)'
+
+    sp: 'Renders Toki Pona text in the _sitelen pona_ alphabet'
+    sppreview: 'Renders some Toki Pona text in all available _sitelen pona_ typefaces'
+
+    tio: 'Runs some code using the service [Try It Online](https://tio.run)'
+    tiolangs: 'Lists all programming languages available on [Try It Online](https://tio.run)'
 
   admin:
     eval:
@@ -62,14 +81,16 @@ en:
 
   arch:
     wiki:
-      no-results: 'No results found'
+      no-results: 'No results found.'
 
     ps:
-      no-results: 'No results found'
+      no-results: 'No results found.'
       title: 'Search results for `%s`'
       result-footer: 'version **%s** | built **%s** | [web link](%s)'
 
     package:
+      not-found: '❔ Package not found.'
+
       url: 'Upstream URL'
       license: 'License'
       csize: 'Size'
@@ -113,7 +134,7 @@ en:
 
       creating: '🎨 Creating %d new color roles'
       created: '`(%d/%d)` Created role %s with color `%s`.'
-      success: '✅ Created %s roles.'
+      success: '✅ Created %d roles.'
 
     rc:
       begin: '🔄 Randomizing colors for %s users.'
@@ -150,14 +171,38 @@ en:
       no-perms: 'You do not have permission to delete query #%s.'
 
   snippets:
+    help: >-
+      You can append the following verbs to this command:
+        - `list`, `show`: See the list of all snippets.
+        - `set`, `edit`: Given a name and text, create a new snippet by that name or set the value of an existing snippet.
+        - `remove`, `rm`, `delete`: Given a name, remove the snippet by that name, if it exists.
+        - `property`: Set properties of snippets.
+
+    edit:
+      success: 'Successfully edited snippet `%s`.'
+      not-found: 'Could not find a snippet with name `%s`.'
+
+    remove:
+      success: 'Successfully removed snippet `%s`, if it existed.'
+
+    prop:
+      help: >-
+        The following properties are available: `%s`.
+        To set a property, append the property, the name of the snippet to modify, and the new value;
+        for example, `snippet property embed foo true`.
+
+      success: 'Successfully set property `%s` of snippet `%s` to `%s`.'
+
     list:
       none-found: 'No available snippets.'
       title: 'Available snippets'
+
     snippet:
       not-found: 'Snippet not found.'
 
   notes:
     add:
+      invalid-args: '⚠️ Invalid arguments given.'
       success: 'Note **`%s`** (`#%s`) added successfully.'
       failure: "⚠️  **Note could not be saved due to these errors:**\n%s."
     get:
@@ -178,7 +223,8 @@ en:
     attrib:
       title: 'toki pona data sources'
       text: >-
-        toki pona was created by Sonja Lang. the pu dictionary is in the public domain.
+        toki pona was created by Sonja Lang.
+        the dictionary in _Toki Pona: The Language of Good_, known as _pu_, is in the public domain.
         tokipona.org data was gathered by Sonja Lang and can be found at %s.
         other data was taken from ilo Salana, which is in the public domain.
 
@@ -230,6 +276,7 @@ en:
         channel: 'channel IDs'
         user: 'user IDs'
         role: 'role IDs'
+        bare: 'any IDs'
     enum:
       name: 'selection'
       desc: 'fixed set of choices'
@@ -312,3 +359,5 @@ en:
 
   fun:
     ping: 'I got pinged :o'
+
+  nyi: 'This feature is not yet implemented.'

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/qbot'
+
+QBot.init_log
+QBot.parse_options(ARGV)
+QBot.init_config
+QBot::Database.init_db
+
+binding.irb

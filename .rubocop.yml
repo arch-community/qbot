@@ -2,11 +2,20 @@ AllCops:
   NewCops: enable
   ActiveSupportExtensionsEnabled: true
 
-Layout/LineLength:
-  Max: 80
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
 
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
+
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/LineLength:
+  Max: 80
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented

@@ -54,6 +54,10 @@ module Tio
 
     embed langs.keys.join(', ').truncate(2048)
   end
+end
+
+module TioEvents
+  extend Discordrb::EventContainer
 
   reaction_add(emoji: '❌') do |event|
     if (ftext = event.message.embeds.first&.footer&.text) \
@@ -66,4 +70,8 @@ module Tio
       event.message.delete if event.user.id == id
     end
   end
+end
+
+module Tio
+  include! TioEvents
 end

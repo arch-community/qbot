@@ -634,6 +634,16 @@
     };
     version = "2.22.0";
   };
+  matrix = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1h2cgkpzkh3dd0flnnwfq6f3nl2b1zff9lvqz8xs853ssv5kq23i";
+      type = "gem";
+    };
+    version = "0.4.2";
+  };
   mediawiki_api = {
     dependencies = ["faraday" "faraday-cookie_jar" "faraday_middleware"];
     groups = ["default"];
@@ -754,16 +764,6 @@
       type = "gem";
     };
     version = "1.15.5";
-  };
-  numo-narray = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1syw9bhkk0bnacadcpdbwvc66j1gi3qqgcvqv3zqh4myxr3npmzf";
-      type = "gem";
-    };
-    version = "0.9.2.1";
   };
   open_uri_redirections = {
     groups = ["default"];
@@ -974,10 +974,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0k3xvcdkv4jnzd90p9h42la3z6b90nvrdsy13kcjzjgqfqlrvfk0";
+      sha256 = "104bijlw4bmh4vc1mkzakhrxdmzn170ir1jby6w8m94z5942iiji";
       type = "gem";
     };
-    version = "3.3.2";
+    version = "3.4.0";
   };
   regexp_parser = {
     groups = ["default" "development"];
@@ -1238,10 +1238,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1lkkb5isdrdn5hjq5sygr20zlqrgf3yydf3n5s5dwq7r74glrbx0";
+      sha256 = "0xm54yjrdz200iahvily91n0nlv9xr2yp1rjz077fq1z2pi1kadg";
       type = "gem";
     };
-    version = "0.5.11156";
+    version = "0.5.11164";
   };
   sqlite3 = {
     dependencies = ["mini_portile2"];
@@ -1396,12 +1396,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "18jr6s1cg8yb26wzkqa6874q0z93rq0y5aw092kdqazk71y6a235";
-      target = "ruby";
+      sha256 = "0l4vh6g333jxm9lakilkva2gn17j6gb052626r1pdbmy2lhnb460";
       type = "gem";
     };
-    targets = [];
-    version = "0.8.1";
+    version = "0.8.2";
   };
   typeprof = {
     dependencies = ["rbs"];
@@ -1409,10 +1407,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "14gnx0x00rjzl2dyak3g0ahw9cw0an6xja4hmrf7zi1dvbv1zllg";
+      sha256 = "1df1sn348nhp4ixmpa1w9lyjv0pkl829s6ilngd57yn8kxqn1apc";
       type = "gem";
     };
-    version = "0.21.8";
+    version = "0.21.9";
   };
   typhoeus = {
     dependencies = ["ethon"];

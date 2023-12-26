@@ -119,8 +119,6 @@ module Configurable
       end
 
       def format_value(value)
-        return t('types.empty') unless value
-
         if @format
           Kernel.format(FORMATS[@format], value)
         else
