@@ -82,7 +82,7 @@ end
 def to_emoji(num)
   if num.between?(0, 9)
     # digit + Variation Selector-16 + Combining Enclosing Keycap
-    "#{digit}\uFE0F\u20E3"
+    "#{num}\uFE0F\u20E3"
   elsif num == 10
     # Keycap Digit Ten emoji
     "\u{1F51F}"

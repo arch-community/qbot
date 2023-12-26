@@ -8,4 +8,4 @@ module QBot
   end
 end
 
-QBot.version = '8.0.0'
+QBot.version = '8.1.0'
