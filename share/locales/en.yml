@@ -104,7 +104,7 @@ en:
       success: '✅ Your color is now **%s**.'
 
     color:
-      not-found: '✅ Color not found.'
+      not-found: '⚠️ Color not found.'
 
     closest:
       invalid-hex: '⚠️ You did not specify a valid hex color code.'
