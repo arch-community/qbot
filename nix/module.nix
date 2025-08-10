@@ -76,6 +76,12 @@ in
           default_prefix = mkOpt' str "Default command prefix" "." { };
 
           bot_id_allowlist = mkOpt (listOf int) "User IDs that ignore the bot filter" { };
+
+          roles = {
+            addnote_access =
+              mkOpt (listOf int) "List of Discord role IDs that are allowed access the addnotes command"
+                { };
+          };
         };
     };
 

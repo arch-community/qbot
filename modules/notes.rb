@@ -32,12 +32,25 @@ module Notes
   end
   # rubocop: enable Metrics/MethodLength
 
+  def self.has_addnote_access?(event)
+    required_role_ids = Array(QBot.config&.roles&.addnote_access)
+
+    # Allow access if no roles are required
+    return true if required_role_ids.empty?
+
+    user_role_ids = event.author.roles.map(&:id)
+
+    (required_role_ids & user_role_ids).any?
+  end
+
   command :addnote, {
     aliases: %i[an .],
     help_available: true,
     usage: '.addnote <name> <text>',
     min_args: 2
   } do |event, *_|
+    next embed t('no_perms') unless has_addnote_access?(event)
+
     rest = after_nth_word(1, event.text)
     args = parse_args_addnote(rest)
 

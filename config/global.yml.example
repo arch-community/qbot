@@ -51,4 +51,8 @@ default_prefix: '.'
 bot_id_allowlist:
   - 204255221017214977
 
+# To allow access to everyone, either remove the whole array or remove/empty the lists
+roles:
+  addnote_access: [ 461957316921524254 ]
+
 # vim: ft=yaml
