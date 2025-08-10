@@ -4,9 +4,6 @@ rec {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-    # TODO: remove once nixpkgs#272969 is merged
-    rust-overlay.url = "github:oxalica/rust-overlay";
-
     gitignore.url = "github:hercules-ci/gitignore.nix";
     gitignore.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -20,7 +17,6 @@ rec {
     {
       self,
       nixpkgs,
-      rust-overlay,
       gitignore,
     }@flakes:
     let
@@ -33,11 +29,6 @@ rec {
 
       mkQBotArgs = pkgs: rec {
         ruby = pkgs.ruby_3_2;
-
-        # TODO: remove once nixpkgs#272969 is merged
-        rustc = rust-overlay.packages.${pkgs.system}.rust;
-        cargo = rustc;
-
         inherit (gitignore.lib) gitignoreSource;
       };
 
