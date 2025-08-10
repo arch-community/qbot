@@ -6,9 +6,12 @@ pkg.overrideAttrs (oa: {
     ++ (with pkgs; [
       git
       graphviz
-      loc
+      tokei
       (sqlite.override { interactive = true; })
       yq-go
+      bundix
+      cargo
+      rustc
     ]);
 
   BUNDLE_FORCE_RUBY_PLATFORM = "1";
