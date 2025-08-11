@@ -65,7 +65,7 @@ rescue Errno::ENOENT => e
   exit
 end
 
-(base_name, base_flat), (cmp_name, cmp_flat) = \
+(base_name, base_flat), (cmp_name, cmp_flat) =
   ARGV.map { load_locale(_1).first.then { |k, v| [k, flatten_keys(v)] } }
 
 def find_all_ruby(root = prj_root)

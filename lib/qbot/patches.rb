@@ -14,7 +14,8 @@ module Discordrb
     module Respondable
       def respond_wrapped(content, tts: false, embed: nil, attachments: nil,
                           allowed_mentions: nil, message_reference: nil, components: nil)
-        send_message(content, tts, embed, attachments, allowed_mentions, message_reference, components)
+        send_message(content, tts, embed, attachments, allowed_mentions,
+          message_reference, components)
       end
     end
     # rubocop: enable Metrics/ParameterLists
@@ -37,9 +38,11 @@ module CommandEventIntercept
   # rubocop: disable Style/OptionalBooleanParameter
   def call(event, arguments, chained = false, check_permissions = true)
     # rubocop:enable Style/OptionalBooleanParameter
-    return if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
+    if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
+      return
+    end
 
-    super(event, arguments, chained, check_permissions)
+    super
   end
 end
 

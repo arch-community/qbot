@@ -80,8 +80,8 @@ module QBot
         end
 
         add_index :delayed_jobs,
-                  %i[priority run_at],
-                  name: 'delayed_jobs_priority'
+          %i[priority run_at],
+          name: 'delayed_jobs_priority'
 
         add_index :server_configs, :server_id, unique: true
         add_index :user_configs, :user_id, unique: true

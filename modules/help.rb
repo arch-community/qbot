@@ -86,8 +86,8 @@ module Help
 
     long_desc =
       names
-      .map { "`#{prefixed(_1)}` - #{t("descriptions.#{_1}")}" }
-      .join("\n")
+        .map { "`#{prefixed(_1)}` - #{t("descriptions.#{_1}")}" }
+        .join("\n")
 
     embed do |m|
       m.title = t('help.list-title')

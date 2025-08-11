@@ -122,7 +122,7 @@ module Configurable
         if @format
           Kernel.format(FORMATS[@format], value)
         else
-          super(value)
+          super
         end
       end
 
