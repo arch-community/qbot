@@ -119,5 +119,14 @@ rec {
           };
         }
       );
+
+      formatter = withCommon (
+        env:
+        env.pkgs.nixfmt-tree.override {
+          settings = {
+            excludes = [ "gemset.nix" ];
+          };
+        }
+      );
     };
 }
