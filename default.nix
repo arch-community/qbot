@@ -46,8 +46,8 @@ let
         ];
 
         postUnpack = ''
-          					mv .cargo tantiny*
-          				'';
+          mv .cargo tantiny*
+        '';
       };
     };
   };
@@ -79,14 +79,13 @@ stdenv.mkDerivation rec {
       inherit (passthru) binPath libPath fontconfigFile;
     in
     ''
-      		mkdir -p $out/{bin,share}
-      		cp -r . $out/share/qbot
-
-      		makeWrapper $out/share/qbot/qbot $out/bin/qbot \
-      			--set FONTCONFIG_FILE '${fontconfigFile}' \
-      			--prefix PATH : '${binPath}' \
-      			--prefix LD_LIBRARY_PATH : '${libPath}'
-      	'';
+      mkdir -p $out/{bin,share}
+      cp -r . $out/share/qbot
+      makeWrapper $out/share/qbot/qbot $out/bin/qbot \
+        --set FONTCONFIG_FILE '${fontconfigFile}' \
+        --prefix PATH : '${binPath}' \
+        --prefix LD_LIBRARY_PATH : '${libPath}'
+    '';
 
   meta = with lib; {
     description = "General purpose Discord bot";
