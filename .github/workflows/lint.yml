@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with: # Needed for commitlint
         fetch-depth: 0
 
     - name: Set up Ruby 3.0
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: 3.2
 
     - name: Cache gems
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-rubocop-${{ hashFiles('**/Gemfile.lock') }}
@@ -33,13 +33,19 @@ jobs:
     - name: Run RuboCop
       run: bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter --out /tmp/checkstyle.xml
 
-    - name: Lint commit messages 
-      uses: wagoid/commitlint-github-action@v2
+    - name: Lint commit messages
+      if: ${{ always() }}
+      uses: wagoid/commitlint-github-action@v6.2.1
 
     - name: Lint Markdown
+      if: ${{ always() }}
       uses: avto-dev/markdown-lint@v1.5.0
+      with:
+        ignore: 'vendor'
+        args: '**/*.md'
 
-    - uses: check-run-reporter/action@v2.0.0
+    - name: Check Run Reporter
+      uses: check-run-reporter/action@v2.11.2
       if: ${{ always() }}
       with:
         token: '2005ace6-d376-42b7-ac05-1d3b8e8e9d24'
