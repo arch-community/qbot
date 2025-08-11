@@ -1,4 +1,3 @@
-
                 _/                 _/
         _/_/_/ _/_/_/     _/_/  _/_/_/_/
      _/    _/ _/    _/ _/    _/  _/
@@ -14,6 +13,7 @@ Originally its only function was to manage support channels, but it has evolved
 to do much more.
 
 Modules:
+
 - `admin` lets server owners administer and configure the bot.
 - `arch` contains commands for searching the Arch wiki, repositories, and AUR.
 - `colors` generates, manages, and assigns color roles.
@@ -81,8 +81,6 @@ Bot CLI:
 ## Contributing
 
 See [CONTRIBUTING.md].
-
-
 
 [1]: https://discord.gg/3m6dbPR (Invite to the Arch Linux Community Discord server)
 [Nix flake]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html (Flake documentation)

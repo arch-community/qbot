@@ -14,6 +14,7 @@ Code structure:
 ### Adding modules
 
 Make sure you have done the following:
+
 - All user-facing strings must go through `t` and have entries in at least the
   English translation file (`lib/locales/en.yml`).
 - rubocop must return no offenses. Try to avoid disabling cops.
