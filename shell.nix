@@ -12,6 +12,7 @@ pkg.overrideAttrs (oa: {
       bundix
       cargo
       rustc
+      rubocop
     ]);
 
   BUNDLE_FORCE_RUBY_PLATFORM = "1";
