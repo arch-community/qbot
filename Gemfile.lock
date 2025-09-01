@@ -20,15 +20,16 @@ GIT
 
 GIT
   remote: https://github.com/shardlab/discordrb.git
-  revision: 0f01116c3326e4784a0b581326307f5a2b57427a
+  revision: 608ac2d50fedbaa2da700f8b44e0e3ecf9eb63b6
   branch: main
   specs:
     discordrb (3.5.0)
+      base64 (~> 0.2.0)
       discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
       opus-ruby
       rest-client (>= 2.0.0)
-      websocket-client-simple (>= 0.3.0)
+      websocket-client-simple (>= 0.9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -71,7 +72,7 @@ GEM
       activerecord (>= 3.0, < 8.0)
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.0)
-    domain_name (0.6.20231109)
+    domain_name (0.6.20240107)
     drb (2.2.0)
       ruby2_keywords
     e2mmap (0.1.0)
@@ -108,7 +109,7 @@ GEM
     faraday-retry (1.0.3)
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
-    ffi (1.16.3)
+    ffi (1.17.2)
     fileutils (1.7.2)
     fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
@@ -116,7 +117,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     http-accept (1.7.0)
-    http-cookie (1.0.5)
+    http-cookie (1.0.8)
       domain_name (~> 0.5)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -142,9 +143,10 @@ GEM
       faraday (~> 1)
       faraday-cookie_jar
       faraday_middleware
-    mime-types (3.5.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2023.1205)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0826)
     mini_portile2 (2.8.5)
     minitar (0.9)
     minitest (5.20.0)
@@ -297,9 +299,11 @@ GEM
     unparser (0.6.10)
       diff-lcs (~> 1.3)
       parser (>= 3.2.2.4)
-    websocket (1.2.10)
-    websocket-client-simple (0.8.0)
+    websocket (1.2.11)
+    websocket-client-simple (0.9.0)
+      base64
       event_emitter
+      mutex_m
       websocket
     word_wrap (1.0.0)
     yard (0.9.34)
