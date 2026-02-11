@@ -51,7 +51,7 @@ qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. I
 - **All** user-facing strings must go through the `t()` helper method
 - Add translation keys to `share/locales/en.yml` at minimum
 - Translation files use nested YAML structure
-- Available locales: `:en`, `:tok`, `:en_kawaii`, `:de`
+- Available locales (Ruby symbols): `:en`, `:tok`, `:en_kawaii`, `:de`
 - Use descriptive keys: `module.command.message-type`
 - The `embed` helper creates Discord embeds for bot responses
 
@@ -144,7 +144,7 @@ bundle exec qbot
 
 - Add gems to `Gemfile`
 - Run `bundle install`
-- If using Nix: source `scripts/binst` in nix-shell to update `gemset.nix`
+- If using Nix: run `. scripts/binst` (source the script) in nix-shell to update `gemset.nix`
 
 ## Common Patterns
 
