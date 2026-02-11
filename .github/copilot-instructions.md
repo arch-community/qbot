@@ -155,6 +155,32 @@ locale files).
 ### Design philosophy
 
 Prefer FP influences: immutable data, pure functions, minimal mutable state,
-and dependency injection. The project is migrating toward `dry-system` for DI,
-`rom-rb` for database access, and modern Discord features (slash commands,
-components v2).
+and dependency injection. Aim for elegant code with a distinct, personal style.
+
+### Modernization and refactoring (in progress)
+
+> **Important:** The project is actively undergoing modernization. When legacy
+> patterns conflict with the goals below, prefer the modern approach. Existing
+> choices should only be preserved in the cases where they are genuinely good.
+
+#### Target architecture
+
+- **Dependency injection** — migrate to `dry-system` for DI and component
+  management.
+- **Database** — replace ActiveRecord with `rom-rb` for database access.
+- Adopt other `dry-rb` / `rom-rb` ecosystem libraries where appropriate.
+
+#### Discord features
+
+- **Slash commands** — prefer slash commands over text-prefix commands.
+- **Components v2** — use Discord components v2 in favor of embeds for
+  interactive UI where applicable.
+- Adopt new Discord API features as they become available.
+
+#### General refactors
+
+- Rewrite modules to reduce and centralize global state.
+- Improve error handling throughout the codebase.
+- Document and define interfaces between components.
+- Follow general best practices for modern, clean architecture while
+  maintaining elegant code with a distinct, personal style and FP influences.
