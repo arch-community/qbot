@@ -37,9 +37,12 @@ qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. I
 - Use modern Ruby syntax (Ruby 3.2+)
 - Prefer pattern matching with `rails-pattern_matching` where appropriate
 - Use numbered block parameters (`_1`, `_2`) when appropriate
+  - Example: `@options.to_h { |e| [e.nickname || e.typeface, e] }`
 - Inline access modifiers: `private def method_name`
 - Avoid parallel assignment
-- Use single-line method definitions with `=` for simple methods: `def method_name = value`
+- Use single-line method definitions with `=` for simple one-liners
+  - Example: `def self.hex_code?(string) = string.match?(/^#?[[:xdigit:]]{6}$/)`
+- Use forwarding arguments `(...)` to pass all arguments to super or another method
 
 ## Internationalization (i18n)
 
@@ -185,9 +188,11 @@ config.config_name  # Access configuration value
 
 - Never commit secrets or tokens to the repository
 - Sanitize user input before using in commands
-- Use Rails HTML sanitizer for HTML content: `rails-html-sanitizer`
+- Use `Rails::Html::FullSanitizer.new.sanitize(content)` for HTML content (gem: `rails-html-sanitizer`)
+  - This is used even though the bot uses discordrb, as some modules process HTML (e.g., wiki content)
 - Validate and escape user-provided data in database queries
 - Use parameterized queries through ActiveRecord
+- Be cautious with user-provided URLs and external content
 
 ## File Organization
 
