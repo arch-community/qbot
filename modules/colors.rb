@@ -350,4 +350,5 @@ end
 ##
 # Color role assignment (reopened to include events)
 module Colors
+  include! ColorsEvents
 end

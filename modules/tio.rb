@@ -75,4 +75,5 @@ end
 ##
 # Try It Online support (reopened to include events)
 module Tio
+  include! TioEvents
 end

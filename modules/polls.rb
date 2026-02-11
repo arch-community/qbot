@@ -113,4 +113,5 @@ end
 ##
 # Poll commands (reopened to include events)
 module Polls
+  include! PollsEvents
 end
