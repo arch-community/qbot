@@ -144,7 +144,7 @@ bundle exec qbot
 
 - Add gems to `Gemfile`
 - Run `bundle install`
-- If using Nix: run `. scripts/binst` (source the script) in nix-shell to update `gemset.nix`
+- If using Nix: run `. scripts/binst` or `source scripts/binst` in nix-shell to update `gemset.nix`
 
 ## Common Patterns
 
