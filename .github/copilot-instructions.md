@@ -4,12 +4,35 @@
 
 qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. It's a modular bot that manages support channels, provides Arch Linux resources, and includes various utility features.
 
-## Architecture
+## ⚠️ Modernization in Progress
+
+**This project is undergoing significant modernization and refactoring.** When contributing new code or refactoring existing code, prioritize modern patterns and best practices over legacy conventions described below.
+
+### Target Architecture
+
+- **Dependency injection**: Migrate to `dry-system` for container-based dependency management
+- **Database layer**: Transition from ActiveRecord to `rom-rb` for more explicit, flexible data access
+- **Discord features**: Adopt modern Discord API features:
+  - Slash commands (application commands) over prefix commands
+  - Components v2 (buttons, select menus, modals) in favor of traditional embeds
+  - Interaction-based architecture for better UX
+
+### Modernization Goals
+
+- **Reduce global state**: Rewrite modules to minimize and centralize global state; prefer dependency injection
+- **Improve error handling**: Implement consistent, comprehensive error handling patterns
+- **Define interfaces**: Document and formalize component interfaces and contracts
+- **Modern architecture**: Follow contemporary best practices for clean, maintainable architecture
+- **Maintain elegance**: Preserve the distinct, personal coding style with functional programming influences
+
+**Important**: When existing code conflicts with these modernization goals, prefer the modern approach. Legacy patterns should only be preserved when they represent genuinely good design choices.
+
+## Current Architecture (Legacy)
 
 - **Main executable**: `qbot` - Loads and initializes the bot
 - **Modules**: `modules/*.rb` - Each module contains bot commands and support functions
 - **Library code**: `lib/qbot/*.rb` - Shared helper methods and core functionality
-- **Database**: SQLite with ActiveRecord ORM
+- **Database**: SQLite with ActiveRecord ORM (migrating to rom-rb)
 - **Framework**: discordrb for Discord integration
 - **Configuration**: YAML files in `config/` directory
 - **Localization**: YAML files in `share/locales/` directory
@@ -24,13 +47,17 @@ qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. I
 - Use semantic block delimiters (braces for functional, do/end for procedural)
 - Prefer consistent indentation for arrays and method arguments
 
-### Module Development
+### Module Development (Legacy)
+
+**Note**: This describes the current legacy pattern. New modules should explore modern Discord interactions (slash commands, components) and dependency injection patterns.
 
 - Each module extends `Discordrb::Commands::CommandContainer`
 - Commands use the `command :name, { options... } do |event, *args|` pattern
 - Use `ServerConfig.extend_schema` to add per-server configuration options
 - Never hard-code names, IDs, or similar values
 - Module-level documentation should use YARD-style comments (`##`)
+
+**For new code**: Consider implementing slash commands and interaction handlers instead of prefix commands where appropriate.
 
 ### Code Style
 
@@ -46,6 +73,14 @@ qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. I
 - Use forwarding arguments `(...)` to pass all arguments to super or another method
   - Example: `def find_by_abbrev(...); super; end`
 
+### Design Philosophy
+
+- **Embrace functional programming**: Prefer immutable data, pure functions, and composition
+- **Minimize state**: Reduce and centralize mutable state; use dependency injection
+- **Clear interfaces**: Document contracts between components; prefer explicit over implicit
+- **Elegant expressiveness**: Write code with a distinct, personal style that is both readable and maintainable
+- **Pragmatic refactoring**: When refactoring, prioritize clean architecture and modern patterns over preserving legacy code
+
 ## Internationalization (i18n)
 
 - **All** user-facing strings must go through the `t()` helper method
@@ -57,12 +92,22 @@ qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. I
 
 ## Database
 
+**Note**: The project is migrating from ActiveRecord to rom-rb. New database code should explore rom-rb patterns.
+
+### Current (Legacy) ActiveRecord Patterns
+
 - Use ActiveRecord models in `lib/qbot/db/models/`
 - Define schemas and migrations in `lib/qbot/db/schema/`
 - Tables include: `ServerConfig`, `ColorRole`, `Query`, `Snippet`, `UserConfig`, etc.
 - Database initialization: run `Database.define_schema` in IRB console
 - Use concerns in `lib/qbot/db/concerns/` for shared model behavior
 - Extend `ServerConfig` schema with `ServerConfig.extend_schema do ... end`
+
+### Future (Target) rom-rb Patterns
+
+- Prefer explicit repositories and relations over ActiveRecord models
+- Separate persistence concerns from domain logic
+- Use rom-rb's relation and repository patterns for database access
 
 ## Testing and Quality Assurance
 
