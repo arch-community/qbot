@@ -58,7 +58,7 @@ module ArchRepos
     def populate_from_global_cache
       c = ArchRepos::DBCache.instance
 
-      c.cache.each_value { |db| populate_from_db(db) }
+      c.cache.each { |_, db| populate_from_db(db) }
     end
 
     def clear
@@ -72,10 +72,10 @@ module ArchRepos
     end
   end
 
-  IndexEntry = Data.define(:name, :description) {
+  IndexEntry = Data.define(:name, :description) do
     alias_method :id, :name
     alias_method :name_tok, :name
-  }
+  end
 
   Package = Struct.new(
     'Package',
@@ -123,10 +123,10 @@ module ArchRepos
     private def parse_desc(desc)
       field_re = /(?>%(\w+)%\n)((?:[^\n]+\n)+)/m
 
-      options =
+      options = \
         desc
-          .enum_for(:scan, field_re)
-          .each_with_object({}) { |(k, v), pkg|
+        .enum_for(:scan, field_re)
+        .each_with_object({}) { |(k, v), pkg|
           pkg[k.downcase.to_sym] = v.strip
         }
 
@@ -135,11 +135,16 @@ module ArchRepos
 
     private def tar_entry_pred(entry)
       # typeflag 0 indicates a regular file
-      entry.header.typeflag == '0' && entry.header.name.end_with?('/desc')
+      entry.header.typeflag == '0' \
+        && entry.header.name.end_with?('/desc')
     end
 
     private def parse_tar(tar)
-      tar.lazy.filter { tar_entry_pred _1 }.map { parse_desc(_1.read) }.force
+      tar
+        .lazy
+        .filter { tar_entry_pred _1 }
+        .map { parse_desc(_1.read) }
+        .force
     end
 
     def populate_data(io)
@@ -222,7 +227,7 @@ module ArchRepos
     end
 
     def update_all
-      @cache.each_value(&:update)
+      @cache.each { |_, db| db.update }
     end
 
     def package(name)

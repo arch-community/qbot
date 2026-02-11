@@ -12,8 +12,8 @@ require 'uri'
 class XKCD
   def self.random_id
     URI.open('https://dynamic.xkcd.com/random/comic/', allow_redirections: :all)
-      .base_uri.to_s
-      .split('/').last.to_i
+       .base_uri.to_s
+       .split('/').last.to_i
   end
 
   def self.parse_info(io) = JSON.parse(io.read).symbolize_keys

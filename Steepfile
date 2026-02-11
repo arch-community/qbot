@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 D = Steep::Diagnostic
 
 target :lib do

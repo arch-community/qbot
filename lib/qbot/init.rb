@@ -2,26 +2,26 @@
 
 require 'active_support/ordered_options'
 
+def find_prefix(message)
+  if message.channel.pm?
+    QBot.config.default_prefix
+  else
+    ServerConfig.for(message.server.id).server_prefix
+  end
+end
+
+def cmd_prefix(message)
+  pfx = find_prefix(message)
+
+  if message.text.start_with?("#{pfx} ")
+    message.text[(pfx.length + 1)..]
+  elsif message.text.start_with?(pfx)
+    message.text[pfx.length..]
+  end
+end
+
 # Initialization code for the bot
 module QBot
-  def self.find_prefix(message)
-    if message.channel.pm?
-      config.default_prefix
-    else
-      ServerConfig.for(message.server.id).server_prefix
-    end
-  end
-
-  def self.cmd_prefix(message)
-    pfx = find_prefix(message)
-
-    if message.text.start_with?("#{pfx} ")
-      message.text[(pfx.length + 1)..]
-    elsif message.text.start_with?(pfx)
-      message.text[pfx.length..]
-    end
-  end
-
   class << self
     attr_accessor :worker, :worker_thread, :scheduler
   end
@@ -34,8 +34,7 @@ module QBot
 
   def self.print_logo(version)
     logo = File.read File.join(__dir__, *%w[.. .. share logo.txt])
-    puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright,
-      :gray]}\n\n"
+    puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright, :gray]}\n\n"
 
     @log.info "starting up qbot, version #{version}"
   end
@@ -46,7 +45,9 @@ module QBot
   end
 
   def self.init_delayed_jobs
-    @worker = Delayed::Worker.new(exit_on_complete: false)
+    @worker = Delayed::Worker.new(
+      exit_on_complete: false
+    )
 
     @worker_thread = Thread.new do
       @worker.start
@@ -57,9 +58,8 @@ module QBot
   def self.init_bot
     @log.debug 'Init bot object'
 
-    token = @config.token || raise('No token in configuration; set token')
-    client_id = @config.client_id ||
-                raise('No client_id in configuration; set client_id')
+    token     = @config.token     || raise('No token in configuration; set token')
+    client_id = @config.client_id || raise('No client_id in configuration; set client_id')
 
     @bot = Discordrb::Commands::CommandBot.new(
       token:, client_id:, name: 'qbot',
@@ -116,7 +116,7 @@ module QBot
     @bot.sync
   end
   # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
-
+  
   def self.stop
     @worker.stop
     @scheduler.shutdown(:wait)

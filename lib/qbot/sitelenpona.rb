@@ -54,8 +54,8 @@ module SPGen
     PANGO
   end
 
-  def self.draw_text(text, options = nil, **)
-    options ||= DrawOptions.new(**)
+  def self.draw_text(text, options = nil, **kwargs)
+    options ||= DrawOptions.new(**kwargs)
 
     markup = gen_markup(text, options)
     image = generate_image(markup, options)

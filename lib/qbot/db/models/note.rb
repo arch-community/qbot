@@ -18,7 +18,9 @@ class Note < ActiveRecord::Base
   end
 
   def self.find_random!(query)
-    where(name: query.downcase).order('RANDOM()').take!
+    where(name: query.downcase)
+      .order('RANDOM()')
+      .take!
   end
 
   scope :page, ->(index, size: PAGE_SIZE) { limit(size).offset(index * size) }

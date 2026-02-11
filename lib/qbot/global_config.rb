@@ -51,7 +51,11 @@ module QBot
     end
 
     def self.read_from_file(path)
-      yaml = YAML.load_file(path, aliases: true, symbolize_names: true)
+      yaml = YAML.load_file(
+        path,
+        aliases: true,
+        symbolize_names: true
+      )
 
       raise 'Invalid config path' unless yaml
 

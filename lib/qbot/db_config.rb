@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module QBot
-  ##
-  # Database configuration helpers
   module Database
     def self.db_name(cfg)
       if cfg.type == 'sqlite3'

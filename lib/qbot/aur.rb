@@ -1,3 +1,2 @@
-# frozen_string_literal: true
+url = "https://aur.archlinux.org/packages-meta-ext-v1.json.gz"
 
-'https://aur.archlinux.org/packages-meta-ext-v1.json.gz'

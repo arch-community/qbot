@@ -7,4 +7,4 @@ end
 
 ActiveJob::Base.queue_adapter = :delayed_job
 
-QBot::Database.load_by_glob('jobs', '*.rb')
+load_by_glob('jobs', '*.rb')

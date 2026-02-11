@@ -24,9 +24,9 @@ module Polls
   end
 
   def self.poll_body(opts)
-    opts.map.with_index { |arg, idx|
+    opts.map.with_index do |arg, idx|
       "#{to_emoji(idx + 1)}#{"\u00A0" * 3}#{arg}"
-    }.join("\n")
+    end.join("\n")
   end
 
   def self.poll_footer(event, n_opts)
@@ -35,7 +35,7 @@ module Polls
     {
       icon_url: bot_user.avatar_url,
       text: "poll:#{n_opts} / " \
-            "#{event.author.distinct}"
+      "#{event.author.distinct}"
     }
   end
 
@@ -47,20 +47,20 @@ module Polls
   end
 
   def self.send_poll(event, channel, title, opts)
-    embed_msg = embed(target: channel) { |m|
+    embed_msg = embed(target: channel) do |m|
       # m.author = poll_author(event.author)
       m.title = title
       m.description = poll_body(opts)
       m.footer = poll_footer(event, opts.size)
-    }
+    end
 
     add_n_reacts(embed_msg, opts.size)
     embed_msg
   end
 
   def self.poll_allowed?(event, channel)
-    (event.author.permission?(:send_messages, channel) &&
-      event.channel == channel) ||
+    event.author.permission?(:send_messages, channel) &&
+      event.channel == channel ||
       event.author.permission?(:administrator)
   end
 
@@ -87,16 +87,14 @@ module Polls
   end
 end
 
-##
-# Event handlers for poll reaction validation
 module PollsEvents
   extend Discordrb::EventContainer
 
   reaction_add do |event|
     footer_text = event.message.embeds.first&.footer&.text
     if footer_text&.include?('type:poll') \
-        || (footer_text&.include?('poll:') \
-        && event.user.id != event.bot.bot_user.id)
+        || footer_text&.include?('poll:') \
+        && event.user.id != event.bot.bot_user.id
       matches = footer_text.match(/opts:(\d+)/) \
         || footer_text.match(/poll:(\d+)/)
       num = matches && matches[1]&.to_i
@@ -110,8 +108,6 @@ module PollsEvents
   end
 end
 
-##
-# Poll commands (reopened to include events)
 module Polls
   include! PollsEvents
 end

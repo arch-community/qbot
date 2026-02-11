@@ -27,24 +27,22 @@ module QBot
     end
 
     def config_option(parser)
-      desc = 'Specify location of the config file ' \
-             "(default #{@config_path})"
-      parser.on('-c', '--config <file>', String, desc) do |path|
+      parser.on('-c', '--config <file>', String,
+                "Specify location of the config file (default #{@config_path})") do |path|
         @config_path = path
       end
     end
 
     def state_dir_option(parser)
-      desc = 'Set the directory where state, such as databases, will be stored'
       parser.on('-s', '--state-dir <directory>', String,
-        desc) do |dir|
+                'Set the directory where state, such as databases, will be stored') do |dir|
         @state_dir = dir
       end
     end
 
     def console_option(parser)
       parser.on('-n', '--no-console',
-        'Do not start the qbot console') do |_nc|
+                'Do not start the qbot console') do |_nc|
         @no_console = true
       end
     end

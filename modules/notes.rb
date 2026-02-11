@@ -141,6 +141,7 @@ module Notes
 
     note.destroy!
     embed t('notes.del.success', note.name, note.id)
+
   rescue ActiveRecord::RecordNotFound
     embed t('notes.del.not-found', id)
   end

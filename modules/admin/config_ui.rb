@@ -68,8 +68,7 @@ module ConfigUI
 
   def self.option_help(cfg, option)
     embed do |m|
-      m.title = t('cfg.help.option.title', option.localized_name,
-        option.ui_path)
+      m.title = t('cfg.help.option.title', option.localized_name, option.ui_path)
       m.description = option.description
 
       m.fields = option_fields(cfg, option)
@@ -98,7 +97,9 @@ module ConfigUI
       m.title = t('cfg.set.success.title', option.ui_path) unless clear
       m.title = t('cfg.set.success.clear-title', option.ui_path) if clear
 
-      m.fields = [{ name: t('cfg.set.success.new-value'), value: val_text }]
+      m.fields = [
+        { name: t('cfg.set.success.new-value'), value: val_text }
+      ]
 
       m.footer = cfg_footer
     end
@@ -120,13 +121,13 @@ module ConfigUI
     option_set_success_embed(option, val, clear: true)
   end
 
-  def self.option_op(cfg, option, cmd, *)
+  def self.option_op(cfg, option, cmd, *args)
     verbs = %w[set clear reset]
     verb = verbs.abbrev[cmd]
 
     case verb
     when 'set'
-      option_set(cfg, option, *)
+      option_set(cfg, option, *args)
     when 'clear', 'reset'
       option_clear(cfg, option)
     else

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Remove the blacklist_entries table
 class RemoveBlacklist < ActiveRecord::Migration[7.0]
   def change
     remove_index :blacklist_entries, :server_id, if_exists: true

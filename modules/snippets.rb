@@ -54,7 +54,7 @@ module Snippets
     embed t('snippets.edit.not-found', name)
   end
   # rubocop: enable Metrics/MethodLength
-
+  
   def self.property_help(valid_properties)
     embed t('snippets.prop.help', valid_properties)
   end

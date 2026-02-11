@@ -4,8 +4,8 @@ require_relative 'admin/config_ui'
 
 ServerConfig.extend_schema do
   column_option :prefix,
-    TString.new(min_size: 1, max_size: 32),
-    default: QBot.config.default_prefix
+                TString.new(min_size: 1, max_size: 32),
+                default: QBot.config.default_prefix
 
   column_option :log_channel_id, TSnowflake.new(format: :channel) do
     on_save do |_, value, event, *|
@@ -13,6 +13,7 @@ ServerConfig.extend_schema do
 
       foreign = new_channel.server != event.server
       raise ArgumentError, t('cfg.log-channel.set.other-server') if foreign
+
     rescue Discordrb::Errors::UnknownChannel
       # UnknownChannel raised for invalid channel IDs
       embed t('cfg.log-channel.set.invalid-id', new_id)
