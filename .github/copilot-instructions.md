@@ -37,12 +37,14 @@ qbot is a Discord bot written in Ruby for the unofficial Arch Linux community. I
 - Use modern Ruby syntax (Ruby 3.2+)
 - Prefer pattern matching with `rails-pattern_matching` where appropriate
 - Use numbered block parameters (`_1`, `_2`) when appropriate
-  - Example: `@options.to_h { |e| [e.nickname || e.typeface, e] }`
+  - Example: `pkgs.first(5).map { package_field(_1) }`
+  - Example: `roles = records.pluck(:role_id).map { event.server.role(_1) }`
 - Inline access modifiers: `private def method_name`
 - Avoid parallel assignment
 - Use single-line method definitions with `=` for simple one-liners
   - Example: `def self.hex_code?(string) = string.match?(/^#?[[:xdigit:]]{6}$/)`
 - Use forwarding arguments `(...)` to pass all arguments to super or another method
+  - Example: `def find_by_abbrev(...); super; end`
 
 ## Internationalization (i18n)
 
