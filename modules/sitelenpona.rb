@@ -8,7 +8,7 @@ class TSPFontSelect < Configurable::OptionTypes::TEnum
     @options = SPGen.font_metadata
   end
   # rubocop: enable Lint/MissingSuper
-  
+
   def find_by_abbrev(...)
     @options_hash ||= @options.to_h { |e| [e.nickname || e.typeface, e] }
     @abbrev ||= @options_hash.keys.abbrev
@@ -32,7 +32,7 @@ class TSPFontSelect < Configurable::OptionTypes::TEnum
   end
 
   def describe_validation
-    super options.map(&:typeface)
+    super(options.map(&:typeface))
   end
 end
 
@@ -43,8 +43,7 @@ UserConfig.extend_schema do
     option :fg_color, TString.new, default: defaults.fg_color
     option :bg_color, TString.new, default: defaults.bg_color
 
-    option :fontsize,
-           TInteger.new(min: 1, max: 128), default: defaults.fontsize
+    option :fontsize, TInteger.new(min: 1, max: 128), default: defaults.fontsize
 
     option :fontface, TSPFontSelect.new, default: defaults.fontface
 
@@ -126,10 +125,7 @@ module Sitelenpona
       options.font_face = font.typeface
 
       filename = "#{event.author.id}.png"
-      file = NamedStringIO.new(
-        SPGen.draw_text(text, options),
-        path: filename
-      )
+      file = NamedStringIO.new(SPGen.draw_text(text, options), path: filename)
 
       event.send_file(file)
     end

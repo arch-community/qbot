@@ -65,7 +65,7 @@ rescue Errno::ENOENT => e
   exit
 end
 
-(base_name, base_flat), (cmp_name, cmp_flat) = \
+(base_name, base_flat), (cmp_name, cmp_flat) =
   ARGV.map { load_locale(_1).first.then { |k, v| [k, flatten_keys(v)] } }
 
 def find_all_ruby(root = prj_root)
@@ -148,8 +148,7 @@ key_matches = bar.iterate(find_all_ruby).map { |abs_path|
 
 puts Paint["Translations missing from #{base_name}:", :yellow, :bright]
 
-key_groups = key_matches
-  .reject { base_flat.keys.include? _1.key }
+key_groups = key_matches.reject { base_flat.keys.include? _1.key }
   .group_by(&:key)
 
 key_groups.each do |key, matches|

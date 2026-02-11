@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Remove unused tables and update schema defaults
 class SchemaReworks < ActiveRecord::Migration[7.0]
   def change
     change_table :server_configs do |t|

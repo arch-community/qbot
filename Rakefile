@@ -6,6 +6,8 @@ require 'jsi'
 
 require_relative 'lib/qbot'
 
+##
+# ActiveRecord Rake task configuration
 module ARConfig
   include ActiveRecord::Tasks
 
@@ -31,7 +33,7 @@ module ARConfig
     DatabaseTasks.db_dir = File.join(__dir__, *%w[lib qbot db])
     DatabaseTasks.root = __dir__
 
-    DatabaseTasks.migrations_paths = \
+    DatabaseTasks.migrations_paths =
       File.join(__dir__, *%w[lib qbot db migrate])
 
     DatabaseTasks.database_configuration = { development: db_config }

@@ -6,8 +6,8 @@ ServerConfig.extend_schema do
   option :use_bare_colors, TBoolean.new, default: false
 
   option :auto_assign_colors,
-         TEnum.new(%w[on_join on_screening_pass never]),
-         default: 'on_join'
+    TEnum.new(%w[on_join on_screening_pass never]),
+    default: 'on_join'
 end
 
 # rubocop: disable Metrics/ModuleLength
@@ -54,7 +54,7 @@ module Colors
     max_args: 1
   } do |event, target|
     is_valid = Colors.hex_code?(target)
-    next embed t('colors.closest.invalid-hex', target) unless is_valid 
+    next embed t('colors.closest.invalid-hex', target) unless is_valid
 
     closest = ColorRole.find_closest_on(server, target)
     embed t('colors.closest.found', closest.hex_code)
@@ -161,8 +161,7 @@ module Colors
     end
 
     def show_role_delete!(role, index)
-      message = \
-        t('colors.ccr.deleted', index, @old_count, role.name)
+      message = t('colors.ccr.deleted', index, @old_count, role.name)
 
       @embeds[:deleting][:description] += "#{message}\n"
 
@@ -183,7 +182,7 @@ module Colors
     end
 
     def show_role_create!(role, index)
-      message = \
+      message =
         t('colors.ccr.created', index, @new_count, role.mention, role.hex_code)
 
       @embeds[:creating][:description] += "#{message}\n"
@@ -348,6 +347,7 @@ module ColorsEvents
   end
 end
 
+##
+# Color role assignment (reopened to include events)
 module Colors
-  include! ColorsEvents
 end

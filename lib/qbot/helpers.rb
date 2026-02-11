@@ -2,7 +2,8 @@
 
 def embed(text = nil, target: nil)
   target ||= QBot.bot.embed_target
-  reply_target = target.is_a?(Discordrb::Events::MessageEvent) ? target.message : nil
+  is_event = target.is_a?(Discordrb::Events::MessageEvent)
+  reply_target = is_event ? target.message : nil
 
   target.send_embed('', nil, nil, false, false, reply_target) do |m|
     m.description = text if text
@@ -18,7 +19,8 @@ def log_embed(event, channel, user, extra)
     m.title = 'Command execution'
 
     m.fields = [
-      { name: 'Command', value: event.message.to_s.truncate(1024), inline: true },
+      { name: 'Command', value: event.message.to_s.truncate(1024),
+        inline: true },
       { name: 'User ID', value: user.id, inline: true }
     ]
 
@@ -29,8 +31,15 @@ def log_embed(event, channel, user, extra)
 end
 
 def console_log(event, extra = nil)
-  QBot.log.info("command execution by #{event.author.distinct} on #{event.server.id}: " \
-                "#{event.message}#{extra && "; #{extra}"}")
+  author = event.author.distinct
+  server = event.server.id
+  msg = event.message
+  extra_str = extra && "; #{extra}"
+
+  QBot.log.info(
+    "command execution by #{author} on #{server}: " \
+    "#{msg}#{extra_str}"
+  )
 end
 
 def log(event, extra = nil)

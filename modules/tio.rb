@@ -22,9 +22,7 @@ module Tio
 
     rc = doc.root.children
 
-    walk_tree(rc)
-      .filter { _1.type == :codespan }
-      .map(&:value)
+    walk_tree(rc).filter { _1.type == :codespan }.map(&:value)
   end
 
   command :tio, {
@@ -35,11 +33,11 @@ module Tio
     code, input = get_codespans(event.message.text)
 
     raw_res = TIO.run(lang, code, nil, input)[0]
-                 .encode('UTF-8', invalid: :replace, undef: :replace, replace: '�')
+      .encode('UTF-8', invalid: :replace, undef: :replace, replace: '�')
     res = raw_res.gsub('```', '\\```').gsub('@', "\\@\u200D")
-    msg = embed "```\n#{res}\n```" do |m|
+    msg = embed("```\n#{res}\n```") { |m|
       m.footer = { text: "tio:#{event.user.id}" }
-    end
+    }
 
     msg.create_reaction('❌')
   end
@@ -56,6 +54,8 @@ module Tio
   end
 end
 
+##
+# Event handlers for TIO module
 module TioEvents
   extend Discordrb::EventContainer
 
@@ -72,6 +72,7 @@ module TioEvents
   end
 end
 
+##
+# Try It Online support (reopened to include events)
 module Tio
-  include! TioEvents
 end
