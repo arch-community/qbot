@@ -21,7 +21,7 @@ bundle install
 ```
 
 If using Nix, enter the dev shell first (`nix develop` or `nix-shell shell.nix`)
-and source `scripts/binst` after touching the Gemfile to regenerate `gemset.nix`.
+and run `scripts/binst` after touching the Gemfile to regenerate `gemset.nix`.
 
 ### Linting (always run before submitting)
 
