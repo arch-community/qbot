@@ -21,3 +21,7 @@ var/**
 .git
 
 /.gem_rbs_collection/**
+
+# Database files
+db/*.sqlite3
+db/*.sqlite3-*

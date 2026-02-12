@@ -21,32 +21,34 @@ module Discordrb
   end
 end
 
-##
-# StringIO derivative that presents a fake path to discordrb
-class NamedStringIO < StringIO
-  attr_accessor :path
+module QBot
+  ##
+  # StringIO derivative that presents a fake path to discordrb
+  class NamedStringIO < StringIO
+    attr_accessor :path
 
-  def initialize(string = '', mode = nil, path: 'image.png')
-    @path = path
-    super(string, mode)
+    def initialize(string = '', mode = nil, path: 'image.png')
+      @path = path
+      super(string, mode)
+    end
   end
-end
 
-# reimplementing discordrb's ignore_bot with a whitelist
-module CommandEventIntercept
-  # rubocop: disable Style/OptionalBooleanParameter
-  def call(event, arguments, chained = false, check_permissions = true)
-    # rubocop:enable Style/OptionalBooleanParameter
-    return if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
+  # reimplementing discordrb's ignore_bot with a whitelist
+  module CommandEventIntercept
+    # rubocop: disable Style/OptionalBooleanParameter
+    def call(event, arguments, chained = false, check_permissions = true)
+      # rubocop:enable Style/OptionalBooleanParameter
+      return if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
 
-    super(event, arguments, chained, check_permissions)
+      super(event, arguments, chained, check_permissions)
+    end
   end
 end
 
 module Discordrb
   module Commands
     class Command
-      prepend CommandEventIntercept
+      prepend QBot::CommandEventIntercept
     end
   end
 end

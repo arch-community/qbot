@@ -38,7 +38,7 @@ end
 
 UserConfig.extend_schema do
   group :sitelenpona do
-    defaults = SPGen::DrawOptions.new
+    defaults = QBot::SPGen::DrawOptions.new
 
     option :fg_color, TString.new, default: defaults.fg_color
     option :bg_color, TString.new, default: defaults.bg_color
@@ -63,7 +63,7 @@ module Sitelenpona
     symbols = %i[fontface fontsize bg_color fg_color]
 
     keywords = symbols.to_h { [_1, cfg[:sitelenpona, _1]] }
-    SPGen::DrawOptions.new(**keywords)
+    QBot::SPGen::DrawOptions.new(**keywords)
   end
 
   def self.name_as_glyphs(member, options)
@@ -107,7 +107,7 @@ module Sitelenpona
   } do |event, _|
     text, options = get_sp_params(event)
 
-    file = NamedStringIO.new(
+    file = QBot::NamedStringIO.new(
       SPGen.draw_text(text, options),
       path: "#{event.author.id}.png"
     )
@@ -126,7 +126,7 @@ module Sitelenpona
       options.font_face = font.typeface
 
       filename = "#{event.author.id}.png"
-      file = NamedStringIO.new(
+      file = QBot::NamedStringIO.new(
         SPGen.draw_text(text, options),
         path: filename
       )

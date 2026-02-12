@@ -34,7 +34,7 @@ module Tio
   } do |event, lang, *_args|
     code, input = get_codespans(event.message.text)
 
-    raw_res = TIO.run(lang, code, nil, input)[0]
+    raw_res = QBot::TIO.run(lang, code, nil, input)[0]
                  .encode('UTF-8', invalid: :replace, undef: :replace, replace: '�')
     res = raw_res.gsub('```', '\\```').gsub('@', "\\@\u200D")
     msg = embed "```\n#{res}\n```" do |m|
@@ -50,7 +50,7 @@ module Tio
     min_args: 0,
     max_args: 1
   } do |_, cat|
-    langs = cat ? (TIO.languages_by_category(cat) || []) : TIO.languages
+    langs = cat ? (QBot::TIO.languages_by_category(cat) || []) : QBot::TIO.languages
 
     embed langs.keys.join(', ').truncate(2048)
   end

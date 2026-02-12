@@ -27,8 +27,12 @@ UserConfig.extend_schema do
   option :language, TLocaleEnum.new, default: I18n.default_locale
 end
 
-def t(tid, *fields)
-  I18n.translate!(tid) % fields
-rescue I18n::MissingTranslationData
-  "#{I18n.translate(tid)} #{fields.inspect}"
+module QBot::Helpers
+  module_function
+
+  def t(tid, *fields)
+    I18n.translate!(tid) % fields
+  rescue I18n::MissingTranslationData
+    "#{I18n.translate(tid)} #{fields.inspect}"
+  end
 end

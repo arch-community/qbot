@@ -14,6 +14,6 @@ module Languages
     # fix mention escapes
     text.gsub!('\\@', '@')
 
-    embed XSConverter.convert(text)
+    embed QBot::XSConverter.convert(text)
   end
 end

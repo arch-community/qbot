@@ -2,24 +2,6 @@
 
 require 'active_support/ordered_options'
 
-def find_prefix(message)
-  if message.channel.pm?
-    QBot.config.default_prefix
-  else
-    ServerConfig.for(message.server.id).server_prefix
-  end
-end
-
-def cmd_prefix(message)
-  pfx = find_prefix(message)
-
-  if message.text.start_with?("#{pfx} ")
-    message.text[(pfx.length + 1)..]
-  elsif message.text.start_with?(pfx)
-    message.text[pfx.length..]
-  end
-end
-
 # Initialization code for the bot
 module QBot
   class << self
@@ -27,6 +9,24 @@ module QBot
   end
 
   @scheduler = nil
+
+  def self.find_prefix(message)
+    if message.channel.pm?
+      QBot.config.default_prefix
+    else
+      ServerConfig.for(message.server.id).server_prefix
+    end
+  end
+
+  def self.cmd_prefix(message)
+    pfx = find_prefix(message)
+
+    if message.text.start_with?("#{pfx} ")
+      message.text[(pfx.length + 1)..]
+    elsif message.text.start_with?(pfx)
+      message.text[pfx.length..]
+    end
+  end
 
   def self.init_log
     @log = Discordrb::Logger.new(true)
@@ -93,7 +93,7 @@ module QBot
     @scheduler = Rufus::Scheduler.new
 
     @log.debug 'Init modules'
-    Modules.load_all
+    QBot::Modules.load_all
 
     @log.info 'Initializing connection...'
 
