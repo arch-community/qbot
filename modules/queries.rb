@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'queries/presenters'
+
 # Support channel management
 module Queries
   extend Discordrb::Commands::CommandContainer
@@ -20,11 +22,7 @@ module Queries
   end
 
   def self.query_field(query)
-    query => { id:, created_at:, text: }
-
-    name = t('queries.oq.entry-name', id, query.user.distinct, created_at)
-
-    { name:, value: text }
+    Presenters.query_field(query)
   end
 
   command :openqueries, {

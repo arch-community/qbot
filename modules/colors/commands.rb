@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'presenters'
+
 module Colors
   ##
   # Check if a string represents a hex color code, '#XXXXXX' or 'XXXXXX'
@@ -153,10 +155,7 @@ module Colors
 
     embed do |m|
       m.title = QBot::Helpers.t('colors.extra-roles.list.title')
-      m.description = roles.map { |role|
-        color_code = role.color.hex.rjust(6, '0')
-        "`##{color_code}`: `#{role.id}` #{role.mention}"
-      }.join("\n")
+      m.description = Presenters.extra_color_roles_description(roles)
     end
   end
 

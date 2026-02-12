@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'arch/presenters'
+
 # every day at 3 AM:
 QBot.scheduler.cron '0 3 * * *' do
   UpdateArchReposJob.perform_later
@@ -27,22 +29,14 @@ module Arch
   end
 
   def self.package_field(pkg)
-    pkg => {repo:, name:, version:, desc:}
-    date = pkg.builddate.strftime('%Y-%m-%d')
-
-    {
-      name: "#{repo}/#{name}",
-      value: <<~VAL
-        #{desc}
-        #{t('arch.ps.result-footer', version, date, pkg.web_url)}
-      VAL
-    }
+    Presenters.package_field(pkg)
   end
 
   def self.package_search_embed(query, pkgs)
+    data = Presenters.package_search_embed_data(query, pkgs)
     embed do |m|
-      m.title = t('arch.ps.title', query)
-      m.fields = pkgs.first(5).map { package_field(_1) }
+      m.title = data[:title]
+      m.fields = data[:fields]
     end
   end
 
@@ -61,32 +55,18 @@ module Arch
     package_search_embed(query, results)
   end
 
-  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def self.package_embed(pkg)
-    csize = pkg.csize.to_fs(:human_size)
-    isize = pkg.isize.to_fs(:human_size)
-    license = pkg.license.join(', ')
-
+    data = Presenters.package_embed_data(pkg)
     embed do |m|
-      m.color = 0x0088cc
-
-      m.title = "#{pkg.repo}/#{pkg.name}"
-      m.url = pkg.web_url
-      m.description = pkg.desc
-
-      m.fields = [
-        { name: t('arch.package.url'), value: pkg.url },
-        { name: t('arch.package.license'), value: license, inline: true },
-        { name: t('arch.package.csize'), value: csize, inline: true },
-        { name: t('arch.package.isize'), value: isize, inline: true },
-        { name: t('arch.package.packager'), value: pkg.packager }
-      ]
-
-      m.footer = { text: t('arch.package.version', pkg.version) }
-      m.timestamp = pkg.builddate
+      m.color = data[:color]
+      m.title = data[:title]
+      m.url = data[:url]
+      m.description = data[:description]
+      m.fields = data[:fields]
+      m.footer = data[:footer]
+      m.timestamp = data[:timestamp]
     end
   end
-  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
 
   command :package, {
     aliases: [:p],
