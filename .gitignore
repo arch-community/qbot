@@ -13,6 +13,7 @@ config/global.yml
 **/yt-credentials.yml
 
 var/**
+!var/.gitkeep
 
 .idea
 
