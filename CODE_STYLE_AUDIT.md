@@ -52,8 +52,14 @@ modernization goals (see `.github/copilot-instructions.md`).
 - **Monkey-patching as architecture.** `hooks.rb` aliases and overrides
   `Discordrb::Commands::CommandBot#execute_command` to inject locale, logging,
   embed target, and prefix resolution—four orthogonal concerns in one override.
-  `patches.rb` reopens `Respondable`, stubs `Rails.logger`/`Rails.env`, and
-  prepends `CommandEventIntercept`. These create action-at-a-distance bugs.
+  `patches.rb` reopens `Respondable` and prepends `CommandEventIntercept`.
+  Many of these patches are bandaid fixes for issues resolved in newer
+  `discordrb` releases; upgrading would eliminate several. There is also
+  [prior art](https://github.com/arch-community/qbot/blob/5aae9d82/lib/hook_registry.rb)
+  for a cleaner `HookRegistry` approach that was implemented previously but
+  not carried forward. The `Rails.logger`/`Rails.env` stubs in `patches.rb`
+  and `jobs.rb` are necessary shims—some dependencies expect those methods
+  even outside a Rails context.
 - **Top-level constants.** `Modules` (module loader), `XKCD`, `TIO`,
   `ArchWiki`, `XSConverter`, `TPDict`, `SPGen`, `NamedStringIO`,
   `CommandEventIntercept` are all defined outside any namespace.
@@ -69,8 +75,10 @@ modernization goals (see `.github/copilot-instructions.md`).
 - **ActiveRecord as infrastructure lock-in.** Database models (`ServerConfig`,
   `UserConfig`, `Note`, `Snippet`, `Query`, etc.) use ActiveRecord with
   `ActiveSupport::Concern` for concerns. The schema is defined both in
-  `schema.rb` (used as a seed) and in migrations, with no standard migration
-  runner integrated.
+  `schema.rb` (used as a seed) and in migrations. Rake tasks provide a
+  migration runner (`bundle exec rake db:migrate`), but there is no facility
+  to automatically run new migrations when an installation of qbot is
+  upgraded.
 - **116 RuboCop offenses** (72 autocorrectable) in actively maintained code.
 - **Zero test coverage.** No test framework, no tests, no CI test step.
 
@@ -142,9 +150,11 @@ the previous; earlier tiers should generally be completed first.
   modules/classes (`ARConfig`, migration classes, `TestJob`, `PollsEvents`,
   `TioEvents`, `ColorsEvents`, `QBot::Database` reopenings). Add brief `##`
   comments.
-- [ ] **Remove dead code.** `lib/qbot/aur.rb` is a single orphaned URL
-  string with no consumers. `modules/fun.rb` is an empty module stub (`# :(`).
-  Remove both (or replace with explicit TODOs if they represent planned work).
+- [ ] **Clean up stubs and dead code.** `lib/qbot/aur.rb` is a feature stub
+  (AUR package search); move it to a roadmap document or issue tracker
+  rather than leaving a bare URL string in the source tree.
+  `modules/fun.rb` is an empty module whose commands were removed over time;
+  either repopulate it or remove the empty shell.
 - [ ] **CI: add a test step.** Extend `.github/workflows/lint.yml` or add a
   `test.yml` to run the test suite on PRs.
 
@@ -159,7 +169,10 @@ the previous; earlier tiers should generally be completed first.
   implicit access.
 - [ ] **Namespace all top-level constants under `QBot`.** `Modules` →
   `QBot::Modules`, `XKCD` → `QBot::XKCD`, `TIO` → `QBot::TIO`, etc. This
-  eliminates collision risk and makes the codebase grep-friendly.
+  eliminates collision risk and makes the codebase grep-friendly. Also
+  consider renaming the concept currently called "module" (as in
+  `QBot::Modules`) to avoid overloading the Ruby keyword—e.g., "feature",
+  "plugin", or "extension".
 - [ ] **Move `find_prefix`/`cmd_prefix` into `QBot`.** These are only used
   by `init.rb` and `hooks.rb`.
 - [ ] **Move `load_by_glob` into `QBot::Database`.** Only used for loading
@@ -168,19 +181,22 @@ the previous; earlier tiers should generally be completed first.
   embed classes (`RCEmbed`, `CCREmbed`), and event handlers. Split into
   `colors/commands.rb`, `colors/embeds.rb`, `colors/events.rb`. The existing
   `colors/wrapped_color_role.rb` is a good model for this split.
-- [ ] **Extract embed formatting.** In `arch.rb`, `colors.rb`, `queries.rb`,
-  embed-building logic (field layout, truncation, color) is mixed with
-  business logic. Extract presenter methods/modules (e.g.,
-  `ArchPresenter.package_embed(pkg)`) that return embed hashes. Command
-  blocks call the presenter and pass the result to `embed`.
+- [ ] **Begin extracting a view layer.** In `arch.rb`, `colors.rb`,
+  `queries.rb`, response formatting (embed fields, truncation, layout) is
+  mixed with business logic inside command blocks. As a first step, extract
+  presenter methods/modules (e.g., `ArchPresenter.package_embed(pkg)`) that
+  return embed data structures. Long-term, this should evolve into a proper
+  view layer—analogous to web framework views but adapted for Discord's
+  mutable, stateful messages—that abstracts over embeds, Components v2,
+  and other Discord presentation features rather than coupling to any one.
 
 ### Tier 3 — Moderate refactors (prerequisite for Tier 4)
 
-- [ ] **Replace the `QBot` god-object with a `dry-system` container.** This
-  is the keystone change. Instead of `QBot.bot`, `QBot.log`,
-  `QBot.config`, etc. as mutable singleton attrs, register components in a
-  `dry-system` container. Dependencies are resolved via `dry-auto_inject`.
-  This directly aligns with the target architecture in
+- [ ] **Replace the `QBot` god-object with a `dry-system` container.** (WIP
+  on a local branch.) This is the keystone change. Instead of `QBot.bot`,
+  `QBot.log`, `QBot.config`, etc. as mutable singleton attrs, register
+  components in a `dry-system` container. Dependencies are resolved via
+  `dry-auto_inject`. This directly aligns with the target architecture in
   `copilot-instructions.md`.
 
   ```ruby
@@ -197,24 +213,31 @@ the previous; earlier tiers should generally be completed first.
   QBot::Import = QBot::Container.injector
   ```
 
-- [ ] **Replace monkey-patches with explicit wrappers.** Factor the four
+- [ ] **Replace monkey-patches with a hook registry.** Factor the four
   concerns in `hooks.rb`'s `execute_command` override (locale, logging,
-  embed target, prefix) into a named `prepend` module or, better, a
-  middleware chain. Replace the `Rails.logger`/`Rails.env` stubs with
-  direct `ActiveRecord` configuration.
-- [ ] **Adopt `dry-struct` or `Data.define` for typed configuration.**
-  Replace the JSI-based `GlobalConfig` with value objects. The current JSI
-  approach works but is opaque to tooling and pattern matching. `Data.define`
-  is already used well elsewhere in the codebase (`ColorLib`, `ArchWiki`);
-  extend that pattern to config.
+  embed target, prefix) into per-command hooks using a registry pattern.
+  There is [prior art](https://github.com/arch-community/qbot/blob/5aae9d82/lib/hook_registry.rb)
+  in the repo's history: a `HookRegistry` module that registered blocks run
+  for each command execution. Revive and modernize this approach rather than
+  using a generic event bus (which doesn't naturally fit per-command
+  middleware). Also upgrade `discordrb` to eliminate patches that are no
+  longer needed in newer releases.
+- [ ] **Improve the JSI-based configuration.** JSI should be retained
+  because it provides JSON Schema validation, and the schema is reused by
+  the Nix module (with plans for the Nix module to directly consume the
+  JSON Schema). Focus on improving the ergonomics: better error messages,
+  typed accessor methods, and documentation rather than replacing JSI with
+  `dry-struct` or `Data.define`.
 - [ ] **Extract service objects for complex operations.**
   `Colors.create_color_roles` does role deletion, cache invalidation, color
   ring generation, role creation, and progress reporting in one method.
   Extract a `ColorRoleGenerator` service that takes dependencies explicitly.
 - [ ] **Formalize module loading.** The current `load` + `constantize` +
   `include!` pipeline with file-scope side effects
-  (`ServerConfig.extend_schema`) is fragile. Consider a registration DSL or
-  module manifest that declares dependencies and config extensions explicitly.
+  (`ServerConfig.extend_schema`) is fragile. Replace with a local base
+  module/class for command containers that handles schema extension on load,
+  possibly backed by `dry-container`. This would eliminate the ad-hoc
+  `Kernel#load` jank and make the loading contract explicit.
 
 ### Tier 4 — Architectural (high effort, high reward)
 
@@ -222,11 +245,11 @@ the previous; earlier tiers should generally be completed first.
   with `rom-rb` repositories/relations/changesets. This aligns with the
   target architecture and naturally separates persistence from domain logic.
   Start with a single model (e.g., `Note`) as a proof of concept.
-- [ ] **Event-driven hook architecture.** Replace the monkey-patched
-  `execute_command` override with a proper event bus (`dry-events` or
-  `wisper`). Locale setting, logging, embed targeting, and prefix resolution
-  become independent subscribers. New cross-cutting concerns can be added
-  without touching the hook.
+- [ ] **Full view layer for Discord.** Build a view abstraction—analogous
+  to web framework views but adapted for Discord's mutable, stateful
+  messages—that can render to embeds, Components v2, or other Discord
+  presentation features. This decouples commands from any single Discord
+  UI primitive and enables progressive adoption of new Discord features.
 - [ ] **Migrate to slash commands.** The `discordrb` text-command API is
   deprecated upstream. Plan and execute a migration to Discord's interaction
   API (slash commands, autocomplete, modals). This is a large effort but
@@ -238,11 +261,11 @@ the previous; earlier tiers should generally be completed first.
   end-to-end using a test double for `CommandBot`. Test the config DSL, the
   `Configurable` concern, the module loading lifecycle, and `rom-rb`
   repositories.
-- [ ] **Standardize database migrations.** The current `schema.rb` is used
-  as a seed (`define_schema`), and migrations exist but aren't integrated
-  into a standard workflow. With `rom-rb`, adopt its migration system; or
-  if staying with ActiveRecord temporarily, integrate
-  `standalone_migrations` for a proper `db:migrate` flow.
+- [ ] **Auto-migrate on upgrade.** Rake tasks for `db:migrate` already
+  exist, but there's no mechanism to detect and run pending migrations
+  when a qbot installation is upgraded. With `rom-rb`, adopt its migration
+  system; or if staying with ActiveRecord temporarily, add an auto-migrate
+  step to the boot process or a CLI command.
 
 ---
 
