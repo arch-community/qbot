@@ -25,7 +25,7 @@ module Discordrb
         @embed_target = event
 
         # Expose the current prefix
-        @current_prefix = find_prefix(event.message)
+        @current_prefix = QBot.find_prefix(event.message)
 
         execute!(name, event, arguments, chained, check_permissions)
       end

@@ -26,7 +26,7 @@ module QBot
         name = cmd.shift
 
         begin
-          Modules.load_module name
+          QBot::Modules.load_module name
         rescue LoadError
           puts "Module not found: #{name}"
         end

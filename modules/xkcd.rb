@@ -7,7 +7,7 @@ module Xkcd
   def self.xkcd_embed(info)
     embed do |m|
       m.title = "xkcd: #{info[:safe_title]}"
-      m.url = XKCD.comic_url(info)
+      m.url = QBot::XKCD.comic_url(info)
       m.image = { url: info[:img] }
       m.footer = { text: info[:alt] }
     end
@@ -20,14 +20,14 @@ module Xkcd
   } do |_, *args|
     case args
     in [/^[lL]/, *]
-      xkcd_embed(XKCD.latest_info)
+      xkcd_embed(QBot::XKCD.latest_info)
     in [arg, *]
       num = parse_int(arg)
       next embed t('nyi') unless num
 
-      xkcd_embed(XKCD.get_info(num))
+      xkcd_embed(QBot::XKCD.get_info(num))
     else
-      xkcd_embed(XKCD.random_info)
+      xkcd_embed(QBot::XKCD.random_info)
     end
   end
 end

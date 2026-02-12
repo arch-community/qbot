@@ -8,7 +8,7 @@ module Tokipona
   def self.tpo_field(text) = { name: 'tokipona.org', value: text }
 
   def self.pu_desc(query)
-    dict = TPDict.instance
+    dict = QBot::TPDict.instance
     res = dict.query_pu(query)
 
     res || t('tokipona.nimi.not-found')
@@ -19,7 +19,7 @@ module Tokipona
     usage: '.nimi <word>',
     min_args: 1
   } do |event, *_|
-    dict = TPDict.instance
+    dict = QBot::TPDict.instance
     query = after_nth_word(1, event.text)
 
     tpo_res =
@@ -42,7 +42,7 @@ module Tokipona
     usage: '.tpo <word>',
     min_args: 1
   } do |event, *_|
-    dict = TPDict.instance
+    dict = QBot::TPDict.instance
     query = after_nth_word(1, event.text)
 
     res = dict.query_tp_inli(query)
@@ -62,7 +62,7 @@ module Tokipona
   } do
     embed do |m|
       m.title = t('tokipona.attrib.title')
-      m.description = t('tokipona.attrib.text', TPDict.instance.sourcelist)
+      m.description = t('tokipona.attrib.text', QBot::TPDict.instance.sourcelist)
     end
   end
 end

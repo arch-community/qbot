@@ -16,7 +16,7 @@ module Arch
     min_args: 1
   } do |event, *_|
     query = after_nth_word(1, event.text)
-    page = ArchWiki.find_page(query)
+    page = QBot::ArchWiki.find_page(query)
 
     next embed t('arch.wiki.no-results') unless page
 
