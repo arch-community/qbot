@@ -9,23 +9,58 @@ color roles, snippets, etc.) lives in its own module file.
 
 ## Build and Validation
 
+### Nix is Mandatory
+
+**Critical:** All development work MUST use Nix. qbot is deployed to production
+using Nix, making development/production parity essential.
+
+- **DO** use `nix develop`, `nix build`, and `nix run` for all tasks
+- **DO** fix Nix issues when they occur — never work around them
+- **DO NOT** use `bundle install`, `gem install`, or direct Ruby commands
+- **DO NOT** manually manage dependencies outside of Nix
+
+If Nix commands fail, the correct solution is to fix the Nix configuration,
+not to bypass Nix. Working around Nix breaks production parity and is not
+acceptable.
+
 ### Prerequisites
 
-- Ruby ~> 3.2 (see `Gemfile`)
-- Bundler
+- Nix with flakes enabled (see <https://nixos.org/download.html>)
+- Ruby ~> 3.2 is provided by the Nix environment
 
 ### Bootstrap
 
+**ALWAYS use Nix** for all development tasks. Do not use `bundle install` or
+other package managers directly.
+
 ```sh
-bundle install
+# Enter the development shell (provides all dependencies)
+nix develop
+
+# Or use the legacy nix-shell command
+nix-shell shell.nix
 ```
 
-If using Nix, enter the dev shell first (`nix develop` or `nix-shell shell.nix`)
-and run `scripts/binst` after touching the Gemfile to regenerate `gemset.nix`.
+After modifying the `Gemfile`, regenerate `gemset.nix` from within the Nix
+development shell:
+
+```sh
+nix develop
+scripts/binst
+```
+
+**Never** bypass Nix by running `bundle install` directly. All dependency
+management must go through Nix to maintain production parity.
 
 ### Linting (always run before submitting)
 
+**ALWAYS run linting from within the Nix development shell:**
+
 ```sh
+# Enter the Nix development shell first
+nix develop
+
+# Then run RuboCop
 bundle exec rubocop --parallel
 ```
 
@@ -46,15 +81,41 @@ format. CI enforces this via `commitlint`.
 ### Tests
 
 There is currently no automated test suite. Validate changes by running
-`bundle exec rubocop --parallel` and confirming no new offenses.
+linting from within the Nix development shell and confirming no new offenses.
+
+```sh
+nix develop
+bundle exec rubocop --parallel
+```
 
 ### Running the bot locally
+
+**ALWAYS run the bot using Nix:**
+
+```sh
+# Build the bot with Nix
+nix build
+
+# Run the built executable
+./result/bin/qbot
+
+# OR run directly with nix run
+nix run
+
+# OR run from the development shell
+nix develop
+./qbot
+```
+
+Before running, ensure you have a valid configuration:
 
 ```sh
 cp config/global.yml.example config/global.yml
 # Edit config/global.yml with valid Discord bot token and client_id
-bundle exec ruby qbot
 ```
+
+**Do not** use `bundle exec ruby qbot` directly — always use Nix to ensure
+consistency with the production environment.
 
 ## CI Workflows (`.github/workflows/`)
 
@@ -143,7 +204,12 @@ locale files).
 - Schema is defined in `lib/qbot/db/schema.rb`.
 - Migrations go in `lib/qbot/db/migrate/` with a date-prefixed filename.
 - Models live in `lib/qbot/db/models/`.
-- Run migrations via `bundle exec rake db:migrate`.
+- Run migrations from within the Nix development shell:
+
+```sh
+nix develop
+bundle exec rake db:migrate
+```
 
 ### Configuration
 
