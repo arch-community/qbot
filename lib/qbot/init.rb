@@ -34,7 +34,8 @@ module QBot
 
   def self.print_logo(version)
     logo = File.read File.join(__dir__, *%w[.. .. share logo.txt])
-    puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright, :gray]}\n\n"
+    puts "\n#{logo.chomp}   #{Paint["version #{version}", :italic, :bright,
+      :gray]}\n\n"
 
     @log.info "starting up qbot, version #{version}"
   end
@@ -45,9 +46,7 @@ module QBot
   end
 
   def self.init_delayed_jobs
-    @worker = Delayed::Worker.new(
-      exit_on_complete: false
-    )
+    @worker = Delayed::Worker.new(exit_on_complete: false)
 
     @worker_thread = Thread.new do
       @worker.start
@@ -116,7 +115,7 @@ module QBot
     @bot.sync
   end
   # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
-  
+
   def self.stop
     @worker.stop
     @scheduler.shutdown(:wait)

@@ -66,7 +66,7 @@ module Queries
     }
 
     queries.compact.each do |q|
-      can_close = \
+      can_close =
         event.user.id == q.user_id \
         || event.user.permission?(:manage_messages, event.channel)
 

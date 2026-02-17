@@ -13,7 +13,8 @@ module Discordrb
 
       # rubocop: disable Style/OptionalBooleanParameter
 
-      def execute_command(name, event, arguments, chained = false, check_permissions = true)
+      def execute_command(name, event, arguments, chained = false,
+                          check_permissions = true)
         # Set the user's locale for response strings
         uc_lang = UserConfig.for(event.user.id)[:language].to_sym
         I18n.locale = uc_lang

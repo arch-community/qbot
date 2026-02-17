@@ -18,7 +18,8 @@ def log_embed(event, channel, user, extra)
     m.title = 'Command execution'
 
     m.fields = [
-      { name: 'Command', value: event.message.to_s.truncate(1024), inline: true },
+      { name: 'Command', value: event.message.to_s.truncate(1024),
+        inline: true },
       { name: 'User ID', value: user.id, inline: true }
     ]
 

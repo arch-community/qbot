@@ -72,10 +72,10 @@ module ArchRepos
     end
   end
 
-  IndexEntry = Data.define(:name, :description) do
+  IndexEntry = Data.define(:name, :description) {
     alias_method :id, :name
     alias_method :name_tok, :name
-  end
+  }
 
   Package = Struct.new(
     'Package',
@@ -123,10 +123,10 @@ module ArchRepos
     private def parse_desc(desc)
       field_re = /(?>%(\w+)%\n)((?:[^\n]+\n)+)/m
 
-      options = \
+      options =
         desc
-        .enum_for(:scan, field_re)
-        .each_with_object({}) { |(k, v), pkg|
+          .enum_for(:scan, field_re)
+          .each_with_object({}) { |(k, v), pkg|
           pkg[k.downcase.to_sym] = v.strip
         }
 
@@ -140,11 +140,7 @@ module ArchRepos
     end
 
     private def parse_tar(tar)
-      tar
-        .lazy
-        .filter { tar_entry_pred _1 }
-        .map { parse_desc(_1.read) }
-        .force
+      tar.lazy.filter { tar_entry_pred _1 }.map { parse_desc(_1.read) }.force
     end
 
     def populate_data(io)

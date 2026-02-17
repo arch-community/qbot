@@ -9,7 +9,7 @@ module Configurable
   class Option
     attr_reader :root, :name, :type, :path, :default
 
-    def initialize(root, name, type, default: nil, &block)
+    def initialize(root, name, type, default: nil, &)
       @root = root
       @name = name
       @path = [*root, name]
@@ -19,7 +19,7 @@ module Configurable
 
       @hooks = Hash.new { |h, k| h[k] = [] }
 
-      instance_eval(&block) if block_given?
+      instance_eval(&) if block_given?
     end
 
     def add_hook(type, &hook)
