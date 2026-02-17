@@ -45,7 +45,7 @@ jobs:
         args: '**/*.md'
 
     - name: Check Run Reporter
-      uses: check-run-reporter/action@v2.11.2
+      uses: check-run-reporter/action@v2.13.1
       if: ${{ always() }}
       with:
         token: '2005ace6-d376-42b7-ac05-1d3b8e8e9d24'
