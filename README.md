@@ -21,6 +21,7 @@ Modules:
 - `help` provides a help command that displays information about commands.
 - `queries` helps manage support channels using a database of support questions.
 - `snippets` lets users invoke configurable text snippets.
+- `support` adds support channel related commands (forum posts).
 - `util` provides simple utility commands.
 - `xkcd` allows searching and posting XKCD comics.
 
