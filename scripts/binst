@@ -1,4 +1,4 @@
-BA="--ruby=ruby_3_1"
+BA="--ruby=ruby_3_2"
 
 rm -rf vendor
 rm -rf .bundle

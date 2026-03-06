@@ -1,118 +1,132 @@
 rec {
-	description = "qbot flake";
+  description = "qbot flake";
 
-	inputs = {
-		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-		# TODO: remove once nixpkgs#272969 is merged
-		rust-overlay.url = "github:oxalica/rust-overlay";
+    gitignore.url = "github:hercules-ci/gitignore.nix";
+    gitignore.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-		gitignore.url = "github:hercules-ci/gitignore.nix";
-		gitignore.inputs.nixpkgs.follows = "nixpkgs";
-	};
+  nixConfig = {
+    extra-substituters = "https://qbot.cachix.org";
+    extra-trusted-public-keys = "qbot.cachix.org-1:xkDcKYI5RucucGnOvREbPYj3+Ld1iVco0UFNQj1JVc8=";
+  };
 
-	nixConfig = {
-		extra-substituters = "https://qbot.cachix.org";
-		extra-trusted-public-keys =
-			"qbot.cachix.org-1:xkDcKYI5RucucGnOvREbPYj3+Ld1iVco0UFNQj1JVc8=";
-	};
+  outputs =
+    {
+      self,
+      nixpkgs,
+      gitignore,
+    }@flakes:
+    let
+      # forEachSystem : (Str -> Set Any) -> Set (Set Any);
+      forEachSystem =
+        let
+          inherit (nixpkgs.lib) genAttrs systems;
+        in
+        genAttrs systems.flakeExposed;
 
-	outputs = { self
-		, nixpkgs
-		, rust-overlay
-		, gitignore
-		}@flakes:
-	let
-		# forEachSystem : (Str -> Set Any) -> Set (Set Any);
-		forEachSystem = let
-			inherit (nixpkgs.lib) genAttrs systems;
-		in 
-			genAttrs systems.flakeExposed;
+      mkQBotArgs = pkgs: rec {
+        ruby = pkgs.ruby_3_2;
+        inherit (gitignore.lib) gitignoreSource;
+      };
 
-		mkQBotArgs = pkgs: rec {
-			ruby = pkgs.ruby_3_2;
+      commonEnv = system: rec {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
-			# TODO: remove once nixpkgs#272969 is merged
-			rustc = rust-overlay.packages.${pkgs.system}.rust;
-			cargo = rustc;
+        qbotArgs = mkQBotArgs pkgs;
 
-			inherit (gitignore.lib) gitignoreSource;
-		};
+        inherit (qbotArgs) ruby;
 
-		commonEnv = system: rec {
-			pkgs = import nixpkgs {
-				inherit system;
-				config.allowUnfree = true;
-			};
+        bundler = pkgs.bundler.override { inherit ruby; };
+        bundix = pkgs.bundix.override { inherit bundler; };
 
-			qbotArgs = mkQBotArgs pkgs;
+        qbot = pkgs.callPackage ./. qbotArgs;
+      };
 
-			inherit (qbotArgs) ruby;
+      # withCommon : (Dict Any -> Dict Any) -> Dict (Dict Any)
+      withCommon = fn: forEachSystem (system: fn (commonEnv system));
 
-			bundler = pkgs.bundler.override { inherit ruby; };
-			bundix = pkgs.bundix.override { inherit bundler; };
+    in
+    {
+      overlays = rec {
+        qbot = final: prev: {
+          qbot = final.callPackage ./. (mkQBotArgs final);
+        };
 
-			qbot = pkgs.callPackage ./. qbotArgs;
-		};
+        default = qbot;
+      };
 
-		# withCommon : (Dict Any -> Dict Any) -> Dict (Dict Any)
-		withCommon = fn: forEachSystem (system: fn (commonEnv system));
+      nixosModules = rec {
+        qbot = import nix/module.nix { inherit nixConfig; };
+        default = qbot;
+      };
 
-	in {
-		overlays = rec {
-			qbot = final: prev: {
-				qbot = final.callPackage ./. (mkQBotArgs final);
-			};
+      packages = withCommon (env: {
+        inherit (env) qbot;
+        default = env.qbot;
+      });
 
-			default = qbot;
-		};
+      devShells = withCommon (
+        env:
+        let
+          shell = import ./shell.nix {
+            inherit (env) pkgs;
+            pkg = env.qbot;
+          };
+        in
+        {
+          qbot = shell;
+          default = shell;
+        }
+      );
 
-		nixosModules = rec {
-			qbot = import nix/module.nix { inherit nixConfig; };
-			default = qbot;
-		};
+      apps = withCommon (
+        env:
+        let
+          inherit (env) pkgs bundler bundix;
 
-		packages = withCommon (env: {
-			inherit (env) qbot;
-			default = env.qbot;
-		});
+          update-deps = pkgs.writeShellApplication {
+            name = "update-deps";
 
-		devShells = withCommon (env: let
-			shell = import ./shell.nix {
-				inherit (env) pkgs;
-				pkg = env.qbot;
-			}; 
-		in {
-			qbot = shell;
-			default = shell;
-		});
+            runtimeInputs = [
+              bundler
+              bundix
+            ];
 
-		apps = withCommon (env: let
-			inherit (env) pkgs bundler bundix;
+            text = ''
+              					rm -f Gemfile.lock
 
-			update-deps = pkgs.writeShellApplication {
-				name = "update-deps";
+              					bundle lock \
+              						--add-platform ruby \
+              						--remove-platform x86_64-linux \
+              					|| bundle lock \
+              						--add-platform ruby
 
-				runtimeInputs = [ bundler bundix ];
+              					bundix
+              				'';
+          };
 
-				text = ''
-					rm -f Gemfile.lock
+        in
+        {
+          update-deps = {
+            type = "app";
+            program = nixpkgs.lib.getExe update-deps;
+          };
+        }
+      );
 
-					bundle lock \
-						--add-platform ruby \
-						--remove-platform x86_64-linux \
-					|| bundle lock \
-						--add-platform ruby
-
-					bundix
-				'';
-			};
-
-		in {
-			update-deps = {
-				type = "app";
-				program = nixpkgs.lib.getExe update-deps;
-			};
-		});
-	};
+      formatter = withCommon (
+        env:
+        env.pkgs.nixfmt-tree.override {
+          settings = {
+            excludes = [ "gemset.nix" ];
+          };
+        }
+      );
+    };
 }
