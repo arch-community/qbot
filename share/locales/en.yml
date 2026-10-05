@@ -140,6 +140,7 @@ en:
       begin: '🔄 Randomizing colors for %s users.'
       progress: 'Progress: %d of %d'
       success: '✅ Randomized colors for %s users.'
+      no-roles: '⚠️ There are no color roles on this server.'
 
   figlet:
     too-long: 'Your input is too long; sending it would require %d messages, but the limit is %d.'
@@ -152,23 +153,10 @@ en:
     not-found: "The command `%s` does not exist."
 
   polls:
-    cross-server: 'That channel is on a different server.'
-    too-many-opts: 'Your poll has too many options.'
-    title-too-long: 'The title of your poll is too long.'
+    deprecated: "⚠️ The poll commands have been removed in favour of Discord's built-in polls."
 
   queries:
-    query:
-      success: 'Query #%s has been created.'
-      failure: "⚠️  **Query could not be saved due to these errors:**\n%s."
-    oq:
-      title: 'Open queries'
-      no-results: 'No results'
-      deleted-after-30d: 'Queries are deleted after 30 days.'
-      entry-name: '#%s by %s at %s'
-    cq:
-      not-found: 'Query #%s not found.'
-      success: 'Deleted query #%s.'
-      no-perms: 'You do not have permission to delete query #%s.'
+    deprecated: '⚠️ The query commands have been removed in favour of Discord forum channels.'
 
   snippets:
     help: >-
@@ -237,6 +225,9 @@ en:
     tpo:
       not-found: 'This word was not found in the tokipona.org data.'
 
+  tio:
+    no-code: '⚠️ Put the code in a code block.'
+
   util:
     invite:
       title: "Invite %s"
@@ -249,6 +240,10 @@ en:
     slowmode:
       get_rate: "Slowmode is currently set to `%s` seconds."
       set_rate: "Slowmode has been set to `%s` seconds."
+
+  xkcd:
+    not-found: '❔ Comic %s not found.'
+    unavailable: '⚠️ Could not reach xkcd.com (%s).'
 
   types:
     string:
@@ -269,6 +264,7 @@ en:
       name: 'boolean'
       desc: 'Boolean value'
       valid: 'true or false'
+      invalid: 'this is not true or false'
     snowflake:
       name: 'Discord ID'
       desc: 'numerical ID of a Discord object'
@@ -312,6 +308,11 @@ en:
         input: 'Your input'
 
     reset:
+
+    log-channel:
+      set:
+        invalid-id: 'No channel with ID `%s` exists, or the bot cannot see it.'
+        other-server: 'Channel `%s` is not on this server.'
 
     option:
       unset: '_none_'

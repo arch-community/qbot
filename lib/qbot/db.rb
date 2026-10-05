@@ -2,14 +2,13 @@
 
 require_relative 'db/schema'
 
-ActiveRecord::Base.logger = QBot.log
-
 module QBot
   # Database interface
   module Database
     def self.init_db
       db_cfg = QBot.config.database
 
+      ActiveRecord::Base.logger = QBot.log
       ActiveRecord::Base.establish_connection ar_config(db_cfg)
 
       QBot.log.info 'Database connection initialized.'

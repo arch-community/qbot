@@ -38,7 +38,9 @@ module Notes
     usage: '.addnote <name> <text>',
     min_args: 2
   } do |event, *_|
-    rest = after_nth_word(1, event.text)
+    next embed t('no_dm') if event.channel.pm?
+
+    rest = args_after(event)
     args = parse_args_addnote(rest)
 
     next embed t('notes.add.invalid-args') unless args
@@ -64,13 +66,15 @@ module Notes
     usage: '.note <name>',
     min_args: 0
   } do |event, *_|
-    query = after_nth_word(1, event.text)
+    next embed t('no_dm') if event.channel.pm?
+
+    query = args_after(event)
     next unless query
 
     note = Note.for(event.server).find_random!(query)
 
     event.respond_wrapped(
-      "**`##{note.id}`**  📣  #{note.text}",
+      "**`##{note.id}`**  📣  #{note.text}".truncate(2000),
       allowed_mentions: false
     )
   rescue ActiveRecord::RecordNotFound
@@ -92,6 +96,8 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, page|
+    next embed t('no_dm') if event.channel.pm?
+
     page ||= 1
 
     server_notes = Note.for(event.server)
@@ -114,6 +120,8 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, id|
+    next embed t('no_dm') if event.channel.pm?
+
     note = Note.for(event.server).find_by!(id:)
 
     embed do |m|
@@ -133,6 +141,8 @@ module Notes
     max_args: 1,
     arg_types: [Integer]
   } do |event, id|
+    next embed t('no_dm') if event.channel.pm?
+
     note = Note.for(event.server).find_by!(id:)
 
     next embed t('notes.del.no-perms', id) \
@@ -152,6 +162,7 @@ module Notes
     min_args: 0,
     max_args: 0
   } do |event|
+    next embed t('no_dm') if event.channel.pm?
     next embed t('no_perms') \
       unless event.author.permission?(:administrator) ||
              event.author.id == QBot.config.owner

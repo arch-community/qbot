@@ -36,9 +36,8 @@ modules:
   - figlet
   - fun
   - help
-  - polls
-  - queries
-  - quotes
+  - languages
+  - notes
   - sitelenpona
   - snippets
   - tio

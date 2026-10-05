@@ -67,7 +67,7 @@ module Colors
 
       # If input looks like an integer n, return the nth role
       index = parse_int(query)
-      return roles[index] if index
+      return roles[index] if index&.between?(0, roles.size - 1)
 
       # otherwise:
       find_role_by_name(roles, query)
@@ -77,10 +77,10 @@ module Colors
     # Returns the color role with the closest color to the one given,
     # using the CIE76 distance metric in CIELAB color space
     def self.find_closest_on(server, target_hex)
-      target = ColorLib::CIELABColor.from_hex(target_hex)
+      target = QBot::ColorLib::CIELABColor.from_hex(target_hex)
 
       self.for(server).min_by { |cur|
-        compare = ColorLib::CIELABColor.from_hex(cur.hex_bare)
+        compare = QBot::ColorLib::CIELABColor.from_hex(cur.hex_bare)
         target.cie76(compare)
       }
     end
@@ -110,7 +110,7 @@ module Colors
         a = radius * Math.cos(this_angle)
         b = radius * Math.sin(this_angle)
 
-        ColorLib::CIELABColor(l: lightness, a:, b:).to_hex
+        QBot::ColorLib::CIELABColor.new(l: lightness, a:, b:).to_hex
       end
     end
 

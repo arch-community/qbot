@@ -30,8 +30,8 @@ module Configurable
     def before_save(...) = add_hook(:before_save, ...)
     def on_save(...) = add_hook(:on_save, ...)
 
-    def run_hooks(type, value, ...)
-      @hooks[type].each { _1.call(self, value, ...) }
+    def run_hooks(type, record, value, ...)
+      @hooks[type].each { _1.call(self, record, value, ...) }
     end
 
     def dot_path = @path.map(&:to_s).join('.')
@@ -62,19 +62,24 @@ module Configurable
       cwd = ensure_root(record)
       val = cwd[@name.to_s]
 
-      if val
+      if val.nil?
+        default_for_record(record)
+      else
+        run_hooks(:on_load, record, val, ...)
         yield val if block_given?
         val
-      else
-        @default
       end
     end
 
     def set_for_record(record, new_value, ...)
       cwd = ensure_root(record)
 
+      run_hooks(:before_save, record, new_value, ...)
+
       cwd[@name.to_s] = new_value
       record.save!
+
+      run_hooks(:on_save, record, new_value, ...)
 
       new_value
     end

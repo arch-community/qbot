@@ -9,7 +9,7 @@ module Languages
     usage: '.ipa <text>',
     min_args: 1
   } do |event, *_|
-    text = after_nth_word(1, event.text)
+    text = args_after(event)
 
     # fix mention escapes
     text.gsub!('\\@', '@')

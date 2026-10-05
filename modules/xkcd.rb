@@ -29,5 +29,12 @@ module Xkcd
     else
       xkcd_embed(XKCD.random_info)
     end
+  rescue OpenURI::HTTPError => e
+    not_found = num && e.io.status.first == '404'
+    next embed t('xkcd.not-found', num) if not_found
+
+    embed t('xkcd.unavailable', e.message)
+  rescue SocketError, Timeout::Error => e
+    embed t('xkcd.unavailable', e.message)
   end
 end

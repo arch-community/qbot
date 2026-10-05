@@ -40,6 +40,8 @@ UserConfig.extend_schema do
   group :sitelenpona do
     defaults = SPGen::DrawOptions.new
 
+    # TODO: validate colors; fg_color is interpolated into Pango markup
+    # unescaped. Validating with the pango gem needs updated nix dependencies.
     option :fg_color, TString.new, default: defaults.fg_color
     option :bg_color, TString.new, default: defaults.bg_color
 
@@ -91,7 +93,7 @@ module Sitelenpona
   end
 
   def self.get_sp_params(event)
-    input = after_nth_word(1, event.message.text)
+    input = args_after(event)
 
     options = draw_options(event.author)
     members = event.message.mentions.map { _1.on(event.server.id) }
@@ -105,6 +107,8 @@ module Sitelenpona
     usage: '.sp <text>',
     min_args: 1
   } do |event, _|
+    next embed t('no_dm') if event.channel.pm?
+
     text, options = get_sp_params(event)
 
     file = NamedStringIO.new(
@@ -120,10 +124,12 @@ module Sitelenpona
     usage: '.sppreview <text>',
     min_args: 1
   } do |event, _|
+    next embed t('no_dm') if event.channel.pm?
+
     text, options = get_sp_params(event)
 
     SPGen.font_metadata.each do |font|
-      options.font_face = font.typeface
+      options.fontface = font.typeface
 
       filename = "#{event.author.id}.png"
       file = NamedStringIO.new(

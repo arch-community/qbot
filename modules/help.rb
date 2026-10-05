@@ -35,7 +35,7 @@ module Help
     params = cmd.attributes[:parameters]
     return [] unless params
 
-    value = parameters.map { "`#{_1}`" }.join(', ')
+    value = params.map { "`#{_1}`" }.join(', ')
 
     [{ name: t('help.valid-params'), value:, inline: true }]
   end

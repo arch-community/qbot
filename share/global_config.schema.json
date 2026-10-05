@@ -126,6 +126,16 @@
 			"description": "Default command prefix",
 			"type": "string",
 			"default": "."
+		},
+
+		"bot_id_allowlist": {
+			"description": "IDs of bot users whose commands are accepted",
+			"type": "array",
+
+			"uniqueItems": true,
+			"items": { "type": "integer", "minimum": 0 },
+
+			"default": []
 		}
 	}
 }

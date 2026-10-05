@@ -16,6 +16,7 @@ end
 # Color role assignment
 module Colors
   extend Discordrb::Commands::CommandContainer
+  extend Discordrb::EventContainer
 
   ##
   # Check if a string represents a hex color code, '#XXXXXX' or 'XXXXXX'
@@ -40,6 +41,8 @@ module Colors
     usage: '.c <color>',
     min_args: 1
   } do |event, *args|
+    next embed t('no_dm') if event.channel.pm?
+
     new_role = ColorRole.search(event.server, args.join(' '))
     next embed t('colors.color.not-found') unless new_role
 
@@ -53,10 +56,14 @@ module Colors
     min_args: 1,
     max_args: 1
   } do |event, target|
+    next embed t('no_dm') if event.channel.pm?
+
     is_valid = Colors.hex_code?(target)
     next embed t('colors.closest.invalid-hex', target) unless is_valid 
 
-    closest = ColorRole.find_closest_on(server, target)
+    closest = ColorRole.find_closest_on(event.server, target)
+    next embed t('colors.color.not-found') unless closest
+
     embed t('colors.closest.found', closest.hex_code)
 
     Colors.assign_color_role(event.author, closest.role)
@@ -69,6 +76,8 @@ module Colors
     min_args: 0,
     max_args: 0
   } do |event, *_args|
+    next embed t('no_dm') if event.channel.pm?
+
     entries = ColorRole.for(event.server)
 
     lines = entries.map.with_index { |r, i| r.to_list_line(i, entries.count) }
@@ -110,6 +119,8 @@ module Colors
 
   def self.randomize_color_roles(server, &)
     roles = ColorRole.for(server).map(&:role)
+    return yield({ title: t('colors.rc.no-roles') }) if roles.empty?
+
     targets = find_targets(server, roles)
 
     m = RCEmbed.new(targets.count, &)
@@ -131,6 +142,7 @@ module Colors
     min_args: 0,
     max_args: 0
   } do |event|
+    next embed t('no_dm') if event.channel.pm?
     next embed t('no_perms') unless event.author.permission?(:manage_roles)
 
     randomize_color_roles(event.server) { event.send_embed('', _1) }
@@ -238,6 +250,7 @@ module Colors
     max_args: 3,
     arg_types: [Float, Float, Integer]
   } do |event, l, r, c|
+    next embed t('no_dm') if event.channel.pm?
     next embed t('no_perms') unless event.author.permission?(:manage_roles)
 
     create_color_roles(event.server, l, r, c) { event.send_embed('', _1) }
@@ -250,10 +263,12 @@ module Colors
     min_args: 0,
     max_args: 0
   } do |event|
+    next embed t('no_dm') if event.channel.pm?
+
     records = ExtraColorRole.for(event.server)
     next embed t('colors.extra-roles.list.empty') if records.empty?
 
-    roles = records.pluck(:role_id).map { event.server.role(_1) }
+    roles = records.pluck(:role_id).filter_map { event.server.role(_1) }
 
     embed do |m|
       m.title = t('colors.extra-roles.list.title')
@@ -272,6 +287,7 @@ module Colors
     max_args: 1,
     arg_types: [Discordrb::Role]
   } do |event, role|
+    next embed t('no_dm') if event.channel.pm?
     next embed t('colors.extra-roles.bad-role') unless role
 
     ExtraColorRole.for(event.server).create(role_id: role.id)
@@ -288,6 +304,7 @@ module Colors
     max_args: 1,
     arg_types: [Discordrb::Role]
   } do |event, role|
+    next embed t('no_dm') if event.channel.pm?
     next embed t('colors.extra-roles.bad-role') unless role
 
     ExtraColorRole.for(event.server).find_by!(role_id: role.id).destroy
@@ -308,9 +325,11 @@ module ColorsEvents
     PendingMember.for(event.server).destroy_by(user_id: event.user.id)
   end
 
-  def give_random_color(server, user)
-    new_role = Colors::ColorRole.for(server).sample.role
-    user.add_role(new_role)
+  def self.give_random_color(server, user)
+    roles = Colors::ColorRole.for(server)
+    return if roles.empty?
+
+    user.add_role(roles.sample.role)
   end
 
   member_join do |event|

@@ -11,7 +11,7 @@ module Bottom
     usage: '.b <text>',
     min_args: 1
   } do |event, *_|
-    text = after_nth_word(1, event.text)
+    text = args_after(event)
     embed Bottom.encode text
   end
 
@@ -21,7 +21,7 @@ module Bottom
     usage: '.db <text>',
     min_args: 1
   } do |event, *_|
-    input = after_nth_word(1, event.text)
+    input = args_after(event)
     text = Bottom.decode(input).gsub('@', "\\@\u200D")
 
     embed text

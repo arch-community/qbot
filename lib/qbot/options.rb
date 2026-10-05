@@ -56,7 +56,7 @@ module QBot
 
     def version_option(parser)
       parser.on_tail('-v', '--version', 'Show version') do
-        puts "QBot #{@version}"
+        puts "QBot #{QBot.version}"
         exit
       end
     end

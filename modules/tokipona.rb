@@ -20,7 +20,7 @@ module Tokipona
     min_args: 1
   } do |event, *_|
     dict = TPDict.instance
-    query = after_nth_word(1, event.text)
+    query = args_after(event)
 
     tpo_res =
       dict.query_tp_inli(
@@ -43,7 +43,7 @@ module Tokipona
     min_args: 1
   } do |event, *_|
     dict = TPDict.instance
-    query = after_nth_word(1, event.text)
+    query = args_after(event)
 
     res = dict.query_tp_inli(query)
 

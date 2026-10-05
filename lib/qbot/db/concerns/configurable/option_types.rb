@@ -32,7 +32,9 @@ module Configurable
       end
 
       def read(input)
-        raise TypeError if (input.size < @min_size) || (@max_size&.< input.size)
+        too_short = input.size < @min_size
+        too_long = @max_size&.< input.size
+        raise ArgumentError, describe_validation if too_short || too_long
 
         input
       end
@@ -141,8 +143,17 @@ module Configurable
     ##
     # Booleans
     class TBoolean
+      include OptionType
+
+      TRUE_WORDS = %w[true t yes y on 1].freeze
+      FALSE_WORDS = %w[false f no n off 0].freeze
+
       def read(value)
-        ActiveModel::Type::Boolean.new.cast(value.chomp.downcase)
+        input = value.strip.downcase
+        return true if TRUE_WORDS.include?(input)
+        return false if FALSE_WORDS.include?(input)
+
+        raise ArgumentError, t('types.boolean.invalid')
       end
 
       def format_value(value) = value.to_s.downcase
@@ -155,6 +166,8 @@ module Configurable
     ##
     # Enums, lets you select one value from a list
     class TEnum
+      include OptionType
+
       attr_reader :options
 
       def initialize(options)

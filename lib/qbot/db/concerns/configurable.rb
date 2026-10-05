@@ -16,7 +16,7 @@ module Configurable
     end
 
     def option(*path)
-      @schema.dig(*path)
+      schema.dig(*path)
     end
 
     def extend_schema(&)
@@ -27,12 +27,19 @@ module Configurable
     end
   end
 
+  private def resolve_option(path)
+    option = self.class.option(*path)
+    raise ArgumentError, "unknown option #{path.inspect}" if option.nil?
+
+    option
+  end
+
   def get_option(path, ...)
-    self.class.option(*path).get_for_record(self, ...)
+    resolve_option(path).get_for_record(self, ...)
   end
 
   def set_option(path, ...)
-    self.class.option(*path).set_for_record(self, ...)
+    resolve_option(path).set_for_record(self, ...)
   end
 
   def [](*path, **rest)

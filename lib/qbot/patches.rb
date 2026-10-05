@@ -37,7 +37,8 @@ module CommandEventIntercept
   # rubocop: disable Style/OptionalBooleanParameter
   def call(event, arguments, chained = false, check_permissions = true)
     # rubocop:enable Style/OptionalBooleanParameter
-    return if event.author.bot_account && !(QBot.config.bot_id_allowlist.include? event.author.id)
+    allowlist = Array(QBot.config.bot_id_allowlist)
+    return if event.author.bot_account && !allowlist.include?(event.author.id)
 
     super(event, arguments, chained, check_permissions)
   end

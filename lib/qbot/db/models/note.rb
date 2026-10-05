@@ -5,7 +5,7 @@ class Note < ActiveRecord::Base
   include ServerScoped
 
   validates :name, length: { maximum: 32 }
-  validates :text, length: { minimum: 1, maximum: 2000 }
+  validates :text, length: { minimum: 1, maximum: 1900 }
 
   PAGE_SIZE = 20
 
@@ -14,7 +14,7 @@ class Note < ActiveRecord::Base
   end
 
   def self.page_index_valid?(index, ...)
-    index.between?(0, page_count(...))
+    index.between?(0, [page_count(...) - 1, 0].max)
   end
 
   def self.find_random!(query)
