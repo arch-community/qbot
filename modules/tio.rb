@@ -4,17 +4,12 @@
 # Try It Online support
 module Tio
   extend Discordrb::Commands::CommandContainer
+  extend Discordrb::EventContainer
 
   def self.walk_tree(tree)
-    if tree.instance_of?(Array)
-      tree.each_with_object([]) do |elem, a|
-        a << elem.children ? walk_tree(elem.children) : elem.dup
-      end.flatten
-    elsif tree.children
-      walk_tree(tree.children)
-    else
-      elem.dup
-    end
+    tree.flat_map { |elem|
+      elem.children.empty? ? [elem] : walk_tree(elem.children)
+    }
   end
 
   def self.get_codespans(text)
@@ -23,16 +18,18 @@ module Tio
     rc = doc.root.children
 
     walk_tree(rc)
-      .filter { _1.type == :codespan }
+      .filter { %i[codespan codeblock].include?(_1.type) }
       .map(&:value)
   end
 
   command :tio, {
     help_available: true,
     description: 'Evaluates code using Try It Online',
-    usage: '.tio <lang> ```<code>``` [```input```]'
+    usage: '.tio <lang> ```<code>``` [```input```]',
+    min_args: 1
   } do |event, lang, *_args|
     code, input = get_codespans(event.message.text)
+    next embed t('tio.no-code') if code.nil?
 
     raw_res = TIO.run(lang, code, nil, input)[0]
                  .encode('UTF-8', invalid: :replace, undef: :replace, replace: '�')

@@ -11,7 +11,7 @@ module Figlet
     usage: '.figlet <text>',
     min_args: 1
   } do |event, *_|
-    text = after_nth_word(1, event.text)
+    text = args_after(event)
     input = QBot.breaking_word_wrap(text, 16)
 
     lines = input.lines.map { RubyFiglet::Figlet.new(_1).to_s }
@@ -35,6 +35,10 @@ module Figlet
     max = 3
     next embed t('figlet.too-long', msgs.count, max) if msgs.count > max
 
-    msgs.each { event.respond _1 }
+    msgs.each do |msg|
+      event.respond msg
+    end
+
+    nil
   end
 end

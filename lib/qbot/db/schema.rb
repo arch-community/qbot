@@ -6,7 +6,7 @@ module QBot
   module Database
     # rubocop: disable Metrics/MethodLength, Metrics/BlockLength, Metrics/AbcSize
     def self.define_schema
-      ActiveRecord::Schema.define(version: 2022_04_10) do # rubocop: disable Style/NumericLiterals
+      ActiveRecord::Schema.define(version: 2026_10_06) do # rubocop: disable Style/NumericLiterals
         create_table :server_configs do |t|
           t.integer :server_id, null: false
           t.text :prefix
@@ -19,14 +19,6 @@ module QBot
         create_table :user_configs do |t|
           t.integer :user_id, null: false
           t.json :contents, null: false, default: {}
-
-          t.timestamps
-        end
-
-        create_table :queries do |t|
-          t.integer :server_id, null: false
-          t.integer :user_id, null: false
-          t.string :text, null: false
 
           t.timestamps
         end
@@ -85,8 +77,8 @@ module QBot
 
         add_index :server_configs, :server_id, unique: true
         add_index :user_configs, :user_id, unique: true
-        add_index :queries, :server_id
         add_index :extra_color_roles, :server_id
+        add_index :extra_color_roles, %i[server_id role_id], unique: true
         add_index :snippets, :server_id
 
         add_index :notes, :server_id

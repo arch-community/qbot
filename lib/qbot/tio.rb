@@ -31,7 +31,7 @@ module TIO
   def self.languages_by_category(category) =
     languages.filter { |_, v| v['categories'].include? category.to_s }
 
-  def self.file(name, body) = "F#{name}\0#{body.size}\0#{body}"
+  def self.file(name, body) = "F#{name}\0#{body.bytesize}\0#{body}"
 
   def self.var(name, args) =
     "V#{name}\0#{args.size}\0#{args.map { |a| "#{a}\0" }.join}"
@@ -40,8 +40,8 @@ module TIO
     val = var('lang', [language]) + var('args', arguments)
 
     if flags
-      val += var('TIO_OPTIONS', flags) unless language.start_with? 'java-'
-      val += var('TIO_CFLAGS', flags)
+      val += var('TIO_OPTIONS', [flags]) unless language.start_with? 'java-'
+      val += var('TIO_CFLAGS', [flags])
     end
 
     val += file('.code.tio', code)

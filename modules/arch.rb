@@ -5,6 +5,12 @@ QBot.scheduler.cron '0 3 * * *' do
   UpdateArchReposJob.perform_later
 end
 
+# fill the search index on startup; package databases are only downloaded if
+# missing
+QBot.scheduler.in '5s' do
+  ArchRepos::Index.instance.populate_from_global_cache
+end
+
 # Arch Linux wiki and package searching commands.
 module Arch
   extend Discordrb::Commands::CommandContainer
@@ -15,7 +21,7 @@ module Arch
     usage: '.aw <query>',
     min_args: 1
   } do |event, *_|
-    query = after_nth_word(1, event.text)
+    query = args_after(event)
     page = ArchWiki.find_page(query)
 
     next embed t('arch.wiki.no-results') unless page
@@ -53,7 +59,7 @@ module Arch
     usage: '.ps <query>',
     min_args: 1
   } do |event, *_|
-    query = after_nth_word(1, event.text)
+    query = args_after(event)
 
     results = ArchRepos::Index.instance.pkg_query(query)
     next embed t('arch.ps.no-results') if results.empty?
