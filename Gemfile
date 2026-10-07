@@ -69,7 +69,6 @@ gem 'pluralkit-api', '>= 1.0.1'
 group :development do
   # linting
   gem 'rubocop', require: false
-  gem 'rubocop-checkstyle_formatter', require: false
 
   # lsp
   gem 'ruby-lsp', require: false
