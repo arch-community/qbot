@@ -17,11 +17,19 @@ en_kawaii:
     config: "Don't... please... I like how I am now! ৲( ˃੭̴˂)৴"
     userconfig: "You... you don't like how I am? (◕﹏◕)"
 
+    listsnippets: "Here's all my notes! (^◡^)"
+    getsnippet: "Tell me the name of a note and I'll read it out for you!"
+    snippets: "Let me save some of your notes for you! (^◡^)"
+
     color: "I love colors! \\\\(^◡^)/"
     closestcolor: "Hex codes too hard for me (⌣́_⌣̀) but I'll try my best for you!"
     listcolors: "Yay! Rainbow! \\\\(^◡^)/"
-    createcolorroles: "More colors for everyone! \\\\(^ヮ^)/"
+    gencolors: "More colors for everyone! \\\\(^ヮ^)/"
     randcolors: "Everyone should try new colors sometime. (^◡^)"
+
+    extracolorroles: "Show the list of all the extra colors people can choose from! (^◡^)"
+    addextracolorrole: "Let me add a role to the list of colors people can choose from \\\\(^◡^)/"
+    delextracolorrole: "Make me take a role off the list of colors people can choose from (◕﹏◕)"
 
     query: "Ask me a question and I'll ask all my friends about it! (｣^ﾛ^)｣"
     openqueries: "See the questions asked by my other friends! (⌣́_⌣̀) I can't help but maybe you can!"
@@ -52,20 +60,24 @@ en_kawaii:
       I've never heard of this "tonka poni" thing before (๑•﹏•)⋆* ⁑⋆*
     tpo: 'This is just the last one but less useful (=____=)'
     tpsources: 'I know who made pony tolka!'
-    
-    sp: "Converts what you say into funny letters I can't understand (˃̵ ֊ ˂̵ )"
-    sppreview: "You get to see what you typed in lots of funny fonts"
-    
-    ipa: "Converts what you say into funny letters I can't understand (˃̵ ֊ ˂̵ )"
 
     addnote: 'Here... you can borrow my sticky notes. I bought plenty ( ˶ˆᗜˆ˵ )'
     note: "Did you lose a sticky note? I'll help you look for it  (╭ರ_•́)"
     listnotes: 'I can sort your notes for you ✧( ु•⌄• )◞◟( •⌄• ू )✧'
     noteid: 'You have a funny way of sorting things （〃・・〃）'
     delnote: 'Remember to recycle your notes after! d(>_･ )'
+    exportnotes: "I'll pack up all your sticky notes into one file so you can take them with you (^◡^)"
 
     bottom: '_( ┐「ε: )_'
+    regress: "Turns the [Bottom](https://github.com/bottom-software-foundation/spec) stuff back into words I can read (^◡^)"
 
+    ipa: "Converts what you say into funny letters I can't understand (˃̵ ֊ ˂̵ )"
+
+    sp: "Converts what you say into funny letters I can't understand (˃̵ ֊ ˂̵ )"
+    sppreview: "You get to see what you typed in lots of funny fonts"
+
+    tio: "I'll ask [Try It Online](https://tio.run) to run your code for you! I hope it doesn't explode (◕﹏◕)"
+    tiolangs: "All the languages [Try It Online](https://tio.run) can speak! There's so many (o_O)"
 
   admin:
     eval:
@@ -74,32 +86,68 @@ en_kawaii:
   arch:
     wiki:
       no-results: "I looked everywhere but couldn't find it (*\\_ \\_)人"
+
     ps:
       no-results: "I looked everywhere but couldn't find it (*\\_ \\_)人"
       title: "Here's what I found for `%s` \\\\(^◡^)/"
-      version: "funny number"
-      last-update: "not ignored"
-      link: "click me"
+      result-footer: 'funny number **%s** | built **%s** | [click me](%s)'
+
+    package:
+      not-found: "I looked everywhere but couldn't find that package (*\\_ \\_)人"
+
+      url: 'Upstream URL'
+      license: 'License'
+      csize: 'Size'
+      isize: 'Installed'
+      packager: 'Packager'
+      version: 'funny number %s'
 
   colors:
     assign-role:
       already-have: "You already have that %s dummy!"
-      success: "Now your %s is **%s**, hooray \\\\(^◡^)/"
+      success: "Now your color is **%s**, hooray \\\\(^◡^)/"
+
     color:
       not-found: "Sorry, I couldn't find it (*\\_ \\_)人"
-      role-type-name: "your favourite color"
+
     closest:
-      found: "The closest color I could find was `%s`, I hope you like it (^◡^)"
+      invalid-hex: "That's not a hex code, silly! Try something like `#ff69b4` (ﾉ>ڡ<)"
+      found: "The closest one I could find was `%s`, I hope you like it (^◡^)"
+
     list:
       title: "The whole entire rainbow!"
+
+    extra-roles:
+      bad-role: "Sorry, I couldn't find that role (>.<)"
+
+      list:
+        title: "Even more colors! \\\\(^◡^)/"
+        empty: "There are no extra color roles yet. Add some so we can be even more colorful!"
+
+      add:
+        success: "%s is a color now! More colors for everyone \\\\(^◡^)/"
+        duplicate: "You already added %s dummy!"
+
+      del:
+        success: "I took %s off the list of colors. (◕﹏◕)"
+        not-found: "%s wasn't on the list of colors to begin with (・3・)"
+
     ccr:
-      deleting: "Removing color `%s` to make room for more!"
-      created: "I made role `%s` with color `%s`, hooray!"
-      success: "I made %s roles! (^◡^)"
+      deleting: "Removing %d old colors to make room for more!"
+      deleted: "`(%d/%d)` Removed old color `%s`."
+
+      creating: "Making %d new colors! (^◡^)"
+      created: "`(%d/%d)` I made role %s with color `%s`, hooray!"
+      success: "I made %d roles! (^◡^)"
+
     rc:
-      success: "I randomized colors for %s users! Now everyone can try new ones \\\\(^◡^)/"
+      begin: "Picking out new colors for %s people! (^◡^)"
+      progress: "Done %d of %d so far!"
+      success: "I picked out new colors for %s people! Now everyone can try new ones \\\\(^◡^)/"
+      no-roles: "There are no color roles here at all (◕﹏◕) Make some first!"
 
   figlet:
+    too-long: "That's too big even for me! It would take %d messages, but I can only send %d (◕﹏◕)"
 
   help:
     aliases: "(┐^◡^)┐ I know lots of words!"
@@ -109,33 +157,44 @@ en_kawaii:
     not-found: "Sorry, I don't have `%s` (*\\_ \\_)人"
 
   polls:
-    cross-server: "Sorry, I can't let you send it there because it's on a different server (*\\_ \\_)人"
-    too-many-opts: "No... not so many options (◕﹏◕)"
-    title-too-long: 'Sorry, that title is too long (◕﹏◕)'
+    deprecated: "The poll commands are gone now (◕﹏◕) Discord has its own polls, please use those instead!"
 
   queries:
-    query:
-      success: "Your query is #%s! Hooray \\\\(^◡^)/"
-      too-long: "That's... way too long (⁄ ⁄•⁄-⁄•⁄ ⁄)"
-    oq:
-      title: "All the questions!"
-      no-results: "Sorry, I looked everywhere but couldn't find it (*\\_ \\_)人"
-      deleted-after-30d: "Sorry, I have to delete queries in 30 days (*\\_ \\_)人"
-      entry-name: "#%s by %s at %s"
-    cq:
-      not-found: "Sorry, I couldn't find query #%s (*\\_ \\_)人"
-      success: "I removed query #%s! I hope their answer was solved (^◡^)"
-      no-perms: "Sorry! I can't let you delete query #%s. (*\\_ \\_)人"
+    deprecated: "The query commands are gone now (◕﹏◕) Please use a Discord forum channel instead!"
 
   snippets:
+    help: >-
+      You can add these words after the command and I'll know what to do (^◡^)
+        - `list`, `show`: I'll show you all my notes.
+        - `set`, `edit`: Give me a name and some text and I'll write a new note, or fix up the old one with that name.
+        - `remove`, `rm`, `delete`: Give me a name and I'll rip that page out, if I have it.
+        - `property`: Change the properties of a note.
+
+    edit:
+      success: "Your eraser worked super well on `%s`! I've written down the new notes too! (^◡^)"
+      not-found: "I must've forgotten to write `%s` down (ﾉ>ڡ<)"
+
+    remove:
+      success: "No!! My note page `%s` (╥︣﹏╥᷅) It's gone now, if I ever had it."
+
+    prop:
+      help: >-
+        These are the properties I know about: `%s`.
+        To set one, add the property, the name of the note to change, and the new value;
+        for example, `snippet property embed foo true`.
+
+      success: "I changed `%s` of note page `%s` to `%s`! \\\\(^◡^)/"
+
     list:
       none-found: "Looks like I forgot to write anything down (ﾉ>ڡ<)"
       title: "Here are all my notes (^◡^)"
+
     snippet:
       not-found: "I couldn't find this page, I'll look again (>.<)"
 
   notes:
     add:
+      invalid-args: "I don't understand what you gave me (๑•﹏•)"
       success: 'I saved **`%s`** as number `%s` ＿〆(。。)'
       failure: "I couldn't write that one down.\n%s."
     get:
@@ -149,7 +208,7 @@ en_kawaii:
       failure: "I couldn't find **`#%s`**. I think you lost it (・3・)"
     del:
       not-found: "I couldn't find **`#%s`**. Saves you some work I guess ,(≧▽≦)"
-      no-perms: "You can't delete that one (*\\_ \\_)人"
+      no-perms: "You can't delete `#%s`, that one isn't yours (*\\_ \\_)人"
       success: "I recycled **`%s`** (`#%s`). Don't ask for it back (눈‸눈)"
 
   tokipona:
@@ -159,6 +218,7 @@ en_kawaii:
         "toki pona was created by Sonja Lang. the pu dictionary is in the public domain.
         tokipona.org data was gathered by Sonja Lang and can be found at %s.
         other data was taken from ilo Salana, which is in the public domain."
+
       footer: 'Someone told me you should look at `.%s`'
 
     nimi:
@@ -168,193 +228,140 @@ en_kawaii:
     tpo:
       not-found: "You can't just make up words! I don't know what this means (ó﹏ò｡)"
 
-  xkcd:
+  tio:
+    no-code: "Put the code in a code block, pretty please (◕﹏◕)"
 
   util:
     invite:
       title: "Invite %s to your server! (^◡^)"
       desc: "[Click this link to invite %s to your server](%s) so we can be together even more (^◡^)"
+
     voicekick:
       failure: "I couldn't find an AFK channel, and you didn't give one (ó﹏ò｡)"
       success: "I scooted them to the new channel! (^◡^)"
 
-  uc:
-    help:
-      help: "You already know what this does, dummy! (๑˃́ꇴ˂̀)"
-      language: "Choose what language I talk to you in! I'm still the best language though (｡•̀◡-)✧"
-      sitelenpona: 'This is where you can set up the polka dots'
+    slowmode:
+      get_rate: "Right now everyone has to wait `%s` seconds between messages (^◡^)"
+      set_rate: "Okay... everyone has to wait `%s` seconds between messages now (◕﹏◕)"
 
-    language:
-      help:
-        list: "These are all the languages I can speak! \\\\(^◡^)/"
-        set: "No, I want to be with you forever! (╥︣﹏╥᷅)"
-        reset: "Do you really want to abandon me for English? (◕﹏◕)"
+  xkcd:
+    not-found: "I couldn't find comic %s anywhere (*\\_ \\_)人"
+    unavailable: "I couldn't reach xkcd.com (%s). Maybe it's taking a nap (◕﹏◕)"
 
-      list:
-        title: "I'm multilingual too!"
-
-      set:
-        not-found: "I couldn't find `%s`, but please don't leave me (◕﹏◕)"
-        success: "I'll start talking to you like this from now on! I hope we can get along! (^◡^)"
-
-      reset:
-        success: "Bye (╥︣﹏╥᷅). I'll start talking to you in `%s`."
-
-    sitelenpona:
-      help:
-        fgcolor: 'Whatever you choose is gonna be great! ♡(˶˃ᆺ˂˶)'
-        bgcolor: 'Use a color that goes well with the word color d(˚U˚)b'
-        fontface: 'Make the letters funnier (ᗒᗜᗕ)'
-        fontsize: 'Big letter big good ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚'
-        name: 'Change your name? (｡·  v  ·｡) ?'
-        glyphs: 'Do... do you like being pinged as much as I do? (⁄ ⁄•⁄-⁄•⁄ ⁄)'
-
-      fgcolor:
-        help:
-          show: 'I bet I can guess your favourite color ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚'
-          set: 'If I got it wrong you can tell me (っ◕‿◕)っ'
-          reset: "If you don't want me to know anymore (ㅠ﹏ㅠ)"
-      bgcolor:
-        help:
-          show: "This is the color that's always in the background (◕﹏◕)"
-          set: 'Show it some love by changing it! ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚'
-          reset: "It's always the third wheel (ㅠ﹏ㅠ)"
-
-      color:
-        show: 'Right now your %s is %s.'
-        set: "I changed your %s to %s and I'm sure it looks better now (｡•̀◡-)✧"
-
-      fontsize:
-        help:
-          show: 'How big are your letters? (•̪ o •̪)'
-          set: 'You can make them even bigger! ৻(  •̀ ᗜ •́  ৻)'
-          reset: 'Or you can make them normal again (¬_¬)'
-        show: "Right now you're %s big \\(>o<)/"
-        set: "Right now you're %s big \\(>o<)/"
-
-      fontface:
-        help:
-          show: 'What kind of letters are these? (๑•﹏•)⋆* ⁑⋆*'
-          list: "There's more of them??? (o_O) !"
-          set: "Let's just stick with one (*~*)"
-          reset: 'Or you can make them normal again ヾ(｡･ω･)ｼ'
-        show: 'You chose %s.'
-        set: 'You chose %s!'
-        list: "That's all of them... right? (×~× )"
-        instructions: 'Cast the ancient magic spell `%suc sp ff s <number>` to make the letters look different.'
-        invalid: "(๑•̀ㅁ•́๑)✧ You can't just make up fonts! I've never heard of this one."
-
-      name:
-        help:
-          show: 'This is your name (๑˃́ꇴ˂̀)'
-          set: 'You can always change it'
-          reset: 'Or put it back ( 〃● ₃● ) ~'
-        show: '৻(  •̀ ᗜ •́  ৻) I bet I can guess your name! Is it... ||%s||? '
-        set: "Your new name is %s! I'd use it but I never use names (ﾉ>ڡ<)"
-
-      glyphs:
-        help:
-          show: "There's more of these?! \\(˚☐˚”)/"
-          set: 'Looks like you can change these too ｢(ﾟﾍﾟ)'
-          reset: 'And change them back to what they were before'
-        show: >-
-          The "glyphs" you're using now are called... "%s" I guess ┐(´～｀;)┌
-        set: >-
-          The "glyphs" you're now using are called... "%s" I guess ┐(´～｀;)┌
+  types:
+    string:
+      name: 'string'
+      desc: 'some text'
+      valid:
+        between: 'between %d and %d characters long'
+        at-least: 'at least %d characters long'
+    integer:
+      name: 'integer'
+      desc: 'whole number'
+      valid:
+        between: 'between %d and %d'
+        at-least: 'at least %d'
+        at-most: 'at most %d'
+        any: 'any whole number'
+    boolean:
+      name: 'boolean'
+      desc: 'yes-or-no value'
+      valid: 'true or false'
+      invalid: "this isn't true or false, silly (ﾉ>ڡ<)"
+    snowflake:
+      name: 'Discord ID'
+      desc: 'the long number Discord gives to things'
+      valid:
+        channel: 'channel IDs'
+        user: 'user IDs'
+        role: 'role IDs'
+        bare: 'any IDs'
+    enum:
+      name: 'selection'
+      desc: 'pick one from a list'
+      invalid-key: "none of the choices are called that (๑•﹏•)"
+      invalid-index: "none of the choices have that number (๑•﹏•)"
 
   cfg:
-    usage: "Usage:"
-    subcmd: "subcommand"
-    options: "options"
-    avail_subcmd: "Available subcommands:"
-
     help:
-      help: "You already know what this does, dummy! (๑˃́ꇴ˂̀)"
-      log-channel: "Log when people use me to a specific channel"
-      prefix: "Set my command prefix so I don't accidentally run into other bots! (ﾉ>ڡ<)"
-      colors: "Change the settings of my color roles! I love colors!"
-      snippet: "Let me save some of your notes for you! (^◡^)"
-      rolegroup: "Set some assignable roles people can get from me!"
-      reaction: "Tell me to do something when a reaction occurs on a message!"
-      misc: "Setup some of my other options! \\\\(^◡^)/"
+      schema:
+        title: "Everything you can change in `%s` (^◡^)"
+        title-root: "Everything you can change about me (◕﹏◕)"
+        footer: "Add the name of an option to this command to look at it or change it!"
+        option: '`%s` (%s)'
+        group: '`%s` (a bunch of options)'
+
+      option:
+        title: 'Option: %s (`%s`)'
+        current: 'What it is now'
+        default: 'What it normally is'
+        type: 'Type'
+        valid: 'Things you can pick'
+        footer: "Add 'set' or 'clear' to this command to change it... if you really want to (◕﹏◕)"
+
+    set:
+      success:
+        title: "I changed `%s` for you! (^◡^)"
+        clear-title: "I put `%s` back how it was (^◡^)"
+        new-value: 'New value'
+
+      error:
+        title: "I couldn't set `%s` (◕﹏◕)"
+        explanation: 'Why not'
+        input: 'What you gave me'
+
+    reset:
 
     log-channel:
-      help:
-        set: "Set the channel where I'll tell you what people do with me! (^◡^)"
-        reset: "Disable the action log channel for now (◕﹏◕)"
-
       set:
-        success: "I'll tell you when people use me in <#%s>! (^◡^)"
-        other-server: "(๑•̀ㅁ•́๑)✧ I'm not falling for that! <#%s> is in a different server"
         invalid-id: "%s isn't even real 눈_눈"
-      reset:
-        success: "No more logging from me (◕﹏◕)"
+        other-server: "(๑•̀ㅁ•́๑)✧ I'm not falling for that! <#%s> is in a different server"
 
-    prefix:
-      help:
-        set: "Set my prefix for this server!"
-        reset: "Reset my prefix (◕﹏◕)"
+    option:
+      unset: '_nothing_'
 
-      saved: "My new prefix is `%s`!"
+      prefix:
+        name: 'Command prefix'
+        description: "Put this at the start of every command so I know you're talking to me! Long prefixes are a pain to type (◕﹏◕)"
 
-    colors:
-      help:
-        extra-color-role: "Add even more colors for people!"
-        bare-colors: "Are these even colors? I'll stick to words."
+      log_channel_id:
+        name: 'Log channel ID'
+        description: "The channel where I'll write down every command I run on this server. If the channel goes away, I'll DM the server owner about it."
 
-      extra-color-role:
-        help:
-          list: "Show the list of all the extra colors people can choose from! (^◡^)"
-          add: "Let me add a role (by ID) to the list of colors people can choose from \\\\(^◡^)/"
-          remove: "Make me remove a role (by ID) from the list of colors people can choose from (◕﹏◕)"
+      use_bare_colors:
+        name: 'Use bare colors'
+        description: "Whether roles named after a hex color code count as color roles, so I can hand them out randomly on join or let people pick them."
 
-        list:
-          no-roles: "There are no extra color roles yet. Add some so we can be even more colorful!"
-        add:
-          not-found: "Sorry, I couldn't find that role (>.<)"
-          non-unique: "You already added that role dummy!"
-          success: "Role `%s` (`%s`) is a color now! More colors for everyone \\\\(^◡^)/"
-        remove:
-          success: "I removed `%s` from the list of colors. (◕﹏◕)"
+      auto_assign_colors:
+        name: 'Auto-assign colors'
+        description: |
+          How I pick a random color for people when they join this server.
+          If it's `on_join`, I give them a color the moment they join!
+          If it's `on_screening_pass`, I wait until they pass Member Screening.
+          If it's `never`, I won't give them one (◕﹏◕)
 
-      bare-colors:
-        help:
-          enable: "Add roles named after hex colors to the color list (^◡^)"
-          disable: "Remove roles named after hex colors to the color list (◕﹏◕)"
-          show: "Am I supposed to add hex colors to the list? I forgot (ﾉ>ڡ<)"
+      language:
+        name: 'Language'
+        description: "The language I use when I talk to you! I'm still the best language though (｡•̀◡-)✧"
 
-        toggled-on: "Hex colors for everyone! \\\\(^◡^)/"
-        toggled-off: "I won't add hex colors to the list anymore (◕﹏◕)"
-        show: "Right now, this setting is `%s`! (^◡^)"
-
-    snippet:
-      help:
-        list: "Here's all my notes! (^◡^)"
-        add: "You want me to write this down too? (◕﹏◕)"
-        remove: "No! Don't rip out my notes! (╥︣﹏╥᷅)"
-        set: "You want to try your new eraser on my notes? (◕﹏◕)"
-
-      add:
-        non-unique: "I already wrote `%s` down dummy (๑˃́ꇴ˂̀)"
-        success: "Okay! I wrote `%s` down for whenever you need it (^◡^)"
-      edit:
-        not-found: "I must've forgotten to write `%s` down (ﾉ>ڡ<)"
-        success: "Your eraser worked super well on `%s`! I've written down the new notes too! (^◡^)"
-      remove:
-        success: "No!! My note page (╥︣﹏╥᷅)"
-      prop:
-        help:
-          embed: "(bool) Should I send my notes as an embed?"
-
-        success: "I changed `%s` of note page `%s` to `%s`! \\\\(^◡^)/"
-
-    rolegroup:
-
-    reaction:
-
-    misc:
-
-    nyi: "I'll have this ready for you soon! (^◡^)"
+      sitelenpona:
+        fg_color:
+          name: 'Foreground color'
+          description: "The color of the _sitelen pona_ text you render. Whatever you choose is gonna be great! ♡(˶˃ᆺ˂˶)"
+        bg_color:
+          name: 'Background color'
+          description: "The background behind the _sitelen pona_ text you render. Use a color that goes well with the word color d(˚U˚)b"
+        fontsize:
+          name: 'Font size'
+          description: "How big the _sitelen pona_ text you render is. Big letter big good ৻(•̀ ᗜ •́  ৻)⊹｡₊*⊹.˚"
+        fontface:
+          name: 'Font face'
+          description: "The letters I use to render _sitelen pona_ text. Use the command `spinfo` to see usage and license info for each one."
+        glyphs:
+          name: 'Glyphs'
+          description: "When others mention you in _sitelen pona_ text they render, it turns into this string of glyphs. How they look depends on the font they picked; uncommon words or ligatures won't work for everyone (◕﹏◕)"
 
   fun:
     ping: 'Why~ why did you ping me? (⁄ ⁄•⁄-⁄•⁄ ⁄)'
+
+  nyi: "I'll have this ready for you soon! (^◡^)"

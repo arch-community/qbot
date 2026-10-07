@@ -1,7 +1,7 @@
 de:
   no_perms: 'Dir fehlen die benötigten Berechtigungen, um diese Aktion auszuführen.'
   no_dm: 'Dieser Befehl kann nicht in einer Direktnachricht benutzt werden.'
-  log-channel-gone: 'Der Log-Channel existiert nicht mehr. Er wurde zurückgesetzt.'
+  log-channel-gone: 'Der Log-Kanal existiert nicht mehr. Er wurde zurückgesetzt.'
 
   locales:
     en: 'Englisch'
@@ -29,9 +29,9 @@ de:
     addextracolorrole: 'Fügt eine bestehende Rolle als zusätzliche Farbrolle hinzu'
     delextracolorrole: 'Entfernt eine zusätzliche Farbrolle'
 
-    query: 'Fügt eine Abfrage zur Liste der Abfragen hinzu'
-    openqueries: 'Zeigt alle offenen Abfragen an'
-    closequery: 'Schließt eine Abfrage anhand einer ID'
+    query: 'Fügt eine Anfrage zur Liste der Anfragen hinzu'
+    openqueries: 'Zeigt alle offenen Anfragen an'
+    closequery: 'Schließt eine Anfrage anhand einer ID'
 
     eval: 'Führt Code aus. Nur vom Botinhaber ausführbar.'
 
@@ -39,9 +39,9 @@ de:
     botrepo: "Direkter Link zum Github-Repositorium des Bots"
     avatar: "Gibt den Link zum Avatar eines Benutzers zurück"
     invite: 'Sendet einen Link, um den Bot zu deinem Server einzuladen'
-    voicekick: 'Verschiebt einen Benutzer in den AFK-Channel oder einen angegebenen Channel'
+    voicekick: 'Verschiebt einen Benutzer in den AFK-Kanal oder einen angegebenen Kanal'
 
-    slowmode: 'Legt die Slowmode-Verzögerung für den aktuellen Channel fest'
+    slowmode: 'Legt die Slowmode-Verzögerung für den aktuellen Kanal fest'
 
     archwiki: 'Durchsucht das Arch-Wiki'
     packagesearch: 'Durchsucht die Arch-Repositorien nach einem Paket'
@@ -86,21 +86,21 @@ de:
     ps:
       no-results: 'Keine Ergebnisse'
       title: 'Ergebnisse für **%s**'
-      result-footer: 'Version **%s** | erstellt **%s** | [Web-Link](%s)'
+      result-footer: 'Version **%s** | erstellt am **%s** | [Web-Link](%s)'
 
     package:
       not-found: '❔ Paket nicht gefunden.'
 
       url: 'Upstream-URL'
-      license: 'Lizenz'
-      csize: 'Größe'
-      isize: 'Installiert'
-      packager: 'Packager'
+      license: 'Lizenzen'
+      csize: 'Paket-Größe'
+      isize: 'Installations-Größe'
+      packager: 'Packer'
       version: 'Version %s'
 
   colors:
     assign-role:
-      already-have: 'ℹ️ Du hast diese Farbrolle bereits.'
+      already-have: 'ℹ️ Du hast die Farbrolle **%s** bereits.'
       success: '✅ Deine Farbe ist jetzt **%s**.'
 
     color:
@@ -156,7 +156,7 @@ de:
     deprecated: "⚠️ Die Umfragebefehle wurden entfernt. Nutze stattdessen die eingebauten Umfragen von Discord."
 
   queries:
-    deprecated: '⚠️ Die Abfragebefehle wurden entfernt. Nutze stattdessen Forum-Channels von Discord.'
+    deprecated: '⚠️ Die Anfragebefehle wurden entfernt. Nutze stattdessen Forumskanäle von Discord.'
 
   snippets:
     help: >-
@@ -233,8 +233,8 @@ de:
       desc: "[Klicke diesen Link, um %s in deinen Server einzuladen.](%s)"
 
     voicekick:
-      failure: "Kein AFK-Channel auf dem Server und kein Channel angegeben"
-      success: "Benutzer wurde in den Channel verschoben"
+      failure: "Kein AFK-Kanal auf dem Server und kein Kanal angegeben"
+      success: "Benutzer wurde in den Kanal verschoben"
 
     slowmode:
       get_rate: "Slowmode ist momentan auf `%s` Sekunden eingestellt."
@@ -268,7 +268,7 @@ de:
       name: 'Discord-ID'
       desc: 'numerische ID eines Discord-Objekts'
       valid:
-        channel: 'Channel-IDs'
+        channel: 'Kanal-IDs'
         user: 'Benutzer-IDs'
         role: 'Rollen-IDs'
         bare: 'beliebige IDs'
@@ -310,8 +310,8 @@ de:
 
     log-channel:
       set:
-        invalid-id: 'Es gibt keinen Channel mit der ID `%s`, oder der Bot kann ihn nicht sehen.'
-        other-server: 'Channel `%s` ist nicht auf diesem Server.'
+        invalid-id: 'Es gibt keinen Kanal mit der ID `%s`, oder der Bot kann ihn nicht sehen.'
+        other-server: 'Kanal `%s` ist nicht auf diesem Server.'
 
     option:
       unset: '_kein Wert_'
@@ -321,8 +321,8 @@ de:
         description: 'Wird am Anfang jedes Befehls an den Bot benötigt. Lange Präfixe können umständlich sein.'
 
       log_channel_id:
-        name: 'Log-Channel-ID'
-        description: 'Channel, in dem qbot jeden Befehl protokolliert, den er auf diesem Server ausführt. Wird der Channel ungültig, erhält der Serverinhaber DMs.'
+        name: 'Log-Kanal-ID'
+        description: 'Kanal, in dem qbot jeden Befehl protokolliert, den er auf diesem Server ausführt. Wird der Kanal ungültig, erhält der Serverinhaber DMs.'
 
       use_bare_colors:
         name: 'Hexcode-Rollen als Farben nutzen'
@@ -333,7 +333,7 @@ de:
         description: |
           Legt fest, wie der Bot Benutzern beim Beitritt zu diesem Server automatisch eine zufällige Farbe zuweist.
           Bei `on_join` wird eine Farbe zugewiesen, sobald sie beitreten.
-          Bei `on_screening_pass` wird eine Farbe zugewiesen, nachdem sie das Mitglieder-Screening bestanden haben.
+          Bei `on_screening_pass` wird eine Farbe zugewiesen, nachdem sie das Regeln-Screening bestanden haben.
           Bei `never` wird keine Farbe zugewiesen.
 
       language:

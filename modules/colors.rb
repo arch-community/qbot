@@ -28,7 +28,7 @@ module Colors
     all_roles = ColorRole.for(member.server).map(&:role)
 
     if member.role?(new_role)
-      embed t('colors.assign-role.already-have')
+      embed t('colors.assign-role.already-have', new_role.name)
     else
       member.modify_roles(new_role, all_roles, 'Change color')
       embed t('colors.assign-role.success', new_role.name)
