@@ -213,8 +213,6 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
-    rubocop-checkstyle_formatter (0.6.0)
-      rubocop (>= 1.14.0)
     ruby-graphviz (1.2.5)
       rexml
     ruby-lsp (0.13.2)
@@ -335,7 +333,6 @@ DEPENDENCIES
   rmagick
   rss
   rubocop
-  rubocop-checkstyle_formatter
   ruby-graphviz
   ruby-lsp
   ruby_figlet

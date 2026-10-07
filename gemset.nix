@@ -1080,19 +1080,6 @@
     };
     version = "1.30.0";
   };
-  rubocop-checkstyle_formatter = {
-    dependencies = ["rubocop"];
-    groups = ["development"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "15pkh0asbgb9scfcr0p24psyi062smrjzhrvs3jx0226rmqamd71";
-      target = "ruby";
-      type = "gem";
-    };
-    targets = [];
-    version = "0.6.0";
-  };
   ruby-graphviz = {
     dependencies = ["rexml"];
     groups = ["development"];
