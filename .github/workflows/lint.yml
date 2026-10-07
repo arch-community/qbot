@@ -15,6 +15,10 @@ concurrency:
 jobs:
   rubocop:
     runs-on: ubuntu-latest
+    env:
+      # only the development group is needed; the default group has
+      # native extensions (rmagick, rbnacl) that are slow to build
+      BUNDLE_WITHOUT: default
     steps:
       - uses: actions/checkout@v7
 
@@ -22,10 +26,6 @@ jobs:
         with:
           ruby-version: '3.2'
           bundler-cache: true
-        env:
-          # only the development group is needed; the default group has
-          # native extensions (rmagick, rbnacl) that are slow to build
-          BUNDLE_WITHOUT: default
 
       - run: bundle exec rubocop --parallel --format progress --format github
 
