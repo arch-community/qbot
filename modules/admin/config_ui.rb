@@ -3,144 +3,156 @@
 require 'abbrev'
 
 ##
-# Implements a user interface for configuration
+# Implements a user interface for configuration.
+#
+# A command such as `.cfg sitelenpona fontsize set 40` names a path into
+# the schema, followed by a verb and its arguments. The path resolves to
+# either a Group of options or a single Setting. Both know how to describe
+# themselves; a Setting also knows how to change its value.
 module ConfigUI
-  FoundOption = Data.define(:target, :path, :args)
-
-  def self.get_option(root, name = nil, *rest, path: [])
-    abbrevs = root.keys.abbrev
-    target_key = abbrevs[name&.strip&.downcase]
-    target = root[target_key]
-
-    if target.is_a? Hash
-      get_option(target, *rest, path: path << name)
-    elsif target.nil?
-      FoundOption[target: root, path:, args: nil]
-    else
-      FoundOption[target:, path:, args: rest]
-    end
-  end
-
-  def self.cfg_footer(text = 'type:cfg')
-    Discordrb::Webhooks::EmbedFooter.new(
-      text:,
-      icon_url: QBot.bot.profile.avatar_url
-    )
-  end
-
-  def self.schema_help_line(name, option)
-    if option.is_a?(Hash)
-      t('cfg.help.schema.group', name)
-    else
-      t('cfg.help.schema.option', name, option.type.short_name)
-    end
-  end
-
-  def self.schema_description(schema)
-    schema.map { |name, option| schema_help_line(name, option) }.join("\n")
-  end
-
-  def self.schema_help(schema, path)
-    display_path = path.join(':').prepend(':')
-
+  ##
+  # Every reply from the config UI has the same shape: a title, a few
+  # fields and a footer carrying the bot's icon.
+  def self.reply(title, fields: [], description: nil, footer: 'type:cfg')
     embed do |m|
-      m.title = t('cfg.help.schema.title', display_path) unless path.empty?
-      m.title = t('cfg.help.schema.title-root') if path.empty?
+      m.title = title
+      m.description = description
+      m.fields = fields
 
-      m.description = schema_description(schema)
-      m.footer = cfg_footer t('cfg.help.schema.footer')
+      icon_url = QBot.bot.profile.avatar_url
+      m.footer = Discordrb::Webhooks::EmbedFooter.new(text: footer, icon_url:)
     end
   end
 
-  def self.option_fields(cfg, option)
-    val = option.show_value(cfg)
-    default = option.show_default(cfg)
-    type = option.type.describe_self
-    valid = option.type.describe_validation
+  ##
+  # A group of options, found at `path` in the schema of `cfg`'s class.
+  class Group < Data.define(:entries, :path, :cfg)
+    # Follows the arguments down the schema for as long as they name
+    # groups and options, returning the node reached and the leftover
+    # arguments.
+    def resolve(name = nil, *rest)
+      child(name)&.resolve(*rest) || [self, []]
+    end
 
-    [
-      { name: t('cfg.help.option.type'), value: type },
-      { name: t('cfg.help.option.valid'), value: valid },
-      { name: t('cfg.help.option.current'), value: val, inline: true },
-      { name: t('cfg.help.option.default'), value: default, inline: true }
-    ]
-  end
+    def run(*) = help
 
-  def self.option_help(cfg, option)
-    embed do |m|
-      m.title = t('cfg.help.option.title', option.localized_name, option.ui_path)
-      m.description = option.description
+    # Same format as Configurable::Option#ui_path
+    def ui_path = path.map(&:inspect).join
 
-      m.fields = option_fields(cfg, option)
+    def summary_line = t('cfg.help.schema.group', path.last)
 
-      m.footer = cfg_footer t('cfg.help.option.footer')
+    def help
+      ConfigUI.reply(
+        title,
+        description: children.map(&:summary_line).join("\n"),
+        footer: t('cfg.help.schema.footer')
+      )
+    end
+
+    def title
+      return t('cfg.help.schema.title-root') if path.empty?
+
+      t('cfg.help.schema.title', ui_path)
+    end
+
+    def children = entries.keys.map { node(_1) }
+
+    def child(name)
+      key = entries.keys.abbrev[name&.strip&.downcase]
+      node(key) if key
+    end
+
+    private def node(key)
+      value = entries[key]
+      child_path = [*path, key]
+
+      if value.is_a?(Hash)
+        Group.new(value, child_path, cfg)
+      else
+        Setting.new(value, cfg)
+      end
     end
   end
 
-  def self.option_set_error_embed(option, new_val, error)
-    embed do |m|
-      m.title = t('cfg.set.error.title', option.ui_path)
+  ##
+  # A single option, bound to the record whose value it reads and writes.
+  class Setting < Data.define(:option, :cfg)
+    VERBS = %w[set clear reset].freeze
 
-      m.fields = [
-        { name: t('cfg.set.error.explanation'), value: error.to_s },
-        { name: t('cfg.set.error.input'), value: new_val.to_s.truncate(1024) }
+    def resolve(*args) = [self, args]
+
+    def run(verb = nil, *args)
+      case VERBS.abbrev[verb&.strip&.downcase]
+      when 'set' then set(args.join(' '))
+      when 'clear', 'reset' then clear
+      else help
+      end
+    end
+
+    def summary_line
+      t('cfg.help.schema.option', option.name, option.type.short_name)
+    end
+
+    def help
+      ConfigUI.reply(
+        t('cfg.help.option.title', option.localized_name, option.ui_path),
+        description: option.description,
+        fields: help_fields,
+        footer: t('cfg.help.option.footer')
+      )
+    end
+
+    def help_fields
+      type = option.type
+
+      [
+        { name: t('cfg.help.option.type'), value: type.describe_self },
+        { name: t('cfg.help.option.valid'), value: type.describe_validation },
+        { name: t('cfg.help.option.current'), value: option.show_value(cfg),
+          inline: true },
+        { name: t('cfg.help.option.default'), value: option.show_default(cfg),
+          inline: true }
       ]
+    end
 
-      m.footer = cfg_footer
+    def set(raw)
+      value = option.set_for_record(cfg, option.type.read(raw))
+
+      ConfigUI.reply(
+        t('cfg.set.success.title', option.ui_path),
+        fields: new_value_field(value)
+      )
+    rescue ArgumentError => e
+      set_error(raw, e)
+    end
+
+    def set_error(raw, error)
+      ConfigUI.reply(
+        t('cfg.set.error.title', option.ui_path),
+        fields: [
+          { name: t('cfg.set.error.explanation'), value: error.to_s },
+          { name: t('cfg.set.error.input'), value: raw.truncate(1024) }
+        ]
+      )
+    end
+
+    def clear
+      option.set_for_record(cfg, nil)
+
+      ConfigUI.reply(
+        t('cfg.set.success.clear-title', option.ui_path),
+        fields: new_value_field(option.get_for_record(cfg))
+      )
+    end
+
+    def new_value_field(value)
+      [{ name: t('cfg.set.success.new-value'), value: option.show(value) }]
     end
   end
 
-  def self.option_set_success_embed(option, val, clear: false)
-    val_text = option.show(val)
+  def self.config_command(schema, cfg, *)
+    node, rest = Group.new(schema, [], cfg).resolve(*)
 
-    embed do |m|
-      m.title = t('cfg.set.success.title', option.ui_path) unless clear
-      m.title = t('cfg.set.success.clear-title', option.ui_path) if clear
-
-      m.fields = [
-        { name: t('cfg.set.success.new-value'), value: val_text }
-      ]
-
-      m.footer = cfg_footer
-    end
-  end
-
-  def self.option_set(cfg, option, *args)
-    new_val = option.type.read(args.join(' '))
-    res = option.set_for_record(cfg, new_val)
-
-    option_set_success_embed(option, res)
-  rescue ArgumentError => e
-    option_set_error_embed(option, args.join(' '), e)
-  end
-
-  def self.option_clear(cfg, option, *)
-    option.set_for_record(cfg, nil)
-    val = option.get_for_record(cfg)
-
-    option_set_success_embed(option, val, clear: true)
-  end
-
-  def self.option_op(cfg, option, cmd, *args)
-    verbs = %w[set clear reset]
-    verb = verbs.abbrev[cmd]
-
-    case verb
-    when 'set'
-      option_set(cfg, option, *args)
-    when 'clear', 'reset'
-      option_clear(cfg, option)
-    else
-      option_help(cfg, option)
-    end
-  end
-
-  def self.config_command(schema, cfg, *args)
-    get_option(schema, *args) => target, path, args
-
-    return schema_help(target, path) if target.is_a?(Hash)
-
-    cmd = args.shift&.then { _1.strip.downcase }
-    option_op(cfg, target, cmd, *args)
+    node.run(*rest)
   end
 end
