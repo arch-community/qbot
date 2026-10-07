@@ -64,7 +64,7 @@ class TPDict
     if limit.zero? || data.size <= limit
       freqlist(data)
     else
-      "#{freqlist(data.first(8))}, #{overflow_text}"
+      "#{freqlist(data.first(limit))}, #{overflow_text}"
     end
   end
 

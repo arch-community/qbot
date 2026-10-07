@@ -30,6 +30,11 @@ module QBot
 
   def self.init_log
     @log = Discordrb::Logger.new(true)
+
+    # ActiveRecord compatibility
+    @log.singleton_class.define_method(:debug?) {
+      @enabled_modes.include?(:debug)
+    }
   end
 
   def self.print_logo(version)
@@ -104,11 +109,15 @@ module QBot
 
     @bot.run :async
 
-    trap :INT do
-      Thread.new { QBot.log.info 'Ctrl-C caught, exiting gracefully...' }.join
-      @worker.stop
-      QBot.bot.stop
-      exit 130
+    # Installed after the worker thread starts to override delayed_job's traps
+    %i[INT TERM].each do |sig|
+      trap sig do
+        Thread.new {
+          QBot.log.info "#{sig} caught, exiting gracefully..."
+          stop
+        }.join
+        exit(sig == :INT ? 130 : 143)
+      end
     end
 
     run_cli unless QBot.options.no_console

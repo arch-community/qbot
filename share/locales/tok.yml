@@ -141,6 +141,7 @@ tok:
       begin: 'pana kule tawa jan %d'
       progress: 'jan %d/%d li kule sin.'
       success: 'jan %d li kule sin.'
+      no-roles: 'poki kule ala li lon kulupu ni.'
 
   figlet:
     too-long: 'toki ni li suli ike ni: pana ona la, ilo li wile toki e sitelen %d. ilo li ken pana e sitelen %d taso.'
@@ -153,23 +154,10 @@ tok:
     not-found: 'nimi pali `%s` li lon ala.'
 
   polls:
-    cross-server: 'ilo li ken ala pana e wile sona ni tan ni: tomo toki ni li lon kulupu ante.'
-    too-many-opts: 'ilo li ken ala pana e wile sona ni tan mute suli anu ona.'
-    title-too-long: 'ilo li ken ala pana e wile sona ni tan suli ike pi nimi ona.'
+    deprecated: 'nimi pali ni li weka: ilo Siko li kama ken pali e ni.'
 
   queries:
-    query:
-      success: 'wile sona sina li kama lon lipu. nimi nanpa ona li `#%d`.'
-      failure: "⚠️  **wile sona sina li ken ala lon lipu tan ni:**\n%s."
-    oq:
-      title: 'lipu pi wile sona'
-      no-results: 'wile sona ala li lon'
-      deleted-after-30d: 'ilo li weka e wile sona ni: tenpo open ona la, tenpo suno 30 li kama li pini.'
-      entry-name: '`#%s` li tan %s lon tenpo %s'
-    cq:
-      not-found: 'wile sona `#%s` li lon ala lipu.'
-      success: 'wile sona `#%s` li kama weka.'
-      no-perms: 'sina ken ala weka e wile sona `#%s`.'
+    deprecated: 'nimi pali ni li weka: o kepeken tomo tomo (''forum channels'').'
 
   snippets:
     help: >-
@@ -237,6 +225,9 @@ tok:
     tpo:
       not-found: 'sona pi nimi ni li lon ala lipu tokipona.org.'
 
+  tio:
+    no-code: 'toki ilo o tawa poki ```'
+
   util:
     invite:
       title: 'o kama kepeken %s'
@@ -249,6 +240,10 @@ tok:
     slowmode:
       get_rate: 'tenpo awen toki li `%d`.'
       set_rate: 'tenpo awen toki li kama `%d`.'
+
+  xkcd:
+    not-found: 'sitelen XKCD nanpa %s li lon ala.'
+    unavailable: 'ilo li ken ala toki tawa lipu ''xkcd.com'' (%s).'
 
   types:
     string:
@@ -269,6 +264,7 @@ tok:
       name: 'lon anu ala'
       desc: 'lon anu ala'
       valid: '`true` (lon) anu `false` (ala)'
+      invalid: 'ni li `true` ala li `false` ala'
     snowflake:
       name: 'nanpa pi ilo Siko'
       desc: 'nimi nanpa pi ijo lon ilo Siko'
@@ -312,6 +308,11 @@ tok:
         input: 'insa wile sina'
 
     reset:
+
+    log-channel:
+      set:
+        invalid-id: 'ilo li lukin ala e tomo nanpa `%s`. ken la ona li lon ala.'
+        other-server: 'tomo `%s` li lon ala kulupu ni.'
 
     option:
       unset: '_ala_'

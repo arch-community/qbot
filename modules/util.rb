@@ -9,7 +9,7 @@ module Util
     usage: '.echo <string>',
     min_args: 1
   } do |event, *_|
-    text = after_nth_word(1, event.text)
+    text = args_after(event)
 
     event.respond_wrapped(text, allowed_mentions: false)
   end
@@ -85,11 +85,13 @@ module Util
     min_args: 1,
     max_args: 2
   } do |event, user, channel|
+    next embed t('no_dm') if event.channel.pm?
+
     can_kick = event.author.permission?(:move_members, event.channel)
     next event.respond t('no_perms') unless can_kick
 
     target_channel = channel || event.server.afk_channel
-    next embed.respond t('util.voicekick.failure') unless target_channel
+    next embed t('util.voicekick.failure') unless target_channel
 
     target_user = cmd_target(event, user)
     event.server.move(target_user, target_channel)

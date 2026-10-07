@@ -29,6 +29,6 @@ end
 
 def t(tid, *fields)
   I18n.translate!(tid) % fields
-rescue I18n::MissingTranslationData
+rescue I18n::MissingTranslationData, ArgumentError
   "#{I18n.translate(tid)} #{fields.inspect}"
 end

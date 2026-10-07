@@ -134,8 +134,11 @@ key_matches = bar.iterate(find_all_ruby).map { |abs_path|
       loc.key = "descriptions.#{val(name)}"
 
     # Find list of locales
-    in [[[:const, _, :I18n], :config], :available_locales=, [*, locales]]
-      loc.key = "locales.#{val(name)}"
+    in [_, :available_locales=, locales]
+      locales.children.each do |sym|
+        list << KeyLoc.new(**loc.to_h, key: "locales.#{sym.children.first}")
+      end
+      next
 
     else next
     end

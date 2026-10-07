@@ -6,7 +6,7 @@ module QBot
       if cfg.type == 'sqlite3'
         File.join(QBot.options.state_dir, cfg.db)
       else
-        conf.db
+        cfg.db
       end
     end
 

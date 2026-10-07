@@ -1,17 +1,30 @@
-name: Cachix
+name: Nix
+
 on:
-  pull_request:
   push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-to-cache:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v31
-    - uses: cachix/cachix-action@v15
-      with:
-        name: qbot
-        authToken: '${{ secrets.CACHIX_AUTHTOKEN }}'
-    - run: nix build
-    - run: ./result/bin/qbot --help
-    - run: echo OK
+      - uses: actions/checkout@v7
+
+      - uses: cachix/install-nix-action@v31
+
+      - uses: cachix/cachix-action@v17
+        with:
+          name: qbot
+          authToken: ${{ secrets.CACHIX_AUTHTOKEN }}
+
+      - run: nix build --print-build-logs
+
+      - run: ./result/bin/qbot --help

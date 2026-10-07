@@ -22,29 +22,41 @@ def log_embed(event, channel, user, extra)
       { name: 'User ID', value: user.id, inline: true }
     ]
 
-    m.fields << [{ name: 'Information', value: extra }] if extra
+    m.fields << { name: 'Information', value: extra } if extra
 
     m.timestamp = Time.now
   end
 end
 
 def console_log(event, extra = nil)
-  QBot.log.info("command execution by #{event.author.distinct} on #{event.server.id}: " \
-                "#{event.message}#{extra && "; #{extra}"}")
+  suffix = extra ? "; #{extra}" : ''
+
+  QBot.log.info("command execution by #{event.author.distinct} " \
+                "on #{event.server&.id}: #{event.message}#{suffix}")
+end
+
+def log_channel_gone(event)
+  ServerConfig.for(event.server.id)[:log_channel_id] = nil
+  event.server.owner.pm(t('log-channel-gone'))
+  nil
+end
+
+def find_log_channel(event)
+  chan_id = ServerConfig.for(event.server.id)[:log_channel_id]
+  return unless chan_id
+
+  event.bot.channel(chan_id) || log_channel_gone(event)
+rescue Discordrb::Errors::NoPermission
+  log_channel_gone(event)
 end
 
 def log(event, extra = nil)
   console_log(event, extra)
+  return unless event.server
+  return unless ServerConfig.option(:log_channel_id)
 
-  chan_id = ServerConfig.for(event.server.id)[:log_channel_id]
-  return unless chan_id
-
-  begin
-    lc = event.bot.channel(chan_id)
-    log_embed(event, lc, event.author, extra)
-  rescue Discordrb::Errors::UnknownChannel
-    event.server.owner.pm(t('log-channel-gone'))
-  end
+  channel = find_log_channel(event)
+  log_embed(event, channel, event.author, extra) if channel
 end
 
 # Listen for a user response
@@ -115,4 +127,9 @@ def after_nth_word(n_words, str)
   /mx
 
   str[re]
+end
+
+# Arguments of the current command, skipping the prefix and n words after it
+def args_after(event, n_words = 1)
+  after_nth_word(n_words, cmd_prefix(event.message))
 end

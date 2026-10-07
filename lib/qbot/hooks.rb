@@ -11,9 +11,20 @@ module Discordrb
 
       alias execute! execute_command
 
+      def command_exists?(name)
+        command = @commands && @commands[name]
+        command = command.aliased_command if command.is_a?(CommandAlias)
+        !command.nil?
+      end
+
       # rubocop: disable Style/OptionalBooleanParameter
 
       def execute_command(name, event, arguments, chained = false, check_permissions = true)
+        args = [name, event, arguments, chained, check_permissions]
+
+        # Called for every prefixed message, including unknown commands
+        return execute!(*args) unless command_exists?(name)
+
         # Set the user's locale for response strings
         uc_lang = UserConfig.for(event.user.id)[:language].to_sym
         I18n.locale = uc_lang
@@ -27,7 +38,7 @@ module Discordrb
         # Expose the current prefix
         @current_prefix = find_prefix(event.message)
 
-        execute!(name, event, arguments, chained, check_permissions)
+        execute!(*args)
       end
 
       # rubocop: enable Style/OptionalBooleanParameter

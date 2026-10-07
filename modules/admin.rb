@@ -8,20 +8,19 @@ ServerConfig.extend_schema do
                 default: QBot.config.default_prefix
 
   column_option :log_channel_id, TSnowflake.new(format: :channel) do
-    on_save do |_, value, event, *|
-      new_channel = event.bot.channel(value)
+    before_save do |_, record, value, *|
+      next if value.nil?
 
-      foreign = new_channel.server != event.server
-      raise ArgumentError, t('cfg.log-channel.set.other-server') if foreign
+      channel = QBot.bot.channel(value)
+      invalid = t('cfg.log-channel.set.invalid-id', value)
+      raise ArgumentError, invalid unless channel
 
-    rescue Discordrb::Errors::UnknownChannel
-      # UnknownChannel raised for invalid channel IDs
-      embed t('cfg.log-channel.set.invalid-id', new_id)
-      raise
+      next if channel.server.id == record.server_id
+
+      raise ArgumentError, t('cfg.log-channel.set.other-server', value)
     rescue Discordrb::Errors::NoPermission
       # NoPermission raised for channels qbot can't see
-      embed t('cfg.log-channel.set.other-server', new_id)
-      raise
+      raise ArgumentError, t('cfg.log-channel.set.other-server', value)
     end
   end
 end
@@ -41,7 +40,7 @@ module Admin
 
     next embed t('admin.eval.nope') unless a.id == QBot.config.owner
 
-    code = after_nth_word(1, e.text)
+    code = args_after(e)
     eval code
   end
   # rubocop: enable Lint/UselessAssignment, Security/Eval

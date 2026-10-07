@@ -1,7 +1,7 @@
 de:
   no_perms: 'Dir fehlen die benötigten Berechtigungen, um diese Aktion auszuführen.'
   no_dm: 'Dieser Befehl kann nicht in einer Direktnachricht benutzt werden.'
-  log-channel-gone: 'Der Log-Channel existiert nicht mehr. Er wurde zurückgesetzt.'
+  log-channel-gone: 'Der Log-Kanal existiert nicht mehr. Er wurde zurückgesetzt.'
 
   locales:
     en: 'Englisch'
@@ -16,17 +16,22 @@ de:
     userconfig: 'Benutzereinstellungen, die serverübergreifend wirken'
 
     listsnippets: 'Zeigt verfügbare Snippets an'
-    snippet: 'Zeigt einen Snippet an'
+    getsnippet: 'Sucht einen Snippet anhand des Namens und postet seinen Text'
+    snippets: 'Verwaltet Snippets'
 
     color: 'Legt deine Farbe fest'
     closestcolor: 'Gibt dir die ähnlichste Farbe zu einem gegebenen Hexcode'
     listcolors: 'Zählt alle verfügbaren Farben auf'
-    createcolorroles: 'Erstellt Rollen mit verschiedenen Farben'
+    gencolors: 'Erstellt Rollen mit verschiedenen Farben'
     randcolors: 'Gibt jedem Benutzer eine zufällige Farbe'
 
-    query: 'Fügt eine Abfrage zur Liste der Abfragen hinzu'
-    openqueries: 'Zeigt alle offenen Abfragen an'
-    closequery: 'Schließt eine Abfrage anhand einer ID'
+    extracolorroles: 'Listet zusätzliche Farbrollen auf'
+    addextracolorrole: 'Fügt eine bestehende Rolle als zusätzliche Farbrolle hinzu'
+    delextracolorrole: 'Entfernt eine zusätzliche Farbrolle'
+
+    query: 'Fügt eine Anfrage zur Liste der Anfragen hinzu'
+    openqueries: 'Zeigt alle offenen Anfragen an'
+    closequery: 'Schließt eine Anfrage anhand einer ID'
 
     eval: 'Führt Code aus. Nur vom Botinhaber ausführbar.'
 
@@ -34,6 +39,9 @@ de:
     botrepo: "Direkter Link zum Github-Repositorium des Bots"
     avatar: "Gibt den Link zum Avatar eines Benutzers zurück"
     invite: 'Sendet einen Link, um den Bot zu deinem Server einzuladen'
+    voicekick: 'Verschiebt einen Benutzer in den AFK-Kanal oder einen angegebenen Kanal'
+
+    slowmode: 'Legt die Slowmode-Verzögerung für den aktuellen Kanal fest'
 
     archwiki: 'Durchsucht das Arch-Wiki'
     packagesearch: 'Durchsucht die Arch-Repositorien nach einem Paket'
@@ -43,17 +51,29 @@ de:
 
     poll: 'Startet eine Umfrage'
 
-    figlet: 'Wandle Text in ASCII-Kunst um'
+    figlet: 'Wandelt Text in ASCII-Kunst um'
 
-    nimi: 'Durchsucht tokipona.org nach Definitionen eines Toki-Pona-Wortes'
-    tpo: 'Durchsucht tokipona.org nach Verwendungsangaben'
-    tpsources: 'Zeigt Attributinformation für Toki Pona an'
+    nimi: 'Sucht Definitionen für ein Toki-Pona-Wort'
+    tpo: 'Durchsucht tokipona.org nach Verwendungsangaben für ein Toki-Pona-Wort'
+    tpsources: 'Zeigt Quellenangaben für die Toki-Pona-Daten an'
 
     addnote: 'Fügt eine Notiz anhand eines Namens hinzu'
     note: 'Findet eine Notiz anhand eines Namens'
     listnotes: 'Listet alle Notizen dieses Servers auf'
     noteid: 'Findet eine Notiz anhand einer ID'
     delnote: 'Löscht eine Notiz'
+    exportnotes: 'Lädt eine JSON-Datei mit allen Notizen dieses Servers hoch'
+
+    bottom: 'Wandelt Unicode-Text in die [Bottom](https://github.com/bottom-software-foundation/spec)-Emoji-Kodierung um'
+    regress: 'Wandelt Text in der [Bottom](https://github.com/bottom-software-foundation/spec)-Emoji-Kodierung in Unicode um'
+
+    ipa: 'Wandelt phonetische Transkriptionen von [X-SAMPA](https://en.wikipedia.org/wiki/X-SAMPA) in [IPA](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet) um'
+
+    sp: 'Stellt Toki-Pona-Text im _sitelen pona_-Alphabet dar'
+    sppreview: 'Stellt Toki-Pona-Text in allen verfügbaren _sitelen pona_-Schriftarten dar'
+
+    tio: 'Führt Code mit dem Dienst [Try It Online](https://tio.run) aus'
+    tiolangs: 'Listet alle auf [Try It Online](https://tio.run) verfügbaren Programmiersprachen auf'
 
   admin:
     eval:
@@ -62,32 +82,68 @@ de:
   arch:
     wiki:
       no-results: 'Keine Ergebnisse'
+
     ps:
       no-results: 'Keine Ergebnisse'
       title: 'Ergebnisse für **%s**'
-      version: 'Version'
-      last-update: 'Letzte Aktualierung'
-      link: 'Direkter Link'
+      result-footer: 'Version **%s** | erstellt am **%s** | [Web-Link](%s)'
+
+    package:
+      not-found: '❔ Paket nicht gefunden.'
+
+      url: 'Upstream-URL'
+      license: 'Lizenzen'
+      csize: 'Paket-Größe'
+      isize: 'Installations-Größe'
+      packager: 'Packer'
+      version: 'Version %s'
 
   colors:
     assign-role:
-      already-have: 'Du hast schon die %s.'
-      success: 'Deine **%s** ist jetzt **%s**.'
+      already-have: 'ℹ️ Du hast die Farbrolle **%s** bereits.'
+      success: '✅ Deine Farbe ist jetzt **%s**.'
+
     color:
-      not-found: 'Farbe nicht gefunden.'
-      role-type-name: 'Farbe'
+      not-found: '⚠️ Farbe nicht gefunden.'
+
     closest:
-      found: 'Die nächstliegende Farbe ist `%s`.'
+      invalid-hex: '⚠️ Du hast keinen gültigen Hex-Farbcode angegeben.'
+      found: '🎨 Die nächstliegende Farbe ist `%s`.'
+
     list:
-      title: 'Alle Farben'
+      title: '🌈 Alle Farben'
+
+    extra-roles:
+      bad-role: '⚠️ Die angegebene Rolle ist ungültig.'
+
+      list:
+        title: '🎨 Zusätzliche Farbrollen'
+        empty: '🗒️ Auf diesem Server gibt es keine zusätzlichen Farbrollen.'
+
+      add:
+        success: '✅ %s wurde zur Liste der zusätzlichen Farbrollen hinzugefügt.'
+        duplicate: 'ℹ️ %s war bereits auf der Liste der zusätzlichen Farbrollen.'
+
+      del:
+        success: '✅ %s wurde von der Liste der zusätzlichen Farbrollen entfernt.'
+        not-found: '⚠️ %s ist nicht auf der Liste der zusätzlichen Farbrollen.'
+
     ccr:
-      deleting: 'Lösche Farbrolle `%s`.'
-      created: 'Erstelle Farbrolle `%s` mit der Farbe `%s`.'
-      success: '**%s** Rollen wurden erstellt.'
+      deleting: '🗑️ Lösche %d vorhandene Farbrollen'
+      deleted: '`(%d/%d)` Vorhandene Farbrolle `%s` gelöscht.'
+
+      creating: '🎨 Erstelle %d neue Farbrollen'
+      created: '`(%d/%d)` Rolle %s mit der Farbe `%s` erstellt.'
+      success: '✅ %d Rollen wurden erstellt.'
+
     rc:
-      success: 'Farben für **%s** Benutzer zufällig verteilt.'
+      begin: '🔄 Verteile zufällige Farben an %s Benutzer.'
+      progress: 'Fortschritt: %d von %d'
+      success: '✅ Farben für **%s** Benutzer zufällig verteilt.'
+      no-roles: '⚠️ Auf diesem Server gibt es keine Farbrollen.'
 
   figlet:
+    too-long: 'Deine Eingabe ist zu lang: Sie würde %d Nachrichten benötigen, das Limit liegt aber bei %d.'
 
   help:
     aliases: 'Aliase'
@@ -97,46 +153,57 @@ de:
     not-found: "Den Befehl `%s` gibt es nicht."
 
   polls:
-    cross-server: 'Dieser Textchannel befindet sich auf einem anderen Server.'
-    too-many-opts: 'Deine Umfrage hat zu viele Optionen.'
-    title-too-long: 'Der Titel deiner Umfrage ist zu lang.'
+    deprecated: "⚠️ Die Umfragebefehle wurden entfernt. Nutze stattdessen die eingebauten Umfragen von Discord."
 
   queries:
-    query:
-      success: 'Die Abfrage **#%s** wurde erstellt.'
-      too-long: 'Deine Abfrage ist zu lang.'
-    oq:
-      title: 'Offene Abfragen'
-      no-results: 'Keine Ergebnisse'
-      deleted-after-30d: 'Offene Abfragen werden nach 30 Tagen gelöscht.'
-      entry-name: '**#%s** von **%s** am **%s**'
-    cq:
-      not-found: 'Abfrage **#%s** nicht gefunden.'
-      success: 'Abfrage **#%s** gelöscht.'
-      no-perms: 'Du hast keine Berechtigung die Abfrage **#%s** zu löschen.'
+    deprecated: '⚠️ Die Anfragebefehle wurden entfernt. Nutze stattdessen Forumskanäle von Discord.'
 
   snippets:
+    help: >-
+      Du kannst diesem Befehl folgende Verben anhängen:
+        - `list`, `show`: Zeigt die Liste aller Snippets an.
+        - `set`, `edit`: Erstellt anhand eines Namens und eines Textes einen neuen Snippet mit diesem Namen oder ändert den Wert eines bestehenden Snippets.
+        - `remove`, `rm`, `delete`: Entfernt anhand eines Namens den Snippet mit diesem Namen, falls er existiert.
+        - `property`: Legt Eigenschaften von Snippets fest.
+
+    edit:
+      success: 'Snippet `%s` erfolgreich bearbeitet.'
+      not-found: 'Es wurde kein Snippet mit dem Namen `%s` gefunden.'
+
+    remove:
+      success: 'Snippet `%s` wurde entfernt, falls er existierte.'
+
+    prop:
+      help: >-
+        Folgende Eigenschaften sind verfügbar: `%s`.
+        Um eine Eigenschaft festzulegen, hänge die Eigenschaft, den Namen des zu ändernden Snippets und den neuen Wert an;
+        zum Beispiel `snippet property embed foo true`.
+
+      success: 'Eigenschaft `%s` des Snippets `%s` ist jetzt `%s`.'
+
     list:
       none-found: 'Keine Snippets verfügbar.'
       title: 'Verfügbare Snippets'
+
     snippet:
       not-found: 'Snippet nicht gefunden.'
 
   notes:
     add:
+      invalid-args: '⚠️ Ungültige Argumente angegeben.'
       success: 'Notiz **`%s`** (`#%s`) wurde hinzugefügt.'
-      failure: "⚠️  **Die Notiz konnte aufgrund dieser Fehler nicht hinzugefügt werden:**\n%s."
+      failure: "⚠️  **Die Notiz konnte aufgrund dieser Fehler nicht gespeichert werden:**\n%s."
     get:
       failure: 'Notiz **`%s`** wurde nicht gefunden.'
     list:
-      invalid-page: 'Seite **%s** wurde nicht gefunden (es gibt **%s** pages).'
+      invalid-page: 'Seite **%s** wurde nicht gefunden (es gibt **%s** Seiten).'
       title: 'Alle Notizen, Seite %s/%s:'
       row: '`#%s` **`%s`** von **%s**'
     id:
       title: 'Notiz **`%s`** (`#%s`) von %s'
       failure: 'Notiz mit ID `#%s` wurde nicht gefunden.'
     del:
-      not-found: 'Notiz `#%s` wurde icht gefunden.'
+      not-found: 'Notiz `#%s` wurde nicht gefunden.'
       no-perms: 'Du bist nicht berechtigt, Notiz `#%s` zu löschen.'
       success: 'Notiz **`%s`** (`#%s`) wurde gelöscht.'
 
@@ -157,185 +224,140 @@ de:
     tpo:
       not-found: 'Dieses Wort wurde nicht in den tokipona.org Daten gefunden.'
 
+  tio:
+    no-code: '⚠️ Setze den Code in einen Codeblock.'
+
   util:
     invite:
       title: "Einladung für **%s**"
       desc: "[Klicke diesen Link, um %s in deinen Server einzuladen.](%s)"
 
+    voicekick:
+      failure: "Kein AFK-Kanal auf dem Server und kein Kanal angegeben"
+      success: "Benutzer wurde in den Kanal verschoben"
+
+    slowmode:
+      get_rate: "Slowmode ist momentan auf `%s` Sekunden eingestellt."
+      set_rate: "Slowmode wurde auf `%s` Sekunden eingestellt."
+
   xkcd:
+    not-found: '❔ Comic %s nicht gefunden.'
+    unavailable: '⚠️ xkcd.com ist nicht erreichbar (%s).'
 
-  uc:
-    help:
-      help: 'Zeige diese Nachricht an'
-      language: 'Lege die Sprache fest, mit der der Bot antwortet'
-      sitelenpona: 'Stelle Render-Optionen für sitelen pona ein'
-
-    language:
-      help:
-        list: 'Zeige verfügbare Sprachen an'
-        set: 'Ändere die Sprache, in der der Bot antwortet'
-        reset: 'Setze die Sprache züruck auf English'
-
-      list:
-        title: 'Verfügbare Sprachen'
-
-      set:
-        not-found: 'Sprache `%s` nicht gefunden.'
-        success: 'Ich spreche jetzt `%s`.'
-
-      reset:
-        success: 'Jetzt spreche ich wieder `%s`.'
-
-    sitelenpona:
-      help:
-        fgcolor: 'Stelle die Vordergrundfarbe ein'
-        bgcolor: 'Stelle die Hintergrundfarbe ein'
-        fontface: 'Stelle die Schriftart ein'
-        fontsize: 'Stelle die Schriftgröße ein'
-        name: 'Lege den Namen fest, der für deinen Webhook genutzt wird'
-        glyphs: 'Lege die Glyphen fest, die benutzt werden sollen, wenn dich jemand erwähnt'
-
-      fgcolor:
-        help:
-          show: 'Zeige deine aktuelle Vordergrundfarbe an'
-          set: 'Ändere deine Vordergrundfabre'
-          reset: 'Setze deine Vordergundfarbe zurück'
-      bgcolor:
-        help:
-          show: 'Zeige deine aktuelle Hintergrundfabre an'
-          set: 'Ändere deine Hintergrundfarbe'
-          reset: 'Setze deine Hintergrundfarbe zurück'
-
-      color:
-        show: 'Deine aktuelle %s ist %s.'
-        set: 'Deine %s ist jetzt %s.'
-
-      fontsize:
-        help:
-          show: 'Zeige deine aktuelle Schriftgröße an'
-          set: 'Ändere deine Schriftgröße'
-          reset: 'Setze deine Schriftgröße zurück'
-        show: 'Deine aktuelle Schriftgröße ist %s.'
-        set: 'Deine Schriftgröße ist momentan %s.'
-
-      fontface:
-        help:
-          show: 'Zeige deine aktuelle Schriftart an'
-          list: 'Zeige alle verfügbaren Schriftarten'
-          set: 'Ändere deine Schriftart'
-          reset: 'Setze deine Schriftart zurück'
-        show: 'Deine aktuelle Schriftart ist %s.'
-        set: 'Deine Schriftart ist jetzt %s.'
-        list: 'Verfügbare Schriftarten'
-        instructions: 'Nutze `%suc sp ff s <number>`, um eine Schriftart auszuwählen.'
-        invalid: 'Diese Schriftart ist ungültig.'
-
-      name:
-        help:
-          show: 'Zeige deinen aktuellen Webhook-Namen an'
-          set: 'Ändere deinen Webhook-Namen'
-          reset: 'Setze deine Webhook-Namen zurück'
-        show: 'Dein aktueller Webhook-Name ist %s.'
-        set: 'Dein Webhook-Name ist jetzt %s.'
-
-      glyphs:
-        help:
-          show: 'Zeige deine aktuellen Glyphen an'
-          set: 'Ändere deine Glyphen'
-          reset: 'Setze deine Glyphen zurück'
-        show: 'Deine aktuellen Glyphen sind %s.'
-        set: 'Deine Glyphen sind jetzt %s.'
+  types:
+    string:
+      name: 'Zeichenkette'
+      desc: 'Textzeichenkette'
+      valid:
+        between: 'zwischen %d und %d Zeichen lang'
+        at-least: 'mindestens %d Zeichen lang'
+    integer:
+      name: 'Ganzzahl'
+      desc: 'Ganzzahl'
+      valid:
+        between: 'zwischen %d und %d'
+        at-least: 'mindestens %d'
+        at-most: 'höchstens %d'
+        any: 'beliebige Ganzzahl'
+    boolean:
+      name: 'Boolean'
+      desc: 'Wahrheitswert'
+      valid: 'true oder false'
+      invalid: 'das ist weder true noch false'
+    snowflake:
+      name: 'Discord-ID'
+      desc: 'numerische ID eines Discord-Objekts'
+      valid:
+        channel: 'Kanal-IDs'
+        user: 'Benutzer-IDs'
+        role: 'Rollen-IDs'
+        bare: 'beliebige IDs'
+    enum:
+      name: 'Auswahl'
+      desc: 'feste Auswahl an Möglichkeiten'
+      invalid-key: 'das ist nicht der Name einer der Möglichkeiten'
+      invalid-index: 'das ist nicht die Nummer einer der Möglichkeiten'
 
   cfg:
-    usage: 'Verwendung:'
-    subcmd: 'Unterbefehl'
-    options: 'Optionen'
-    avail_subcmd: 'Verfügbare Unterbefehle:'
-
     help:
-      help: 'Zeige diese Nachricht an'
-      log-channel: 'Sende Bot Events an einen bestimmten Textchannel'
-      prefix: 'Setze den Botpräfix für diesen Server'
-      colors: 'Ändere den Umgang mit Farbrollen'
-      snippet: 'Verwalte Snippets für diesen Server'
-      rolegroup: 'Verwalte Gruppen von selbst zuweisbaren Rollen'
-      reaction: 'Bestimme Aktionen auf Nachricht-Reaktionen'
-      misc: 'Setze andere Parameter'
+      schema:
+        title: 'Optionen in der Gruppe `%s`'
+        title-root: 'Optionen'
+        footer: 'Hänge den Namen einer Option an diesen Befehl an, um sie anzuzeigen oder zu bearbeiten.'
+        option: '`%s` (%s)'
+        group: '`%s` (Gruppe von Optionen)'
+
+      option:
+        title: 'Option: %s (`%s`)'
+        current: 'Aktueller Wert'
+        default: 'Standardwert'
+        type: 'Typ'
+        valid: 'Gültige Werte'
+        footer: "Hänge 'set' oder 'clear' an diesen Befehl an, um die Option zu bearbeiten."
+
+    set:
+      success:
+        title: '✅ `%s` erfolgreich gesetzt'
+        clear-title: '❇️ `%s` erfolgreich geleert'
+        new-value: 'Neuer Wert'
+
+      error:
+        title: '⚠️ Fehler beim Setzen von `%s`'
+        explanation: 'Erklärung'
+        input: 'Deine Eingabe'
+
+    reset:
 
     log-channel:
-      help:
-        set: 'Setze den Log-Channel anhand einer ID'
-        reset: 'Deaktiviere Logging'
-
       set:
-        success: "Der Log-Channel ist jetzt <#%s>."
-        other-server: "<#%s> ist nicht in diesem Server."
-        invalid-id: "%s ist keine gültige Channel-ID."
-      reset:
-        success: "Logging erfolgreich deaktiviert."
+        invalid-id: 'Es gibt keinen Kanal mit der ID `%s`, oder der Bot kann ihn nicht sehen.'
+        other-server: 'Kanal `%s` ist nicht auf diesem Server.'
 
-    prefix:
-      help:
-        set: 'Setze den Botpräfix für diesen Server'
-        reset: 'Setze den Botpräfix für diesen Server zurück'
+    option:
+      unset: '_kein Wert_'
 
-      saved: 'Neuer Botpräfix `%s` gespeichert.'
+      prefix:
+        name: 'Befehlspräfix'
+        description: 'Wird am Anfang jedes Befehls an den Bot benötigt. Lange Präfixe können umständlich sein.'
 
-    colors:
-      help:
-        extra-color-role: 'Verwalte zusätzliche Farbrollen'
-        bare-colors: 'Erkenne Farbrollen die mit ihren Hexcodes benannt sind'
+      log_channel_id:
+        name: 'Log-Kanal-ID'
+        description: 'Kanal, in dem qbot jeden Befehl protokolliert, den er auf diesem Server ausführt. Wird der Kanal ungültig, erhält der Serverinhaber DMs.'
 
-      extra-color-role:
-        help:
-          list: 'Liste alle zusätzlichen Farbrollen auf'
-          add: 'Füge eine Rolle (anhand einer ID) zu der Liste von zusätzlichen Farbrollen hinzu'
-          remove: 'Entferne eine Farbrolle (anhand einer ID) von der Liste der zusätzlichen Farbrollen'
+      use_bare_colors:
+        name: 'Hexcode-Rollen als Farben nutzen'
+        description: 'Ob Rollen, deren Name aus einem Hex-Farbcode besteht, als Farbrollen gelten sollen, sodass sie beim Beitritt zufällig vergeben oder von Benutzern ausgewählt werden können.'
 
-        list:
-          no-roles: 'Es wurden noch keine zusätzlichen Farbrollen konfiguriert'
-        add:
-          not-found: 'Farbrolle nicht gefunden.'
-          non-unique: 'Diese Farbrolle gibt es schon.'
-          success: 'Farbrolle `%s` (`%s`) wurde zur Liste der zusätzlichen Farbrollen hinzugefügt.'
-        remove:
-          success: 'Farbrolle `%s` wurde von der Liste der zusätzlichen Farbrollen entfernt.'
+      auto_assign_colors:
+        name: 'Farben automatisch zuweisen'
+        description: |
+          Legt fest, wie der Bot Benutzern beim Beitritt zu diesem Server automatisch eine zufällige Farbe zuweist.
+          Bei `on_join` wird eine Farbe zugewiesen, sobald sie beitreten.
+          Bei `on_screening_pass` wird eine Farbe zugewiesen, nachdem sie das Regeln-Screening bestanden haben.
+          Bei `never` wird keine Farbe zugewiesen.
 
-      bare-colors:
-        help:
-          enable: 'Aktiviere Erkennung der Farbrolle anhand von Hexcodes'
-          disable: 'Deaktiviere Erkennung der Farbrolle anhand von Hexcodes'
-          show: 'Zeige die aktuelle Einstellung dieser Option'
+      language:
+        name: 'Sprache'
+        description: 'Die Sprache, in der der Bot dir antwortet.'
 
-        toggled-on: 'Farbrollen, die anhand ihrer Hexcodes benannt sind, werden jetzt gelöscht.'
-        toggled-off: 'Farbrollen, die anhand ihrer Hexcodes benannt sind, werden nicht länger erkannt.'
-        show: 'Die aktuelle Einstellung ist `%s`.'
+      sitelenpona:
+        fg_color:
+          name: 'Vordergrundfarbe'
+          description: 'Die Farbe des _sitelen pona_-Texts, den du renderst.'
+        bg_color:
+          name: 'Hintergrundfarbe'
+          description: 'Der Hintergrund hinter dem _sitelen pona_-Text, den du renderst.'
+        fontsize:
+          name: 'Schriftgröße'
+          description: 'Die Schriftgröße des _sitelen pona_-Texts, den du renderst.'
+        fontface:
+          name: 'Schriftart'
+          description: 'Die Schriftart, mit der _sitelen pona_-Text gerendert wird. Mit dem Befehl `spinfo` kannst du Nutzungs- und Lizenzinformationen zu jeder einzelnen anzeigen.'
+        glyphs:
+          name: 'Glyphen'
+          description: 'Wenn andere dich in _sitelen pona_-Text erwähnen, den sie rendern, wird daraus diese Glyphenfolge. Wie sie dargestellt wird, hängt von der gewählten Schriftart ab; seltene Wörter oder Ligaturen funktionieren nicht bei allen.'
 
-    snippet:
-      help:
-        list: 'Zeige alle Snippets an'
-        add: 'Füge einen Snippet zur Liste hinzu'
-        remove: 'Entferne einen Snippet anhand des Namens'
-        set: 'Ändere den Text eines Snippets'
+  fun:
+    ping: 'Ich wurde gepingt :o'
 
-      add:
-        non-unique: 'Snippet `%s` existiert bereits.'
-        success: 'Snippet `%s` wurde erstellt.'
-      edit:
-        not-found: 'Snippet `%s` nicht gefunden.'
-        success: 'Snippet `%s` erfolgreich bearbeitet.'
-      remove:
-        success: 'Snippet `%s` entfernt.'
-      prop:
-        help:
-          embed: '(bool) Wurde der Snippet als Embed oder als normale Nachricht versendet?'
-
-        success: 'Eingenschaft `%s` vom Snippet `%s` ist jetzt `%s`.'
-
-    rolegroup:
-
-    reaction:
-
-    misc:
-
-    nyi: 'Noch nicht implementiert.'
+  nyi: 'Diese Funktion ist noch nicht implementiert.'

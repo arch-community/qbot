@@ -1,52 +1,48 @@
 name: Lint
+
 on:
-  pull_request:
   push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  lint:
+  rubocop:
+    runs-on: ubuntu-latest
+    env:
+      # only the development group is needed; the default group has
+      # native extensions (rmagick, rbnacl) that are slow to build
+      BUNDLE_WITHOUT: default
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - run: bundle exec rubocop --parallel --format progress --format github
+
+  commitlint:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-      with: # Needed for commitlint
-        fetch-depth: 0
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
-    - name: Set up Ruby 3.0
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
+      - uses: wagoid/commitlint-github-action@v6
 
-    - name: Cache gems
-      uses: actions/cache@v4
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-rubocop-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-rubocop-
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
 
-    - name: Install gems
-      run: |
-        bundle config path vendor/bundle
-        bundle config set without 'default'
-        bundle install --jobs 4 --retry 3
-
-    - name: Run RuboCop
-      run: bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter --out /tmp/checkstyle.xml
-
-    - name: Lint commit messages
-      if: ${{ always() }}
-      uses: wagoid/commitlint-github-action@v6.2.1
-
-    - name: Lint Markdown
-      if: ${{ always() }}
-      uses: avto-dev/markdown-lint@v1.5.0
-      with:
-        ignore: 'vendor'
-        args: '**/*.md'
-
-    - name: Check Run Reporter
-      uses: check-run-reporter/action@v2.11.2
-      if: ${{ always() }}
-      with:
-        token: '2005ace6-d376-42b7-ac05-1d3b8e8e9d24'
-        report: '/tmp/checkstyle.xml'
+      - uses: DavidAnson/markdownlint-cli2-action@v24
+        with:
+          globs: '**/*.md'

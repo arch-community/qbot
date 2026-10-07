@@ -44,14 +44,15 @@ module Snippets
 
     case target
     when 'embed'
-      val = ActiveModel::Type::Boolean.new.cast(new_value)
-      record.embed = val
+      record.embed = Configurable::OptionTypes::TBoolean.new.read(new_value)
       record.save!
     end
 
     embed t('snippets.prop.success', target, name, new_value)
   rescue ActiveRecord::RecordNotFound
     embed t('snippets.edit.not-found', name)
+  rescue ArgumentError
+    property_help(valid_properties)
   end
   # rubocop: enable Metrics/MethodLength
   
@@ -59,15 +60,15 @@ module Snippets
     embed t('snippets.prop.help', valid_properties)
   end
 
-  def self.snippet_help
-    embed t('snippets.help')
-  end
+  def self.snippet_help = embed t('snippets.help')
 
   command :snippets, {
     help_available: true,
     usage: '.snippets <command>',
     min_args: 0
   } do |e, *args|
+    next embed t('no_dm') if e.channel.pm?
+
     can_manage = e.author.permission?(:manage_emojis)
 
     manage_verbs = %w[set edit remove rm delete property]
@@ -83,7 +84,8 @@ module Snippets
 
     when 'set', 'edit'
       name = args.shift
-      value = after_nth_word(3, e.message.text)
+      value = args_after(e, 3)
+      next snippet_help if name.nil? || value.nil?
 
       set_snippet(e.server, name, value)
 
@@ -94,6 +96,7 @@ module Snippets
 
     when 'property'
       property, name, value = args.shift, args.shift, args.shift
+      next property_help(%w[embed]) if value.nil?
 
       set_snippet_property(e.server, property, name, value)
 
@@ -109,6 +112,8 @@ module Snippets
     min_args: 0,
     max_args: 0
   } do |event|
+    next embed t('no_dm') if event.channel.pm?
+
     list_snippets(event.server)
   end
 
@@ -119,6 +124,8 @@ module Snippets
     min_args: 1,
     max_args: 1
   } do |event, name|
+    next embed t('no_dm') if event.channel.pm?
+
     snippet = Snippet.for(event.server).find_by!(name:)
 
     if snippet.embed
