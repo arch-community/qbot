@@ -100,7 +100,7 @@ en:
 
   colors:
     assign-role:
-      already-have: 'ℹ️ You already have that color role.'
+      already-have: 'ℹ️ You already have the color role **%s**.'
       success: '✅ Your color is now **%s**.'
 
     color:
